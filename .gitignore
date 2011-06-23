@@ -1,0 +1,10 @@
+
+# Ignore any swap or undo files
+.*.sw[a-z]
+*.un~
+
+# Ignore default session file
+Session.vim
+
+# Ignore bundle folder (Which is managed by vundle)
+bundle
