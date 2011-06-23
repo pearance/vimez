@@ -4,7 +4,7 @@
 cd $HOME
 
 # Clean up any remnants of an existing Vim install
-for i in ~/.vim ~/.vimrc ~/.gvimrc; do [ -e $i ] && mv $i $i.old; done
+for i in ~/.vim ~/.vimrc ~/.gvimrc; do [ -e $i ] && mv $i $i.vimez.bak; done
 
 # Clone VimEz
 git clone git://github.com/vimez/vimez.git .vim
@@ -17,3 +17,8 @@ ln -s ~/.vim/gvimrc ~/.gvimrc
 cd .vim
 git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 vim -u initrc +BundleInstall +q
+
+# Clean up
+rm ~/vimez-install.sh
+# TODO: insert 'stty -ixon' into .profile if it exist to disable Ctrl-s and Ctrl-q
+# in terminal.
