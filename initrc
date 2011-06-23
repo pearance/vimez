@@ -7,5 +7,8 @@ call vundle#rc()
 Bundle "gmarik/vundle"
 
 
+
+Bundle "Color-Sampler-Pack"
+
 " "File Type Detection"
 filetype plugin indent on         " Automatically detect file types.
