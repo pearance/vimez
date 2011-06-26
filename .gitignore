@@ -1,3 +1,5 @@
+# Ignore dev folder
+dev/
 
 # Ignore any swap or undo files
 .*.sw[a-z]
