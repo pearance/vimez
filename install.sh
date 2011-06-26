@@ -7,7 +7,7 @@ cd $HOME
 for i in ~/.vim ~/.vimrc ~/.gvimrc; do [ -e $i ] && mv $i $i.vimez.bak; done
 
 # Clone VimEz
-git clone git://github.com/vimez/vimez.git .vim
+git clone git://github.com/VimEz/VimEz.git .vim
 
 # Link to vimrc and gvimrc config files
 ln -s ~/.vim/vimrc ~/.vimrc
