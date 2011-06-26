@@ -1,6 +1,11 @@
+
+set background=dark         " Use a dark background within the editing area and syntax highlighting.
+set t_Co=256                " Force terminal to go into 256 color mode.
+colorscheme vimez	    " Default color scheme for the VimEz distribution.
+
 " BUNDLES PLUGINS:
 " Include all the bundled plugins this distribution is dependent on.
-set nocompatible            " Harnest the iMprovements of Vim over Vi
+set nocompatible            " Harnest the iMprovements of Vim over Vi.
 filetype off                " Turn off file type detection.
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -8,7 +13,6 @@ Bundle "gmarik/vundle"
 
 
 
-Bundle "Color-Sampler-Pack"
 
 " "File Type Detection"
 filetype plugin indent on         " Automatically detect file types.
