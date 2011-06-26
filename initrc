@@ -7,12 +7,14 @@ colorscheme vimez	    " Default color scheme for the VimEz distribution.
 " Include all the bundled plugins this distribution is dependent on.
 set nocompatible            " Harnest the iMprovements of Vim over Vi.
 filetype off                " Turn off file type detection.
+
+" "Vundle" Set up Vundle to manage plugins.
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle "gmarik/vundle"
 
 
-
+Bundle "ScrollColors"
 
 " "File Type Detection"
 filetype plugin indent on         " Automatically detect file types.
