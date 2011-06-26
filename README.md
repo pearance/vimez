@@ -1,3 +1,3 @@
 Install
 =======
-curl -O https://raw.github.com/vimez/vimez/master/vimez-install.sh && chmod 700 vimez-install.sh && . vimez-install.sh 
+curl -O https://raw.github.com/VimEz/VimEz/master/VimEz-install.sh && chmod 700 VimEz-install.sh && . VimEz-install.sh 
