@@ -62,6 +62,11 @@ endif
 
 
 
+" "Restore Cursor Position" Restore original cursor position when reopening a file.
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+
+
 
 
 " "File Types"
