@@ -44,6 +44,26 @@ set viminfo='1000,f1,<500,h " Save local/global marks, registers, etc
 
 
 
+" "Character Encoding" Default to UTF-8 character encoding unless the terminal
+" doesn't support it. In which case use Latin1 character encoding instead.
+if has("multi_byte")
+  set encoding=utf-8
+  if $TERM == "linux" || $TERM_PROGRAM == "GLterm"
+    set termencoding=latin1
+  endif
+  if $TERM == "xterm" || $TERM == "xterm-color"
+    let propv = system("xprop -id $WINDOWID -f WM_LOCALE_NAME 8s ' $0' -notype WM_LOCALE_NAME")
+    if propv !~ "WM_LOCALE_NAME .*UTF.*8"
+      set termencoding=latin1
+    endif
+  endif
+endif
+"-----------------------------------------------------------------------------
+
+
+
+
+
 " "File Types"
 filetype plugin indent on   " Automatically detect file types.
 au BufNewFile,BufRead initrc set filetype=vim
