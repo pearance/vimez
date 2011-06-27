@@ -1,23 +1,24 @@
+" Name: VimEz initrc
+" Description: A robust Vim IDE distribution.
+" Maintainer: Fontaine Cook <fontaine.cook@pearance.com
+" Dependencies: Requires Vim 7.2 or higher.
+" Version: 0.1a
 
-set background=dark         " Use a dark background within the editing area and syntax highlighting.
-set t_Co=256                " Force terminal to go into 256 color mode.
-colorscheme vimez	    " Default color scheme for the VimEz distribution.
-syntax on
 
-" BUNDLES PLUGINS:
-" Include all the bundled plugins this distribution is dependent on.
-set nocompatible            " Harnest the iMprovements of Vim over Vi.
-filetype on                 " Turn on file type detection, required for Mac.
-filetype off                " Turn off file type detection.
 
-" "Vundle" Set up Vundle to manage plugins.
+"*****************************************************************************
+" PLUGIN BUNDLES: 
+"*****************************************************************************
+" "Plugin Manager (Vundle)" Set up Vundle to manage plugins.
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle "gmarik/vundle"
+"-----------------------------------------------------------------------------
 
 
+
+" "Plugin Bundles"
 Bundle "ScrollColors"
 Bundle "CSApprox"
+"-----------------------------------------------------------------------------
 
-" "File Type Detection"
-filetype plugin indent on         " Automatically detect file types.
