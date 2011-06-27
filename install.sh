@@ -5,6 +5,7 @@ cd $HOME
 
 # Clean up any remnants of an existing Vim install
 for i in ~/.vim ~/.vimrc ~/.gvimrc; do [ -e $i ] && mv $i $i.vimez.bak; done
+rm -r .vim
 
 # Clone VimEz
 git clone git://github.com/VimEz/VimEz.git .vim
