@@ -12,7 +12,7 @@ hi clear
 set background=dark
 syntax reset
 
-let g:colors_name="darkandlovely"
+let g:colors_name="vimez"
 " Confirmed
 " #D7D787:186 - tan
 " #FF0087:197 - hot pink

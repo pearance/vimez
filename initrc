@@ -2,6 +2,7 @@
 set background=dark         " Use a dark background within the editing area and syntax highlighting.
 set t_Co=256                " Force terminal to go into 256 color mode.
 colorscheme vimez	    " Default color scheme for the VimEz distribution.
+syntax on
 
 " BUNDLES PLUGINS:
 " Include all the bundled plugins this distribution is dependent on.
