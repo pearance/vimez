@@ -77,6 +77,14 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "norm
 set ttyfast            " Indicates a fast terminal connection.
 set synmaxcol=2048     " Prevent long lines from slowing down redraws.
 "-----------------------------------------------------------------------------
+
+
+
+" "Timeout Length" The time waited for a key code or mapped key sequence to
+" complete.  As you become more fluent with the key mappings you may want to
+" drop this to 250.
+set timeoutlen=500
+"-----------------------------------------------------------------------------
 " "}}}
 
 
@@ -89,7 +97,6 @@ set synmaxcol=2048     " Prevent long lines from slowing down redraws.
 
 " "File Types"
 filetype plugin indent on   " Automatically detect file types.
-au BufNewFile,BufRead initrc set filetype=vim
 "-----------------------------------------------------------------------------
 
 
