@@ -70,6 +70,13 @@ endif
 " "Restore Cursor Position" Restore original cursor position when reopening a file.
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 "-----------------------------------------------------------------------------
+
+
+
+" "Performance Tweaks"
+set ttyfast            " Indicates a fast terminal connection.
+set synmaxcol=2048     " Prevent long lines from slowing down redraws.
+"-----------------------------------------------------------------------------
 " "}}}
 
 
