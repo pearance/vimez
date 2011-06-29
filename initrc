@@ -22,4 +22,6 @@ Bundle "ScrollColors"
 Bundle "CSApprox"
 "-----------------------------------------------------------------------------
 
+runtime $VIMRUNTIME/macros/matchit.vim
+runtime $VIMRUNTIME/ftplugin/man.vim
 " vim: set syntax=vim:
