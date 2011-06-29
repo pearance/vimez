@@ -85,7 +85,6 @@ set synmaxcol=2048     " Prevent long lines from slowing down redraws.
 " drop this to 250.
 set timeoutlen=500
 "-----------------------------------------------------------------------------
-" "}}}
 
 
 
@@ -106,7 +105,6 @@ set updatetime=1000
 " the file is sourced so most of time your changes should take effect
 " immediately. However, some changes will only take effect after restarting Vim.
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
-autocmd! BufWritePost .vimrc :so $MYVIMRC<CR>:filetype detect<CR>:nohlsearch<CR>:exe ":echo 'vimrc reloading'"<CR>
 "-----------------------------------------------------------------------------
 
 
@@ -118,7 +116,7 @@ nmap <silent> <leader>ei :e $HOME/.vim/initrc<CR>
 
 
 " "Edit Color Scheme"
-nmap <silent> <leader>ecs :e $HOME/.vim/colors/darkandlovely.vim<CR>
+nmap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
 "-----------------------------------------------------------------------------
 
 
@@ -126,6 +124,12 @@ nmap <silent> <leader>ecs :e $HOME/.vim/colors/darkandlovely.vim<CR>
 " "Refresh Vim"
 map <F5> :so $MYVIMRC<CR>:filetype detect<CR>:nohlsearch<CR>:exe ":echo 'vimrc reloaded'"<CR>
 "-----------------------------------------------------------------------------
+" "}}}
+
+
+
+
+
 
 
 
@@ -137,6 +141,21 @@ filetype plugin indent on   " Automatically detect file types.
 
 
 
+
+
+"*****************************************************************************
+" FILE: "{{{2
+"*****************************************************************************
+" "General File/Buffer Settings"
+set hidden      " Hide buffers when they are abandoned
+set confirm     " Provide user friendly prompt over nasty error messages.
+set autoread    " Automatically re-read a file if modified outside of vim.
+set shellslash  " Use forward slash for shell file names (Windows)
+"-----------------------------------------------------------------------------
+
+
+
+" "}}}
 
 
 
