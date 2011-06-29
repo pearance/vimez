@@ -94,8 +94,34 @@ set mouse=a                       " Onable mouse usage (all modes)
 set selectmode=mouse              " Selection with the mouse trigers Select mode
 set ttymouse=xterm2               " Enable basic mouse functionality in a terminal
 "map <MouseMiddle> <esc>"*p	  " TODO: requires more testing
+"-----------------------------------------------------------------------------
 
 
+
+" "Edit Vimrc" This would be Vim's version of [Edit Preferences] :-) Upon saving
+" the file is sourced so most of time your changes should take effect
+" immediately. However, some changes will only take effect after restarting Vim.
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+autocmd! BufWritePost .vimrc :so $MYVIMRC<CR>:filetype detect<CR>:nohlsearch<CR>:exe ":echo 'vimrc reloading'"<CR>
+"-----------------------------------------------------------------------------
+
+
+
+" "Edit Initrc"
+nmap <silent> <leader>ei :e $HOME/.vim/initrc<CR>
+"-----------------------------------------------------------------------------
+
+
+
+" "Edit Color Scheme"
+nmap <silent> <leader>ecs :e $HOME/.vim/colors/darkandlovely.vim<CR>
+"-----------------------------------------------------------------------------
+
+
+
+" "Refresh Vim"
+map <F5> :so $MYVIMRC<CR>:filetype detect<CR>:nohlsearch<CR>:exe ":echo 'vimrc reloading'"<CR>
+"-----------------------------------------------------------------------------
 
 
 
