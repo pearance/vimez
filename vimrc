@@ -81,7 +81,7 @@ set synmaxcol=2048     " Prevent long lines from slowing down redraws.
 
 
 " "Timeout Length" The time waited for a key code or mapped key sequence to
-" complete.  As you become more fluent with the key mappings you may want to
+" complete.  As you become more fluent with the key mappings you may want toC
 " drop this to 250.
 set timeoutlen=500
 "-----------------------------------------------------------------------------
@@ -89,7 +89,11 @@ set timeoutlen=500
 
 
 
-
+" "Mouse"
+set mouse=a                       " Onable mouse usage (all modes)
+set selectmode=mouse              " Selection with the mouse trigers Select mode
+set ttymouse=xterm2               " Enable basic mouse functionality in a terminal
+"map <MouseMiddle> <esc>"*p	  " TODO: requires more testing
 
 
 
