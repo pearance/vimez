@@ -97,6 +97,10 @@ set ttymouse=xterm2               " Enable basic mouse functionality in a termin
 "-----------------------------------------------------------------------------
 
 
+" "Update Time" How frequent marks, statusbar, swap files, and other are updated.
+set updatetime=1000 
+
+
 
 " "Edit Vimrc" This would be Vim's version of [Edit Preferences] :-) Upon saving
 " the file is sourced so most of time your changes should take effect
@@ -120,7 +124,7 @@ nmap <silent> <leader>ecs :e $HOME/.vim/colors/darkandlovely.vim<CR>
 
 
 " "Refresh Vim"
-map <F5> :so $MYVIMRC<CR>:filetype detect<CR>:nohlsearch<CR>:exe ":echo 'vimrc reloading'"<CR>
+map <F5> :so $MYVIMRC<CR>:filetype detect<CR>:nohlsearch<CR>:exe ":echo 'vimrc reloaded'"<CR>
 "-----------------------------------------------------------------------------
 
 
