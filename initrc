@@ -10,16 +10,16 @@
 " PLUGIN BUNDLES: 
 "*****************************************************************************
 " "Plugin Manager (Vundle)" Set up Vundle to manage plugins.
-set rtp+=~/.vim/bundle/Vundle/
+set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-Bundle "VimEz/vundle",{'name':'Vundle'}
+Bundle "VimEz/vundle
 "-----------------------------------------------------------------------------
 
 
 
 " "Plugin Bundles"
 Bundle "VimEz/ScrollColors"
-Bundle "VimEz/csapprox",{'name':'CSApprox'}
+Bundle "VimEz/csapprox"
 
 "-----------------------------------------------------------------------------
 
