@@ -16,7 +16,7 @@ ln -s ~/.vim/gvimrc ~/.gvimrc
 
 # Clone Vundle
 cd ~/.vim
-git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+git clone http://github.com/VimEz/vundle.git ~/.vim/bundle/vundle
 vim -u initrc +BundleInstall +q
 
 # Clean up
