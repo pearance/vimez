@@ -6,27 +6,22 @@
 
 
 
+" "Initialization" 
+source $HOME/.vim/initrc    " Include dependent plugin bundles.
+runtime $VIMRUNTIME/macros/matchit.vim
+runtime $VIMRUNTIME/ftplugin/man.vim
+"-----------------------------------------------------------------------------
+
+
+
 "*****************************************************************************
 " GENERAL SETTINGS: "{{{1
 "*****************************************************************************
-" "ViMproved"
-set nocompatible            " Harnest the iMprovements brough by Vim.
-
-
-
 " "Color Scheme"
 set background=dark         " Use a dark background. 
 set t_Co=256                " Force terminal to go into 256 color mode.
 colorscheme vimez	    " Default color scheme for the VimEz distribution.
 syntax on		    " Syntax highlighting on.
-"-----------------------------------------------------------------------------
-
-
-
-" "Plugin Bundles" 
-filetype on                 " Turn on file type detection, required for Mac.
-filetype off                " Turn it off so run time paths can be set.
-source $HOME/.vim/initrc    " Include dependent plugin bundles.
 "-----------------------------------------------------------------------------
 
 

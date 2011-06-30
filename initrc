@@ -6,10 +6,18 @@
 
 
 
+" "Initilization"
+set nocompatible            " Harnest the iMprovements brough by Vim.
+filetype on
+filetype off
+"-----------------------------------------------------------------------------
+
+
+
 "*****************************************************************************
 " PLUGIN BUNDLES: 
 "*****************************************************************************
-" "Plugin Manager (Vundle)" Set up Vundle to manage plugins.
+" "Plugin Manager (Vundle)" 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle "VimEz/vundle"
@@ -20,16 +28,27 @@ Bundle "VimEz/vundle"
 " "Plugin Bundles"
 Bundle "VimEz/ScrollColors"
 Bundle "VimEz/csapprox"
-
 "-----------------------------------------------------------------------------
-
-runtime $VIMRUNTIME/macros/matchit.vim
-runtime $VIMRUNTIME/ftplugin/man.vim
 
 
 
 " "File Type Detection"
 filetype plugin indent on         " Automatically detect file types.
+"-----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
