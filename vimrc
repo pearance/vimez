@@ -155,13 +155,18 @@ set shellslash  " Use forward slash for shell file names (Windows)
 
 
 
-" "Open File" Give a prompt for opening files in the same dir as the
+" "Open/Edit File" Give a prompt for opening files in the same dir as the
 " current buffer's file.
 if has("unix")
-  map <leader>ef :e <C-R>=expand("%:p:h") . "/" <CR>
+  nnoremap <leader>ef :e <C-R>=expand("%:p:h") . "/" <CR>
 else
-  map <leader>ef :e <C-R>=expand("%:p:h") . "\\" <CR>
+  nnoremap <leader>ef :e <C-R>=expand("%:p:h") . "\\" <CR>
 endif
+
+
+
+" "Open/New File" 
+nnoremap <leader>nf :enew<CR>
 
 
 " "}}}
