@@ -15,13 +15,15 @@ ln -s ~/.vim/vimrc ~/.vimrc
 ln -s ~/.vim/gvimrc ~/.gvimrc
 
 # Clone Vundle
-cd .vim
+cd ~/.vim
 git clone http://github.com/VimEz/vundle.git ~/.vim/bundle/Vundle
 cd bundle/Vundle
 git checkout events
+cd ~/.vim/
 vim -u initrc +BundleInstall +q
 
 # Clean up
 rm ~/install.sh
+
 # TODO: insert 'stty -ixon' into .profile if it exist to disable Ctrl-s and Ctrl-q
 # in terminal.
