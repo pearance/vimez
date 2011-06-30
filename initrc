@@ -12,7 +12,7 @@
 " "Plugin Manager (Vundle)" Set up Vundle to manage plugins.
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-Bundle "VimEz/vundle
+Bundle "VimEz/vundle"
 "-----------------------------------------------------------------------------
 
 
