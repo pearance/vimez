@@ -12,14 +12,15 @@
 " "Plugin Manager (Vundle)" Set up Vundle to manage plugins.
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-Bundle "gmarik/vundle"
+Bundle "VimEz/vundle",{'name':'Vundle'}
 "-----------------------------------------------------------------------------
 
 
 
 " "Plugin Bundles"
-Bundle "ScrollColors"
-Bundle "CSApprox"
+Bundle "VimEz/ScrollColors"
+Bundle "VimEz/csapprox",{'name':'CSApprox'}
+
 "-----------------------------------------------------------------------------
 
 runtime $VIMRUNTIME/macros/matchit.vim
