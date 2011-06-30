@@ -25,4 +25,13 @@ Bundle "VimEz/csapprox"
 
 runtime $VIMRUNTIME/macros/matchit.vim
 runtime $VIMRUNTIME/ftplugin/man.vim
+
+
+
+" "File Type Detection"
+filetype plugin indent on         " Automatically detect file types.
+
+
+
+
 " vim: set syntax=vim:

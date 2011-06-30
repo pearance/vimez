@@ -133,11 +133,6 @@ map <F5> :so $MYVIMRC<CR>:filetype detect<CR>:nohlsearch<CR>:exe ":echo 'vimrc r
 
 
 
-" "File Types"
-filetype plugin indent on   " Automatically detect file types.
-"-----------------------------------------------------------------------------
-
-
 
 
 
