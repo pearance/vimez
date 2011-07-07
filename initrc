@@ -29,6 +29,7 @@ Bundle "VimEz/vundle"
 Bundle "VimEz/ScrollColors"
 Bundle "VimEz/csapprox"
 Bundle "VimEz/nerdtree"
+Bundle "VimEz/Command-T"
 "-----------------------------------------------------------------------------
 
 
