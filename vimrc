@@ -6,6 +6,25 @@
 
 
 
+" ****************************************************
+" CONTENT:
+" ****************************************************
+" + User Documentation
+" + General Settings
+" + File
+" + Edit
+" + View
+" + Navigation
+" + Libraries
+"   - Snippets
+"   - Abbreviations
+"   - Commands
+" + Tools
+" + Window
+" + Help
+
+
+
 " "Initialization" 
 source $HOME/.vim/initrc    " Include dependent plugin bundles.
 runtime $VIMRUNTIME/macros/matchit.vim
@@ -156,9 +175,16 @@ endif
 
 
 
-
 " "Open/New File" 
 nnoremap <leader>nf :enew<CR>
+"-----------------------------------------------------------------------------
+
+
+
+" "File Browser (NERDTree)" Conventional file browser panel with bookmarking
+" abilities. Provides an efficient way to view file hierarchies.
+let NERDTreeChDirMode=2
+nnoremap <leader><CR> :NERDTreeToggle .<CR>
 "-----------------------------------------------------------------------------
 
 
