@@ -1,29 +1,38 @@
-# Change directory to user $HOME
-cd ~
+#!/bin/bash
 
-
-
-# Clean up any remnants of an existing Vim install
-for i in ~/.vim ~/.vimrc ~/.gvimrc; do [ -e $i ] && mv -f $i $i.vimez.bak; done
+# Backup any remnants of an existing Vim install
+for i in ~/.vim ~/.vimrc ~/.gvimrc
+  do [ -e $i ] && mv -f $i $i.vimez.bak
+done
+echo -e "\nBackedup existing Vim install successfully\n"
 
 
 
 # Clone VimEz
-git clone git://github.com/VimEz/VimEz.git .vim
-
+git clone git://github.com/VimEz/VimEz.git ~/.vim
+echo -e "\nCloned VimEz successfully!\n"
 
 
 # Link to vimrc and gvimrc config files
-ln -s ~/.vim/vimrc ~/.vimrc
-ln -s ~/.vim/gvimrc ~/.gvimrc
+if [ -e "~/.vimrc" ]
+then
+  rm -f ~/.vimrc
+  ln -s ~/.vim/vimrc ~/.vimrc
+fi
+
+if [ -e "~/.gvimrc" ]
+then
+  rm -f ~/.gvimrc
+  ln -s ~/.vim/gvimrc ~/.gvimrc
+fi
+echo -e "\nLinked to configuration files successfully!\n"
 
 
 
 # Clone Vundle and install plugin/bundles
-cd ~/.vim/
 git clone http://github.com/VimEz/vundle.git ~/.vim/bundle/vundle
-vim -u initrc +BundleInstall +q
-echo -e "\nPlugin bundles installed sucessfully!"
+vim -u ~/.vim/initrc +BundleInstall +q
+echo -e "\nPlugin bundles installed successfully!\n"
 
 
 
@@ -33,10 +42,15 @@ rvm use system
 cd ~/.vim/bundle/Command-T/ruby/command-t/ 
 ruby extconf.rb
 make
-cd ~/.vim/
+cd
+echo -e "\nCompiled Command-T C extension successfully\n"
 
 
 
+# Clean up
+rm ~/install.sh
+rm ~/.vim/install.sh
+echo -e "\nCleaned up successfully\n"
 
 
 # TODO: insert 'stty -ixon' into .profile if it exist to disable Ctrl-s and Ctrl-q
