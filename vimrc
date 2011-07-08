@@ -267,6 +267,21 @@ nnoremap <leader>ws :SaveSession<CR>
 
 
 
+" "Open Session (Vim-Session)"
+nnoremap <leader>os :OpenSession<CR>
+
+
+
+" "Close Session (Vim-Session)"
+nnoremap <leader>cs :CloseSession<CR>
+
+
+
+" "Delete Session (Vim-Session)"
+nnoremap <leader>ds :DeleteSession<CR>
+
+
+
 " "Backups"
 set backup                        " Keep backup file after overwriting a file
 set writebackup                   " Make a backup before overwriting a file
