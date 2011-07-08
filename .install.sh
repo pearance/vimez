@@ -4,6 +4,8 @@
 for i in ~/.vim ~/.vimrc ~/.gvimrc
   do [ -e $i ] && mv -f $i $i.vimez.bak
 done
+rm -f ~/.vimrc
+rm -f ~/.gvimrc
 echo -e "\nBackedup existing Vim install successfully\n"
 
 
@@ -13,22 +15,10 @@ git clone git://github.com/VimEz/VimEz.git ~/.vim
 echo -e "\nCloned VimEz successfully!\n"
 
 
-# Link to vimrc and gvimrc config files
-if [ -h "~/.vimrc" ]
-then
-  rm -f ~/.vimrc
-  ln -s ~/.vim/vimrc ~/.vimrc
-else
-  ln -s ~/.vim/vimrc ~/.vimrc
-fi
 
-if [ -h "~/.gvimrc" ]
-then
-  rm -f ~/.gvimrc
-  ln -s ~/.vim/gvimrc ~/.gvimrc
-else
-  ln -s ~/.vim/gvimrc ~/.gvimrc
-fi
+# Link to vimrc and gvimrc config files
+ln -s ~/.vim/vimrc ~/.vimrc
+ln -s ~/.vim/gvimrc ~/.gvimrc
 echo -e "\nLinked to configuration files successfully!\n"
 
 
@@ -52,7 +42,7 @@ echo -e "\nCompiled Command-T C extension successfully\n"
 
 
 # Clean up
-rm ~/install.sh
+rm ~/.install.sh
 rm ~/.vim/install.sh
 echo -e "\nCleaned up successfully\n"
 
