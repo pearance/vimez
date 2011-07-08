@@ -51,6 +51,13 @@ let mapleader="\<Space>"    " Map personal modifier aka Leader key.
 
 
 
+" "Commandline" More convenient entrance to Commandline mode from Normal mode.
+map ; :
+noremap ;; ;
+"-----------------------------------------------------------------------------
+
+
+
 " "History"
 set history=256        " Amount of commands and searches to keep in history.
 "-----------------------------------------------------------------------------
