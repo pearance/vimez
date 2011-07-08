@@ -228,6 +228,11 @@ nmap <silent> <leader>wa :wall<CR>:exe ":echo 'All buffers saved to files!'"<CR>
 
 
 
+" "Close Buffer"
+nmap <silent> <leader>cb :BD<CR>
+
+
+
 " "Write on Focus Lost" Write all buffers to file upon leaving buffer
 " (gvim only).
 au FocusLost * silent! wa
