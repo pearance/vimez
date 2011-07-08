@@ -170,7 +170,7 @@ set shellslash  " Use forward slash for shell file names (Windows)
 
 
 
-" "Open/Edit File/Buffer" Give a prompt for opening files in the same dir as the
+" "Open/Edit File" Give a prompt for opening files in the same dir as the
 " current buffer's file.
 if has("unix")
   nnoremap <leader>ef :e <C-R>=expand("%:p:h") . "/" <CR>
@@ -181,13 +181,14 @@ endif
 
 
 
-" "Open/New File/Buffer"
-nnoremap <leader>nf :enew<CR>
+" "Rename File (Rename2)" This is handled by the Rename2 plugin and provides the following
+" command: Rename[!] {newname}.
+nmap <leader>rf :Rename<Space>
 "-----------------------------------------------------------------------------
 
 
 
-" "File Browser (NERDTree)" Conventional file browser panel with bookmarking
+" "Browse Files (NERDTree)" Conventional file browser panel with bookmarking
 " abilities. Provides an efficient way to view file hierarchies.
 let NERDTreeChDirMode=2
 nnoremap <leader><CR> :NERDTreeToggle .<CR>
@@ -195,32 +196,33 @@ nnoremap <leader><CR> :NERDTreeToggle .<CR>
 
 
 
-" "File Search (Command-T)" Faster alternative of locating and opening
+" "Search Files (Command-T)" Faster alternative of locating and opening
 " files, than the conventional browsing of a directory tree.
 let g:CommandTMaxHeight=10                    " Show this amount of results max
 let g:CommandTAcceptSelectionSplitMap=['/']   " Key to open file in vsplit win
 let g:CommandTAcceptSelectionVSplitMap=[';']  " Key to to open file in vsplit win
 let g:CommandTCancelMap=[',']                 " Key to cancel Command-T
 nmap <silent> <leader>kk :CommandT<CR>
+"-----------------------------------------------------------------------------
 
 
 
-" "Rename File/Buffer (Rename2)" This is handled by the Rename2 plugin and provides the following
-" command: Rename[!] {newname}.
-nmap <leader>rf :Rename<Space>
+" "New Buffer"
+nnoremap <leader>nb :enew<CR>
+"-----------------------------------------------------------------------------
+  
 
 
-
-" "Write File/Buffer"
+" "Write Buffer"
 nmap <silent> <leader>w :write<CR>
-nmap <silent> <leader>wf :write<CR>
+nmap <silent> <leader>wb :write<CR>
 inoremap <silent> <C-s> :update<CR>
 nnoremap <silent> <C-s> :update<CR>
 vnoremap <silent> <C-s> :update<CR>
 
 
 
-" "Write All Files/Buffers" Write all modified buffers. Buffers without a filename will not be
+" "Write All Buffers" Write all modified buffers. Buffers without a filename will not be
 " saved.
 nmap <silent> <leader>wa :wall<CR>:exe ":echo 'All buffers saved to files!'"<CR>
 
@@ -232,7 +234,7 @@ au FocusLost * silent! wa
 
 
 
-" "Save Session" Save the current session. Including buffers, untitled blank
+" "Write Session" Save the current session. Including buffers, untitled blank
 " buffers, current directory, folds, help, options, tabs, window sizes.
 let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
