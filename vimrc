@@ -239,6 +239,19 @@ let g:session_autoload = 'yes'
 
 
 
+" "Backups"
+set backup                        " Keep backup file after overwriting a file
+set writebackup                   " Make a backup before overwriting a file
+
+ " List of directories for the backup file
+if has("win32") || has("win64")
+  set backupdir=$TMP              " TODO: Set for Windows and Mac environments
+else
+  set backupdir=$HOME/.vim/tmp/backups
+end
+
+
+
 " "}}}
 
 
