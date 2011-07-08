@@ -238,7 +238,7 @@ au FocusLost * silent! wa
 " buffers, current directory, folds, help, options, tabs, window sizes.
 let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
-
+nmap <leader>ws :SaveSession<CR>
 
 
 " "Backups"
