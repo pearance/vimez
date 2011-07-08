@@ -5,7 +5,8 @@ dev/
 .*.sw[a-z]
 *.un~
 
-# Ignore default session file
+# Ignore session files
+sessions/
 Session.vim
 
 # Ignore bundle folder (Which is managed by vundle)
