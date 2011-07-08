@@ -205,7 +205,7 @@ nmap <silent> <leader>kk :CommandT<CR>
 
 
 
-" "Rename File/Buffer" This is handled by the Rename2 plugin and provides the following
+" "Rename File/Buffer (Rename2)" This is handled by the Rename2 plugin and provides the following
 " command: Rename[!] {newname}.
 nmap <leader>rf :Rename<Space>
 
@@ -217,6 +217,18 @@ nmap <silent> <leader>wf :write<CR>
 inoremap <silent> <C-s> :update<CR>
 nnoremap <silent> <C-s> :update<CR>
 vnoremap <silent> <C-s> :update<CR>
+
+
+
+" "Write All Files/Buffers" Write all modified buffers. Buffers without a filename will not be
+" saved.
+nmap <silent> <leader>wa :wall<CR>:exe ":echo 'All buffers saved to files!'"<CR>
+
+
+
+" "Write on Focus Lost" Write all buffers to file upon leaving buffer
+" (gvim only).
+au FocusLost * silent! wa
 
 
 
