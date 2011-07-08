@@ -88,7 +88,10 @@ endif
 
 
 " "Restore Cursor Position" Restore original cursor position when reopening a file.
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+augroup RestorCursor
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+augroup END  
 "-----------------------------------------------------------------------------
 
 
@@ -255,8 +258,10 @@ nnoremap <silent> <leader>uc :BUNDO<CR>
 
 " "Write on Focus Lost" Write all buffers to file upon leaving buffer
 " (gvim only).
-au FocusLost * silent! wa
-
+augroup FocusLost
+  autocmd!	
+  autocmd FocusLost * silent! wa
+augroup END
 
 
 " "Write Session (Vim-Session)" Save the current session. Including buffers, untitled blank
