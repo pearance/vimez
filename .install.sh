@@ -14,15 +14,19 @@ echo -e "\nCloned VimEz successfully!\n"
 
 
 # Link to vimrc and gvimrc config files
-if [ -e "~/.vimrc" ]
+if [ -h "~/.vimrc" ]
 then
   rm -f ~/.vimrc
   ln -s ~/.vim/vimrc ~/.vimrc
+else
+  ln -s ~/.vim/vimrc ~/.vimrc
 fi
 
-if [ -e "~/.gvimrc" ]
+if [ -h "~/.gvimrc" ]
 then
   rm -f ~/.gvimrc
+  ln -s ~/.vim/gvimrc ~/.gvimrc
+else
   ln -s ~/.vim/gvimrc ~/.gvimrc
 fi
 echo -e "\nLinked to configuration files successfully!\n"
