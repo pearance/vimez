@@ -124,19 +124,19 @@ set updatetime=1000
 " "Edit Vimrc" This would be Vim's version of [Edit Preferences] :-) Upon saving
 " the file is sourced so most of time your changes should take effect
 " immediately. However, some changes will only take effect after restarting Vim.
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 "-----------------------------------------------------------------------------
 
 
 
 " "Edit Initrc"
-nmap <silent> <leader>ei :e $HOME/.vim/initrc<CR>
+nnoremap <silent> <leader>ei :e $HOME/.vim/initrc<CR>
 "-----------------------------------------------------------------------------
 
 
 
 " "Edit Color Scheme"
-nmap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
+nnoremap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
 "-----------------------------------------------------------------------------
 
 
@@ -183,7 +183,7 @@ endif
 
 " "Rename File (Rename2)" This is handled by the Rename2 plugin and provides the following
 " command: Rename[!] {newname}.
-nmap <leader>rf :Rename<Space>
+nnoremap <leader>rf :Rename<Space>
 "-----------------------------------------------------------------------------
 
 
@@ -202,7 +202,7 @@ let g:CommandTMaxHeight=10                    " Show this amount of results max
 let g:CommandTAcceptSelectionSplitMap=['/']   " Key to open file in vsplit win
 let g:CommandTAcceptSelectionVSplitMap=[';']  " Key to to open file in vsplit win
 let g:CommandTCancelMap=[',']                 " Key to cancel Command-T
-nmap <silent> <leader>kk :CommandT<CR>
+nnoremap <silent> <leader>kk :CommandT<CR>
 "-----------------------------------------------------------------------------
 
 
@@ -214,8 +214,8 @@ nnoremap <leader>nb :enew<CR>
 
 
 " "Write Buffer"
-nmap <silent> <leader>w :write<CR>
-nmap <silent> <leader>wb :write<CR>
+nnoremap <silent> <leader>w :write<CR>
+nnoremap <silent> <leader>wb :write<CR>
 inoremap <silent> <C-s> :update<CR>
 nnoremap <silent> <C-s> :update<CR>
 vnoremap <silent> <C-s> :update<CR>
@@ -224,32 +224,32 @@ vnoremap <silent> <C-s> :update<CR>
 
 " "Write All Buffers" Write all modified buffers. Buffers without a filename will not be
 " saved.
-nmap <silent> <leader>wa :wall<CR>:exe ":echo 'All buffers saved to files!'"<CR>
+nnoremap <silent> <leader>wa :wall<CR>:exe ":echo 'All buffers saved to files!'"<CR>
 
 
 
 " "Close Buffer (BufKill)"
-nmap <silent> <leader>cb :BD<CR>
+nnoremap <silent> <leader>cb :BD<CR>
 
 
 
 " "Close Buffer & Window"
-nmap <silent> <leader>cbb :bd<CR>
+nnoremap <silent> <leader>cbb :bd<CR>
 
 
 
 " "Close Others (BufOnly)"
-nmap <silent> <leader>co :BufOnly<CR>
+nnoremap <silent> <leader>co :BufOnly<CR>
 
 
 
 " "Close All" 
-nmap <silent> <leader>ca :exec "1," . bufnr('$') . "bd"<CR>
+nnoremap <silent> <leader>ca :exec "1," . bufnr('$') . "bd"<CR>
 
 
 
 " "Undo Close (BufKill)"
-nmap <silent> <leader>uc :BUNDO<CR>
+nnoremap <silent> <leader>uc :BUNDO<CR>
 
 
 
@@ -263,7 +263,8 @@ au FocusLost * silent! wa
 " buffers, current directory, folds, help, options, tabs, window sizes.
 let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
-nmap <leader>ws :SaveSession<CR>
+nnoremap <leader>ws :SaveSession<CR>
+
 
 
 " "Backups"
