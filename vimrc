@@ -9,9 +9,8 @@
 " ****************************************************
 " CONTENT:
 " ****************************************************
-" + User Documentation
 " + General Settings
-" + File
+" + File/Buffer
 " + Edit
 " + View
 " + Navigation
@@ -160,7 +159,7 @@ map <F5> :so $MYVIMRC<CR>:filetype detect<CR>:nohlsearch<CR>:exe ":echo 'vimrc r
 
 
 "*****************************************************************************
-" FILE: "{{{2
+" FILE/BUFFER: "{{{2
 "*****************************************************************************
 " "General File/Buffer Settings"
 set hidden      " Hide buffers when they are abandoned
@@ -171,7 +170,7 @@ set shellslash  " Use forward slash for shell file names (Windows)
 
 
 
-" "Open/Edit File" Give a prompt for opening files in the same dir as the
+" "Open/Edit File/Buffer" Give a prompt for opening files in the same dir as the
 " current buffer's file.
 if has("unix")
   nnoremap <leader>ef :e <C-R>=expand("%:p:h") . "/" <CR>
@@ -182,7 +181,7 @@ endif
 
 
 
-" "Open/New File" 
+" "Open/New File/Buffer"
 nnoremap <leader>nf :enew<CR>
 "-----------------------------------------------------------------------------
 
@@ -206,9 +205,18 @@ nmap <silent> <leader>kk :CommandT<CR>
 
 
 
-" "Rename" This is handled by the Rename2 plugin and provides the following
+" "Rename File/Buffer" This is handled by the Rename2 plugin and provides the following
 " command: Rename[!] {newname}.
-nmap <leader>re :Rename<Space>
+nmap <leader>rf :Rename<Space>
+
+
+
+" "Write File/Buffer"
+nmap <silent> <leader>w :write<CR>
+nmap <silent> <leader>wf :write<CR>
+inoremap <silent> <C-s> :update<CR>
+nnoremap <silent> <C-s> :update<CR>
+vnoremap <silent> <C-s> :update<CR>
 
 
 
