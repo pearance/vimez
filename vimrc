@@ -228,7 +228,7 @@ nmap <silent> <leader>wa :wall<CR>:exe ":echo 'All buffers saved to files!'"<CR>
 
 
 
-" "Close Buffer"
+" "Close Buffer (BufKill)"
 nmap <silent> <leader>cb :BD<CR>
 
 
