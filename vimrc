@@ -252,6 +252,18 @@ end
 
 
 
+" "Swap Files" This creates a binary version of each file as a backup in the
+" event there is a crash, you have a shot at recovering your file. The swap is
+" updated on every 100th character.
+set updatecount=100
+if has("win32") || has("win64")   " TODO: Set for Windows and Mac environments
+  set directory=$TMP
+else
+  set directory=$HOME/.vim/tmp/swaps
+end
+
+
+
 " "}}}
 
 
