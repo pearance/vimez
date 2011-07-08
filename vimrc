@@ -232,6 +232,13 @@ au FocusLost * silent! wa
 
 
 
+" "Save Session" Save the current session. Including buffers, untitled blank
+" buffers, current directory, folds, help, options, tabs, window sizes.
+let g:session_autosave = 'yes'
+let g:session_autoload = 'yes'
+
+
+
 " "}}}
 
 

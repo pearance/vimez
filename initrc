@@ -31,6 +31,7 @@ Bundle "VimEz/csapprox"
 Bundle "VimEz/nerdtree"
 Bundle "VimEz/Command-T"
 Bundle "VimEz/Rename2"
+Bundle "VimEz/vim-session"
 "-----------------------------------------------------------------------------
 
 
