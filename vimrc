@@ -238,6 +238,11 @@ nmap <silent> <leader>cbb :bd<CR>
 
 
 
+" "Close Others (BufOnly)"
+nmap <silent> <leader>co :BufOnly<CR>
+
+
+
 " "Write on Focus Lost" Write all buffers to file upon leaving buffer
 " (gvim only).
 au FocusLost * silent! wa

@@ -33,6 +33,7 @@ Bundle "VimEz/Command-T"
 Bundle "VimEz/Rename2"
 Bundle "VimEz/vim-session"
 Bundle "VimEz/bufkill.vim"
+Bundle "VimEz/vim-bufonly"
 "-----------------------------------------------------------------------------
 
 
