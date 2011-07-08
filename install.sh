@@ -1,11 +1,10 @@
 # Change directory to user $HOME
-cd $HOME
+cd ~
 
 
 
 # Clean up any remnants of an existing Vim install
 for i in ~/.vim ~/.vimrc ~/.gvimrc; do [ -e $i ] && mv -f $i $i.vimez.bak; done
-rm -r .vim
 
 
 
@@ -20,14 +19,16 @@ ln -s ~/.vim/gvimrc ~/.gvimrc
 
 
 
-# Clone Vundle
+# Clone Vundle and install plugin/bundles
 cd ~/.vim/
 git clone http://github.com/VimEz/vundle.git ~/.vim/bundle/vundle
 vim -u initrc +BundleInstall +q
+echo -e "\nPlugin bundles installed sucessfully!"
 
 
 
 # Install Command-T C extension
+echo -e "\n"
 rvm use system
 cd ~/.vim/bundle/Command-T/ruby/command-t/ 
 ruby extconf.rb
@@ -35,8 +36,6 @@ make
 cd ~/.vim/
 
 
-# Clean up
-#rm ~/install.sh
 
 
 
