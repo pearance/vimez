@@ -189,6 +189,14 @@ nnoremap <leader><CR> :NERDTreeToggle .<CR>
 
 
 
+" "File Search (Command-T)" Faster alternative of locating and opening
+" files, than the conventional browsing of a directory tree.
+let g:CommandTMaxHeight=10                    " Show this amount of results max
+let g:CommandTAcceptSelectionSplitMap=['/']   " Key to open file in vsplit win
+let g:CommandTAcceptSelectionVSplitMap=[';']  " Key to to open file in vsplit win
+let g:CommandTCancelMap=[',']                 " Key to cancel Command-T
+nmap <silent> <leader>kk :CommandT<CR>
+
 
 
 " "}}}
