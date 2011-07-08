@@ -206,6 +206,12 @@ nmap <silent> <leader>kk :CommandT<CR>
 
 
 
+" "Rename" This is handled by the Rename2 plugin and provides the following
+" command: Rename[!] {newname}.
+nmap <leader>re :Rename<Space>
+
+
+
 " "}}}
 
 
