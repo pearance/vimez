@@ -248,13 +248,18 @@ nmap <silent> <leader>ca :exec "1," . bufnr('$') . "bd"<CR>
 
 
 
+" "Undo Close (BufKill)"
+nmap <silent> <leader>uc :BUNDO<CR>
+
+
+
 " "Write on Focus Lost" Write all buffers to file upon leaving buffer
 " (gvim only).
 au FocusLost * silent! wa
 
 
 
-" "Write Session" Save the current session. Including buffers, untitled blank
+" "Write Session (Vim-Session)" Save the current session. Including buffers, untitled blank
 " buffers, current directory, folds, help, options, tabs, window sizes.
 let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
