@@ -323,6 +323,13 @@ nmap <silent> <leader>jj :CommandTBuffer<CR>
 
 
 
+" "Previous Buffer (BufKill)" This is refered to in Vim parlance as the 'Alternate
+" Buffer' stock keymap is ctrl-^. Leader n for greater Convenience.
+nmap <silent> <leader>pb :BA<CR>
+let g:BufKillOverrideCtrlCaret=1
+
+
+
 " "Write Session (Vim-Session)" Save the current session. Including buffers, untitled blank
 " buffers, current directory, folds, help, options, tabs, window sizes.
 let g:session_autosave = 'yes'
