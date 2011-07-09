@@ -475,6 +475,14 @@ augroup END
 " "Virtual Edit" Allow the cursor to go where no cursor has gone before.
 " Navigate into lines and columns that are not real.
 set virtualedit=all
+
+
+
+" "Undo (Gundo)" 250 levels of persistent undo.
+set undolevels=250     " Amount of undos you can do.
+set undofile
+set undodir=$HOME/.vim/tmp/undos
+nnoremap <leader>uu :GundoToggle<CR>
 "===============================================================================
 " "}}}
 
