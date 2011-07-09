@@ -6,9 +6,9 @@
 
 
 
-" ****************************************************
+"*******************************************************************************
 " CONTENT:
-" ****************************************************
+"*******************************************************************************
 " + General Settings
 " + File Buffer
 " + Filetypes
@@ -27,44 +27,44 @@
 source $HOME/.vim/initrc    " Include dependent plugin bundles.
 runtime $VIMRUNTIME/macros/matchit.vim
 runtime $VIMRUNTIME/ftplugin/man.vim
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
-"*****************************************************************************
+"*******************************************************************************
 " GENERAL SETTINGS: "{{{1
-"*****************************************************************************
+"*******************************************************************************
 " "Color Scheme"
 set background=dark         " Use a dark background. 
 set t_Co=256                " Force terminal to go into 256 color mode.
 colorscheme vimez	    " Default color scheme for the VimEz distribution.
 syntax on		    " Syntax highlighting on.
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Leader Key" 
 let mapleader="\<Space>"    " Map personal modifier aka Leader key.
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Commandline" More convenient entrance to Commandline mode from Normal mode.
 map ; :
 noremap ;; ;
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "History"
 set history=256        " Amount of commands and searches to keep in history.
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Vim Info"
 set viminfo='1000,f1,<500,h " Save local/global marks, registers, etc
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -76,29 +76,33 @@ if has("multi_byte")
     set termencoding=latin1
   endif
   if $TERM == "xterm" || $TERM == "xterm-color"
-    let propv = system("xprop -id $WINDOWID -f WM_LOCALE_NAME 8s ' $0' -notype WM_LOCALE_NAME")
+    let propv = system
+    \ ("xprop -id $WINDOWID -f WM_LOCALE_NAME 8s ' $0' -notype WM_LOCALE_NAME")
     if propv !~ "WM_LOCALE_NAME .*UTF.*8"
       set termencoding=latin1
     endif
   endif
 endif
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Restore Cursor Position" Restore original cursor position when reopening a file.
 augroup RestorCursor
   autocmd!
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+  autocmd BufReadPost * 
+  \ if line("'\"") > 1 && line("'\"") <= line("$") | 
+  \   exe "normal! g'\"" | 
+  \ endif
 augroup END  
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Performance Tweaks"
 set ttyfast            " Indicates a fast terminal connection.
 set synmaxcol=2048     " Prevent long lines from slowing down redraws.
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -106,7 +110,7 @@ set synmaxcol=2048     " Prevent long lines from slowing down redraws.
 " complete.  As you become more fluent with the key mappings you may want toC
 " drop this to 250.
 set timeoutlen=500
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -115,12 +119,12 @@ set mouse=a                       " Onable mouse usage (all modes)
 set selectmode=mouse              " Selection with the mouse trigers Select mode
 set ttymouse=xterm2               " Enable basic mouse functionality in a terminal
 "map <MouseMiddle> <esc>"*p	  " TODO: requires more testing
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 " "Update Time" How frequent marks, statusbar, swap files, and other are updated.
 set updatetime=1000 
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -134,7 +138,7 @@ cmap <A-h> <Left>
 cmap <C-h> <Left>
 cmap <A-l> <Right>
 cmap <C-l> <Right>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -142,19 +146,19 @@ cmap <C-l> <Right>
 " the file is sourced so most of time your changes should take effect
 " immediately. However, some changes will only take effect after restarting Vim.
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Edit Initrc"
 nnoremap <silent> <leader>ei :e $HOME/.vim/initrc<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Edit Color Scheme"
 nnoremap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -173,7 +177,7 @@ augroup LocalReload
   autocmd bufwritepost .vimrc source $MYVIMRC | exe 'CSApprox' | nohlsearch
   autocmd bufwritepost .vimrc call EchoMsg('Reloaded Local Instance of Vim!')
 augroup END
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -187,7 +191,7 @@ function! EchoMsg(msg)
   echo a:msg
   let &ruler=x | let &showcmd=y
 endfun
-"-----------------------------------------------------------------------------
+"===============================================================================
 " "}}}
 
 
@@ -202,15 +206,15 @@ endfun
 
 
 
-"*****************************************************************************
+"*******************************************************************************
 " FILE BUFFER: "{{{2
-"*****************************************************************************
+"*******************************************************************************
 " "General File/Buffer Settings"
 set hidden      " Hide buffers when they are abandoned
 set confirm     " Provide user friendly prompt over nasty error messages.
 set autoread    " Automatically re-read a file if modified outside of vim.
 set shellslash  " Use forward slash for shell file names (Windows)
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -221,14 +225,14 @@ if has("unix")
 else
   nnoremap <leader>ef :e <C-R>=expand("%:p:h") . "\\" <CR>
 endif
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
-" "Rename File (Rename2)" This is handled by the Rename2 plugin and provides the following
-" command: Rename[!] {newname}.
+" "Rename File (Rename2)" This is handled by the Rename2 plugin and provides
+" the following command: Rename[!] {newname}.
 nnoremap <leader>rf :Rename<Space>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -236,24 +240,24 @@ nnoremap <leader>rf :Rename<Space>
 " abilities. Provides an efficient way to view file hierarchies.
 let NERDTreeChDirMode=2
 nnoremap <leader><CR> :NERDTreeToggle .<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Search Files (Command-T)" Faster alternative of locating and opening
 " files, than the conventional browsing of a directory tree.
 let g:CommandTMaxHeight=10                    " Show this amount of results max
-let g:CommandTAcceptSelectionSplitMap=['/']   " Key to open file in vsplit win
-let g:CommandTAcceptSelectionVSplitMap=[';']  " Key to to open file in vsplit win
+let g:CommandTAcceptSelectionSplitMap=['/']   " Key to open file in split win
+let g:CommandTAcceptSelectionVSplitMap=[';']  " Key to open file in vsplit win
 let g:CommandTCancelMap=[',']                 " Key to cancel Command-T
 nnoremap <silent> <leader>kk :CommandT<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "New Buffer"
 nnoremap <leader>nb :enew<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
   
 
 
@@ -263,44 +267,44 @@ nnoremap <silent> <leader>wb :write<CR>
 inoremap <silent> <C-s> :update<CR>
 nnoremap <silent> <C-s> :update<CR>
 vnoremap <silent> <C-s> :update<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Write All Buffers" Write all modified buffers. Buffers without a filename will not be
 " saved.
 nnoremap <silent> <leader>wa :wall<CR>:exe ":echo 'All buffers saved to files!'"<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Close Buffer (BufKill)"
 nnoremap <silent> <leader>cb :BD<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Close Buffer & Window"
 nnoremap <silent> <leader>cbb :bd<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Close Others (BufOnly)"
 nnoremap <silent> <leader>co :BufOnly<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Close All" 
 nnoremap <silent> <leader>ca :exec "1," . bufnr('$') . "bd"<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Undo Close (BufKill)"
 nnoremap <silent> <leader>uc :BUNDO<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -310,7 +314,7 @@ augroup FocusLost
   autocmd!	
   autocmd FocusLost * silent! wa
 augroup END
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -318,14 +322,14 @@ augroup END
 augroup CWD
   autocmd BufEnter * lcd %:p:h
 augroup END
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Buffer Navigation (Simple)"
 nnoremap <silent> <F12> :bnext<CR>
 nnoremap <silent> <F11> :bprev<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -338,13 +342,13 @@ set wildcharm=<C-Z>
 nnoremap <silent> <A-`> :b <C-Z>
 cnoremap <A-`> <Right>
 cnoremap <C-c> <Home><Right>d<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Buffer Navigation (CommandT)"
 nmap <silent> <leader>jj :CommandTBuffer<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -352,7 +356,7 @@ nmap <silent> <leader>jj :CommandTBuffer<CR>
 " Buffer' stock keymap is ctrl-^. Leader n for greater Convenience.
 nmap <silent> <leader>pb :BA<CR>
 let g:BufKillOverrideCtrlCaret=1
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -361,25 +365,25 @@ let g:BufKillOverrideCtrlCaret=1
 let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
 nnoremap <leader>ws :SaveSession<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Open Session (Vim-Session)"
 nnoremap <leader>os :OpenSession<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Close Session (Vim-Session)"
 nnoremap <leader>cs :CloseSession<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Delete Session (Vim-Session)"
 nnoremap <leader>ds :DeleteSession<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -393,7 +397,7 @@ if has("win32") || has("win64")
 else
   set backupdir=$HOME/.vim/tmp/backups
 end
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
@@ -406,20 +410,20 @@ if has("win32") || has("win64")   " TODO: Set for Windows and Mac environments
 else
   set directory=$HOME/.vim/tmp/swaps
 end
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Write and Quit All"
 nnoremap <leader>wqq :wqa<CR>
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Quit All" Simpler exit strategy, that prompts if there is any unsaved buffers
 " open.
 nmap <leader>qqq :qa<CR>
-"-----------------------------------------------------------------------------
+"===============================================================================
 " "}}}
 
 
@@ -431,21 +435,20 @@ nmap <leader>qqq :qa<CR>
 
 
 
-"*****************************************************************************
+"*******************************************************************************
 " FILETYPES:{{{3
-"*****************************************************************************
+"*******************************************************************************
 augroup FileTypes
 
 " "Shell Filetype" Automatically chmod +x Shell and Perl scripts
 autocmd BufWritePost *.sh !chmod +x %
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
 " "Template Filetype" Make the template .tpl files behave like html files
 autocmd BufNewFile,BufRead *.tpl set filetype=html
-"-----------------------------------------------------------------------------
-
+"-------------------------------------------------------------------------------
 
 
 " "Drupal Module Filetypes" *.module and *.install files.
@@ -454,7 +457,7 @@ autocmd BufRead,BufNewFile *.install set filetype=php
 autocmd BufRead,BufNewFile *.test set filetype=php
   
 augroup END
-"-----------------------------------------------------------------------------
+"===============================================================================
 " "}}}
 
 
@@ -466,9 +469,27 @@ augroup END
 
 
 
-"*****************************************************************************
+"*******************************************************************************
+" EDIT: "{{{4
+"*******************************************************************************
+" "Virtual Edit" Allow the cursor to go where no cursor has gone before.
+" Navigate into lines and columns that are not real.
+set virtualedit=all
+"===============================================================================
+" "}}}
+
+
+
+
+
+
+
+
+
+
+"*******************************************************************************
 " NAVIGATION: "{{{5
-"*****************************************************************************
+"*******************************************************************************
 
 " "Escape"
 " Escape from the dreaded Insert and Commandline modes to the graces of
@@ -477,7 +498,7 @@ inoremap jj <Esc>
 inoremap JJJ <Esc>
 cnoremap jj <C-c>
 cnoremap JJ <C-c>
-"-----------------------------------------------------------------------------
+"===============================================================================
 " "}}}
 
 
