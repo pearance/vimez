@@ -125,6 +125,20 @@ set updatetime=1000
 
 
 
+" "Wildmenu"
+set wildchar=<Tab>
+set wildmenu                 " Enable file/command auto-completion
+set wildmode=longest,full    " Auto-complete up to ambiguity
+set <A-h>=h
+set <A-l>=l
+cmap <A-h> <Left>
+cmap <C-h> <Left>
+cmap <A-l> <Right>
+cmap <C-l> <Right>
+"-----------------------------------------------------------------------------
+
+
+
 " "Edit Vimrc" This would be Vim's version of [Edit Preferences] :-) Upon saving
 " the file is sourced so most of time your changes should take effect
 " immediately. However, some changes will only take effect after restarting Vim.
@@ -391,6 +405,7 @@ end
 
 " "Write and Quit All"
 nnoremap <leader>wqq :wqa<CR>
+"-----------------------------------------------------------------------------
 
 
 
