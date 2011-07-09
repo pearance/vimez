@@ -301,6 +301,28 @@ augroup END
 
 
 
+" "Buffer Navigation (Simple)"
+nnoremap <silent> <F12> :bnext<CR>
+nnoremap <silent> <F11> :bprev<CR>
+
+
+
+" "Buffer Navigation (Wild Menu)" Tab through buffers, similar to
+" tabbing through open programs via Alt-Tab on most common desktop
+" environments. From http://vim.wikia.com/wiki/Easier_buffer_switching
+" You
+set <A-`>=`
+set wildcharm=<C-Z>
+nnoremap <silent> <A-`> :b <C-Z>
+cnoremap <A-`> <Right>
+cnoremap <C-c> <Home><Right>d<CR>
+
+
+" "Buffer Navigation (CommandT)"
+nmap <silent> <leader>jj :CommandTBuffer<CR>
+
+
+
 " "Write Session (Vim-Session)" Save the current session. Including buffers, untitled blank
 " buffers, current directory, folds, help, options, tabs, window sizes.
 let g:session_autosave = 'yes'
