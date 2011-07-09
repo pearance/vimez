@@ -121,6 +121,7 @@ set ttymouse=xterm2               " Enable basic mouse functionality in a termin
 
 " "Update Time" How frequent marks, statusbar, swap files, and other are updated.
 set updatetime=1000 
+"-----------------------------------------------------------------------------
 
 
 
@@ -144,8 +145,35 @@ nnoremap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
 
 
 
-" "Refresh Vim"
-map <F5> :so $MYVIMRC<CR>:filetype detect<CR>:nohlsearch<CR>:exe ":echo 'vimrc reloaded'"<CR>
+" "Reload Vim"
+map <F5> :call GlobalReload()<CR>
+
+function! GlobalReload()
+  for server in split(serverlist())
+    call remote_send(server, '<Esc>:source $MYVIMRC<CR>')
+  endfor
+  call EchoMsg('Reloaded Global Instances of Vim!')
+endfunction
+
+augroup LocalReload
+  autocmd!
+  autocmd bufwritepost .vimrc source $MYVIMRC | exe 'CSApprox' | nohlsearch
+  autocmd bufwritepost .vimrc call EchoMsg('Reloaded Local Instance of Vim!')
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Echo Message"
+" EchoMsg() prints [long] message up to (&columns-1) length
+" guaranteed without "Press Enter" prompt.
+function! EchoMsg(msg)
+  let x=&ruler | let y=&showcmd
+  set noruler noshowcmd
+  redraw
+  echo a:msg
+  let &ruler=x | let &showcmd=y
+endfun
 "-----------------------------------------------------------------------------
 " "}}}
 
@@ -222,37 +250,44 @@ nnoremap <silent> <leader>wb :write<CR>
 inoremap <silent> <C-s> :update<CR>
 nnoremap <silent> <C-s> :update<CR>
 vnoremap <silent> <C-s> :update<CR>
+"-----------------------------------------------------------------------------
 
 
 
 " "Write All Buffers" Write all modified buffers. Buffers without a filename will not be
 " saved.
 nnoremap <silent> <leader>wa :wall<CR>:exe ":echo 'All buffers saved to files!'"<CR>
+"-----------------------------------------------------------------------------
 
 
 
 " "Close Buffer (BufKill)"
 nnoremap <silent> <leader>cb :BD<CR>
+"-----------------------------------------------------------------------------
 
 
 
 " "Close Buffer & Window"
 nnoremap <silent> <leader>cbb :bd<CR>
+"-----------------------------------------------------------------------------
 
 
 
 " "Close Others (BufOnly)"
 nnoremap <silent> <leader>co :BufOnly<CR>
+"-----------------------------------------------------------------------------
 
 
 
 " "Close All" 
 nnoremap <silent> <leader>ca :exec "1," . bufnr('$') . "bd"<CR>
+"-----------------------------------------------------------------------------
 
 
 
 " "Undo Close (BufKill)"
 nnoremap <silent> <leader>uc :BUNDO<CR>
+"-----------------------------------------------------------------------------
 
 
 
@@ -262,6 +297,8 @@ augroup FocusLost
   autocmd!	
   autocmd FocusLost * silent! wa
 augroup END
+"-----------------------------------------------------------------------------
+
 
 
 " "Write Session (Vim-Session)" Save the current session. Including buffers, untitled blank
@@ -269,21 +306,25 @@ augroup END
 let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
 nnoremap <leader>ws :SaveSession<CR>
+"-----------------------------------------------------------------------------
 
 
 
 " "Open Session (Vim-Session)"
 nnoremap <leader>os :OpenSession<CR>
+"-----------------------------------------------------------------------------
 
 
 
 " "Close Session (Vim-Session)"
 nnoremap <leader>cs :CloseSession<CR>
+"-----------------------------------------------------------------------------
 
 
 
 " "Delete Session (Vim-Session)"
 nnoremap <leader>ds :DeleteSession<CR>
+"-----------------------------------------------------------------------------
 
 
 
@@ -297,6 +338,7 @@ if has("win32") || has("win64")
 else
   set backupdir=$HOME/.vim/tmp/backups
 end
+"-----------------------------------------------------------------------------
 
 
 
@@ -309,6 +351,7 @@ if has("win32") || has("win64")   " TODO: Set for Windows and Mac environments
 else
   set directory=$HOME/.vim/tmp/swaps
 end
+"-----------------------------------------------------------------------------
 
 
 
