@@ -35,6 +35,7 @@ Bundle "VimEz/vim-session"
 Bundle "VimEz/bufkill.vim"
 Bundle "VimEz/vim-bufonly"
 Bundle "VimEz/gundo.vim"
+Bundle "VimEz/neocomplcache"
 "-----------------------------------------------------------------------------
 
 

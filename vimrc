@@ -483,6 +483,28 @@ set undolevels=250     " Amount of undos you can do.
 set undofile
 set undodir=$HOME/.vim/tmp/undos//
 nnoremap <leader>uu :GundoToggle<CR>
+
+
+
+" "Autocompletion (NeoComplCache)"
+set infercase
+set pumheight=15      " Pop up menu height in lines
+let g:neocomplcache_enable_at_startup = 1 
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_quick_match = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_max_list = 50
+augroup AutoComplete
+  autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+  autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType ruby set omnifunc=rubycomplete#Complete
+  autocmd FileType python set omnifunc=pythoncomplete#Complete
+  autocmd FileType c set omnifunc=ccomplete#Complete
+  autocmd FileType vim set omnifunc=syntaxcomplete#Complete
+augroup END
+
 "===============================================================================
 " "}}}
 
