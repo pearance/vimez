@@ -304,6 +304,7 @@ augroup END
 " "Buffer Navigation (Simple)"
 nnoremap <silent> <F12> :bnext<CR>
 nnoremap <silent> <F11> :bprev<CR>
+"-----------------------------------------------------------------------------
 
 
 
@@ -316,10 +317,13 @@ set wildcharm=<C-Z>
 nnoremap <silent> <A-`> :b <C-Z>
 cnoremap <A-`> <Right>
 cnoremap <C-c> <Home><Right>d<CR>
+"-----------------------------------------------------------------------------
+
 
 
 " "Buffer Navigation (CommandT)"
 nmap <silent> <leader>jj :CommandTBuffer<CR>
+"-----------------------------------------------------------------------------
 
 
 
@@ -327,6 +331,7 @@ nmap <silent> <leader>jj :CommandTBuffer<CR>
 " Buffer' stock keymap is ctrl-^. Leader n for greater Convenience.
 nmap <silent> <leader>pb :BA<CR>
 let g:BufKillOverrideCtrlCaret=1
+"-----------------------------------------------------------------------------
 
 
 
@@ -384,6 +389,15 @@ end
 
 
 
+" "Write and Quit All"
+nnoremap <leader>wqq :wqa<CR>
+
+
+
+" "Quit All" Simpler exit strategy, that prompts if there is any unsaved buffers
+" open.
+nmap <leader>qqq :qa<CR>
+"-----------------------------------------------------------------------------
 " "}}}
 
 
