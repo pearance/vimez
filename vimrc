@@ -10,14 +10,13 @@
 " CONTENT:
 " ****************************************************
 " + General Settings
-" + File/Buffer
+" + File Buffer
+" + Filetypes
 " + Edit
 " + View
 " + Navigation
-" + Libraries
-"   - Snippets
-"   - Abbreviations
-"   - Commands
+" + Snippets
+" + Abbreviations
 " + Tools
 " + Window
 " + Help
@@ -204,7 +203,7 @@ endfun
 
 
 "*****************************************************************************
-" FILE/BUFFER: "{{{2
+" FILE BUFFER: "{{{2
 "*****************************************************************************
 " "General File/Buffer Settings"
 set hidden      " Hide buffers when they are abandoned
@@ -410,7 +409,6 @@ end
 "-----------------------------------------------------------------------------
 
 
-"-----------------------------------------------------------------------------
 
 " "Write and Quit All"
 nnoremap <leader>wqq :wqa<CR>
@@ -434,7 +432,42 @@ nmap <leader>qqq :qa<CR>
 
 
 "*****************************************************************************
-" NAVIGATION: "{{{2
+" FILETYPES:{{{3
+"*****************************************************************************
+augroup FileTypes
+
+" "Shell Filetype" Automatically chmod +x Shell and Perl scripts
+autocmd BufWritePost *.sh !chmod +x %
+"-----------------------------------------------------------------------------
+
+
+
+" "Template Filetype" Make the template .tpl files behave like html files
+autocmd BufNewFile,BufRead *.tpl set filetype=html
+"-----------------------------------------------------------------------------
+
+
+
+" "Drupal Module Filetypes" *.module and *.install files.
+autocmd BufRead,BufNewFile *.module set filetype=php
+autocmd BufRead,BufNewFile *.install set filetype=php
+autocmd BufRead,BufNewFile *.test set filetype=php
+  
+augroup END
+"-----------------------------------------------------------------------------
+" "}}}
+
+
+
+
+
+
+
+
+
+
+"*****************************************************************************
+" NAVIGATION: "{{{5
 "*****************************************************************************
 
 " "Escape"
