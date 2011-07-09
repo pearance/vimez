@@ -315,6 +315,14 @@ augroup END
 
 
 
+" "Change Working Directory" to the file in the current buffer
+augroup CWD
+  autocmd BufEnter * lcd %:p:h
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
 " "Buffer Navigation (Simple)"
 nnoremap <silent> <F12> :bnext<CR>
 nnoremap <silent> <F11> :bprev<CR>
@@ -402,6 +410,7 @@ end
 "-----------------------------------------------------------------------------
 
 
+"-----------------------------------------------------------------------------
 
 " "Write and Quit All"
 nnoremap <leader>wqq :wqa<CR>
