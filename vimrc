@@ -578,6 +578,26 @@ nnoremap <leader>es  :NeoComplCacheEditSnippets<CR>
 
 
 
+" "Reselect Pasted Text"
+nnoremap <leader>v V`]
+"-------------------------------------------------------------------------------
+
+
+
+" "Select All"
+nmap <Leader>va ggVG
+"-------------------------------------------------------------------------------
+
+
+
+" "Clipboard"
+set clipboard+=unnamed  " Use system clipboard for yanks
+set pastetoggle=<F7>    " Avoid double indetation when pasting formatted text
+set go+=a               " TODO: Visual selection automatically copied to the clipboard
+"-------------------------------------------------------------------------------
+
+
+
 
 "===============================================================================
 " "}}}
