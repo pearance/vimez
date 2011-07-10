@@ -544,6 +544,13 @@ set fo+=1  " Don't break a line after a one-letter word.  It's broken before it
 
 
 
+" "Paragraph Formatting"
+set formatprg=par
+vmap Q gq
+nmap Q gqap
+
+
+
 " "Undo (Gundo)" 250 levels of persistent undo.
 set undolevels=250     " Amount of undos you can do.
 set undofile
