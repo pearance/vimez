@@ -24,7 +24,7 @@ echo -e "\nLinked to configuration files successfully!\n"
 
 
 # Clone Vundle and install plugin/bundles
-git clone http://github.com/VimEz/vundle.git ~/.vim/bundle/vundle
+git clone http://github.com/VimEz/Vundle.git ~/.vim/bundle/Vundle
 vim -u ~/.vim/initrc +BundleInstall +q
 echo -e "\nPlugin bundles installed successfully!\n"
 
