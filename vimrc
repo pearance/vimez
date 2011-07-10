@@ -490,8 +490,27 @@ nnoremap <leader>uu :GundoToggle<CR>
 
 " "Autocompletion/Snippets (NeoComplCache)"
 " Autocompletion General Settings
-set infercase
-set pumheight=15      " Pop up menu height in lines
+set complete+=.		" Scan the current buffer ('wrapscan' is ignored)
+set complete+=w		" Scan buffers from other windows
+set complete+=b		" Scan other loaded buffers that are in the buffer list
+set complete+=u		" Scan the unloaded buffers that are in the buffer list
+set complete+=U		" Scan the buffers that are not in the buffer list
+set complete-=k		" Scan the files given with the 'dictionary' option
+set complete-=kspell  	" Use the currently active spell checking |spell|
+set complete-=k{dict}   " Scan the file {dict}.  Several "k" flags can be given,
+                      	" patterns are valid too.  For example:
+                      	" 	:set cpt=k/usr/dict/*,k~/spanish
+set complete-=s		" Scan the files given with the 'thesaurus' option
+set complete-=s{tsr}	" Scan the file {tsr}.  Several "s" flags can be given, patterns
+                        " Are valid too.
+set complete+=i		" Scan current and included files
+set complete-=d		" Scan current and included files for defined name or macro
+                	" |i_CTRL-X_CTRL-D|
+set complete-=]		" Tag completion
+set complete+=t		" Same as "]"
+
+set infercase   	" Match is adjusted depending on the typed text.
+set pumheight=15        " Pop up menu height in lines
 
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_disable_auto_complete = 0
