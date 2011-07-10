@@ -18,24 +18,24 @@ filetype off
 " PLUGIN BUNDLES: 
 "*****************************************************************************
 " "Plugin Manager (Vundle)" 
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle/
 call vundle#rc()
-Bundle "VimEz/vundle"
+Bundle "VimEz/Vundle"
 "-----------------------------------------------------------------------------
 
 
 
 " "Plugin Bundles"
 Bundle "VimEz/ScrollColors"
-Bundle "VimEz/csapprox"
-Bundle "VimEz/nerdtree"
+Bundle "VimEz/CSApprox"
+Bundle "VimEz/NerdTree"
 Bundle "VimEz/Command-T"
 Bundle "VimEz/Rename2"
-Bundle "VimEz/vim-session"
-Bundle "VimEz/bufkill.vim"
-Bundle "VimEz/vim-bufonly"
-Bundle "VimEz/gundo.vim"
-Bundle "VimEz/neocomplcache"
+Bundle "VimEz/Session"
+Bundle "VimEz/BufKill"
+Bundle "VimEz/BufOnly"
+Bundle "VimEz/Gundo.vim"
+Bundle "VimEz/NeoComplCache"
 "-----------------------------------------------------------------------------
 
 
