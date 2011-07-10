@@ -531,6 +531,7 @@ let g:neocomplcache_enable_caching_message = 1
 let g:neocomplcache_disable_select_mode_mappings = 1
 let g:neocomplcache_enable_auto_select = 0
 let g:neocomplcache_enable_auto_delimiter = 0
+let g:neocomplcache_snippets_complete_disable_runtime_snippets = 1
 let g:neocomplcache_snippets_dir = $HOME.'/.vim/snippets'
 
 " Set snips_author.
@@ -602,8 +603,6 @@ set go+=a               " TODO: Visual selection automatically copied to the cli
 "===============================================================================
 " "}}}
 
-"let g:neocomplcache_temporary_dir = "~/
-
 
 
 
@@ -619,12 +618,11 @@ set go+=a               " TODO: Visual selection automatically copied to the cli
 " Escape from the dreaded Insert and Commandline modes to the graces of
 " the beloved Normal mode.
 inoremap jj <Esc>
-inoremap JJJ <Esc>
+inoremap JJ <Esc>
 cnoremap jj <C-c>
 cnoremap JJ <C-c>
 "===============================================================================
 " "}}}
-
 
 
 
