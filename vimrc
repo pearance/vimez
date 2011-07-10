@@ -514,6 +514,11 @@ let g:neocomplcache_enable_auto_select = 0
 let g:neocomplcache_enable_auto_delimiter = 0
 let g:neocomplcache_snippets_dir = $HOME.'/.vim/snippets'
 
+" Set snips_author.
+if !exists('snips_author')
+  let g:snips_author = 'Your Name Here'
+endif
+
 " Configure Dictionaries
 let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default' : '',
@@ -531,6 +536,15 @@ augroup AutoComplete
   autocmd FileType vim setlocal omnifunc=syntaxcomplete#Complete
 augroup END
 
+" Enable Custom Omnicompletion
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+
 " Configure Mappings
 imap <expr><Tab> 
   \ neocomplcache#sources#snippets_complete#expandable() ? 
@@ -540,15 +554,7 @@ inoremap <expr><C-z> neocomplcache#undo_completion()
 inoremap <expr><BS>  neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><CR>  neocomplcache#smart_close_popup()."\<CR>"
-
-" Enable Custom Omnicompletion
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+nnoremap <leader>es  :NeoComplCacheEditSnippets<CR>
 "-------------------------------------------------------------------------------
 
 
