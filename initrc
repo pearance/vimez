@@ -36,6 +36,7 @@ Bundle "VimEz/BufKill"
 Bundle "VimEz/BufOnly"
 Bundle "VimEz/Gundo.vim"
 Bundle "VimEz/NeoComplCache"
+Bundle "VimEz/Unimpaired"
 "-----------------------------------------------------------------------------
 
 

@@ -599,6 +599,41 @@ set go+=a               " TODO: Visual selection automatically copied to the cli
 
 
 
+" "Bulbbling Line (Unimpaired)" Consistent use of [hjkl] with the Shift modifier to move a
+" line of text around. Up/down by one line and left/right by amount of
+" shiftwidth.
+nmap <C-h> <<
+nmap <C-j> ]e
+nmap <C-k> [e
+nmap <C-l> >>
+
+
+
+" "Bubbling Block (Unimpaired)" Consistent use of [hjkl] with the Shift modifier to move a
+" block of text around. Up/down by one line and left/right by amount of
+" shiftwidth.
+vmap <C-l> >gv
+vmap <C-h> <gv
+vmap <C-j> ]egv
+vmap <C-k> [egv
+
+
+
+" "Bubbling Word(s) (Unimpaired)" Consistent use of [hjkl] with the Control modifier to
+" transport words around. Up/down by one line and left/right by one word plus
+" a space.
+set <M-h>=h
+set <M-j>=j
+set <M-k>=k
+set <M-l>=l
+vmap <M-h> dBhp`[v`]
+vmap <M-j> djhp`[v`]
+vmap <M-k> dkhp`[v`]
+vmap <M-l> dElp`[v`]
+"-------------------------------------------------------------------------------
+
+
+
 
 "===============================================================================
 " "}}}
