@@ -20,6 +20,7 @@
 " + Tools
 " + Window
 " + Help
+"-------------------------------------------------------------------------------
 
 
 
@@ -181,8 +182,7 @@ augroup END
 
 
 
-" "Echo Message"
-" EchoMsg() prints [long] message up to (&columns-1) length
+" "Echo Message" EchoMsg() prints [long] message up to (&columns-1) length
 " guaranteed without "Press Enter" prompt.
 function! EchoMsg(msg)
   let x=&ruler | let y=&showcmd
@@ -191,6 +191,7 @@ function! EchoMsg(msg)
   echo a:msg
   let &ruler=x | let &showcmd=y
 endfun
+"-------------------------------------------------------------------------------
 "===============================================================================
 " "}}}
 
@@ -423,6 +424,7 @@ nnoremap <leader>wqq :wqa<CR>
 " "Quit All" Simpler exit strategy, that prompts if there is any unsaved buffers
 " open.
 nmap <leader>qqq :qa<CR>
+"-------------------------------------------------------------------------------
 "===============================================================================
 " "}}}
 
@@ -440,23 +442,24 @@ nmap <leader>qqq :qa<CR>
 "*******************************************************************************
 augroup FileTypes
 
-" "Shell Filetype" Automatically chmod +x Shell and Perl scripts
-autocmd BufWritePost *.sh !chmod +x %
-"-------------------------------------------------------------------------------
-
-
-
-" "Template Filetype" Make the template .tpl files behave like html files
-autocmd BufNewFile,BufRead *.tpl set filetype=html
-"-------------------------------------------------------------------------------
-
-
-" "Drupal Module Filetypes" *.module and *.install files.
-autocmd BufRead,BufNewFile *.module set filetype=php
-autocmd BufRead,BufNewFile *.install set filetype=php
-autocmd BufRead,BufNewFile *.test set filetype=php
+  " "Shell Filetype" Automatically chmod +x Shell and Perl scripts
+  autocmd BufWritePost *.sh !chmod +x %
+  "-------------------------------------------------------------------------------
+  
+  
+  
+  " "Template Filetype" Make the template .tpl files behave like html files
+  autocmd BufNewFile,BufRead *.tpl set filetype=html
+  "-------------------------------------------------------------------------------
+  
+  
+  " "Drupal Module Filetypes" *.module and *.install files.
+  autocmd BufRead,BufNewFile *.module set filetype=php
+  autocmd BufRead,BufNewFile *.install set filetype=php
+  autocmd BufRead,BufNewFile *.test set filetype=php
   
 augroup END
+"-------------------------------------------------------------------------------
 "===============================================================================
 " "}}}
 
@@ -606,6 +609,7 @@ nmap <C-h> <<
 nmap <C-j> ]e
 nmap <C-k> [e
 nmap <C-l> >>
+"-------------------------------------------------------------------------------
 
 
 
@@ -616,6 +620,7 @@ vmap <C-l> >gv
 vmap <C-h> <gv
 vmap <C-j> ]egv
 vmap <C-k> [egv
+"-------------------------------------------------------------------------------
 
 
 
@@ -634,9 +639,77 @@ vmap <M-l> dElp`[v`]
 
 
 
+" "Add & Remove Blank Lines" Use the +plus and -minus keys to add and remove
+" blank lines below the current line. With the Shift modifier, add and remove
+" blank lines from above the current line.
+nnoremap <silent>- m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <silent>_ m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <silent>= :set paste<CR>m`o<Esc>``:set nopaste<CR>
+nnoremap <silent>+ :set paste<CR>m`O<Esc>``:set nopaste<CR>
+"-------------------------------------------------------------------------------
+        
 
+
+" "Blank Current Line" Delete line without copying its contents into a
+" clipboard register and without removing the space the line accupied.
+nnoremap <silent><leader>dd Vr<Space>
+"-------------------------------------------------------------------------------
+
+
+
+" "Join Next or Previous line" Normally Shift-j joins the line below with the
+" current one, but felt it best to maintain [hjkl] as directional arrow keys.
+" So, this functionality is mapped to Leader jn and jp for join next (line
+" below) and join previous (line above) with the current line.
+set nojoinspaces
+map <silent> <leader>jn :join<CR>
+map <silent> <leader>jp k<S-v>xpk:join<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Enter" Restore some familiar behavior to the Enter key, in Normal mode.
+nmap <CR> i<CR><Esc>
+"-------------------------------------------------------------------------------
+
+
+
+" "Backspace" Restore expected functionality to the Backspace key, while in
+" Normal mode. Such as backspacing the amount of shiftwidth.
+set backspace=indent,eol,start    " Sane backspacing in Insert mode
+nnoremap <BS> i<BS><Right><Esc>
+"-------------------------------------------------------------------------------
+
+
+
+" "Delete" In Normal mode we have the 'x' key to delete forward characters. In
+" Insert mode you have to stretch for the delete key, and to add insult to 
+" injury its location varies from keyboard to keyboard.
+inoremap <C-d> <Del>
+"-------------------------------------------------------------------------------
+
+
+
+" "Space" A sensible compromise for the ability to add a quick space whilst in
+" Normal mode, but not with the Space bar. This is to safe guard against
+" accidentally adding space in the middle of critical syntax. In addition to
+" the default Leader key, it is too easily accessible. So its mapped
+" to <leader> s <leader> which adds a space immediately. Alternatively,
+" <leader> s has a delayed effect.
+nnoremap <leader>ss i<Space><Esc>l
+"-------------------------------------------------------------------------------
+
+
+
+" "x Forward Delete" This gives the beloved 'x' key in Normal mode the ability
+" to wrap to the next line and continut deleting. I thought whichwrap would
+" offer this behavior but it desn't.
+nnoremap x i<Del><Esc>l
+"-------------------------------------------------------------------------------
 "===============================================================================
 " "}}}
+
+
 
 
 
@@ -648,7 +721,6 @@ vmap <M-l> dElp`[v`]
 "*******************************************************************************
 " NAVIGATION: "{{{5
 "*******************************************************************************
-
 " "Escape"
 " Escape from the dreaded Insert and Commandline modes to the graces of
 " the beloved Normal mode.
@@ -656,6 +728,7 @@ inoremap jj <Esc>
 inoremap JJ <Esc>
 cnoremap jj <C-c>
 cnoremap JJ <C-c>
+"-------------------------------------------------------------------------------
 "===============================================================================
 " "}}}
 
