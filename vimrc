@@ -398,7 +398,7 @@ set writebackup                   " Make a backup before overwriting a file
 if has("win32") || has("win64")
   set backupdir=$TMP              " TODO: Set for Windows and Mac environments
 else
-  set backupdir=$HOME/.vim/tmp/backups//
+  set backupdir=$HOME/.vim/local/tmp/backups//
 end
 "-------------------------------------------------------------------------------
 
@@ -411,7 +411,7 @@ set updatecount=100
 if has("win32") || has("win64")   " TODO: Set for Windows and Mac environments
   set directory=$TMP
 else
-  set directory=$HOME/.vim/tmp/swaps//
+  set directory=$HOME/.vim/local/tmp/swaps//
 end
 "-------------------------------------------------------------------------------
 
@@ -557,7 +557,7 @@ nmap Q gqap
 " "Undo (Gundo)" 250 levels of persistent undo.
 set undolevels=250     " Amount of undos you can do.
 set undofile
-set undodir=$HOME/.vim/tmp/undos//
+set undodir=$HOME/.vim/local/tmp/undos//
 nnoremap <leader>uu :GundoToggle<CR>
 "-------------------------------------------------------------------------------
 
