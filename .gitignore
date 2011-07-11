@@ -1,13 +1,11 @@
 # Ignore dev folder
 dev/
 
-# Ignore any swap or undo files
-.*.sw[a-z]
-*.un~
-
-# Ignore session files
-sessions/
+# Ignore Session.vim (Vim's built-in session manager)
 Session.vim
 
-# Ignore bundle folder (Which is managed by vundle)
-bundle
+# Ignore bundle folder (managed by Vundle)
+bundle/
+
+# Ignore local folder (user local settings)
+local/
