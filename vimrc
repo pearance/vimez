@@ -366,7 +366,7 @@ let g:BufKillOverrideCtrlCaret=1
 let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
 let g:session_default_to_last = 'yes'
-let g:session_directory = '$HOME/.vim/local/sessions/'
+let g:session_directory = '~/.vim/local/sessions/'
 nnoremap <leader>ws :SaveSession<CR>
 "-------------------------------------------------------------------------------
 

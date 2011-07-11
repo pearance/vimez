@@ -39,6 +39,13 @@ make
 cd
 echo -e "\nCompiled Command-T C extension successfully\n"
 
+# Create local Directory
+mkdir -p ~/.vim/local/sessions/
+mkdir -p ~/.vim/local/spell/
+mkdir -p ~/.vim/local/tmp/backups/
+mkdir -p ~/.vim/local/tmp/swaps/
+mkdir -p ~/.vim/local/tmp/undos/
+
 
 
 # Clean up
