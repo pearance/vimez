@@ -822,6 +822,19 @@ function! SummarizeTabs()
     echohl None
   endtry
 endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Spell Checking" Remember spelling bees? Make sure to update the spelllang to
+" your language. Custom words are tucked away in the .vim/spell folder. Leader
+" ts toggles dynamic spell checking.
+set nospell                             " Dynamic spell checking off by default
+set spelllang=en_us                     " Default language
+set spellsuggest=5                      " How many spelling suggestions to list
+set spellfile=~/.vim/spell/en.utf-8.add " Set spellchecker custom spell file
+nmap <leader>ts :setlocal spell! spelllang=en_us spelllang?<CR>
+"-------------------------------------------------------------------------------
 "===============================================================================
 " "}}}
 
