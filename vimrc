@@ -548,6 +548,7 @@ set fo+=1  " Don't break a line after a one-letter word.  It's broken before it
 set formatprg=par
 vmap Q gq
 nmap Q gqap
+"-------------------------------------------------------------------------------
 
 
 
@@ -774,6 +775,53 @@ nnoremap <leader>ss i<Space><Esc>l
 " to wrap to the next line and continut deleting.
 nnoremap x i<Del><Esc>l
 "-------------------------------------------------------------------------------
+
+
+
+" "Tab Indentation" Tab to indent one level and Shift-Tab to go back one 
+" level, based on
+" Tab settings. Acts on a single line while in Normal mode and blocks of text
+" while in Visual mode.
+set expandtab           " Expand tabs using spaces instead of a tab char
+set shiftwidth=2        " Amount of shift when in Normal mode
+set tabstop=2           " Number of spaces that a <Tab> in the file counts for.
+set softtabstop=2       " Set amount of spaces for a tab
+set smarttab            " Uses shiftwidth instead of tabstop at start of lines.
+set shiftround          " Use multiples of shiftwidth when indenting
+set autoindent          " Enable auto indentation
+set copyindent          " Copy the previous indentation on autoindenting
+nnoremap <Tab> i<Tab><Esc>l
+nnoremap <S-Tab> i<BS><Esc>l
+vmap <Tab> >gv
+vmap <S-Tab> <gv
+nnoremap <leader>tab :call Tab()<CR>
+
+command! -nargs=* Tab call Tab()
+function! Tab()
+  let l:tabstop = 1 * input('Set tab to = ')
+  if l:tabstop > 0
+    let &l:sts = l:tabstop
+    let &l:ts = l:tabstop
+    let &l:sw = l:tabstop
+  endif
+  call SummarizeTabs()
+endfunction
+  
+function! SummarizeTabs()
+  try
+    echohl ModeMsg
+    echon 'tabstop='.&l:ts
+    echon ' shiftwidth='.&l:sw
+    echon ' softtabstop='.&l:sts
+    if &l:et
+      echon ' expandtab'
+    else
+      echon ' noexpandtab'
+    endif
+  finally
+    echohl None
+  endtry
+endfunction
 "===============================================================================
 " "}}}
 
