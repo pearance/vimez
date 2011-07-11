@@ -365,6 +365,8 @@ let g:BufKillOverrideCtrlCaret=1
 " buffers, current directory, folds, help, options, tabs, window sizes.
 let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
+let g:session_default_to_last = 'yes'
+let g:session_directory = '$HOME/.vim/local/sessions/'
 nnoremap <leader>ws :SaveSession<CR>
 "-------------------------------------------------------------------------------
 
@@ -772,7 +774,7 @@ nnoremap <leader>ss i<Space><Esc>l
 
 
 " "x Forward Delete" This gives the beloved 'x' key in Normal mode the ability
-" to wrap to the next line and continut deleting.
+" to wrap to the next line and continue deleting.
 nnoremap x i<Del><Esc>l
 "-------------------------------------------------------------------------------
 
