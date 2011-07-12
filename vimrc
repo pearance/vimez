@@ -360,13 +360,17 @@ let g:BufKillOverrideCtrlCaret=1
 "-------------------------------------------------------------------------------
 
 
-
-" "Write Session (Vim-Session)" Save the current session. Including buffers, untitled blank
-" buffers, current directory, folds, help, options, tabs, window sizes.
+" "Sessions"
 let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
 let g:session_default_to_last = 'yes'
 let g:session_directory = '~/.vim/local/sessions/'
+"-------------------------------------------------------------------------------
+
+
+
+" "Write Session (Vim-Session)" Save the current session. Including buffers, untitled blank
+" buffers, current directory, folds, help, options, tabs, window sizes.
 nnoremap <leader>ws :SaveSession<CR>
 "-------------------------------------------------------------------------------
 
@@ -418,14 +422,14 @@ end
 
 
 " "Write and Quit All"
-nnoremap <leader>wqq :wqa<CR>
+nnoremap <leader>wqq :SaveSession<CR>:wqa<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Quit All" Simpler exit strategy, that prompts if there is any unsaved buffers
 " open.
-nmap <leader>qqq :qa<CR>
+nmap <leader>qqq :SaveSession<CR>:qa<CR>
 "-------------------------------------------------------------------------------
 "===============================================================================
 " "}}}
@@ -435,6 +439,9 @@ nmap <leader>qqq :qa<CR>
 
 
 
+"ln -s ~/.bash/.profile ~/.profile
+"ln -s ~/.bash/.bashrc ~/.bashrc
+"ln -s ~/.bash/.bash_aliases ~/.bash_aliases
 
 
 
@@ -445,7 +452,12 @@ nmap <leader>qqq :qa<CR>
 augroup FileTypes
 
   " "Shell Filetype" Automatically chmod +x Shell and Perl scripts
-  autocmd BufWritePost *.sh !chmod +x %
+  autocmd BufWritePost *.sh call Executable() 
+  function! Executable()
+    exe "silent! !chmod +x %" 
+    redraw!                     
+    call EchoMsg("Written as an executable shell script!")
+  endfunction
   "-------------------------------------------------------------------------------
   
   
@@ -467,10 +479,10 @@ augroup END
 
 
 
-"ladjfljf adjf al wjljl javascript the boy went to the store to buy or 
-"purchase a gallon of milk yanks You
-"dkfjdkl
-"dfjlkdsfj
+                                                                       
+                                    
+        
+          
 
 
 
@@ -775,7 +787,7 @@ nnoremap <leader>ss i<Space><Esc>l
 
 " "x Forward Delete" This gives the beloved 'x' key in Normal mode the ability
 " to wrap to the next line and continue deleting.
-nnoremap x i<Del><Esc>l
+"nnoremap x i<Del><Esc>l
 "-------------------------------------------------------------------------------
 
 
