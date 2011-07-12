@@ -960,6 +960,22 @@ nnoremap <leader>tl :setlocal list!<CR>
 
 
 
+" "Wraps"
+set nowrap              " Turn off wrapping of text
+set linebreak           " Wrap at word
+set textwidth=80        " Don't wrap lines by default
+set whichwrap+=b        " "]" Insert and Replace
+set whichwrap+=s        " "[" Insert and Replace
+set whichwrap+=h        " "~" Normal
+set whichwrap+=l        " <Right> Normal and Visual
+set whichwrap+=<        " <Left> Normal and Visual
+set whichwrap+=>        " "l" Normal and Visual (not recommended)
+set whichwrap+=~        " "h" Normal and Visual (not recommended)
+set whichwrap+=[        " <Space> Normal and Visual
+set whichwrap+=]        " <BS> Normal and Visual
+
+
+
 " "Highlight Trailing Whitespace" This will automatically highlight extra
 " whitespace at the end of lines. So you can either manually remove it or
 " trigger the StripTrailingWhiteSpace command via <F6>.
