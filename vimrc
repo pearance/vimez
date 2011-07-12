@@ -885,9 +885,18 @@ set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
 "-------------------------------------------------------------------------------
 
 
+
 " "Line Numbers"
 set relativenumber
+set numberwidth=5
+"-------------------------------------------------------------------------------
 
+
+
+" "Error Alerts"
+set noerrorbells        " No audible alerts on error
+set novisualbell        " No blinking on error
+"-------------------------------------------------------------------------------
 
 
 
