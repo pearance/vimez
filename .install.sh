@@ -2,7 +2,8 @@
 
 # Backup any remnants of an existing Vim install.
 mkdir -p ~/.vimez.backup
-for i in ~/.vim ~/.vimrc ~/.gvimrc
+cd ~
+for i in .vim .vimrc .gvimrc
   do [ -e $i ] && mv -f $i .vimez.backup/$i.vimez.bak
 done
 rm -f ~/.vimrc
