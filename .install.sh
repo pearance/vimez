@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # Backup any remnants of an existing Vim install.
+mkdir -p ~/.vimez.backup
 for i in ~/.vim ~/.vimrc ~/.gvimrc
-  do [ -e $i ] && mv -f $i $i.vimez.bak
+  do [ -e $i ] && mv -f $i .vimez.backup/$i.vimez.bak
 done
 rm -f ~/.vimrc
 rm -f ~/.gvimrc
@@ -17,8 +18,9 @@ echo -e "\nCloned VimEz successfully!\n"
 
 
 # Link to vimrc and gvimrc configuration files.
-ln -s ~/.vim/vimrc ~/.vimrc
-ln -s ~/.vim/gvimrc ~/.gvimrc
+cd ~
+ln -s .vim/vimrc .vimrc
+ln -s .vim/gvimrc .gvimrc
 echo -e "\nLinked to configuration files successfully!\n"
 
 
