@@ -421,15 +421,15 @@ end
 
 
 
-" "Write and Quit All"
+" "Write and Quit"
 nnoremap <leader>wqq :SaveSession<CR>:wqa<CR>
 "-------------------------------------------------------------------------------
 
 
 
-" "Quit All" Simpler exit strategy, that prompts if there is any unsaved buffers
+" "Quit" Simpler exit strategy, that prompts if there is any unsaved buffers
 " open.
-nmap <leader>qqq :SaveSession<CR>:qa<CR>
+nmap <leader>qqq :qa<CR>
 "-------------------------------------------------------------------------------
 "===============================================================================
 " "}}}
