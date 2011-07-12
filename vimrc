@@ -24,7 +24,7 @@
 
 
 
-" "Initialization" 
+" "Initialization"
 source $HOME/.vim/initrc    " Include dependent plugin bundles.
 runtime $VIMRUNTIME/macros/matchit.vim
 runtime $VIMRUNTIME/ftplugin/man.vim
@@ -36,7 +36,7 @@ runtime $VIMRUNTIME/ftplugin/man.vim
 " GENERAL SETTINGS: "{{{1
 "*******************************************************************************
 " "Color Scheme"
-set background=dark         " Use a dark background. 
+set background=dark         " Use a dark background.
 set t_Co=256                " Force terminal to go into 256 color mode.
 colorscheme vimez	    " Default color scheme for the VimEz distribution.
 syntax on		    " Syntax highlighting on.
@@ -44,7 +44,7 @@ syntax on		    " Syntax highlighting on.
 
 
 
-" "Leader Key" 
+" "Leader Key"
 let mapleader="\<Space>"    " Map personal modifier aka Leader key.
 "-------------------------------------------------------------------------------
 
@@ -58,7 +58,7 @@ noremap ;; ;
 
 
 " "History"
-set history=256        " Amount of commands and searches to keep in history.
+set history=250        " Amount of commands and searches to keep in history.
 "-------------------------------------------------------------------------------
 
 
@@ -91,11 +91,11 @@ endif
 " "Restore Cursor Position" Restore original cursor position when reopening a file.
 augroup RestorCursor
   autocmd!
-  autocmd BufReadPost * 
-  \ if line("'\"") > 1 && line("'\"") <= line("$") | 
-  \   exe "normal! g'\"" | 
+  autocmd BufReadPost *
+  \ if line("'\"") > 1 && line("'\"") <= line("$") |
+  \   exe "normal! g'\"" |
   \ endif
-augroup END  
+augroup END
 "-------------------------------------------------------------------------------
 
 
@@ -116,15 +116,14 @@ set timeoutlen=500
 
 
 " "Mouse"
-set mouse=a                       " Onable mouse usage (all modes)
+set mouse=a                       " Enable mouse usage (all modes)
 set selectmode=mouse              " Selection with the mouse trigers Select mode
 set ttymouse=xterm2               " Enable basic mouse functionality in a terminal
-"map <MouseMiddle> <esc>"*p	  " TODO: requires more testing
 "-------------------------------------------------------------------------------
 
 
 " "Update Time" How frequent marks, statusbar, swap files, and other are updated.
-set updatetime=1000 
+set updatetime=1000
 "-------------------------------------------------------------------------------
 
 
@@ -163,7 +162,7 @@ nnoremap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
 
 
 
-" "Reload Vim"
+  " "Reload Vim"
 map <F5> :call GlobalReload()<CR>
 
 function! GlobalReload()
@@ -259,7 +258,7 @@ nnoremap <silent> <leader>kk :CommandT<CR>
 " "New Buffer"
 nnoremap <leader>nb :enew<CR>
 "-------------------------------------------------------------------------------
-  
+
 
 
 " "Write Buffer"
@@ -297,7 +296,7 @@ nnoremap <silent> <leader>co :BufOnly<CR>
 
 
 
-" "Close All" 
+" "Close All"
 nnoremap <silent> <leader>ca :exec "1," . bufnr('$') . "bd"<CR>
 "-------------------------------------------------------------------------------
 
@@ -312,7 +311,7 @@ nnoremap <silent> <leader>uc :BUNDO<CR>
 " "Write on Focus Lost" Write all buffers to file upon leaving buffer
 " (gvim only).
 augroup FocusLost
-  autocmd!	
+  autocmd!
   autocmd FocusLost * silent! wa
 augroup END
 "-------------------------------------------------------------------------------
@@ -361,7 +360,7 @@ let g:BufKillOverrideCtrlCaret=1
 
 
 " "Sessions"
-let g:session_autosave = 'yes'
+"let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
 let g:session_default_to_last = 'yes'
 let g:session_directory = '~/.vim/local/sessions/'
@@ -452,26 +451,27 @@ nmap <leader>qqq :qa<CR>
 augroup FileTypes
 
   " "Shell Filetype" Automatically chmod +x Shell and Perl scripts
-  autocmd BufWritePost *.sh call Executable() 
+  autocmd BufWritePost *.sh call Executable()
   function! Executable()
-    exe "silent! !chmod +x %" 
-    redraw!                     
+    exe "silent! !chmod +x %"
+    redraw!
     call EchoMsg("Written as an executable shell script!")
   endfunction
   "-------------------------------------------------------------------------------
-  
-  
-  
+
+
+
   " "Template Filetype" Make the template .tpl files behave like html files
   autocmd BufNewFile,BufRead *.tpl set filetype=html
   "-------------------------------------------------------------------------------
-  
-  
+
+
+
   " "Drupal Module Filetypes" *.module and *.install files.
   autocmd BufRead,BufNewFile *.module set filetype=php
   autocmd BufRead,BufNewFile *.install set filetype=php
   autocmd BufRead,BufNewFile *.test set filetype=php
-  
+
 augroup END
 "-------------------------------------------------------------------------------
 "===============================================================================
@@ -479,10 +479,10 @@ augroup END
 
 
 
-                                                                       
-                                    
-        
-          
+
+
+
+
 
 
 
@@ -504,7 +504,7 @@ set fo-=t  " Auto-wrap text using textwidth
 set fo+=c  " Auto-wrap comments using textwidth, inserting the current comment
            " leader automatically.
 set fo+=r  " Automatically insert the current comment leader after hitting
-	   " <Enter> in Insert mode.
+           " <Enter> in Insert mode.
 set fo-=o  " Automatically insert the current comment leader after hitting 'o' or
            " 'O' in Normal mode.
 set fo+=q  " Allow formatting of comments with 'gq'.
@@ -577,27 +577,27 @@ nnoremap <leader>uu :GundoToggle<CR>
 
 " "Autocompletion/Snippets (NeoComplCache)"
 " Autocompletion General Settings
-set complete+=.		" Scan the current buffer ('wrapscan' is ignored)
-set complete+=w		" Scan buffers from other windows
-set complete+=b		" Scan other loaded buffers that are in the buffer list
-set complete+=u		" Scan the unloaded buffers that are in the buffer list
-set complete+=U		" Scan the buffers that are not in the buffer list
-set complete-=k		" Scan the files given with the 'dictionary' option
-set complete-=kspell  	" Use the currently active spell checking |spell|
-set complete-=k{dict}   " Scan the file {dict}.  Several "k" flags can be given,
-                      	" patterns are valid too.  For example:
-                      	" 	:set cpt=k/usr/dict/*,k~/spanish
-set complete-=s		" Scan the files given with the 'thesaurus' option
+set complete+=.		    " Scan the current buffer ('wrapscan' is ignored)
+set complete+=w		    " Scan buffers from other windows
+set complete+=b		    " Scan other loaded buffers that are in the buffer list
+set complete+=u		    " Scan the unloaded buffers that are in the buffer list
+set complete+=U		    " Scan the buffers that are not in the buffer list
+set complete-=k		    " Scan the files given with the 'dictionary' option
+set complete-=kspell  " Use the currently active spell checking |spell|
+set complete-=k{dict} " Scan the file {dict}.  Several "k" flags can be given,
+                      " patterns are valid too.  For example:
+                      " 	:set cpt=k/usr/dict/*,k~/spanish
+set complete-=s		    " Scan the files given with the 'thesaurus' option
 set complete-=s{tsr}	" Scan the file {tsr}.  Several "s" flags can be given, patterns
-                        " Are valid too.
-set complete+=i		" Scan current and included files
-set complete-=d		" Scan current and included files for defined name or macro
-                	" |i_CTRL-X_CTRL-D|
-set complete-=]		" Tag completion
-set complete+=t		" Same as "]"
+                      " Are valid too.
+set complete+=i		    " Scan current and included files
+set complete-=d		    " Scan current and included files for defined name or macro
+                	    " |i_CTRL-X_CTRL-D|
+set complete-=]		    " Tag completion
+set complete+=t		    " Same as "]"
 
-set infercase   	" Match is adjusted depending on the typed text.
-set pumheight=15        " Pop up menu height in lines
+set infercase   	    " Match is adjusted depending on the typed text.
+set pumheight=15      " Pop up menu height in lines
 
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_disable_auto_complete = 0
@@ -653,9 +653,9 @@ let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
 " Configure Mappings
-imap <expr><Tab> 
-  \ neocomplcache#sources#snippets_complete#expandable() ? 
-  \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? 
+imap <expr><Tab>
+  \ neocomplcache#sources#snippets_complete#expandable() ?
+  \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ?
   \ "\<C-n>" : "\<Tab>"
 inoremap <expr><C-z> neocomplcache#undo_completion()
 inoremap <expr><BS>  neocomplcache#smart_close_popup()."\<C-h>"
@@ -731,7 +731,7 @@ nnoremap <silent>_ m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 nnoremap <silent>= :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent>+ :set paste<CR>m`O<Esc>``:set nopaste<CR>
 "-------------------------------------------------------------------------------
-        
+
 
 
 " "Blank Current Line" Delete line without copying its contents into a
@@ -767,7 +767,7 @@ nnoremap <BS> i<BS><Right><Esc>
 
 
 " "Delete" In Normal mode we have the 'x' key to delete forward characters. In
-" Insert mode you have to stretch for the delete key, and to add insult to 
+" Insert mode you have to stretch for the delete key, and to add insult to
 " injury its location varies from keyboard to keyboard.
 inoremap <C-d> <Del>
 "-------------------------------------------------------------------------------
@@ -792,7 +792,7 @@ nnoremap <leader>ss i<Space><Esc>l
 
 
 
-" "Tab Indentation" Tab to indent one level and Shift-Tab to go back one 
+" "Tab Indentation" Tab to indent one level and Shift-Tab to go back one
 " level, based on
 " Tab settings. Acts on a single line while in Normal mode and blocks of text
 " while in Visual mode.
@@ -820,7 +820,7 @@ function! Tab()
   endif
   call SummarizeTabs()
 endfunction
-  
+
 function! SummarizeTabs()
   try
     echohl ModeMsg
@@ -848,6 +848,49 @@ set spelllang=en_us                     " Default language
 set spellsuggest=5                      " How many spelling suggestions to list
 set spellfile=~/.vim/spell/en.utf-8.add " Set spellchecker custom spell file
 nmap <leader>ts :setlocal spell! spelllang=en_us spelllang?<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Strip Trailing Whitespace" Quickly remove trailing whitespace via <F6>.
+function! <SID>StripTrailingWhitespaces()
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    let @/=_s
+    call cursor(l, c)
+endfunction
+nnoremap <silent> <F6> :call <SID>StripTrailingWhitespaces()<CR>
+"-------------------------------------------------------------------------------
+"===============================================================================
+" "}}}
+
+
+
+
+
+
+
+
+
+
+"*******************************************************************************
+" VIEW: "{{{4
+"*******************************************************************************
+
+
+
+
+" "Highlight Trailing Whitespace" This will automatically highlight extra
+" whitespace at the end of lines. So you can either manually remove it or
+" trigger the StripTrailingWhiteSpace command via <F6>.
+highlight ExtraWhitespace ctermbg=yellow guibg=yellow
+match ExtraWhitespace /\s\+$/
+au BufWinEnter * match ExtraWhitespace /\s\+$/
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhitespace /\s\+$/
+au BufWinLeave * call clearmatches()
 "-------------------------------------------------------------------------------
 "===============================================================================
 " "}}}
