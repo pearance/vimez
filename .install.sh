@@ -12,6 +12,7 @@ echo -e "\nBackedup existing Vim install successfully!\n"
 
 
 # Clone VimEz
+rm -rf ~/.vim
 git clone git@github.com:VimEz/VimEz.git ~/.vim
 echo -e "\nCloned VimEz successfully!\n"
 
