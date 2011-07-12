@@ -559,7 +559,7 @@ set fo+=1  " Don't break a line after a one-letter word.  It's broken before it
 
 
 " "Paragraph Formatting"
-set formatprg=par
+"set formatprg=par
 vmap Q gq
 nmap Q gqap
 "-------------------------------------------------------------------------------
@@ -937,8 +937,26 @@ set shortmess+=t        " Truncate file message at the start if it is too long t
 set shortmess-=T        " Truncate other messages in the middle if they are too long to
                         " fit on the command line.  "..." will appear in the middle.
 set shortmess-=W        " Don't give "written" or "[w]" when writing a file
-set shortmess-=A        " Don't give the "ATTENTION" message when an existing swap file is found.
+set shortmess-=A        " Don't give the "ATTENTION" message when an existing
+                        " swap file is found.
 set shortmess+=I        " Don't give the intro message when starting Vim |:intro|.
+"-------------------------------------------------------------------------------
+
+
+
+" "Invisible Characters" This controls non-printable characters that denote
+" certain formatting information. Such as eol, tabs, trailing space, etc. You
+" can specify which characters to use as well.By default invisible characters
+" are off and can be toggle on via Leader ti.
+set nolist                    " Don't show non-printable character by default
+set listchars+=eol:~
+set listchars+=tab:>-
+set listchars+=trail:.
+set listchars+=extends:>
+set listchars+=precedes:<
+set listchars+=nbsp:%
+nnoremap <leader>tl :setlocal list!<CR>
+"-------------------------------------------------------------------------------
 
 
 
