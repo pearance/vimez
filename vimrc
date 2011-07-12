@@ -976,6 +976,41 @@ set whichwrap+=]        " <BS> Normal and Visual
 
 
 
+" "Status Bar"
+set showmode                      " Message on status line to show current mode
+set showcmd                       " Show (partial) command in states line
+set laststatus=2                  " Tells when last window has status lines
+set cmdheight=1                   " Number of lines to use for the command-line
+set lazyredraw                    " Don't redraw while executing macros
+set statusline=\ \ \ \%f%m%r\ \ \ \%h%w\ \ \ \[%{&ff}]\ \%y\ \%=\ Line:%02l\/\%L\ \ \Column:%02v\ \ \Fold:%{foldlevel('.')}\ \ \ |
+"                     | | |         | |         |         |               |                 |              |
+"                     | | |         | |         |         |               |                 |              + Fold level
+"                     | | |         | |         |         |               |                 +-- Current column
+"                     | | |         | |         |         |               +--Current line
+"                     | | |         | |         |         +--  Current syntax in square brackets
+"                     | | |         | |         +-- Current fileformat
+"                     | | |         | +-- Preview flag in square brackets
+"                     | | |         +-- Help flag in square brackets
+"                     | | +-- Readonly flag in square brackets
+"                     | +-- Modified flag in square brackets
+"                     +-- Full path to file in the buffer
+
+
+
+" "Mode Indicators" This specifies which color to change the cursor line and
+" status bar to when you enter into Insert modes and back to Normal mode. As
+" well as to temporarily turn off search highlighting when in Insert mode and
+" back on after escaping.
+au InsertLeave * hi StatusLine guifg=#87FF00  guibg=#080808                   ctermfg=232   ctermbg=118
+au InsertLeave * hi Cursorline                guibg=#1C1C1C   gui=NONE        ctermfg=NONE  ctermbg=234   cterm=NONE   guisp=#FF0087
+au InsertLeave * setlocal invhlsearch
+
+au InsertEnter * hi StatusLine guifg=#FF0087  guibg=#080808                   ctermfg=232   ctermbg=197
+au InsertEnter * hi Cursorline                guibg=#303030   gui=underline   ctermfg=NONE  ctermbg=NONE  cterm=underline term=underline
+au InsertEnter * setlocal invhlsearch
+
+
+
 " "Highlight Trailing Whitespace" This will automatically highlight extra
 " whitespace at the end of lines. So you can either manually remove it or
 " trigger the StripTrailingWhiteSpace command via <F6>.
