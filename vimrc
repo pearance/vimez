@@ -900,6 +900,20 @@ set novisualbell        " No blinking on error
 
 
 
+" "Cursor Hightlights" This helps maintain your bearings by highlighting the
+" current line the cursor is on as well as the current column. You can Toggle
+" Cursor Hightlights with Leader tch.
+set cursorline          " Enable cursor line hightlight
+set cursorcolumn        " Enable cursor column hightligh
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
+autocmd WinEnter * setlocal cursorcolumn
+autocmd WinLeave * setlocal nocursorcolumn
+nmap <leader>tch :setlocal cursorline! cursorcolumn!<CR>
+"-------------------------------------------------------------------------------
+
+
+
 " "Highlight Trailing Whitespace" This will automatically highlight extra
 " whitespace at the end of lines. So you can either manually remove it or
 " trigger the StripTrailingWhiteSpace command via <F6>.
