@@ -878,6 +878,15 @@ nnoremap <silent> <F6> :call <SID>StripTrailingWhitespaces()<CR>
 "*******************************************************************************
 " VIEW: "{{{4
 "*******************************************************************************
+" "Title Bar" Set title bar to display current file, path, and server
+" hostname.
+set title
+set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
+"-------------------------------------------------------------------------------
+
+
+" "Line Numbers"
+set relativenumber
 
 
 
