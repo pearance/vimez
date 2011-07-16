@@ -1,3 +1,18 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 " Name: VimEz initrc
 " Description: A robust Vim IDE distribution.
 " Maintainer: Fontaine Cook <fontaine.cook@pearance.com
@@ -62,4 +77,4 @@ filetype plugin indent on         " Automatically detect file types.
 
 
 
-" vim: set syntax=vim:
+" vim: set ft=vim:
