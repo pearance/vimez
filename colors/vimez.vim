@@ -2,7 +2,7 @@
 "
 " Author: Fontaine Cook <fontaine.cook@pearance.com>
 "
-" Note: Based on the molokai color scheme by Tomas Restrepo
+" Description: Based on the molokai color scheme by Tomas Restrepo
 " which was based on the monokai theme for textmate
 " by Wimer Hazenberg and its darker variant
 " by Hamish Stuart Macpherson
@@ -13,7 +13,6 @@ set background=dark
 syntax reset
 
 let g:colors_name="vimez"
-" Confirmed
 " #D7D787:186 - tan
 " #FF0087:197 - hot pink
 " #87FF00:118 - neon green
@@ -25,6 +24,7 @@ let g:colors_name="vimez"
 " "General Syntax"
 hi Normal           guifg=#CCCCCC guibg=#121212
 hi NonText          guifg=#444444 guibg=#121212
+"-------------------------------------------------------------------------------
 
 
 
@@ -37,15 +37,49 @@ hi LineNr           guifg=#606060 guibg=#262626
 hi VertSplit        guifg=#87FF00 guibg=#121212 gui=bold
 hi Visual                         guibg=#303030
 hi VisualNOS                      guibg=#403D3D
-hi WildMenu         guifg=#5FD7FF guibg=#000000
+hi WildMenu         guifg=#080808 guibg=#5fd700 gui=bold
 hi Title            guifg=#ef5939
-hi Todo             guifg=#FFFFFF guibg=bg      gui=bold
+hi Todo             guifg=#FFFF00 guibg=bg      gui=bold
+"-------------------------------------------------------------------------------
+
+
+
+" "Status Line"
+hi StatusLine       guifg=#1C1C1C guibg=#87FF00
+hi StatusLineNC     guifg=#1C1C1C guibg=#87FF00
+" Normal
+hi User1            guifg=#1C1C1C guibg=#87FF00 gui=bold
+" Dimmed
+hi User2            guifg=#5F5F00 guibg=#87FF00
+" Non-Current
+hi User3            guifg=#303030 guibg=#1C1C1C
+"-------------------------------------------------------------------------------
+
+
+
+" "Insert Mode Indicator" This specifies which color to change the cursor line
+" and status bar to when you enter into Insert modes and back to Normal mode. As
+" well as to temporarily turn off search highlighting when in Insert mode and
+" back on after escaping.
+au InsertEnter * hi User1 guifg=#1C1C1C guibg=#FF005F ctermfg=234 ctermbg=197
+au InsertEnter * hi User2 guifg=#FF005F guibg=#FF005F ctermfg=197 ctermbg=197
+au InsertEnter * hi Cursorline guifg=NONE guibg=NONE gui=underline
+au InsertEnter * hi Cursorline ctermfg=NONE ctermbg=NONE cterm=underline term=underline
+au InsertEnter * setlocal invhlsearch
+
+au InsertLeave * hi User1 guifg=#1C1C1C guibg=#87FF00 ctermfg=234 ctermbg=118
+au InsertLeave * hi User2 guifg=#5F5F00 guibg=#87FF00 ctermfg=58 ctermbg=118
+au InsertLeave * hi Cursorline guifg=NONE guibg=#87FF00 guisp=#FF0087
+au InsertLeave * hi Cursorline ctermfg=NONE ctermbg=234 cterm=NONE
+au InsertLeave * setlocal invhlsearch
+"-------------------------------------------------------------------------------------------------------------------------------
 
 
 
 " "Search & Aids"
 hi Search           guifg=#FFFFFF guibg=#455354
 hi IncSearch        guifg=#C4BE89 guibg=#000000
+"-------------------------------------------------------------------------------
 
 
 
@@ -54,12 +88,14 @@ hi DiffAdd                        guibg=#13354A
 hi DiffChange       guifg=#89807D guibg=#4C4745
 hi DiffDelete       guifg=#960050 guibg=#1E0010
 hi DiffText                       guibg=#4C4745 gui=italic,bold
+"-------------------------------------------------------------------------------
 
 
 
 " "Folds & Aids"
 hi FoldColumn       guifg=#465457 guibg=#262626
 hi Folded           guifg=#465457 guibg=#000000
+"-------------------------------------------------------------------------------
 
 
 
@@ -75,16 +111,10 @@ hi SpellLocal       guisp=#70F0F0 gui=undercurl
 hi SpellRare        guisp=#FFFFFF gui=undercurl
 hi Statement        guifg=#FF0087               gui=bold
 hi StorageClass     guifg=#FD971F               gui=italic
-hi Structure        guifg=#5FD7FF
+hi Structure        guifg=#5FD7F
 hi Tag              guifg=#FF0087               gui=italic
+"-------------------------------------------------------------------------------
 
-
-" "Status Line"
-hi clear StatusLine
-hi clear StatusLineNC
-hi StatusLine       guifg=#080808 guibg=#87FF00 gui=bold
-hi StatusLineNC     guifg=#87FF00 guibg=#1C1C1C
-hi User1            guifg=red     guibg=#87FF00 gui=bold
 
 
 " "Autocomplete Menu"
@@ -92,6 +122,7 @@ hi Pmenu            guifg=#5FD7FF guibg=#444444
 hi PmenuSel                       guibg=#808080
 hi PmenuSbar                      guibg=#080808
 hi PmenuThumb       guifg=#5FD7FF
+"-------------------------------------------------------------------------------
 
 
 
@@ -100,6 +131,7 @@ hi ModeMsg          guifg=#D7D787 guibg=bg
 hi ErrorMsg         guifg=#FF0000 guibg=bg      gui=bold
 hi MoreMsg          guifg=#D7D787 guibg=bg
 hi WarningMsg       guifg=#FFFF87 guibg=bg      gui=bold
+"-------------------------------------------------------------------------------
 
 
 
@@ -134,6 +166,22 @@ hi Repeat           guifg=#FF0087               gui=bold
 hi Typedef          guifg=#5FD7FF
 hi Type             guifg=#5FD7FF               gui=none
 hi Underlined       guifg=#808080               gui=underline
+"-------------------------------------------------------------------------------
 
-
-
+" TODO: Diff
+"The diffs are highlighted with these groups:
+"
+"|hl-DiffAdd|  DiffAdd   Added (inserted) lines.  These lines exist in
+"        this buffer but not in another.
+"|hl-DiffChange| DiffChange  Changed lines.
+"|hl-DiffText| DiffText  Changed text inside a Changed line.  Vim
+"        finds the first character that is different,
+"        and the last character that is different
+"        (searching from the end of the line).  The
+"        text in between is highlighted.  This means
+"        that parts in the middle that are still the
+"        same are highlighted anyway.  Only "iwhite" of
+"        'diffopt' is used here.
+"|hl-DiffDelete| DiffDelete  Deleted lines.  Also called filler lines,
+"        because they don't really exist in this
+"        buffer.
