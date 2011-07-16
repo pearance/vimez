@@ -103,6 +103,7 @@ augroup END
 " "Performance Tweaks"
 set ttyfast            " Indicates a fast terminal connection.
 set synmaxcol=2048     " Prevent long lines from slowing down redraws.
+set lazyredraw                    " Don't redraw while executing macros.
 "-------------------------------------------------------------------------------
 
 
@@ -116,15 +117,16 @@ set timeoutlen=500
 
 
 " "Mouse"
-set mouse=a                       " Enable mouse usage (all modes)
-set selectmode=mouse              " Selection with the mouse trigers Select mode
-set ttymouse=xterm2               " Enable basic mouse functionality in a terminal
+"set mouse=a                     " Enable mouse usage (all modes)
+"set selectmode=mouse            " Selection with the mouse trigers Select mode
+"set ttymouse=xterm2             " Enable basic mouse functionality in
+"a terminal
 "-------------------------------------------------------------------------------
 
 
 " "Update Time" How frequent marks, statusbar, swap files, and other are updated.
-set updatetime=1000
 "-------------------------------------------------------------------------------
+set updatetime=1000
 
 
 
@@ -163,19 +165,19 @@ nnoremap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
 
 
   " "Reload Vim"
-map <F5> :call GlobalReload()<CR>
+map <F5> :so $MYVIMRC<CR>
 
 function! GlobalReload()
   for server in split(serverlist())
     call remote_send(server, '<Esc>:source $MYVIMRC<CR>')
   endfor
-  call EchoMsg('Reloaded Global Instances of Vim!')
+  call EMsg('Reloaded Global Instances of Vim!')
 endfunction
 
 augroup LocalReload
   autocmd!
   autocmd bufwritepost .vimrc source $MYVIMRC | exe 'CSApprox' | nohlsearch
-  autocmd bufwritepost .vimrc call EchoMsg('Reloaded Local Instance of Vim!')
+  autocmd bufwritepost .vimrc call EMsg('Reloaded Local Instance of Vim!')
 augroup END
 "-------------------------------------------------------------------------------
 
@@ -183,7 +185,7 @@ augroup END
 
 " "Echo Message" EchoMsg() prints [long] message up to (&columns-1) length
 " guaranteed without "Press Enter" prompt.
-function! EchoMsg(msg)
+function! EMsg(msg)
   let x=&ruler | let y=&showcmd
   set noruler noshowcmd
   redraw
@@ -278,8 +280,9 @@ nnoremap <silent> <leader>wa :wall<CR>:exe ":echo 'All buffers saved to files!'"
 
 
 
-" "Close Buffer (BufKill)"
-nnoremap <silent> <leader>cb :BD<CR>
+" "Close Buffer (BufKill)" The i<Space><Esc> is required by an empty buffer
+" created by enew in order to close it and remove it form the buffer list.
+nnoremap <silent> <leader>cb i<Space><Esc><Bar>:BD<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -360,8 +363,8 @@ let g:BufKillOverrideCtrlCaret=1
 
 
 " "Sessions"
-"let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
+let g:session_autosave = 'yes'
 let g:session_default_to_last = 'yes'
 let g:session_directory = '~/.vim/local/sessions/'
 "-------------------------------------------------------------------------------
@@ -455,7 +458,7 @@ augroup FileTypes
   function! Executable()
     exe "silent! !chmod +x %"
     redraw!
-    call EchoMsg("Written as an executable shell script!")
+    call EMsg("Written as an executable shell script!")
   endfunction
   "-------------------------------------------------------------------------------
 
@@ -809,10 +812,11 @@ nnoremap <S-Tab> i<BS><Esc>l
 vmap <Tab> >gv
 vmap <S-Tab> <gv
 nnoremap <leader>tab :call Tab()<CR>
+nnoremap <silent> <leader>tt :set expandtab!<CR>
 
 command! -nargs=* Tab call Tab()
 function! Tab()
-  let l:tabstop = 1 * input('Set tab to = ')
+  let l:tabstop = 1 * input('Tab Size: ')
   if l:tabstop > 0
     let &l:sts = l:tabstop
     let &l:ts = l:tabstop
@@ -847,7 +851,7 @@ set nospell                             " Dynamic spell checking off by default
 set spelllang=en_us                     " Default language
 set spellsuggest=5                      " How many spelling suggestions to list
 set spellfile=~/.vim/spell/en.utf-8.add " Set spellchecker custom spell file
-nmap <leader>ts :setlocal spell! spelllang=en_us spelllang?<CR>
+nmap <silent> <leader>ts :setlocal spell! spelllang=en_us<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -878,10 +882,10 @@ nnoremap <silent> <F6> :call <SID>StripTrailingWhitespaces()<CR>
 "*******************************************************************************
 " VIEW: "{{{4
 "*******************************************************************************
-" "Title Bar" Set title bar to display current file, path, and server
-" hostname.
+" "Title Bar" Set title bar to display current file, path, and server hostname.
 set title
-set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
+set titlestring=%t%(%{Statusline_filestate()}%)%(\
+\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
 "-------------------------------------------------------------------------------
 
 
@@ -973,41 +977,56 @@ set whichwrap+=>        " "l" Normal and Visual (not recommended)
 set whichwrap+=~        " "h" Normal and Visual (not recommended)
 set whichwrap+=[        " <Space> Normal and Visual
 set whichwrap+=]        " <BS> Normal and Visual
+"-------------------------------------------------------------------------------
 
 
 
-" "Status Bar"
-set showmode                      " Message on status line to show current mode
-set showcmd                       " Show (partial) command in states line
-set laststatus=2                  " Tells when last window has status lines
-set cmdheight=1                   " Number of lines to use for the command-line
-set lazyredraw                    " Don't redraw while executing macros
-set statusline=\ \ \ \%f%m%r\ \ \ \%h%w\ \ \ \[%{&ff}]\ \%y\ \%=\ Line:%02l\/\%L\ \ \Column:%02v\ \ \Fold:%{foldlevel('.')}\ \ \ |
-"                     | | |         | |         |         |               |                 |              |
-"                     | | |         | |         |         |               |                 |              + Fold level
-"                     | | |         | |         |         |               |                 +-- Current column
-"                     | | |         | |         |         |               +--Current line
-"                     | | |         | |         |         +--  Current syntax in square brackets
-"                     | | |         | |         +-- Current fileformat
-"                     | | |         | +-- Preview flag in square brackets
-"                     | | |         +-- Help flag in square brackets
-"                     | | +-- Readonly flag in square brackets
-"                     | +-- Modified flag in square brackets
-"                     +-- Full path to file in the buffer
+" "Status Line"
+set showmode                      " Message on status line to show current mode.
+set showcmd                       " Show (partial) command in states line.
+set laststatus=2                  " Keep status lines visible at all times.
+set cmdheight=1                   " Number of lines to use for the command-line.
 
+set statusline=
+set stl+=%#User1#                             " Normal
+set stl+=\                                    " Space
+set stl+=%t                                   " Filename
+set stl+=%w                                   " Preview flag
+set stl+=%{Statusline_filestate()}            " File status
+set stl+=%#User2#                             " Dimmed
+set stl+=\                                    " Space
+set stl+=\                                    " Space
+set stl+=\                                    " Space
+set stl+=[                                    " Open Bracket
+set stl+=%{Statusline_filetype()}\/           " File type
+set stl+=%{Statusline_fileencoding()}\/       " File encoding
+set stl+=%{Statusline_fileformat()}           " File format
+set stl+=]                                    " Close Bracket
+set stl+=%=                                   " Align right
+set stl+= " %2*%{Statusline_diffmode()}       " TODO: Needs work!
+set stl+= " TODO: scrollbind flag
+set stl+= " TODO: capslock flag
+set stl+=[                                    " Divider
+set stl+=%{Statusline_expandtab()}            " Soft tab flag
+set stl+=%{Statusline_tabstop()}              " Tab size
+set stl+=]                                    " Divider
+set stl+=\                                    " Space
+set stl+=\                                    " Space
+set stl+=\                                    " Space
+set stl+=%#User1#                             " Strong
+set stl+=%05(C:%v%)                           " Current column
+set stl+=\                                    " Space
+set stl+=%06(L:%l%)                           " Current line
+set stl+=%<                                   " Truncate
 
-
-" "Mode Indicators" This specifies which color to change the cursor line and
-" status bar to when you enter into Insert modes and back to Normal mode. As
-" well as to temporarily turn off search highlighting when in Insert mode and
-" back on after escaping.
-au InsertLeave * hi StatusLine guifg=#87FF00  guibg=#080808                   ctermfg=232   ctermbg=118
-au InsertLeave * hi Cursorline                guibg=#1C1C1C   gui=NONE        ctermfg=NONE  ctermbg=234   cterm=NONE   guisp=#FF0087
-au InsertLeave * setlocal invhlsearch
-
-au InsertEnter * hi StatusLine guifg=#FF0087  guibg=#080808                   ctermfg=232   ctermbg=197
-au InsertEnter * hi Cursorline                guibg=#303030   gui=underline   ctermfg=NONE  ctermbg=NONE  cterm=underline term=underline
-au InsertEnter * setlocal invhlsearch
+let g:Active_statusline=&g:statusline
+let g:NCstatusline=substitute(
+  \                substitute(g:Active_statusline,
+  \                'User1', 'User3', 'g'),
+  \                'User2', 'User3', 'g')
+au WinEnter,BufEnter * let&l:statusline = g:Active_statusline
+au WinLeave * let&l:statusline = g:NCstatusline
+"-------------------------------------------------------------------------------
 
 
 
@@ -1021,7 +1040,6 @@ au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhitespace /\s\+$/
 au BufWinLeave * call clearmatches()
 "-------------------------------------------------------------------------------
-"===============================================================================
 " "}}}
 
 
@@ -1044,7 +1062,6 @@ inoremap JJ <Esc>
 cnoremap jj <C-c>
 cnoremap JJ <C-c>
 "-------------------------------------------------------------------------------
-"===============================================================================
 " "}}}
 
 
@@ -1056,3 +1073,96 @@ cnoremap JJ <C-c>
 
 
 
+"*******************************************************************************
+" FUNCTIONS: "{{{15
+"*******************************************************************************
+" "File Status"
+function! Statusline_filestate()
+  " Writable
+  if &readonly || &buftype == "nowrite" || &buftype == "help"
+    return '^'
+  " Modified
+  elseif &modified != 0
+    return '*'
+  " Unmodified
+  else
+    return ' '
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "File Type"
+function! Statusline_filetype()
+  if &filetype == ""
+    return "Plain\ Text"
+  else
+    "let vimez_filetype = substitute(&filetype, "\\w\\+", "\\U\\0", "g")
+    return &filetype
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "File Encoding"
+function! Statusline_fileencoding()
+  if &fileencoding == ""
+    if &encoding != ""
+      "let vimez_encoding = substitute(&encoding, "\\w\\+", "\\U\\0", "g")
+      return &encoding
+    else
+      return "--"
+    endif
+  else
+    "let vimez_fileencoding = substitute(&fileencoding, "\\w\\+", "\\U\\0", "g")
+    return &fileencoding
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "File Format"
+function! Statusline_fileformat()
+  if &fileformat == ""
+    return "--"
+  else
+    "let vimez_fileformat = substitute(&fileformat, "\\w\\+", "\\U\\0", "g")
+    return &fileformat
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Expand Tab"
+function! Statusline_expandtab()
+  if &expandtab == 0
+    return ""
+  else
+    return "Soft\ "
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Tabstop and Soft Tabstop"
+function! Statusline_tabstop()
+  let str = "Tab:" . &tabstop
+  " Show softtabstop or shiftwidth if not equal tabstop
+  if   (&softtabstop && (&softtabstop != &tabstop))
+  \ || (&shiftwidth  && (&shiftwidth  != &tabstop))
+    let str = "TS:" . &tabstop
+    if &softtabstop
+      let str = str . "\ STS:" . &softtabstop
+    endif
+    if &shiftwidth != &tabstop
+      let str = str . "\ SW:" . &shiftwidth
+    endif
+  endif
+  return str
+endfunction
+"-------------------------------------------------------------------------------
