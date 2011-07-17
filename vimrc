@@ -40,6 +40,15 @@ set background=dark         " Use a dark background.
 set t_Co=256                " Force terminal to go into 256 color mode.
 colorscheme vimez	          " Default color scheme for the VimEz distribution.
 syntax on		                " Syntax highlighting on.
+
+" Display a list of syntax items at the current cursor position.
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunction
+nnoremap <Leader>si :call <SID>SynStack()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1098,7 +1107,7 @@ set stl+=%=                             " Align right
 set stl+=                               " TODO: diff mode flag
 set stl+=                               " TODO: scrollbind flag
 set stl+=                               " TODO: capslock flag
-set stl+=%{Spell_flag()}                " TODO: spellcheck flag
+set stl+=%{Spell_flag()}                " Spellcheck flag
 set stl+=[                              " Open bracket
 set stl+=%{Expandtab_flag()}            " Soft tab flag
 set stl+=%{Tabstop_flag()}              " Tab size

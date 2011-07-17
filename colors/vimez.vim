@@ -111,7 +111,7 @@ hi SpellLocal       guisp=#70F0F0 gui=undercurl
 hi SpellRare        guisp=#FFFFFF gui=undercurl
 hi Statement        guifg=#FF0087               gui=bold
 hi StorageClass     guifg=#FD971F               gui=italic
-hi Structure        guifg=#5FD7F
+hi Structure        guifg=#5FD7FF
 hi Tag              guifg=#FF0087               gui=italic
 "-------------------------------------------------------------------------------
 
