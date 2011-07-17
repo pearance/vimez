@@ -11,12 +11,10 @@
 "*******************************************************************************
 " + General Settings
 " + File Buffer
-" + Filetypes
+" + Filetype Associations
 " + Edit
 " + View
 " + Navigation
-" + Snippets
-" + Abbreviations
 " + Tools
 " + Window
 " + Help
@@ -26,8 +24,8 @@
 
 " "Initialization"
 source $HOME/.vim/initrc    " Include dependent plugin bundles.
-runtime $VIMRUNTIME/macros/matchit.vim
-runtime $VIMRUNTIME/ftplugin/man.vim
+runtime macros/matchit.vim
+runtime ftplugin/man.vim
 "-------------------------------------------------------------------------------
 
 
@@ -38,7 +36,7 @@ runtime $VIMRUNTIME/ftplugin/man.vim
 " "Color Scheme"
 set background=dark         " Use a dark background.
 set t_Co=256                " Force terminal to go into 256 color mode.
-colorscheme vimez	          " Default color scheme for the VimEz distribution.
+colorscheme vimez	          " Default color scheme.
 syntax on		                " Syntax highlighting on.
 
 " Display a list of syntax items at the current cursor position.
@@ -54,20 +52,21 @@ nnoremap <Leader>si :call <SID>SynStack()<CR>
 
 
 " "Leader Key"
-let mapleader="\<Space>"    " Map personal modifier aka Leader key.
+let mapleader="\<Space>"  " Map personal modifier aka Leader key.
 "-------------------------------------------------------------------------------
 
 
 
-" "Commandline" More convenient entrance to Commandline mode from Normal mode.
-map ; :
-noremap ;; ;
+" "Commandline" More convenient entrance to Commandline and Commandline Edit mode from Normal mode.
+nnoremap ; :
+nnoremap ;; ;
+nnoremap q; q:
 "-------------------------------------------------------------------------------
 
 
 
 " "History"
-set history=250        " Amount of commands and searches to keep in history.
+set history=1000          " Amount of commands and searches to keep in history.
 "-------------------------------------------------------------------------------
 
 
@@ -236,7 +235,7 @@ endif
 function! Filestate_status()
   " Writable
   if &readonly || &buftype == "nowrite" || &buftype == "help"
-    return '^'
+    return '!'
   " Modified
   elseif &modified != 0
     return '*'
@@ -967,7 +966,7 @@ function! Expandtab_flag()
 endfunction
 
 " Generate statusline flags for softtabstop, tabstop, and shiftwidth.
-function! Tabstop_flag()
+function! Tabstop_status()
   let str = "Tab:" . &tabstop
   " Show softtabstop or shiftwidth if not equal tabstop
   if   (&softtabstop && (&softtabstop != &tabstop))
@@ -989,10 +988,10 @@ endfunction
 " "Spell Checking" Remember spelling bees? Those were the days. Make sure to
 " update the spelllang to your language. Custom words are tucked away in the
 " .vim/spell folder. Leader ts toggles dynamic spell checking.
-set nospell                             " Dynamic spell checking off by default
-set spelllang=en_us                     " Default language
-set spellsuggest=5                      " How many spelling suggestions to list
-set spellfile=~/.vim/spell/en.utf-8.add " Set spellchecker custom spell file
+set nospell               " Dynamic spell checking off by default
+set spelllang=en_us       " Default language
+set spellsuggest=5        " How many spelling suggestions to list
+set spellfile=~/.vim/local/spell/en.utf-8.add " Custom spell file
 nmap <silent> <leader>ts :setlocal spell!<CR>
       \ <Bar>:echo "   Spell Check: " . strpart("OffOn", 3 * &spell, 3)<CR>
 
@@ -1001,7 +1000,7 @@ function! Spell_flag()
   if &spell == 0
     return ""
   else
-    return "[Spell]\ "
+    return "[S]\ "
   endif
 endfunction
 "-------------------------------------------------------------------------------
@@ -1106,7 +1105,7 @@ set shortmess+=I        " Don't give the intro message when starting Vim |:intro
 " are off and can be toggle on via Leader ti.
 set nolist                    " Don't show non-printable character by default
 set listchars+=eol:~
-set listchars+=tab:->
+set listchars+=tab:>-
 set listchars+=trail:.
 set listchars+=extends:>
 set listchars+=precedes:<
@@ -1163,7 +1162,7 @@ set stl+=                               " TODO: capslock flag
 set stl+=%{Spell_flag()}                " Spellcheck flag
 set stl+=[                              " Open bracket
 set stl+=%{Expandtab_flag()}            " Soft tab flag
-set stl+=%{Tabstop_flag()}              " Tab size
+set stl+=%{Tabstop_status()}              " Tab size
 set stl+=]                              " Close bracket
 set stl+=\                              " Space
 set stl+=\                              " Space
@@ -1241,5 +1240,6 @@ set incsearch           " Highlight search terms dynamically and incrementally
 set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set wrapscan            " Set the search scan to wrap around the file
+nmap <silent> <leader><leader> :silent :nohlsearch<CR>
 "-------------------------------------------------------------------------------
 " "}}}
