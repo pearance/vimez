@@ -424,7 +424,7 @@ let g:BufKillOverrideCtrlCaret=1
 "-------------------------------------------------------------------------------
 
 
-" "Sessions"
+" "Sessions (Session.vim)"
 let g:session_autoload = 'yes'
 let g:session_autosave = 'yes'
 let g:session_default_to_last = 'yes'
@@ -487,6 +487,26 @@ nnoremap <leader>ds :DeleteSession<CR>
 "-------------------------------------------------------------------------------
 
 
+
+" "Vim Info" A memory dump to remember information from the last
+" session. The viminfo file is read upon startup and written when
+" exiting Vim.
+set viminfo=
+set vi+='1000 " Amount of files to save marks
+set vi+=f1    " Store global marks A-Z and 0-9
+set vi+=<500  " How many registers are saved
+set vi+=:500  " Number of lines to save from the command line history
+set vi+=@500  " Number of lines to save from the input line history
+set vi+=/500  " Number of lines to save from the search history
+set vi+=r/tmp " Removable media, for which no marks will be stored
+set vi+=!	    " Global variables that start with an uppercase letter and
+              " don't contain lowercase letters
+set vi+=h	    " Disable 'hlsearch' highlighting when starting
+set vi+=%	    " Buffer list (restored when starting Vim without arguments)
+set vi+=c	    " Convert the text using 'encoding'
+set vi+=s100  " Max amount of kilobytes of any single register.
+set vi-=n	    " Name used for the viminfo file (must be the last option)
+"-------------------------------------------------------------------------------
 
 
 
