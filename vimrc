@@ -38,8 +38,8 @@ runtime $VIMRUNTIME/ftplugin/man.vim
 " "Color Scheme"
 set background=dark         " Use a dark background.
 set t_Co=256                " Force terminal to go into 256 color mode.
-colorscheme vimez	    " Default color scheme for the VimEz distribution.
-syntax on		    " Syntax highlighting on.
+colorscheme vimez	          " Default color scheme for the VimEz distribution.
+syntax on		                " Syntax highlighting on.
 "-------------------------------------------------------------------------------
 
 
@@ -117,10 +117,9 @@ set timeoutlen=500
 
 
 " "Mouse"
-"set mouse=a                     " Enable mouse usage (all modes)
-"set selectmode=mouse            " Selection with the mouse trigers Select mode
-"set ttymouse=xterm2             " Enable basic mouse functionality in
-"a terminal
+set mouse=a                     " Enable mouse usage (all modes)
+set selectmode=mouse           " Selection with the mouse trigers Select mode
+set ttymouse=xterm2             " Enable basic mouse functionality in a terminal
 "-------------------------------------------------------------------------------
 
 
@@ -164,36 +163,29 @@ nnoremap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
 
 
 
-  " "Reload Vim"
-map <F5> :so $MYVIMRC<CR>
-
-function! GlobalReload()
-  for server in split(serverlist())
-    call remote_send(server, '<Esc>:source $MYVIMRC<CR>')
-  endfor
-  call EMsg('Reloaded Global Instances of Vim!')
-endfunction
+" "Reload Vim"
+ map <silent> <F5> :so $MYVIMRC<CR><Bar> :call Msg('   VimEz Reloaded!')<CR>
 
 augroup LocalReload
   autocmd!
   autocmd bufwritepost .vimrc source $MYVIMRC | exe 'CSApprox' | nohlsearch
-  autocmd bufwritepost .vimrc call EMsg('Reloaded Local Instance of Vim!')
+  autocmd bufwritepost .vimrc call Msg('   VimEz Reloaded!')
 augroup END
 "-------------------------------------------------------------------------------
 
 
 
-" "Echo Message" EchoMsg() prints [long] message up to (&columns-1) length
-" guaranteed without "Press Enter" prompt.
-function! EMsg(msg)
+" "Message" Prints [long] message up to (&columns-1) length without the "Press
+" Enter" prompt.
+function! Msg(msg)
+  echohl ModeMsg
   let x=&ruler | let y=&showcmd
   set noruler noshowcmd
   redraw
   echo a:msg
   let &ruler=x | let &showcmd=y
 endfun
-"-------------------------------------------------------------------------------
-"===============================================================================
+"*******************************************************************************
 " "}}}
 
 
@@ -227,6 +219,67 @@ if has("unix")
 else
   nnoremap <leader>ef :e <C-R>=expand("%:p:h") . "\\" <CR>
 endif
+"-------------------------------------------------------------------------------
+
+
+
+" "File Status"
+function! Filestate_status()
+  " Writable
+  if &readonly || &buftype == "nowrite" || &buftype == "help"
+    return '^'
+  " Modified
+  elseif &modified != 0
+    return '*'
+  " Unmodified
+  else
+    return ' '
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "File Type"
+function! Filetype_status()
+  if &filetype == ""
+    return "Plain\ Text"
+  else
+    "let vimez_filetype = substitute(&filetype, "\\w\\+", "\\U\\0", "g")
+    return &filetype
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "File Encoding"
+function! Fileencoding_status()
+  if &fileencoding == ""
+    if &encoding != ""
+      "let vimez_encoding = substitute(&encoding, "\\w\\+", "\\U\\0", "g")
+      return &encoding
+    else
+      return "--"
+    endif
+  else
+    "let vimez_fileencoding = substitute(&fileencoding, "\\w\\+", "\\U\\0", "g")
+    return &fileencoding
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "File Format"
+function! Fileformat_status()
+  if &fileformat == ""
+    return "--"
+  else
+    "let vimez_fileformat = substitute(&fileformat, "\\w\\+", "\\U\\0", "g")
+    return &fileformat
+  endif
+endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -441,9 +494,6 @@ nmap <leader>qqq :qa<CR>
 
 
 
-"ln -s ~/.bash/.profile ~/.profile
-"ln -s ~/.bash/.bashrc ~/.bashrc
-"ln -s ~/.bash/.bash_aliases ~/.bash_aliases
 
 
 
@@ -458,7 +508,7 @@ augroup FileTypes
   function! Executable()
     exe "silent! !chmod +x %"
     redraw!
-    call EMsg("Written as an executable shell script!")
+    call Msg("Written as an executable shell script!")
   endfunction
   "-------------------------------------------------------------------------------
 
@@ -514,7 +564,7 @@ set fo+=q  " Allow formatting of comments with 'gq'.
            " Note that formatting will not change blank lines or lines containing
            " only the comment leader.  A new paragraph starts after such a line,
            " or when the comment leader changes.
-set fo+=w  " Trailing white space indicates a paragraph continues in the next line.
+set fo-=w  " Trailing white space indicates a paragraph continues in the next line.
            " A line that ends in a non-white character ends a paragraph.
 set fo+=a  " Automatic formatting of paragraphs.  Every time text is inserted or
            " deleted the paragraph will be reformatted.  See |auto-format|.
@@ -569,8 +619,8 @@ nmap Q gqap
 
 
 
-" "Undo (Gundo)" 250 levels of persistent undo.
-set undolevels=250     " Amount of undos you can do.
+" "Undo (Gundo)" Persistent undo, along with Gundo to parse the ungo history.
+set undolevels=500
 set undofile
 set undodir=$HOME/.vim/local/tmp/undos//
 nnoremap <leader>uu :GundoToggle<CR>
@@ -796,9 +846,8 @@ nnoremap <leader>ss i<Space><Esc>l
 
 
 " "Tab Indentation" Tab to indent one level and Shift-Tab to go back one
-" level, based on
-" Tab settings. Acts on a single line while in Normal mode and blocks of text
-" while in Visual mode.
+" level, based on tab settings. Acts on a single line while in Normal mode and
+" blocks of text while in Visual mode.
 set expandtab           " Expand tabs using spaces instead of a tab char
 set shiftwidth=2        " Amount of shift when in Normal mode
 set tabstop=2           " Number of spaces that a <Tab> in the file counts for.
@@ -812,9 +861,12 @@ nnoremap <S-Tab> i<BS><Esc>l
 vmap <Tab> >gv
 vmap <S-Tab> <gv
 nnoremap <leader>tab :call Tab()<CR>
-nnoremap <silent> <leader>tt :set expandtab!<CR>
-
 command! -nargs=* Tab call Tab()
+nnoremap <silent> <leader>tt :setlocal expandtab!<CR>
+nmap <silent> <leader>tt :setlocal expandtab!<CR>
+      \ <Bar>:echo "   Soft Tabs: " . strpart("OffOn", 3 * &expandtab, 3)<CR>
+
+" Prompt for tab size and apply to softtabstop, tabstop, and shiftwidth.
 function! Tab()
   let l:tabstop = 1 * input('Tab Size: ')
   if l:tabstop > 0
@@ -822,12 +874,14 @@ function! Tab()
     let &l:ts = l:tabstop
     let &l:sw = l:tabstop
   endif
-  call SummarizeTabs()
+  call TabSummary()
 endfunction
 
-function! SummarizeTabs()
+" Message a summary of current tab settings.
+function! TabSummary()
   try
     echohl ModeMsg
+    echon 'Current tab settings: '
     echon 'tabstop='.&l:ts
     echon ' shiftwidth='.&l:sw
     echon ' softtabstop='.&l:sts
@@ -840,18 +894,54 @@ function! SummarizeTabs()
     echohl None
   endtry
 endfunction
+
+" Generate a statusline flag for expandtab.
+function! Expandtab_flag()
+  if &expandtab == 0
+    return ""
+  else
+    return "Soft\ "
+  endif
+endfunction
+
+" Generate statusline flags for softtabstop, tabstop, and shiftwidth.
+function! Tabstop_flag()
+  let str = "Tab:" . &tabstop
+  " Show softtabstop or shiftwidth if not equal tabstop
+  if   (&softtabstop && (&softtabstop != &tabstop))
+  \ || (&shiftwidth  && (&shiftwidth  != &tabstop))
+    let str = "TS:" . &tabstop
+    if &softtabstop
+      let str = str . "\ STS:" . &softtabstop
+    endif
+    if &shiftwidth != &tabstop
+      let str = str . "\ SW:" . &shiftwidth
+    endif
+  endif
+  return str
+endfunction
 "-------------------------------------------------------------------------------
 
 
 
-" "Spell Checking" Remember spelling bees? Make sure to update the spelllang to
-" your language. Custom words are tucked away in the .vim/spell folder. Leader
-" ts toggles dynamic spell checking.
+" "Spell Checking" Remember spelling bees? Those were the days. Make sure to
+" update the spelllang to your language. Custom words are tucked away in the
+" .vim/spell folder. Leader ts toggles dynamic spell checking.
 set nospell                             " Dynamic spell checking off by default
 set spelllang=en_us                     " Default language
 set spellsuggest=5                      " How many spelling suggestions to list
 set spellfile=~/.vim/spell/en.utf-8.add " Set spellchecker custom spell file
-nmap <silent> <leader>ts :setlocal spell! spelllang=en_us<CR>
+nmap <silent> <leader>ts :setlocal spell!<CR>
+      \ <Bar>:echo "   Spell Check: " . strpart("OffOn", 3 * &spell, 3)<CR>
+
+" Generate a statusline flag for Spell Check"
+function! Spell_flag()
+  if &spell == 0
+    return ""
+  else
+    return "[Spell]\ "
+  endif
+endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -954,12 +1044,14 @@ set shortmess+=I        " Don't give the intro message when starting Vim |:intro
 " are off and can be toggle on via Leader ti.
 set nolist                    " Don't show non-printable character by default
 set listchars+=eol:~
-set listchars+=tab:>-
+set listchars+=tab:->
 set listchars+=trail:.
 set listchars+=extends:>
 set listchars+=precedes:<
 set listchars+=nbsp:%
-nnoremap <leader>tl :setlocal list!<CR>
+nnoremap <silent> <leader>tl :setlocal list!<CR>
+      \ <Bar>:echo "   Invisible: " . strpart("OffOn", 3 * &list, 3)<CR>
+" No need for a flag, clearly visible if on.
 "-------------------------------------------------------------------------------
 
 
@@ -988,36 +1080,37 @@ set laststatus=2                  " Keep status lines visible at all times.
 set cmdheight=1                   " Number of lines to use for the command-line.
 
 set statusline=
-set stl+=%#User1#                             " Normal
-set stl+=\                                    " Space
-set stl+=%t                                   " Filename
-set stl+=%w                                   " Preview flag
-set stl+=%{Statusline_filestate()}            " File status
-set stl+=%#User2#                             " Dimmed
-set stl+=\                                    " Space
-set stl+=\                                    " Space
-set stl+=\                                    " Space
-set stl+=[                                    " Open Bracket
-set stl+=%{Statusline_filetype()}\/           " File type
-set stl+=%{Statusline_fileencoding()}\/       " File encoding
-set stl+=%{Statusline_fileformat()}           " File format
-set stl+=]                                    " Close Bracket
-set stl+=%=                                   " Align right
-set stl+= " %2*%{Statusline_diffmode()}       " TODO: Needs work!
-set stl+= " TODO: scrollbind flag
-set stl+= " TODO: capslock flag
-set stl+=[                                    " Divider
-set stl+=%{Statusline_expandtab()}            " Soft tab flag
-set stl+=%{Statusline_tabstop()}              " Tab size
-set stl+=]                                    " Divider
-set stl+=\                                    " Space
-set stl+=\                                    " Space
-set stl+=\                                    " Space
-set stl+=%#User1#                             " Strong
-set stl+=%05(C:%v%)                           " Current column
-set stl+=\                                    " Space
-set stl+=%06(L:%l%)                           " Current line
-set stl+=%<                                   " Truncate
+set stl+=%#User1#                       " Normal
+set stl+=\                              " Space
+set stl+=%t                             " Filename
+set stl+=%w                             " Preview flag
+set stl+=%{Filestate_status()}          " File status
+set stl+=%#User2#                       " Dimmed
+set stl+=\                              " Space
+set stl+=\                              " Space
+set stl+=\                              " Space
+set stl+=[                              " Open bracket
+set stl+=%{Filetype_status()}\/         " File type
+set stl+=%{Fileencoding_status()}\/     " File encoding
+set stl+=%{Fileformat_status()}         " File format
+set stl+=]                              " Close bracket
+set stl+=%=                             " Align right
+set stl+=                               " TODO: diff mode flag
+set stl+=                               " TODO: scrollbind flag
+set stl+=                               " TODO: capslock flag
+set stl+=%{Spell_flag()}                " TODO: spellcheck flag
+set stl+=[                              " Open bracket
+set stl+=%{Expandtab_flag()}            " Soft tab flag
+set stl+=%{Tabstop_flag()}              " Tab size
+set stl+=]                              " Close bracket
+set stl+=\                              " Space
+set stl+=\                              " Space
+set stl+=\                              " Space
+set stl+=%#User1#                       " Strong
+set stl+=%05(C:%v%)                     " Current column
+set stl+=\                              " Space
+set stl+=%06(L:%l%)                     " Current line
+set stl+=%<                             " Truncate this side of the aisle
 
 let g:Active_statusline=&g:statusline
 let g:NCstatusline=substitute(
@@ -1072,97 +1165,3 @@ cnoremap JJ <C-c>
 
 
 
-
-"*******************************************************************************
-" FUNCTIONS: "{{{15
-"*******************************************************************************
-" "File Status"
-function! Statusline_filestate()
-  " Writable
-  if &readonly || &buftype == "nowrite" || &buftype == "help"
-    return '^'
-  " Modified
-  elseif &modified != 0
-    return '*'
-  " Unmodified
-  else
-    return ' '
-  endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "File Type"
-function! Statusline_filetype()
-  if &filetype == ""
-    return "Plain\ Text"
-  else
-    "let vimez_filetype = substitute(&filetype, "\\w\\+", "\\U\\0", "g")
-    return &filetype
-  endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "File Encoding"
-function! Statusline_fileencoding()
-  if &fileencoding == ""
-    if &encoding != ""
-      "let vimez_encoding = substitute(&encoding, "\\w\\+", "\\U\\0", "g")
-      return &encoding
-    else
-      return "--"
-    endif
-  else
-    "let vimez_fileencoding = substitute(&fileencoding, "\\w\\+", "\\U\\0", "g")
-    return &fileencoding
-  endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "File Format"
-function! Statusline_fileformat()
-  if &fileformat == ""
-    return "--"
-  else
-    "let vimez_fileformat = substitute(&fileformat, "\\w\\+", "\\U\\0", "g")
-    return &fileformat
-  endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Expand Tab"
-function! Statusline_expandtab()
-  if &expandtab == 0
-    return ""
-  else
-    return "Soft\ "
-  endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Tabstop and Soft Tabstop"
-function! Statusline_tabstop()
-  let str = "Tab:" . &tabstop
-  " Show softtabstop or shiftwidth if not equal tabstop
-  if   (&softtabstop && (&softtabstop != &tabstop))
-  \ || (&shiftwidth  && (&shiftwidth  != &tabstop))
-    let str = "TS:" . &tabstop
-    if &softtabstop
-      let str = str . "\ STS:" . &softtabstop
-    endif
-    if &shiftwidth != &tabstop
-      let str = str . "\ SW:" . &shiftwidth
-    endif
-  endif
-  return str
-endfunction
-"-------------------------------------------------------------------------------
