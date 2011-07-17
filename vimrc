@@ -430,39 +430,41 @@ let g:session_autosave = 'yes'
 let g:session_default_to_last = 'yes'
 let g:session_directory = '~/.vim/local/sessions/'
 
-set ssop+=blank         " blank	empty windows
-set ssop+=buffers	      " hidden and unloaded buffers, not just those in windows
-set ssop+=curdir	      " the current directory
-set ssop+=folds	        " manually created folds, opened/closed folds and local
-                        " fold options
-set ssop+=globals	      " global variables that start with an uppercase letter
-                        " and contain at least one lowercase letter.  Only
-                        " String and Number types are stored.
-set ssop+=help		      " the help window
-set ssop+=localoptions	" options and mappings local to a window or buffer (not
-                        " global values for local options)
-set ssop+=options	      " all options and mappings (also global values for local
-                        " options)
-set ssop+=resize	      " size of the Vim window: 'lines' and 'columns'
-set ssop-=sesdir	      " the directory in which the session file is located
-                        " will become the current directory (useful with
-                        " projects accessed over a network from different
-                        " systems)
-set ssop+=slash	        " Backslashes in file names replaced with forward
-                        " slashes
-set ssop+=tabpages	    " all tab pages; without this only the current tab page
-                        " is restored, so that you can make a session for each
-                        " tab page separately
-set ssop+=unix		      " with Unix end-of-line format (single <NL>), even when
-                        " on Windows or DOS
-set ssop+=winpos	      " position of the whole Vim window
-set ssop+=winsize	      " window sizes
+set sessionoptions=
+set ssop+=blank        " Blank	empty windows
+set ssop+=buffers	     " Hidden and unloaded buffers, not just those in windows
+set ssop+=curdir	     " The current directory
+set ssop+=folds	       " Manually created folds, opened/closed folds and local
+                       " fold options
+set ssop+=globals	     " Global variables that start with an uppercase letter
+                       " and contain at least one lowercase letter.  Only
+                       " String and Number types are stored.
+set ssop+=help		     " The help window
+set ssop+=localoptions " Options and mappings local to a window or buffer (not
+                       " global values for local options)
+set ssop+=options	     " All options and mappings (also global values for local
+                       " options)
+set ssop+=resize	     " Size of the Vim window: 'lines' and 'columns'
+set ssop-=sesdir	     " The directory in which the session file is located
+                       " will become the current directory (useful with
+                       " projects accessed over a network from different
+                       " systems)
+set ssop+=slash	       " Backslashes in file names replaced with forward
+                       " slashes
+set ssop+=tabpages	   " All tab pages; without this only the current tab page
+                       " is restored, so that you can make a session for each
+                       " tab page separately
+set ssop+=unix		     " With Unix end-of-line format (single <NL>), even when
+                       " on Windows or DOS
+set ssop+=winpos	     " Position of the whole Vim window
+set ssop+=winsize	     " Window sizes
 "-------------------------------------------------------------------------------
 
 
 
-" "Write Session (Vim-Session)" Save the current session. Including buffers, untitled blank
-" buffers, current directory, folds, help, options, tabs, window sizes.
+" "Write Session (Vim-Session)" Save the current session. Including
+" buffers, untitled blank buffers, current directory, folds, help,
+" options, tabs, window sizes.
 nnoremap <leader>ws :SaveSession<CR>
 "-------------------------------------------------------------------------------
 
@@ -592,6 +594,7 @@ set virtualedit=all
 
 
 " "Format Options"
+set formatoptions=
 set fo-=t  " Auto-wrap text using textwidth
 set fo+=c  " Auto-wrap comments using textwidth, inserting the current comment
            " leader automatically.
@@ -605,7 +608,7 @@ set fo+=q  " Allow formatting of comments with 'gq'.
            " or when the comment leader changes.
 set fo-=w  " Trailing white space indicates a paragraph continues in the next line.
            " A line that ends in a non-white character ends a paragraph.
-set fo+=a  " Automatic formatting of paragraphs.  Every time text is inserted or
+set fo-=a  " Automatic formatting of paragraphs.  Every time text is inserted or
            " deleted the paragraph will be reformatted.  See |auto-format|.
            " When the 'c' flag is present this only happens for recognized
            " comments.
@@ -651,9 +654,9 @@ set fo+=1  " Don't break a line after a one-letter word.  It's broken before it
 
 
 " "Paragraph Formatting"
-"set formatprg=par
+" set formatprg=par " TODO Put this in my vimrc.local
 vmap Q gq
-nmap Q gqap
+nmap Q gqip
 "-------------------------------------------------------------------------------
 
 
@@ -669,27 +672,27 @@ nnoremap <leader>uu :GundoToggle<CR>
 
 " "Autocompletion/Snippets (NeoComplCache)"
 " Autocompletion General Settings
-set complete+=.		    " Scan the current buffer ('wrapscan' is ignored)
-set complete+=w		    " Scan buffers from other windows
-set complete+=b		    " Scan other loaded buffers that are in the buffer list
-set complete+=u		    " Scan the unloaded buffers that are in the buffer list
-set complete+=U		    " Scan the buffers that are not in the buffer list
-set complete-=k		    " Scan the files given with the 'dictionary' option
-set complete-=kspell  " Use the currently active spell checking |spell|
-set complete-=k{dict} " Scan the file {dict}.  Several "k" flags can be given,
-                      " patterns are valid too.  For example:
-                      " 	:set cpt=k/usr/dict/*,k~/spanish
-set complete-=s		    " Scan the files given with the 'thesaurus' option
-set complete-=s{tsr}	" Scan the file {tsr}.  Several "s" flags can be given, patterns
-                      " Are valid too.
-set complete+=i		    " Scan current and included files
-set complete-=d		    " Scan current and included files for defined name or macro
+set cpt+=.		    " Scan the current buffer ('wrapscan' is ignored)
+set cpt+=w		    " Scan buffers from other windows
+set cpt+=b		    " Scan other loaded buffers that are in the buffer list
+set cpt+=u		    " Scan the unloaded buffers that are in the buffer list
+set cpt+=U		    " Scan the buffers that are not in the buffer list
+set cpt-=k		    " Scan the files given with the 'dictionary' option
+set cpt+=kspell   " Use the currently active spell checking |spell|
+set cpt-=k{dict}  " Scan the file {dict}.  Several "k" flags can be given,
+                  " patterns are valid too.  For example:
+                  " 	:set cpt=k/usr/dict/*,k~/spanish
+set cpt-=s		    " Scan the files given with the 'thesaurus' option
+set cpt-=s{tsr}	  " Scan the file {tsr}.  Several "s" flags can be given,
+                  " patterns are valid too.
+set cpt+=i		    " Scan current and included files
+set cpt-=d		    " Scan current and included files for defined name or macro
                 	    " |i_CTRL-X_CTRL-D|
-set complete-=]		    " Tag completion
-set complete+=t		    " Same as "]"
+set cpt+=]		    " Tag completion
+set cpt+=t		    " Same as "]"
 
-set infercase   	    " Match is adjusted depending on the typed text.
-set pumheight=15      " Pop up menu height in lines
+set infercase   	" Match is adjusted depending on the typed text.
+set pumheight=15  " Pop Up Menu height in lines
 
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_disable_auto_complete = 0
@@ -1186,9 +1189,7 @@ au BufWinLeave * call clearmatches()
 "*******************************************************************************
 " NAVIGATION: "{{{5
 "*******************************************************************************
-" "Escape"
-" Escape from the dreaded Insert and Commandline modes to the graces of
-" the beloved Normal mode.
+" "Escape" A more efficient alternative to the escape key.
 inoremap jj <Esc>
 inoremap JJ <Esc>
 cnoremap jj <C-c>
@@ -1202,13 +1203,23 @@ set scrolloff=5         " Start scrolling x lines before the edge of the window.
 set sidescrolloff=5     " Same as above just for columns instead of lines.
 "-------------------------------------------------------------------------------
 
+
+
+" "Hyper h|j|k|l" Consistent use of h|j|k|l with Shift to hyper traverse
+" the buffer universe!
+map <S-h> 0
+map <S-j> 20j
+map <S-k> 20k
+map <S-l> $
+"-------------------------------------------------------------------------------
+
+
+
+" "Search"
+set hlsearch            " Hightlight search terms
+set incsearch           " Highlight search terms dynamically and incrementally
+set ignorecase          " Do case insensitive matching
+set smartcase           " Do smart case matching
+set wrapscan            " Set the search scan to wrap around the file
+"-------------------------------------------------------------------------------
 " "}}}
-
-
-
-
-
-
-
-
-
