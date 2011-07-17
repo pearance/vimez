@@ -1013,7 +1013,7 @@ nnoremap <silent> <F6> :call <SID>StripTrailingWhitespaces()<CR>
 "*******************************************************************************
 " "Title Bar" Set title bar to display current file, path, and server hostname.
 set title
-set titlestring=%t%(%{Statusline_filestate()}%)%(\
+set titlestring=%t%(%{Filestate_status()}%)%(\
 \ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
 "-------------------------------------------------------------------------------
 
