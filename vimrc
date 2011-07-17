@@ -429,6 +429,34 @@ let g:session_autoload = 'yes'
 let g:session_autosave = 'yes'
 let g:session_default_to_last = 'yes'
 let g:session_directory = '~/.vim/local/sessions/'
+
+set ssop+=blank         " blank	empty windows
+set ssop+=buffers	      " hidden and unloaded buffers, not just those in windows
+set ssop+=curdir	      " the current directory
+set ssop+=folds	        " manually created folds, opened/closed folds and local
+                        " fold options
+set ssop+=globals	      " global variables that start with an uppercase letter
+                        " and contain at least one lowercase letter.  Only
+                        " String and Number types are stored.
+set ssop+=help		      " the help window
+set ssop+=localoptions	" options and mappings local to a window or buffer (not
+                        " global values for local options)
+set ssop+=options	      " all options and mappings (also global values for local
+                        " options)
+set ssop+=resize	      " size of the Vim window: 'lines' and 'columns'
+set ssop-=sesdir	      " the directory in which the session file is located
+                        " will become the current directory (useful with
+                        " projects accessed over a network from different
+                        " systems)
+set ssop+=slash	        " Backslashes in file names replaced with forward
+                        " slashes
+set ssop+=tabpages	    " all tab pages; without this only the current tab page
+                        " is restored, so that you can make a session for each
+                        " tab page separately
+set ssop+=unix		      " with Unix end-of-line format (single <NL>), even when
+                        " on Windows or DOS
+set ssop+=winpos	      " position of the whole Vim window
+set ssop+=winsize	      " window sizes
 "-------------------------------------------------------------------------------
 
 
@@ -455,6 +483,8 @@ nnoremap <leader>cs :CloseSession<CR>
 " "Delete Session (Vim-Session)"
 nnoremap <leader>ds :DeleteSession<CR>
 "-------------------------------------------------------------------------------
+
+
 
 
 
@@ -1164,6 +1194,14 @@ inoremap JJ <Esc>
 cnoremap jj <C-c>
 cnoremap JJ <C-c>
 "-------------------------------------------------------------------------------
+
+
+
+" "Scrolling"
+set scrolloff=5         " Start scrolling x lines before the edge of the window.
+set sidescrolloff=5     " Same as above just for columns instead of lines.
+"-------------------------------------------------------------------------------
+
 " "}}}
 
 
