@@ -546,7 +546,6 @@ nnoremap <leader>wqq :SaveSession<CR>:wqa<CR>
 " open.
 nmap <leader>qqq :qa<CR>
 "-------------------------------------------------------------------------------
-"===============================================================================
 " "}}}
 
 
@@ -559,7 +558,7 @@ nmap <leader>qqq :qa<CR>
 
 
 "*******************************************************************************
-" FILETYPES:{{{3
+" FILETYPE ASSOCIATIONS:{{{3
 "*******************************************************************************
 augroup FileTypes
 
@@ -587,7 +586,6 @@ augroup FileTypes
 
 augroup END
 "-------------------------------------------------------------------------------
-"===============================================================================
 " "}}}
 
 
@@ -766,7 +764,7 @@ let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
-" Configure Mappings
+" Configure Neocomplcache Mappings
 imap <expr><Tab>
   \ neocomplcache#sources#snippets_complete#expandable() ?
   \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ?
@@ -850,7 +848,7 @@ nnoremap <silent>+ :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
 " "Blank Current Line" Delete line without copying its contents into a
 " clipboard register and without removing the space the line accupied.
-nnoremap <silent><leader>dd Vr<Space>
+nnoremap <silent><leader>dd 0D
 "-------------------------------------------------------------------------------
 
 
@@ -1018,7 +1016,6 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 nnoremap <silent> <F6> :call <SID>StripTrailingWhitespaces()<CR>
 "-------------------------------------------------------------------------------
-"===============================================================================
 " "}}}
 
 
@@ -1044,6 +1041,7 @@ set titlestring=%t%(%{Filestate_status()}%)%(\
 " "Line Numbers"
 set relativenumber
 set numberwidth=5
+set numberwidth=4
 "-------------------------------------------------------------------------------
 
 
@@ -1241,5 +1239,54 @@ set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set wrapscan            " Set the search scan to wrap around the file
 nmap <silent> <leader><leader> :silent :nohlsearch<CR>
+"-------------------------------------------------------------------------------
+" "}}}
+
+
+
+
+
+
+
+
+
+
+"*******************************************************************************
+" WINDOW: "{{{5
+"*******************************************************************************
+" "Focus Windows"
+noremap <silent> <leader>h  :wincmd h<CR>
+noremap <silent> <leader>j  :wincmd j<CR>
+noremap <silent> <leader>k  :wincmd k<CR>
+noremap <silent> <leader>l  :wincmd l<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Move Windows"
+noremap <silent> <leader>mh <C-w>H
+noremap <silent> <leader>mj <C-w>J
+noremap <silent> <leader>mk <C-w>K
+noremap <silent> <leader>ml <C-w>L
+noremap <silent> <leader>mx <C-w>x
+"-------------------------------------------------------------------------------
+
+
+
+" "Close Windows"
+noremap <silent> <leader>cj :wincmd j<CR>:close<CR>
+noremap <silent> <leader>ch :wincmd h<CR>:close<CR>
+noremap <silent> <leader>ck :wincmd k<CR>:close<CR>
+noremap <silent> <leader>cl :wincmd l<CR>:close<CR>
+noremap <silent> <leader>cw :close<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Split Windows"
+set nosplitbelow
+noremap <silent> <leader>sv :vsplit<CR><Bar><C-w>l
+set splitright
+noremap <silent> <leader>sh :split<CR>
 "-------------------------------------------------------------------------------
 " "}}}
