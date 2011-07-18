@@ -253,16 +253,8 @@ function! DeleteFile()
   endif
 endfunction
 nnoremap <leader>dddf :call DeleteFile()<CR>
+"-------------------------------------------------------------------------------
 
-"function! Tab()
-"  let l:tabstop = 1 * input('Tab Size: ')
-"  if l:tabstop > 0
-"    let &l:sts = l:tabstop
-"    let &l:ts = l:tabstop
-"    let &l:sw = l:tabstop
-"  endif
-"  call TabSummary()
-"endfunction
 
 
 " "Rename File (Rename2)" This is handled by the Rename2 plugin and provides
@@ -1165,6 +1157,20 @@ set whichwrap+=>        " "l" Normal and Visual (not recommended)
 set whichwrap+=~        " "h" Normal and Visual (not recommended)
 set whichwrap+=[        " <Space> Normal and Visual
 set whichwrap+=]        " <BS> Normal and Visual
+
+
+
+" "Colorcolumn"
+set colorcolumn=+1      " Hightlight a column
+nnoremap <silent> <leader>tc :call <SID>ToggleCC()<CR>
+
+function! s:ToggleCC()
+  if &colorcolumn == 0
+    set colorcolumn=+1
+  else
+    set colorcolumn=0
+  endif
+endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -1352,10 +1358,7 @@ function! HelpEnv()
     setlocal nocursorline
     setlocal nocursorcolumn
     setlocal norelativenumber
-  else
-    set cursorline
-    set cursorcolumn
-    set relativenumber
+    setlocal colorcolumn=0
   endif
 endfunction
 
