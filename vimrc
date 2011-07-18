@@ -231,65 +231,38 @@ endif
 
 
 
-" "File Status"
-function! Filestate_status()
-  " Writable
-  if &readonly || &buftype == "nowrite" || &buftype == "help"
-    return '!'
-  " Modified
-  elseif &modified != 0
-    return '*'
-  " Unmodified
-  else
-    return ' '
-  endif
-endfunction
+" "Write File"
+if has("unix")
+  nnoremap <leader>wf :w <C-R>=expand("%:p:h") . "/" <CR>
+else
+  nnoremap <leader>wf :w <C-R>=expand("%:p:h") . "\\" <CR>
+endif
 "-------------------------------------------------------------------------------
 
 
 
-" "File Type"
-function! Filetype_status()
-  if &filetype == ""
-    return "Plain\ Text"
+" "Delete File"
+function! DeleteFile()
+  let l:delprompt = input('Are you sure? ')
+  if l:delprompt == "y" || "Y"
+    :echo delete(@%)
+    :BD
   else
-    "let vimez_filetype = substitute(&filetype, "\\w\\+", "\\U\\0", "g")
-    return &filetype
+    redraw!
+    return
   endif
 endfunction
-"-------------------------------------------------------------------------------
+nnoremap <leader>dddf :call DeleteFile()<CR>
 
-
-
-" "File Encoding"
-function! Fileencoding_status()
-  if &fileencoding == ""
-    if &encoding != ""
-      "let vimez_encoding = substitute(&encoding, "\\w\\+", "\\U\\0", "g")
-      return &encoding
-    else
-      return "--"
-    endif
-  else
-    "let vimez_fileencoding = substitute(&fileencoding, "\\w\\+", "\\U\\0", "g")
-    return &fileencoding
-  endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "File Format"
-function! Fileformat_status()
-  if &fileformat == ""
-    return "--"
-  else
-    "let vimez_fileformat = substitute(&fileformat, "\\w\\+", "\\U\\0", "g")
-    return &fileformat
-  endif
-endfunction
-"-------------------------------------------------------------------------------
-
+"function! Tab()
+"  let l:tabstop = 1 * input('Tab Size: ')
+"  if l:tabstop > 0
+"    let &l:sts = l:tabstop
+"    let &l:ts = l:tabstop
+"    let &l:sw = l:tabstop
+"  endif
+"  call TabSummary()
+"endfunction
 
 
 " "Rename File (Rename2)" This is handled by the Rename2 plugin and provides
@@ -546,6 +519,67 @@ nnoremap <leader>wqq :SaveSession<CR>:wqa<CR>
 " "Quit" Simpler exit strategy, that prompts if there is any unsaved buffers
 " open.
 nmap <leader>qqq :qa<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "File Status"
+function! Filestate_status()
+  " Writable
+  if &readonly || &buftype == "nowrite" || &buftype == "help"
+    return '!'
+  " Modified
+  elseif &modified != 0
+    return '*'
+  " Unmodified
+  else
+    return ' '
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "File Type"
+function! Filetype_status()
+  if &filetype == ""
+    return "Plain\ Text"
+  else
+    "let vimez_filetype = substitute(&filetype, "\\w\\+", "\\U\\0", "g")
+    return &filetype
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "File Encoding"
+function! Fileencoding_status()
+  if &fileencoding == ""
+    if &encoding != ""
+      "let vimez_encoding = substitute(&encoding, "\\w\\+", "\\U\\0", "g")
+      return &encoding
+    else
+      return "--"
+    endif
+  else
+    "let vimez_fileencoding = substitute(&fileencoding, "\\w\\+", "\\U\\0", "g")
+    return &fileencoding
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "File Format"
+function! Fileformat_status()
+  if &fileformat == ""
+    return "--"
+  else
+    "let vimez_fileformat = substitute(&fileformat, "\\w\\+", "\\U\\0", "g")
+    return &fileformat
+  endif
+endfunction
 "-------------------------------------------------------------------------------
 " "}}}
 
@@ -1227,7 +1261,7 @@ set sidescrolloff=5     " Same as above just for columns instead of lines.
 
 " "Hyper h|j|k|l" Consistent use of h|j|k|l with Shift to hyper traverse
 " the buffer universe!
-map <S-h> 0
+map <S-h> ^
 map <S-j> 20j
 map <S-k> 20k
 map <S-l> $
