@@ -98,7 +98,7 @@ endif
 
 " "Restore Cursor Position" Restore original cursor position when reopening a file.
 augroup RestorCursor
-  autocmd!
+  autocmd! RestorCursor
   autocmd BufReadPost *
   \ if line("'\"") > 1 && line("'\"") <= line("$") |
   \   exe "normal! g'\"" |
@@ -175,7 +175,7 @@ nnoremap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
  map <silent> <F5> :so $MYVIMRC<CR><Bar> :call Msg('   VimEz Reloaded!')<CR>
 
 augroup LocalReload
-  autocmd!
+  autocmd! LocalReload
   autocmd bufwritepost .vimrc source $MYVIMRC | exe 'CSApprox' | nohlsearch
   autocmd bufwritepost .vimrc call Msg('   VimEz Reloaded!')
 augroup END
@@ -375,7 +375,7 @@ nnoremap <silent> <leader>uc :BUNDO<CR>
 " "Write on Focus Lost" Write all buffers to file upon leaving buffer
 " (gvim only).
 augroup FocusLost
-  autocmd!
+  autocmd! FocusLost
   autocmd FocusLost * silent! wa
 augroup END
 "-------------------------------------------------------------------------------
@@ -384,6 +384,7 @@ augroup END
 
 " "Change Working Directory" to the file in the current buffer
 augroup CWD
+  autocmd! CWD
   autocmd BufEnter * lcd %:p:h
 augroup END
 "-------------------------------------------------------------------------------
@@ -560,7 +561,8 @@ nmap <leader>qqq :qa<CR>
 "*******************************************************************************
 " FILETYPE ASSOCIATIONS:{{{3
 "*******************************************************************************
-augroup FileTypes
+augroup Filetype_Assoc
+  autocmd! Filetype_Assoc
 
   " "Shell Filetype" Automatically chmod +x Shell and Perl scripts
   autocmd BufWritePost *.sh call Executable()
@@ -613,13 +615,13 @@ set virtualedit=all
 " "Format Options"
 set formatoptions=
 set fo-=t  " Auto-wrap text using textwidth
-set fo+=c  " Auto-wrap comments using textwidth, inserting the current comment
+set fo-=c  " Auto-wrap comments using textwidth, inserting the current comment
            " leader automatically.
-set fo+=r  " Automatically insert the current comment leader after hitting
+set fo-=r  " Automatically insert the current comment leader after hitting
            " <Enter> in Insert mode.
 set fo-=o  " Automatically insert the current comment leader after hitting 'o' or
            " 'O' in Normal mode.
-set fo+=q  " Allow formatting of comments with 'gq'.
+set fo-=q  " Allow formatting of comments with 'gq'.
            " Note that formatting will not change blank lines or lines containing
            " only the comment leader.  A new paragraph starts after such a line,
            " or when the comment leader changes.
@@ -629,7 +631,7 @@ set fo-=a  " Automatic formatting of paragraphs.  Every time text is inserted or
            " deleted the paragraph will be reformatted.  See |auto-format|.
            " When the 'c' flag is present this only happens for recognized
            " comments.
-set fo+=n  " When formatting text, recognize numbered lists.  This actually uses
+set fo-=n  " When formatting text, recognize numbered lists.  This actually uses
            " the 'formatlistpat' option, thus any kind of list can be used.  The
            " indent of the text after the number is used for the next line.  The
            " default is to find a number, optionally followed by '.', ':', ')',
@@ -665,7 +667,7 @@ set fo-=M  " When joining lines, don't insert a space before or after a multi-by
            " character.  Overrules the 'B' flag.
 set fo-=B  " When joining lines, don't insert a space between two multi-byte
            " characters.  Overruled by the 'M' flag.
-set fo+=1  " Don't break a line after a one-letter word.  It's broken before it
+set fo-=1  " Don't break a line after a one-letter word.  It's broken before it
            " instead (if possible).
 
 
@@ -746,6 +748,7 @@ let g:neocomplcache_dictionary_filetype_lists = {
 
 " Configure Omnicompletion
 augroup AutoComplete
+  autocmd! AutoComplete
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -858,14 +861,14 @@ nnoremap <silent><leader>dd 0D
 " So, this functionality is mapped to Leader jn and jp for join next (line
 " below) and join previous (line above) with the current line.
 set nojoinspaces
-map <silent> <leader>jn :join<CR>
-map <silent> <leader>jp k<S-v>xpk:join<CR>
+nnoremap <silent> <leader>jn :join<CR>
+nnoremap <silent> <leader>jp k<S-v>xpk:join<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Enter" Restore some familiar behavior to the Enter key, in Normal mode.
-nmap <CR> i<CR><Esc>
+nnoremap <CR> i<CR><Esc>
 "-------------------------------------------------------------------------------
 
 
@@ -1005,7 +1008,7 @@ endfunction
 
 
 
-" "Strip Trailing Whitespace" Quickly remove trailing whitespace via <F6>.
+" "Strip Trailing Whitespace" Quickly remove trailing whitespace.
 function! <SID>StripTrailingWhitespaces()
     let _s=@/
     let l = line(".")
@@ -1289,4 +1292,63 @@ noremap <silent> <leader>sv :vsplit<CR><Bar><C-w>l
 set splitright
 noremap <silent> <leader>sh :split<CR>
 "-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+"*******************************************************************************
+" HELP: "{{{
+"*******************************************************************************
+augroup HelpGroup
+  autocmd! HelpGroup
+  autocmd WinEnter * :call HelpEnv()   " Set the help environment.
+  autocmd WinEnter * :call HelpEnter() " Map Enter to jump to subject.
+  autocmd WinEnter * :call HelpBack()  " Map Backspace to jump back.
+augroup END
+
+" Set the help environment.
+function! HelpEnv()
+  if &filetype == 'help'
+    setlocal nocursorline
+    setlocal nocursorcolumn
+    setlocal norelativenumber
+  else
+    set cursorline
+    set cursorcolumn
+    set relativenumber
+  endif
+endfunction
+
+" Map Enter to jump to subject.
+function! HelpEnter()
+  if &filetype == 'help'
+    nnoremap <CR> <C-]>
+  else
+    nnoremap <CR> i<CR><Esc>
+  endif
+endfunction
+
+" Map Backspace to jump back.
+function! HelpBack()
+  if &filetype == 'help'
+    nnoremap <BS> <C-T>
+  else
+    nnoremap <BS> i<BS><Right><Esc>
+  endif
+endfunction
+"-------------------------------------------------------------------------------
 " "}}}
+
+
+
+
+
+
+
+"

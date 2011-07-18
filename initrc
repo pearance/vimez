@@ -1,18 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 " Name: VimEz initrc
 " Description: A robust Vim IDE distribution.
 " Maintainer: Fontaine Cook <fontaine.cook@pearance.com
@@ -30,9 +15,9 @@ filetype off
 
 
 "*****************************************************************************
-" PLUGIN BUNDLES: 
+" PLUGIN BUNDLES:
 "*****************************************************************************
-" "Plugin Manager (Vundle)" 
+" "Plugin Manager (Vundle)"
 set rtp+=~/.vim/bundle/Vundle/
 call vundle#rc()
 Bundle "VimEz/Vundle"
