@@ -1286,6 +1286,38 @@ nmap <silent> <leader><leader> :silent :nohlsearch<CR>
 
 
 
+" "Search and Replace"
+nnoremap <leader>asr :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+nnoremap sr :call SearchReplace()<CR>
+function! SearchReplace()
+  let CurrentWord=expand("<cword>")
+
+  " Get search string.
+  call inputsave()
+  let  CurrentString = input("   Search for: ", CurrentWord)
+  if (empty(CurrentString))
+   return
+  endif
+  call inputrestore()
+
+  " Get replace string.
+  call inputsave()
+  let  NewString = input("   Search for: ".CurrentString."   Replace with: ")
+  call inputrestore()
+
+  " Determine wether or not to search for whole word only.
+  redraw!
+  let option = confirm("Search for whole word only? ", "&Yes\n&No", 2)
+  if option == 0
+    echon "Invalid response. Please try again."
+  elseif option == 1
+    " Execute whole word only search and replace.
+    exe "%s/\\<".CurrentString."\\>/".NewString."/gc"
+  elseif option == 2
+    " Execute normal search and replace.
+    exe "%s/".CurrentString."/".NewString."/gc"
+  endif
+endfunction
 "-------------------------------------------------------------------------------
 " "}}}
 
