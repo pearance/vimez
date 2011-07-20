@@ -39,14 +39,14 @@ set t_Co=256                " Force terminal to go into 256 color mode.
 colorscheme vimez	          " Default color scheme.
 syntax on		                " Syntax highlighting on.
 
-" Display a list of syntax items at the current cursor position.
+" Show syntax highlighting group for current word.
 function! <SID>SynStack()
   if !exists("*synstack")
     return
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
-nnoremap <Leader>si :call <SID>SynStack()<CR>
+nnoremap <leader>syn :call <SID>SynStack()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -234,8 +234,8 @@ endif
 " "Write File"
 if has("unix")
   nnoremap <leader>wf :w <C-R>=expand("%:p:h") . "/" <CR>
-else
   nnoremap <leader>wf :w <C-R>=expand("%:p:h") . "\\" <CR>
+else
 endif
 "-------------------------------------------------------------------------------
 
@@ -1097,31 +1097,31 @@ nmap <leader>tch :setlocal cursorline! cursorcolumn!<CR>
 
 
 " "Messages"
-set shortmess+=f        " Use "(3 of 5)" instead of "(file 3 of 5)"
-set shortmess+=i        " Use "[noeol]" instead of "[Incomplete last line]"
-set shortmess+=l        " Use "999L, 888C" instead of "999 lines, 888 characters"
-set shortmess+=m        " Use "[+]" instead of "[Modified]"
-set shortmess+=n        " Use "[New]" instead of "[New File]"
-set shortmess+=r        " Use "[RO]" instead of "[readonly]"
-set shortmess-=w        " Use "[w]" instead of "written" for file write message
-                        " and "[a]" instead of "appended" for ':w >> file' command
-set shortmess+=x        " Use "[dos]" instead of "[dos format]", "[unix]" instead
-                        " of "[unix format]" and "[mac]" instead of "[mac format]".
-set shortmess-=a        " All of the above abbreviations
-set shortmess+=o        " Overwrite message for writing a file with subsequent message
-                        " for reading a file (useful for ":wn" or when 'autowrite' on)
-set shortmess+=O        " Message for reading a file overwrites any previous message.
-                        " Also for quickfix message (e.g., ":cn").
-set shortmess-=s        " Don't give "search hit BOTTOM, continuing at TOP" or "search
-                        " hit TOP, continuing at BOTTOM" messages
-set shortmess+=t        " Truncate file message at the start if it is too long to fit
-                        " on the command-line, "<" will appear in the left most column.
-set shortmess-=T        " Truncate other messages in the middle if they are too long to
-                        " fit on the command line.  "..." will appear in the middle.
-set shortmess-=W        " Don't give "written" or "[w]" when writing a file
-set shortmess-=A        " Don't give the "ATTENTION" message when an existing
-                        " swap file is found.
-set shortmess+=I        " Don't give the intro message when starting Vim |:intro|.
+set shortmess+=f " Use "(3 of 5)" instead of "(file 3 of 5)"
+set shortmess+=i " Use "[noeol]" instead of "[Incomplete last line]"
+set shortmess+=l " Use "999L, 888C" instead of "999 lines, 888 characters"
+set shortmess+=m " Use "[+]" instead of "[Modified]"
+set shortmess+=n " Use "[New]" instead of "[New File]"
+set shortmess+=r " Use "[RO]" instead of "[readonly]"
+set shortmess-=w " Use "[w]" instead of "written" for file write message
+                 " and "[a]" instead of "appended" for ':w >> file' command
+set shortmess+=x " Use "[dos]" instead of "[dos format]", "[unix]" instead
+                 " of "[unix format]" and "[mac]" instead of "[mac format]".
+set shortmess-=a " All of the above abbreviations
+set shortmess+=o " Overwrite message for writing a file with subsequent message
+                 " for reading a file (useful for ":wn" or when 'autowrite' on)
+set shortmess+=O " Message for reading a file overwrites any previous message.
+                 " Also for quickfix message (e.g., ":cn").
+set shortmess-=s " Don't give "search hit BOTTOM, continuing at TOP" or "search
+                 " hit TOP, continuing at BOTTOM" messages
+set shortmess+=t " Truncate file message at the start if it is too long to fit
+                 " on the command-line, "<" will appear in the left most column.
+set shortmess-=T " Truncate other messages in the middle if they are too long to
+                 " fit on the command line.  "..." will appear in the middle.
+set shortmess-=W " Don't give "written" or "[w]" when writing a file
+set shortmess-=A " Don't give the "ATTENTION" message when an existing
+                 " swap file is found.
+set shortmess+=I " Don't give the intro message when starting Vim |:intro|.
 "-------------------------------------------------------------------------------
 
 
@@ -1283,6 +1283,10 @@ set smartcase           " Do smart case matching
 set wrapscan            " Set the search scan to wrap around the file
 nmap <silent> <leader><leader> :silent :nohlsearch<CR>
 "-------------------------------------------------------------------------------
+
+
+
+"-------------------------------------------------------------------------------
 " "}}}
 
 
@@ -1347,7 +1351,7 @@ noremap <silent> <leader>sh :split<CR>
 "*******************************************************************************
 augroup HelpGroup
   autocmd! HelpGroup
-  autocmd WinEnter * :call HelpEnv()   " Set the help environment.
+  autocmd WinEnter,BufEnter * :call HelpEnv()   " Set the help environment.
   autocmd WinEnter * :call HelpEnter() " Map Enter to jump to subject.
   autocmd WinEnter * :call HelpBack()  " Map Backspace to jump back.
 augroup END
