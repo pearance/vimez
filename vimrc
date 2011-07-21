@@ -44,7 +44,7 @@ function! <SID>SynStack()
   if !exists("*synstack")
     return
   endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+  echo nnoremap(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
 nnoremap <leader>syn :call <SID>SynStack()<CR>
 "-------------------------------------------------------------------------------
@@ -172,7 +172,7 @@ nnoremap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
 
 
 " "Reload Vim"
- map <silent> <F5> :so $MYVIMRC<CR><Bar> :call Msg('   VimEz Reloaded!')<CR>
+nnoremap <silent> <F5> :so $MYVIMRC<CR><Bar> :call Msg('   VimEz Reloaded!')<CR>
 
 augroup LocalReload
   autocmd! LocalReload
@@ -700,8 +700,8 @@ set fo-=1  " Don't break a line after a one-letter word.  It's broken before it
 
 " "Paragraph Formatting"
 " set formatprg=par " TODO Put this in my vimrc.local
-vmap Q gq
-nmap Q gqip
+vnoremap Q gq
+nnoremap Q gqip
 "-------------------------------------------------------------------------------
 
 
@@ -1249,6 +1249,15 @@ au BufWinLeave * call clearmatches()
 "*******************************************************************************
 " NAVIGATION: "{{{5
 "*******************************************************************************
+" "Disable Cursor Keys"
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+"-------------------------------------------------------------------------------
+
+
+
 " "Escape" A more efficient alternative to the escape key.
 inoremap jj <Esc>
 inoremap JJ <Esc>
@@ -1265,12 +1274,21 @@ set sidescrolloff=5     " Same as above just for columns instead of lines.
 
 
 
+" "Insert Mode Navigation"
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+"-------------------------------------------------------------------------------
+
+
+
 " "Hyper h|j|k|l" Consistent use of h|j|k|l with Shift to hyper traverse
 " the buffer universe!
-map <S-h> ^
-map <S-j> 20j
-map <S-k> 20k
-map <S-l> $
+nnoremap <S-h> ^
+nnoremap <S-j> 20j
+nnoremap <S-k> 20k
+nnoremap <S-l> $
 "-------------------------------------------------------------------------------
 
 
@@ -1281,7 +1299,7 @@ set incsearch           " Highlight search terms dynamically and incrementally
 set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set wrapscan            " Set the search scan to wrap around the file
-nmap <silent> <leader><leader> :silent :nohlsearch<CR>
+nnoremap <silent> <leader><leader> :silent :nohlsearch<CR>
 "-------------------------------------------------------------------------------
 
 
