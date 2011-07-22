@@ -61,17 +61,19 @@ hi User3            guifg=#303030 guibg=#1C1C1C
 " and status bar to when you enter into Insert modes and back to Normal mode. As
 " well as to temporarily turn off search highlighting when in Insert mode and
 " back on after escaping.
-au InsertEnter * hi User1 guifg=#1C1C1C guibg=#FF005F ctermfg=234 ctermbg=197
-au InsertEnter * hi User2 guifg=#FF005F guibg=#FF005F ctermfg=197 ctermbg=197
-au InsertEnter * hi Cursorline guifg=NONE guibg=NONE gui=underline
-au InsertEnter * hi Cursorline ctermfg=NONE ctermbg=NONE cterm=underline term=underline
-au InsertEnter * setlocal invhlsearch
+augroup ModeIndicator
+  au InsertEnter * hi User1 guifg=#1C1C1C guibg=#FF005F ctermfg=234 ctermbg=197
+  au InsertEnter * hi User2 guifg=#FF005F guibg=#FF005F ctermfg=197 ctermbg=197
+  au InsertEnter * hi Cursorline guifg=NONE guibg=NONE gui=underline
+  au InsertEnter * hi Cursorline ctermfg=NONE ctermbg=NONE cterm=underline term=underline
+  au InsertEnter * setlocal nohlsearch
 
-au InsertLeave * hi User1 guifg=#1C1C1C guibg=#87FF00 ctermfg=234 ctermbg=118
-au InsertLeave * hi User2 guifg=#5F5F00 guibg=#87FF00 ctermfg=58 ctermbg=118
-au InsertLeave * hi Cursorline guifg=NONE guibg=#87FF00 guisp=#FF0087
-au InsertLeave * hi Cursorline ctermfg=NONE ctermbg=234 cterm=NONE
-au InsertLeave * setlocal invhlsearch
+  au InsertLeave * hi User1 guifg=#1C1C1C guibg=#87FF00 ctermfg=234 ctermbg=118
+  au InsertLeave * hi User2 guifg=#5F5F00 guibg=#87FF00 ctermfg=58 ctermbg=118
+  au InsertLeave * hi Cursorline guifg=NONE guibg=#87FF00 guisp=#FF0087
+  au InsertLeave * hi Cursorline ctermfg=NONE ctermbg=234 cterm=NONE
+  au InsertLeave * setlocal hlsearch
+augroup END
 "-------------------------------------------------------------------------------------------------------------------------------
 
 

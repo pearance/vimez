@@ -1318,7 +1318,9 @@ set incsearch           " Highlight search terms dynamically and incrementally
 set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set wrapscan            " Set the search scan to wrap around the file
-nnoremap <silent> <leader><leader> :silent :nohlsearch<CR>
+nnoremap <silent> <leader><Leader> :nohlsearch<Bar>:echo<CR>
+nnoremap <silent> <Leader>hw
+      \ :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hlsearch<CR>
 "-------------------------------------------------------------------------------
 
 
