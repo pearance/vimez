@@ -1167,16 +1167,22 @@ set whichwrap+=]        " <BS> Normal and Visual
 
 
 " "Colorcolumn"
-set colorcolumn=+1      " Hightlight a column
-nnoremap <silent> <leader>tc :call <SID>ToggleCC()<CR>
+if exists('+colorcolumn')
+  nnoremap <silent> <leader>tcc :call ToggleCC()<CR>
+  let g:ccToggle = 0
 
-function! s:ToggleCC()
-  if &colorcolumn == 0
-    set colorcolumn=+1
-  else
-    set colorcolumn=0
-  endif
-endfunction
+  function! ToggleCC()
+    if g:ccToggle == 0
+      set colorcolumn=0
+      redraw!
+      let g:ccToggle = 1
+    else
+      set colorcolumn=+1
+      redraw!
+      let g:ccToggle = 0
+    endif
+  endfunction
+endif
 "-------------------------------------------------------------------------------
 
 

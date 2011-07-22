@@ -1,6 +1,5 @@
 " Name: VimEz initrc
-" Description: A robust Vim IDE distribution.
-" Maintainer: Fontaine Cook <fontaine.cook@pearance.com
+" Description: A robust Vim IDE distribution." Maintainer: Fontaine Cook <fontaine.cook@pearance.com
 " Dependencies: Requires Vim 7.2 or higher.
 " Version: 0.1a
 
@@ -37,6 +36,7 @@ Bundle "VimEz/BufOnly"
 Bundle "VimEz/Gundo.vim"
 Bundle "VimEz/NeoComplCache"
 Bundle "VimEz/Unimpaired"
+Bundle "VimEz/Colorizer"
 "-----------------------------------------------------------------------------
 
 
