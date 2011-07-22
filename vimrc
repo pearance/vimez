@@ -241,6 +241,12 @@ endif
 
 
 
+" "Write File!" with root permission.
+cmap w!! w !sudo tee % >/dev/null
+"-------------------------------------------------------------------------------
+
+
+
 " "Delete File"
 function! DeleteFile()
   let l:delprompt = input('Are you sure? ')
@@ -1289,6 +1295,13 @@ nnoremap <S-h> ^
 nnoremap <S-j> 20j
 nnoremap <S-k> 20k
 nnoremap <S-l> $
+"-------------------------------------------------------------------------------
+
+
+
+" "Ignore Wrapped Lines" Prevent jumping over wrapped lines.
+nnoremap j gj
+nnoremap k gk
 "-------------------------------------------------------------------------------
 
 
