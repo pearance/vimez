@@ -37,6 +37,7 @@ Bundle "VimEz/Gundo.vim"
 Bundle "VimEz/NeoComplCache"
 Bundle "VimEz/Unimpaired"
 Bundle "VimEz/Colorizer"
+Bundle "VimEz/Markdown"
 "-----------------------------------------------------------------------------
 
 
