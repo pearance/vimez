@@ -398,7 +398,6 @@ let g:BufKillOverrideCtrlCaret=1
 " "Sessions (Session.vim)"
 let g:session_autoload = 'yes'
 let g:session_autosave = 'yes'
-let g:session_default_to_last = 'yes'
 let g:session_directory = '~/.vim/local/sessions/'
 
 set sessionoptions=
@@ -1033,7 +1032,7 @@ function! Spell_flag()
   if &spell == 0
     return ""
   else
-    return "[S]\ "
+    return "[S]"
   endif
 endfunction
 "-------------------------------------------------------------------------------
@@ -1164,6 +1163,15 @@ set whichwrap+=~        " "h" Normal and Visual (not recommended)
 set whichwrap+=[        " <Space> Normal and Visual
 set whichwrap+=]        " <BS> Normal and Visual
 
+" Generate a statusline flag for Line Wrap"
+function! WrapFlag()
+  if &wrap == 0
+    return ""
+  else
+    return "[W]"
+  endif
+endfunction
+"-------------------------------------------------------------------------------
 
 
 " "Colorcolumn"
@@ -1212,6 +1220,7 @@ set stl+=%=                             " Align right
 set stl+=                               " TODO: diff mode flag
 set stl+=                               " TODO: scrollbind flag
 set stl+=                               " TODO: capslock flag
+set stl+=%{WrapFlag()}                  " Wrap flag
 set stl+=%{Spell_flag()}                " Spellcheck flag
 set stl+=[                              " Open bracket
 set stl+=%{Expandtab_flag()}            " Soft tab flag
@@ -1275,6 +1284,7 @@ inoremap jj <Esc>
 inoremap JJ <Esc>
 cnoremap jj <C-c>
 cnoremap JJ <C-c>
+cnoremap jo <Enter><leader><leader>
 "-------------------------------------------------------------------------------
 
 
@@ -1318,8 +1328,8 @@ set incsearch           " Highlight search terms dynamically and incrementally
 set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set wrapscan            " Set the search scan to wrap around the file
-nnoremap <silent> <leader><Leader> :nohlsearch<Bar>:echo<CR>
-nnoremap <silent> <Leader>hw
+nnoremap <silent> <leader><leader> :nohlsearch<Bar>:echo<CR>
+nnoremap <silent> <leader>hw
       \ :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hlsearch<CR>
 "-------------------------------------------------------------------------------
 
