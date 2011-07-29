@@ -38,6 +38,7 @@ Bundle "VimEz/NeoComplCache"
 Bundle "VimEz/Unimpaired"
 Bundle "VimEz/Colorizer"
 Bundle "VimEz/Markdown"
+Bundle "VimEz/XtermColorTable"
 "-----------------------------------------------------------------------------
 
 
