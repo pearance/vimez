@@ -1050,6 +1050,14 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 nnoremap <silent> <F6> :call <SID>StripTrailingWhitespaces()<CR>
 "-------------------------------------------------------------------------------
+
+
+
+" "Common Symbols"
+inoremap uu _
+inoremap hh =>
+inoremap aa @
+"-------------------------------------------------------------------------------
 " "}}}
 
 
@@ -1315,7 +1323,7 @@ nnoremap <S-l> $
 
 
 
-" "Ignore Wrapped Lines" Prevent jumping over wrapped lines.
+" "Ignore Wrapped Lines" Prevent jumping over wrapped lines & use visual lines.
 nnoremap j gj
 nnoremap k gk
 "-------------------------------------------------------------------------------
@@ -1473,4 +1481,9 @@ endfunction
 
 
 
-"
+
+
+
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
