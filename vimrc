@@ -131,9 +131,10 @@ set ttymouse=xterm2             " Enable basic mouse functionality in a terminal
 "-------------------------------------------------------------------------------
 
 
+
 " "Update Time" How frequent marks, statusbar, swap files, and other are updated.
-"-------------------------------------------------------------------------------
 set updatetime=1000
+"-------------------------------------------------------------------------------
 
 
 
@@ -882,7 +883,9 @@ nnoremap <silent>+ :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
 " "Blank Current Line" Delete line without copying its contents into a
 " clipboard register and without removing the space the line accupied.
-nnoremap <silent><leader>dd 0D
+"nnoremap <silent><leader>dd 0D
+nnoremap <silent><leader>dd "_d
+vnoremap <silent><leader>dd "_d
 "-------------------------------------------------------------------------------
 
 
@@ -1319,8 +1322,10 @@ nnoremap <S-h> ^
 nnoremap <S-j> 20j
 nnoremap <S-k> 20k
 nnoremap <S-l> $
-vnoremap <S-l> >gv
-vnoremap <S-h> <gv
+vnoremap <S-h> ^
+vnoremap <S-j> 20j
+vnoremap <S-k> 20k
+vnoremap <S-l> $
 "-------------------------------------------------------------------------------
 
 
