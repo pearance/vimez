@@ -515,7 +515,7 @@ nnoremap <leader>wqq :SaveSession<CR>:wqa<CR>
 
 " "Quit" Simpler exit strategy, that prompts if there is any unsaved buffers
 " open.
-nmap <leader>qqq :qa<CR>
+nmap <leader>Q :qa<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -846,10 +846,10 @@ nmap <C-l> >>
 " "Bubbling Block (Unimpaired)" Consistent use of [hjkl] with the Shift modifier to move a
 " block of text around. Up/down by one line and left/right by amount of
 " shiftwidth.
-vmap <C-l> >gv
 vmap <C-h> <gv
 vmap <C-j> ]egv
 vmap <C-k> [egv
+vmap <C-l> >gv
 "-------------------------------------------------------------------------------
 
 
@@ -1319,6 +1319,8 @@ nnoremap <S-h> ^
 nnoremap <S-j> 20j
 nnoremap <S-k> 20k
 nnoremap <S-l> $
+vnoremap <S-l> >gv
+vnoremap <S-h> <gv
 "-------------------------------------------------------------------------------
 
 
