@@ -14,6 +14,7 @@
 " + Filetype Associations
 " + Edit
 " + View
+" + Insert
 " + Navigation
 " + Tools
 " + Window
@@ -148,26 +149,6 @@ cmap <A-h> <Left>
 cmap <C-h> <Left>
 cmap <A-l> <Right>
 cmap <C-l> <Right>
-"-------------------------------------------------------------------------------
-
-
-
-" "Edit Vimrc" This would be Vim's version of [Edit Preferences] :-) Upon saving
-" the file is sourced so most of time your changes should take effect
-" immediately. However, some changes will only take effect after restarting Vim.
-nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Edit Initrc"
-nnoremap <silent> <leader>ei :e $HOME/.vim/initrc<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Edit Color Scheme"
-nnoremap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -635,8 +616,28 @@ augroup END
 
 
 "*******************************************************************************
-" EDIT: "{{{4
+" EDIT: "{{{
 "*******************************************************************************
+" "Edit Vimrc" This would be Vim's version of [Edit Preferences] :-) Upon saving
+" the file is sourced so most of time your changes should take effect
+" immediately. However, some changes will only take effect after restarting Vim.
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Edit Initrc"
+nnoremap <silent> <leader>ei :e $HOME/.vim/initrc<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Edit Color Scheme"
+nnoremap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
+"-------------------------------------------------------------------------------
+
+
+
 " "Virtual Edit" Allow the cursor to go where no cursor has gone before.
 " Navigate into lines and columns that are not real.
 set virtualedit=all
@@ -721,98 +722,6 @@ nnoremap <leader>uu :GundoToggle<CR>
 
 
 
-" "Autocompletion/Snippets (NeoComplCache)"
-" Autocompletion General Settings
-set cpt+=.		    " Scan the current buffer ('wrapscan' is ignored)
-set cpt+=w		    " Scan buffers from other windows
-set cpt+=b		    " Scan other loaded buffers that are in the buffer list
-set cpt+=u		    " Scan the unloaded buffers that are in the buffer list
-set cpt+=U		    " Scan the buffers that are not in the buffer list
-set cpt-=k		    " Scan the files given with the 'dictionary' option
-set cpt+=kspell   " Use the currently active spell checking |spell|
-set cpt-=k{dict}  " Scan the file {dict}.  Several "k" flags can be given,
-                  " patterns are valid too.  For example:
-                  " 	:set cpt=k/usr/dict/*,k~/spanish
-set cpt-=s		    " Scan the files given with the 'thesaurus' option
-set cpt-=s{tsr}	  " Scan the file {tsr}.  Several "s" flags can be given,
-                  " patterns are valid too.
-set cpt+=i		    " Scan current and included files
-set cpt-=d		    " Scan current and included files for defined name or macro
-                	    " |i_CTRL-X_CTRL-D|
-set cpt+=]		    " Tag completion
-set cpt+=t		    " Same as "]"
-
-set infercase   	" Match is adjusted depending on the typed text.
-set pumheight=15  " Pop Up Menu height in lines
-
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_disable_auto_complete = 0
-let g:neocomplcache_max_list = 50
-let g:neocomplcache_max_keyword_width = 50
-let g:neocomplcache_max_filename_width = 15
-let g:neocomplcache_auto_completion_start_length = 2
-let g:neocomplcache_manual_completion_start_length = 2
-let g:neocomplcache_min_keyword_length = 3
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_enable_ignore_case = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_wildcard = 1
-let g:neocomplcache_enable_quick_match = 1
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_enable_caching_message = 1
-let g:neocomplcache_disable_select_mode_mappings = 1
-let g:neocomplcache_enable_auto_select = 0
-let g:neocomplcache_enable_auto_delimiter = 0
-let g:neocomplcache_snippets_complete_disable_runtime_snippets = 1
-let g:neocomplcache_snippets_dir = $HOME.'/.vim/snippets'
-
-" Set snips_author.
-if !exists('snips_author')
-  let g:snips_author = 'Your Name Here'
-endif
-
-" Configure Dictionaries
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ }
-
-" Configure Omnicompletion
-augroup AutoComplete
-  autocmd! AutoComplete
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType c setlocal omnifunc=ccomplete#Complete
-  autocmd FileType vim setlocal omnifunc=syntaxcomplete#Complete
-augroup END
-
-" Enable Custom Omnicompletion
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-
-" Configure Neocomplcache Mappings
-imap <expr><Tab>
-  \ neocomplcache#sources#snippets_complete#expandable() ?
-  \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ?
-  \ "\<C-n>" : "\<Tab>"
-inoremap <expr><C-z> neocomplcache#undo_completion()
-inoremap <expr><BS>  neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><CR>  neocomplcache#smart_close_popup()."\<CR>"
-nnoremap <leader>es  :NeoComplCacheEditSnippets<CR>
-"-------------------------------------------------------------------------------
-
-
-
 " "Reselect Pasted Text"
 nnoremap <leader>v V`]
 "-------------------------------------------------------------------------------
@@ -881,15 +790,6 @@ nnoremap <silent>+ :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
 
 
-" "Blank Current Line" Delete line without copying its contents into a
-" clipboard register and without removing the space the line accupied.
-"nnoremap <silent><leader>dd 0D
-nnoremap <silent><leader>dd "_d
-vnoremap <silent><leader>dd "_d
-"-------------------------------------------------------------------------------
-
-
-
 " "Join Next or Previous line" Normally Shift-j joins the line below with the
 " current one, but felt it best to maintain [hjkl] as directional arrow keys.
 " So, this functionality is mapped to Leader jn and jp for join next (line
@@ -897,125 +797,6 @@ vnoremap <silent><leader>dd "_d
 set nojoinspaces
 nnoremap <silent> <leader>jn :join<CR>
 nnoremap <silent> <leader>jp k<S-v>xpk:join<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Enter" Restore some familiar behavior to the Enter key, in Normal mode.
-nnoremap <CR> i<CR><Esc>
-"-------------------------------------------------------------------------------
-
-
-
-" "Backspace" Restore expected functionality to the Backspace key, while in
-" Normal mode. Such as backspacing the amount of shiftwidth.
-set backspace=indent,eol,start    " Sane backspacing in Insert mode
-nnoremap <BS> i<BS><Right><Esc>
-"-------------------------------------------------------------------------------
-
-
-
-" "Delete" In Normal mode we have the 'x' key to delete forward characters. In
-" Insert mode you have to stretch for the delete key, and to add insult to
-" injury its location varies from keyboard to keyboard.
-inoremap <C-d> <Del>
-"-------------------------------------------------------------------------------
-
-
-
-" "Space" A sensible compromise for the ability to add a quick space whilst in
-" Normal mode, but not with the Space bar. This is to safe guard against
-" accidentally adding space in the middle of critical syntax. In addition to
-" the default Leader key, it is too easily accessible. So its mapped
-" to <leader> s <leader> which adds a space immediately. Alternatively,
-" <leader> s has a delayed effect.
-nnoremap <leader>ss i<Space><Esc>l
-"-------------------------------------------------------------------------------
-
-
-
-" "x Forward Delete" This gives the beloved 'x' key in Normal mode the ability
-" to wrap to the next line and continue deleting.
-"nnoremap x i<Del><Esc>l
-"-------------------------------------------------------------------------------
-
-
-
-" "Tab Indentation" Tab to indent one level and Shift-Tab to go back one
-" level, based on tab settings. Acts on a single line while in Normal mode and
-" blocks of text while in Visual mode.
-set expandtab           " Expand tabs using spaces instead of a tab char
-set shiftwidth=2        " Amount of shift when in Normal mode
-set tabstop=2           " Number of spaces that a <Tab> in the file counts for.
-set softtabstop=2       " Set amount of spaces for a tab
-set smarttab            " Uses shiftwidth instead of tabstop at start of lines.
-set shiftround          " Use multiples of shiftwidth when indenting
-set autoindent          " Enable auto indentation
-set copyindent          " Copy the previous indentation on autoindenting
-nnoremap <Tab> i<Tab><Esc>l
-nnoremap <S-Tab> i<BS><Esc>l
-vmap <Tab> >gv
-vmap <S-Tab> <gv
-nnoremap <leader>tab :call Tab()<CR>
-command! -nargs=* Tab call Tab()
-nnoremap <silent> <leader>tt :setlocal expandtab!<CR>
-nmap <silent> <leader>tt :setlocal expandtab!<CR>
-      \ <Bar>:echo "   Soft Tabs: " . strpart("OffOn", 3 * &expandtab, 3)<CR>
-
-" Prompt for tab size and apply to softtabstop, tabstop, and shiftwidth.
-function! Tab()
-  let l:tabstop = 1 * input('Tab Size: ')
-  if l:tabstop > 0
-    let &l:sts = l:tabstop
-    let &l:ts = l:tabstop
-    let &l:sw = l:tabstop
-  endif
-  call TabSummary()
-endfunction
-
-" Message a summary of current tab settings.
-function! TabSummary()
-  try
-    echohl ModeMsg
-    echon 'Current tab settings: '
-    echon 'tabstop='.&l:ts
-    echon ' shiftwidth='.&l:sw
-    echon ' softtabstop='.&l:sts
-    if &l:et
-      echon ' expandtab'
-    else
-      echon ' noexpandtab'
-    endif
-  finally
-    echohl None
-  endtry
-endfunction
-
-" Generate a statusline flag for expandtab.
-function! Expandtab_flag()
-  if &expandtab == 0
-    return ""
-  else
-    return "Soft\ "
-  endif
-endfunction
-
-" Generate statusline flags for softtabstop, tabstop, and shiftwidth.
-function! Tabstop_status()
-  let str = "Tab:" . &tabstop
-  " Show softtabstop or shiftwidth if not equal tabstop
-  if   (&softtabstop && (&softtabstop != &tabstop))
-  \ || (&shiftwidth  && (&shiftwidth  != &tabstop))
-    let str = "TS:" . &tabstop
-    if &softtabstop
-      let str = str . "\ STS:" . &softtabstop
-    endif
-    if &shiftwidth != &tabstop
-      let str = str . "\ SW:" . &shiftwidth
-    endif
-  endif
-  return str
-endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -1053,14 +834,6 @@ endfunction
 
 autocmd BufWritePre * call StripTrailingWhitespace()
 autocmd FileType help,conque_term let b:noStripWhitespace=1
-"-------------------------------------------------------------------------------
-
-
-
-" "Common Symbols"
-inoremap uu _
-inoremap hh =>
-inoremap aa @
 "-------------------------------------------------------------------------------
 " "}}}
 
@@ -1248,6 +1021,234 @@ set stl+=%06(L:%l%)                     " Current line
 set stl+=%<                             " Truncate this side of the aisle
 "-------------------------------------------------------------------------------
 " "}}}
+
+
+
+
+
+
+
+
+
+
+"*******************************************************************************
+" INSERT: "{{{
+"*******************************************************************************
+" "Autocompletion/Snippets (NeoComplCache)"
+" Autocompletion General Settings
+set cpt+=.		    " Scan the current buffer ('wrapscan' is ignored)
+set cpt+=w		    " Scan buffers from other windows
+set cpt+=b		    " Scan other loaded buffers that are in the buffer list
+set cpt+=u		    " Scan the unloaded buffers that are in the buffer list
+set cpt+=U		    " Scan the buffers that are not in the buffer list
+set cpt-=k		    " Scan the files given with the 'dictionary' option
+set cpt+=kspell   " Use the currently active spell checking |spell|
+set cpt-=k{dict}  " Scan the file {dict}.  Several "k" flags can be given,
+                  " patterns are valid too.  For example:
+                  " 	:set cpt=k/usr/dict/*,k~/spanish
+set cpt-=s		    " Scan the files given with the 'thesaurus' option
+set cpt-=s{tsr}	  " Scan the file {tsr}.  Several "s" flags can be given,
+                  " patterns are valid too.
+set cpt+=i		    " Scan current and included files
+set cpt-=d		    " Scan current and included files for defined name or macro
+                	    " |i_CTRL-X_CTRL-D|
+set cpt+=]		    " Tag completion
+set cpt+=t		    " Same as "]"
+
+set infercase   	" Match is adjusted depending on the typed text.
+set pumheight=15  " Pop Up Menu height in lines
+
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_disable_auto_complete = 0
+let g:neocomplcache_max_list = 50
+let g:neocomplcache_max_keyword_width = 50
+let g:neocomplcache_max_filename_width = 15
+let g:neocomplcache_auto_completion_start_length = 2
+let g:neocomplcache_manual_completion_start_length = 2
+let g:neocomplcache_min_keyword_length = 3
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_enable_ignore_case = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_wildcard = 1
+let g:neocomplcache_enable_quick_match = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_enable_caching_message = 1
+let g:neocomplcache_disable_select_mode_mappings = 1
+let g:neocomplcache_enable_auto_select = 0
+let g:neocomplcache_enable_auto_delimiter = 0
+let g:neocomplcache_snippets_complete_disable_runtime_snippets = 1
+let g:neocomplcache_snippets_dir = $HOME.'/.vim/snippets'
+
+" Set snips_author.
+if !exists('snips_author')
+  let g:snips_author = 'Your Name Here'
+endif
+
+" Configure Dictionaries
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ }
+
+" Configure Omnicompletion
+augroup AutoComplete
+  autocmd! AutoComplete
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType c setlocal omnifunc=ccomplete#Complete
+  autocmd FileType vim setlocal omnifunc=syntaxcomplete#Complete
+augroup END
+
+" Enable Custom Omnicompletion
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+
+" Configure Neocomplcache Mappings
+imap <expr><Tab>
+  \ neocomplcache#sources#snippets_complete#expandable() ?
+  \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ?
+  \ "\<C-n>" : "\<Tab>"
+inoremap <expr><C-z> neocomplcache#undo_completion()
+inoremap <expr><BS>  neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><CR>  neocomplcache#smart_close_popup()."\<CR>"
+nnoremap <leader>es  :NeoComplCacheEditSnippets<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Enter" Restore some familiar behavior to the Enter key, in Normal mode.
+nnoremap <CR> i<CR><Esc>
+"-------------------------------------------------------------------------------
+
+
+
+" "Backspace" Restore expected functionality to the Backspace key, while in
+" Normal mode. Such as backspacing the amount of shiftwidth.
+set backspace=indent,eol,start    " Sane backspacing in Insert mode
+nnoremap <BS> i<BS><Right><Esc>
+"-------------------------------------------------------------------------------
+
+
+
+" "Delete" In Normal mode we have the 'x' key to delete forward characters. In
+" Insert mode you have to stretch for the delete key, and to add insult to
+" injury its location varies from keyboard to keyboard.
+inoremap <C-d> <Del>
+nnoremap <silent><leader>dd "_d
+vnoremap <silent><leader>dd "_d
+"-------------------------------------------------------------------------------
+
+
+
+" "Space" A sensible compromise for the ability to add a quick space whilst in
+" Normal mode, but not with the Space bar. This is to safe guard against
+" accidentally adding space in the middle of critical syntax. In addition to
+" the default Leader key, it is too easily accessible. So its mapped
+" to <leader> s <leader> which adds a space immediately. Alternatively,
+" <leader> s has a delayed effect.
+nnoremap <leader>ss i<Space><Esc>l
+"-------------------------------------------------------------------------------
+
+
+
+" "Tab Indentation" Tab to indent one level and Shift-Tab to go back one
+" level, based on tab settings. Acts on a single line while in Normal mode and
+" blocks of text while in Visual mode.
+set expandtab           " Expand tabs using spaces instead of a tab char
+set shiftwidth=2        " Amount of shift when in Normal mode
+set tabstop=2           " Number of spaces that a <Tab> in the file counts for.
+set softtabstop=2       " Set amount of spaces for a tab
+set smarttab            " Uses shiftwidth instead of tabstop at start of lines.
+set shiftround          " Use multiples of shiftwidth when indenting
+set autoindent          " Enable auto indentation
+set copyindent          " Copy the previous indentation on autoindenting
+nnoremap <Tab> i<Tab><Esc>l
+nnoremap <S-Tab> i<BS><Esc>l
+vmap <Tab> >gv
+vmap <S-Tab> <gv
+nnoremap <leader>tab :call Tab()<CR>
+command! -nargs=* Tab call Tab()
+nnoremap <silent> <leader>tt :setlocal expandtab!<CR>
+nmap <silent> <leader>tt :setlocal expandtab!<CR>
+      \ <Bar>:echo "   Soft Tabs: " . strpart("OffOn", 3 * &expandtab, 3)<CR>
+
+" Prompt for tab size and apply to softtabstop, tabstop, and shiftwidth.
+function! Tab()
+  let l:tabstop = 1 * input('Tab Size: ')
+  if l:tabstop > 0
+    let &l:sts = l:tabstop
+    let &l:ts = l:tabstop
+    let &l:sw = l:tabstop
+  endif
+  call TabSummary()
+endfunction
+
+" Message a summary of current tab settings.
+function! TabSummary()
+  try
+    echohl ModeMsg
+    echon 'Current tab settings: '
+    echon 'tabstop='.&l:ts
+    echon ' shiftwidth='.&l:sw
+    echon ' softtabstop='.&l:sts
+    if &l:et
+      echon ' expandtab'
+    else
+      echon ' noexpandtab'
+    endif
+  finally
+    echohl None
+  endtry
+endfunction
+
+" Generate a statusline flag for expandtab.
+function! Expandtab_flag()
+  if &expandtab == 0
+    return ""
+  else
+    return "Soft\ "
+  endif
+endfunction
+
+" Generate statusline flags for softtabstop, tabstop, and shiftwidth.
+function! Tabstop_status()
+  let str = "Tab:" . &tabstop
+  " Show softtabstop or shiftwidth if not equal tabstop
+  if   (&softtabstop && (&softtabstop != &tabstop))
+  \ || (&shiftwidth  && (&shiftwidth  != &tabstop))
+    let str = "TS:" . &tabstop
+    if &softtabstop
+      let str = str . "\ STS:" . &softtabstop
+    endif
+    if &shiftwidth != &tabstop
+      let str = str . "\ SW:" . &shiftwidth
+    endif
+  endif
+  return str
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Common Symbols"
+inoremap uu _
+inoremap hh =>
+inoremap aa @
+"-------------------------------------------------------------------------------
+"}}}
+
+
+
 
 
 
