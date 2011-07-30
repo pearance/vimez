@@ -44,7 +44,7 @@ function! <SID>SynStack()
   if !exists("*synstack")
     return
   endif
-  echo nnoremap(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
 nnoremap <leader>syn :call <SID>SynStack()<CR>
 "-------------------------------------------------------------------------------
@@ -235,8 +235,8 @@ endif
 " "Write File"
 if has("unix")
   nnoremap <leader>wf :w <C-R>=expand("%:p:h") . "/" <CR>
-  nnoremap <leader>wf :w <C-R>=expand("%:p:h") . "\\" <CR>
 else
+  nnoremap <leader>wf :w <C-R>=expand("%:p:h") . "\\" <CR>
 endif
 "-------------------------------------------------------------------------------
 
@@ -291,7 +291,7 @@ nnoremap <silent> <leader>kk :CommandT<CR>
 
 
 " "New Buffer"
-nnoremap <leader>nb :enew<CR>
+nnoremap <silent> <leader>nb :enew<CR><Bar>i<Space><BS><Esc>
 "-------------------------------------------------------------------------------
 
 
@@ -315,7 +315,7 @@ nnoremap <silent> <leader>wa :wall<CR>:exe ":echo 'All buffers saved to files!'"
 
 " "Close Buffer (BufKill)" The i<Space><Esc> is required by an empty buffer
 " created by enew in order to close it and remove it form the buffer list.
-nnoremap <silent> <leader>cb i<Space><Esc><Bar>:BD<CR>
+nnoremap <silent> <leader>cb :BD<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -516,7 +516,7 @@ nnoremap <leader>wqq :SaveSession<CR>:wqa<CR>
 
 " "Quit" Simpler exit strategy, that prompts if there is any unsaved buffers
 " open.
-nmap <leader>Q :qa<CR>
+nnoremap <leader>Q :qa<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1043,15 +1043,16 @@ endfunction
 
 
 " "Strip Trailing Whitespace" Quickly remove trailing whitespace.
-function! <SID>StripTrailingWhitespaces()
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    let @/=_s
-    call cursor(l, c)
+function! StripTrailingWhitespace()
+  " Only strip if the b:noStripeWhitespace variable isn't set
+  if exists('b:noStripWhitespace')
+      return
+  endif
+  %s/\s\+$//e
 endfunction
-nnoremap <silent> <F6> :call <SID>StripTrailingWhitespaces()<CR>
+
+autocmd BufWritePre * call StripTrailingWhitespace()
+autocmd FileType help,conque_term let b:noStripWhitespace=1
 "-------------------------------------------------------------------------------
 
 
@@ -1245,29 +1246,9 @@ set stl+=%05(C:%v%)                     " Current column
 set stl+=\                              " Space
 set stl+=%06(L:%l%)                     " Current line
 set stl+=%<                             " Truncate this side of the aisle
-
-let g:Active_statusline=&g:statusline
-let g:NCstatusline=substitute(
-  \                substitute(g:Active_statusline,
-  \                'User1', 'User3', 'g'),
-  \                'User2', 'User3', 'g')
-au WinEnter,BufEnter * let&l:statusline = g:Active_statusline
-au WinLeave * let&l:statusline = g:NCstatusline
-"-------------------------------------------------------------------------------
-
-
-
-" "Highlight Trailing Whitespace" This will automatically highlight extra
-" whitespace at the end of lines. So you can either manually remove it or
-" trigger the StripTrailingWhiteSpace command via <F6>.
-highlight ExtraWhitespace ctermbg=yellow guibg=yellow
-match ExtraWhitespace /\s\+$/
-au BufWinEnter * match ExtraWhitespace /\s\+$/
-au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-au InsertLeave * match ExtraWhitespace /\s\+$/
-au BufWinLeave * call clearmatches()
 "-------------------------------------------------------------------------------
 " "}}}
+
 
 
 
@@ -1383,7 +1364,7 @@ function! SearchReplace()
   endif
 endfunction
 "-------------------------------------------------------------------------------
-" "}}}
+ "}}}
 
 
 
@@ -1397,7 +1378,35 @@ endfunction
 "*******************************************************************************
 " TOOLS: "{{{
 "*******************************************************************************
+" "Color Table (XtermColorTable)"
 nnoremap <silent> <leader>tct :XtermColorTable<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Terminal (ConqueShell)"
+nnoremap <silent> <leader>nt :ConqueTerm bash<CR>
+let g:ConqueTerm_Color = 1
+let g:ConqueTerm_SessionSupport = 1
+let g:ConqueTerm_ReadUnfocused = 1
+let g:ConqueTerm_InsertOnEnter = 0
+
+augroup TermGroup
+  autocmd! TermGroup
+  autocmd WinEnter,BufEnter * :call TermEnv()   " Set the help environment.
+augroup END
+
+" Set the help environment.
+function! TermEnv()
+  if &filetype == 'conque_term'
+    setlocal nocursorline
+    setlocal nocursorcolumn
+    setlocal norelativenumber
+    setlocal colorcolumn=0
+    call clearmatches()
+  endif
+endfunction
+"-------------------------------------------------------------------------------
 
 
 
@@ -1462,8 +1471,8 @@ noremap <silent> <leader>sh :split<CR>
 augroup HelpGroup
   autocmd! HelpGroup
   autocmd WinEnter,BufEnter * :call HelpEnv()   " Set the help environment.
-  autocmd WinEnter * :call HelpEnter() " Map Enter to jump to subject.
-  autocmd WinEnter * :call HelpBack()  " Map Backspace to jump back.
+  autocmd WinEnter,BufEnter * :call HelpEnter() " Map Enter to jump to subject.
+  autocmd WinEnter,BufEnter * :call HelpBack()  " Map Backspace to jump back.
 augroup END
 
 " Set the help environment.

@@ -23,6 +23,7 @@ Bundle "VimEz/Vundle"
 "-----------------------------------------------------------------------------
 
 
+" TODO: auto update: http://www.charlietanksley.net/philtex/sane-vim-plugin-management/
 
 " "Plugin Bundles"
 Bundle "VimEz/ScrollColors"
@@ -39,6 +40,7 @@ Bundle "VimEz/Unimpaired"
 Bundle "VimEz/Colorizer"
 Bundle "VimEz/Markdown"
 Bundle "VimEz/XtermColorTable"
+Bundle "VimEz/ConqueShell"
 "-----------------------------------------------------------------------------
 
 

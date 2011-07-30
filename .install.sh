@@ -55,6 +55,13 @@ echo -e "\nCompiled Command-T C extension successfully!\n"
 
 
 
+# Checkout plugin versions.
+mv ~/.vim/bundle/ConqueShell/doc/tags ~/.vim/local/tmp/
+cd ~/.vim/bundle/ConqueShell/; git checkout 2.0; cd ~/.vim
+mv ~/.vim/local/tmp/tags ~/.vim/bundle/ConqueShell/doc/ 
+
+
+
 # Create local directory.
 #------------------------------------------------------------------------------
 mkdir -p ~/.vim/local/sessions/

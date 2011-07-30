@@ -23,7 +23,7 @@ let g:colors_name="vimez"
 
 " "General Syntax"
 hi Normal           guifg=#CCCCCC guibg=#121212
-hi NonText          guifg=#444444 guibg=#121212
+hi NonText          guifg=#444444 guibg=NONE
 "-------------------------------------------------------------------------------
 
 
@@ -53,6 +53,14 @@ hi User1            guifg=#1C1C1C guibg=#87FF00 gui=bold
 hi User2            guifg=#5F5F00 guibg=#87FF00
 " Non-Current
 hi User3            guifg=#303030 guibg=#1C1C1C
+
+let g:Active_statusline=&g:statusline
+let g:NCstatusline=substitute(
+  \                substitute(g:Active_statusline,
+  \                'User1', 'User3', 'g'),
+  \                'User2', 'User3', 'g')
+au WinEnter,BufEnter * let&l:statusline = g:Active_statusline
+au WinLeave * let&l:statusline = g:NCstatusline
 "-------------------------------------------------------------------------------
 
 
@@ -169,6 +177,7 @@ hi Typedef          guifg=#5FD7FF
 hi Type             guifg=#5FD7FF               gui=none
 hi Underlined       guifg=#808080               gui=underline
 "-------------------------------------------------------------------------------
+
 
 " TODO: Diff
 "The diffs are highlighted with these groups:
