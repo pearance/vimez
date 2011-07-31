@@ -34,12 +34,41 @@ hi CursorLine                     guibg=#1C1C1C
 hi CursorColumn                   guibg=#1C1C1C
 hi ColorColumn                    guibg=#080808
 hi LineNr           guifg=#606060 guibg=#262626
+hi SignColumn       guifg=#AFD700 guibg=#262626
 hi VertSplit        guifg=#87FF00 guibg=#121212 gui=bold
 hi Visual                         guibg=#303030
 hi VisualNOS                      guibg=#403D3D
 hi WildMenu         guifg=#080808 guibg=#5fd700 gui=bold
 hi Title            guifg=#ef5939
 hi Todo             guifg=#FFFF00 guibg=bg      gui=bold
+"-------------------------------------------------------------------------------
+
+
+
+" "ShowMarks"
+" ShowMarksHLl - For marks a-z
+hi ShowMarksHLl     guifg=#AFD700 guibg=#262626 gui=bold
+" ShowMarksHLu - For marks A-Z
+hi ShowMarksHLu     guifg=#AFD700 guibg=#262626 gui=bold
+" ShowMarksHLo - For all other marks
+hi ShowMarksHLo     guifg=#AFD700 guibg=#262626 gui=bold
+" ShowMarksHLm - For multiple marks on the same line.
+hi ShowMarksHLm     guifg=#AFD700 guibg=#262626 gui=bold
+
+
+
+hi SpecialChar      guifg=#FF0087               gui=bold
+hi SpecialComment   guifg=#465457               gui=bold
+hi Special          guifg=#5FD7FF guibg=bg      gui=italic
+hi SpecialKey       guifg=#888A85               gui=italic
+hi SpellBad         guisp=#FF0000 gui=undercurl
+hi SpellCap         guisp=#7070F0 gui=undercurl
+hi SpellLocal       guisp=#70F0F0 gui=undercurl
+hi SpellRare        guisp=#FFFFFF gui=undercurl
+hi Statement        guifg=#FF0087               gui=bold
+hi StorageClass     guifg=#FD971F               gui=italic
+hi Structure        guifg=#5FD7FF
+hi Tag              guifg=#FF0087               gui=italic
 "-------------------------------------------------------------------------------
 
 
@@ -105,24 +134,6 @@ hi DiffText                       guibg=#4C4745 gui=italic,bold
 " "Folds & Aids"
 hi FoldColumn       guifg=#465457 guibg=#262626
 hi Folded           guifg=#465457 guibg=#000000
-"-------------------------------------------------------------------------------
-
-
-
-" "Marks Columnu"
-hi SignColumn       guifg=#AFD700 guibg=#232526
-hi SpecialChar      guifg=#FF0087               gui=bold
-hi SpecialComment   guifg=#465457               gui=bold
-hi Special          guifg=#5FD7FF guibg=bg      gui=italic
-hi SpecialKey       guifg=#888A85               gui=italic
-hi SpellBad         guisp=#FF0000 gui=undercurl
-hi SpellCap         guisp=#7070F0 gui=undercurl
-hi SpellLocal       guisp=#70F0F0 gui=undercurl
-hi SpellRare        guisp=#FFFFFF gui=undercurl
-hi Statement        guifg=#FF0087               gui=bold
-hi StorageClass     guifg=#FD971F               gui=italic
-hi Structure        guifg=#5FD7FF
-hi Tag              guifg=#FF0087               gui=italic
 "-------------------------------------------------------------------------------
 
 

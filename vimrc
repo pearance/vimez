@@ -120,7 +120,7 @@ set lazyredraw                    " Don't redraw while executing macros.
 " "Timeout Length" The time waited for a key code or mapped key sequence to
 " complete.  As you become more fluent with the key mappings you may want toC
 " drop this to 250.
-set timeoutlen=500
+set timeoutlen=1000
 "-------------------------------------------------------------------------------
 
 
@@ -314,7 +314,7 @@ nnoremap <silent> <leader>co :BufOnly<CR>
 
 
 " "Close All"
-nnoremap <silent> <leader>ca :exec "1," . bufnr('$') . "bd"<CR>
+nnoremap <silent> <leader>cab :exec "1," . bufnr('$') . "bd"<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1365,6 +1365,19 @@ function! SearchReplace()
   endif
 endfunction
 "-------------------------------------------------------------------------------
+
+
+
+" "Marks (ShowMarks)"
+let g:showmarks_enable = 0
+let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+let g:showmarks_textlower = ")"
+let g:showmarks_textupper = "]"
+nnoremap <silent> <leader>tm :ShowMarksToggle<cr>
+nnoremap <silent> <leader>cm :ShowMarksClearMark<cr>
+nnoremap <silent> <leader>cam :ShowMarksClearAll<cr>
+nnoremap <silent> <leader>mm :ShowMarksPlaceMark<cr>
+"-------------------------------------------------------------------------------
  "}}}
 
 
@@ -1419,7 +1432,7 @@ endfunction
 
 
 "*******************************************************************************
-" WINDOW: "{{{5
+" WINDOW: "{{{
 "*******************************************************************************
 " "Focus Windows"
 noremap <silent> <leader>h  :wincmd h<CR>
