@@ -833,7 +833,7 @@ function! StripTrailingWhitespace()
 endfunction
 
 autocmd BufWritePre * call StripTrailingWhitespace()
-autocmd FileType help,conque_term let b:noStripWhitespace=1
+autocmd FileType filetype1,filetype2 let b:noStripWhitespace=1 "TODO: this goes in vimrc.local
 "-------------------------------------------------------------------------------
 " "}}}
 
@@ -851,8 +851,8 @@ autocmd FileType help,conque_term let b:noStripWhitespace=1
 "*******************************************************************************
 " "Title Bar" Set title bar to display current file, path, and server hostname.
 set title
-set titlestring=%t%(%{Filestate_status()}%)%(\
-\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
+set titlestring=%t%(%{Filestate_status()}%)
+set titlestring+=%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
 "-------------------------------------------------------------------------------
 
 
