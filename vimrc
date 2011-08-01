@@ -34,6 +34,11 @@ runtime ftplugin/man.vim
 "*******************************************************************************
 " GENERAL SETTINGS: "{{{1
 "*******************************************************************************
+" "Terminal Environment"
+set term=$TERM
+
+
+
 " "Color Scheme"
 set background=dark         " Use a dark background.
 set t_Co=256                " Force terminal to go into 256 color mode.
@@ -85,7 +90,7 @@ if has("multi_byte")
   if $TERM == "linux" || $TERM_PROGRAM == "GLterm"
     set termencoding=latin1
   endif
-  if $TERM == "xterm" || $TERM == "xterm-color"
+  if $TERM == "xterm" || $TERM == "xterm-color" || $TERM == "screen256-color"
     let propv = system
     \ ("xprop -id $WINDOWID -f WM_LOCALE_NAME 8s ' $0' -notype WM_LOCALE_NAME")
     if propv !~ "WM_LOCALE_NAME .*UTF.*8"
@@ -120,7 +125,8 @@ set lazyredraw                    " Don't redraw while executing macros.
 " "Timeout Length" The time waited for a key code or mapped key sequence to
 " complete.  As you become more fluent with the key mappings you may want toC
 " drop this to 250.
-set timeoutlen=1000
+"set timeoutlen=1000 TODO: RESEARCH
+set notimeout ttimeout ttimeoutlen=200
 "-------------------------------------------------------------------------------
 
 
@@ -194,6 +200,7 @@ endfun
 " FILE BUFFER: "{{{2
 "*******************************************************************************
 " "General File/Buffer Settings"
+set fileformats=unix,dos,mac
 set hidden      " Hide buffers when they are abandoned
 set confirm     " Provide user friendly prompt over nasty error messages.
 set autoread    " Automatically re-read a file if modified outside of vim.
@@ -641,6 +648,7 @@ nnoremap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
 " "Virtual Edit" Allow the cursor to go where no cursor has gone before.
 " Navigate into lines and columns that are not real.
 set virtualedit=all
+set nostartofline
 "-------------------------------------------------------------------------------
 
 
@@ -1531,3 +1539,6 @@ endfunction
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
+
+
+nnoremap <Leader><F5> :!tmux source-file ~/.tmux.conf<CR>
