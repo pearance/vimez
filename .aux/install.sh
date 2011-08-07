@@ -3,6 +3,8 @@
 # VIMEZ INSTALL
 ###############
 
+clear
+
 # Backup any remnants of an existing Vim install.
 cd ~
 mkdir -p ~/backup/vimez/
@@ -19,7 +21,7 @@ echo -e "\nBackedup existing Vim install successfully!\n"
 
 # Clone VimEz
 rm -rf ~/.vim
-git clone git@github.com:VimEz/VimEz.git ~/.vim
+git clone https://VimEz@github.com/VimEz/VimEz.git ~/.vim
 echo -e "\nCloned VimEz successfully!\n"
 #------------------------------------------------------------------------------
 

@@ -10,8 +10,7 @@ Thus far it is being developed and consequently tested in a Ubuntu environment.
 
 Install
 -------
-###Prerequisites
-You will need cURL and git installed.
+Prerequisites: You will need cURL and git installed.
 
 To install simply execute the following command at your command prompt.
 
