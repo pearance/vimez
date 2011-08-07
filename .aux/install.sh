@@ -17,8 +17,8 @@ echo -e "\nBackedup existing Vim install successfully!\n"
 
 
 # Clone VimEz
-rm -rf ~/.vim
-git clone https://VimEz@github.com/VimEz/VimEz.git ~/.vim
+#rm -rf ~/.vim
+git clone git://github.com/VimEz/VimEz.git ~/.vim
 echo -e "\nCloned VimEz successfully!\n"
 #------------------------------------------------------------------------------
 
@@ -66,9 +66,9 @@ echo -e "\nCompiled Command-T C extension successfully!\n"
 
 # Create files.
 touch ~/.vim.local/spell/en.utf-8.add
-/bin/cp -f ~/.vim/.aux/initrc.local.example ~/.vim.local/initrc.local.example
-/bin/cp -f ~/.vim/.aux/vimrc.local.example ~/.vim.local/vimrc.local.example
-/bin/cp -f ~/.vim/.aux/gvimrc.local.example ~/.vim.local/gvimrc.local.example
+/bin/cp -f ~/.vim/.aux/initrc.local.example ~/.vim.local/
+/bin/cp -f ~/.vim/.aux/vimrc.local.example ~/.vim.local/
+/bin/cp -f ~/.vim/.aux/gvimrc.local.example ~/.vim.local/
 #------------------------------------------------------------------------------
 
 
@@ -82,6 +82,6 @@ touch ~/.vim.local/spell/en.utf-8.add
 
 
 # Clean up.
-rm ~/.install.sh
+rm ~/install.sh
 echo -e "\nCleaned up successfully!\n"
 #------------------------------------------------------------------------------
