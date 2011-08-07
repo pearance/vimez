@@ -9,11 +9,8 @@ clear
 cd ~
 mkdir -p ~/backup/vimez/
 for i in .vimrc .gvimrc .vim
-  do [ -e $i ] && mv -fb $i backup/vimez/$i.vimez.bak
+  do [ -e $i ] && /bin/mv -fb $i backup/vimez/$i.vimez.bak
 done
-# Just in case they are symlinks, remove them.
-rm -f ~/.vimrc
-rm -f ~/.gvimrc
 echo -e "\nBackedup existing Vim install successfully!\n"
 #------------------------------------------------------------------------------
 
@@ -58,18 +55,20 @@ echo -e "\nCompiled Command-T C extension successfully!\n"
 
 
 # Create local directory.
-mkdir -p ~/.vim.local/sessions/
-mkdir -p ~/.vim.local/spell/
-mkdir -p ~/.vim.local/tmp/backups/
-mkdir -p ~/.vim.local/tmp/swaps/
-mkdir -p ~/.vim.local/tmp/undos/
+/bin/mkdir -p ~/.vim.local/sessions/
+/bin/mkdir -p ~/.vim.local/spell/
+/bin/mkdir -p ~/.vim.local/tmp/backups/
+/bin/mkdir -p ~/.vim.local/tmp/swaps/
+/bin/mkdir -p ~/.vim.local/tmp/undos/
 #------------------------------------------------------------------------------
 
 
 
 # Create files.
 touch ~/.vim.local/spell/en.utf-8.add
-/bin/cp -f ~/.vim/vimrc.local.example ~/.vim.local/vimrc.local.example
+/bin/cp -f ~/.vim/.aux/initrc.local.example ~/.vim.local/initrc.local.example
+/bin/cp -f ~/.vim/.aux/vimrc.local.example ~/.vim.local/vimrc.local.example
+/bin/cp -f ~/.vim/.aux/gvimrc.local.example ~/.vim.local/gvimrc.local.example
 #------------------------------------------------------------------------------
 
 
