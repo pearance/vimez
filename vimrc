@@ -83,6 +83,7 @@ set viminfo='1000,f1,<500,h " Save local/global marks, registers, etc
 
 
 
+
 " "Character Encoding" Default to UTF-8 character encoding unless the terminal
 " doesn't support it. In which case use Latin1 character encoding instead.
 if has("multi_byte")
@@ -197,11 +198,8 @@ endfun
 
 
 
-
-
-
 "*******************************************************************************
-" FILE BUFFER: "{{{2
+" FILE BUFFER: "{{{
 "*******************************************************************************
 " "General File/Buffer Settings"
 set fileformats=unix,dos,mac
@@ -625,9 +623,6 @@ augroup Filetype_Assoc
 augroup END
 "-------------------------------------------------------------------------------
 " "}}}
-
-
-
 
 
 
@@ -1280,12 +1275,8 @@ inoremap aa @
 
 
 
-
-
-
-
 "*******************************************************************************
-" NAVIGATION: "{{{5
+" NAVIGATION: "{{{
 "*******************************************************************************
 
 
