@@ -9,7 +9,7 @@ clear
 cd ~
 mkdir -p ~/backup/vimez/
 for i in .vimrc .gvimrc .vim
-  do [ -e $i ] && /bin/mv -fb $i backup/vimez/$i.vimez.bak
+  do [ -e $i ] && /bin/mv -f backup=t $i backup/vimez/$i.vimez.bak
 done
 echo -e "\nBackedup existing Vim install successfully!\n"
 #------------------------------------------------------------------------------
