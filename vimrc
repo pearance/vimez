@@ -125,16 +125,16 @@ set lazyredraw                    " Don't redraw while executing macros.
 " "Timeout Length" The time waited for a key code or mapped key sequence to
 " complete.  As you become more fluent with the key mappings you may want toC
 " drop this to 250.
-"set timeoutlen=1000 TODO: RESEARCH
-set notimeout ttimeout ttimeoutlen=200
+set timeoutlen=750 "TODO: RESEARCH
+"set notimeout ttimeout ttimeoutlen=200
 "-------------------------------------------------------------------------------
 
 
 
 " "Mouse"
-set mouse=a                     " Enable mouse usage (all modes)
-set selectmode=mouse           " Selection with the mouse trigers Select mode
-set ttymouse=xterm2             " Enable basic mouse functionality in a terminal
+set mouse=a                  " Enable mouse usage (all modes)
+set selectmode=mouse         " Selection with the mouse trigers Select mode
+set ttymouse=xterm2          " Enable basic mouse functionality in a terminal
 "-------------------------------------------------------------------------------
 
 
@@ -160,12 +160,16 @@ cmap <C-l> <Right>
 
 
 " "Reload Vim"
-nnoremap <silent> <F5> :so $MYVIMRC<CR><Bar> :call Msg('   VimEz Reloaded!')<CR>
+nnoremap <silent> <F5> :
+      \ so $MYVIMRC<CR>
+      \ <Bar> :nohlsearch<CR>
+      \ <Bar> <C-w>=
+      \ <Bar> :call Msg('VimEz Reloaded!')<CR>
 
 augroup LocalReload
   autocmd! LocalReload
   autocmd bufwritepost .vimrc source $MYVIMRC | exe 'CSApprox' | nohlsearch
-  autocmd bufwritepost .vimrc call Msg('   VimEz Reloaded!')
+  autocmd bufwritepost .vimrc call Msg('VimEz Reloaded!')
 augroup END
 "-------------------------------------------------------------------------------
 
@@ -232,6 +236,16 @@ endif
 
 " "Write File!" with root permission.
 cmap w!! w !sudo tee % >/dev/null
+"-------------------------------------------------------------------------------
+
+
+
+" "Write File As"
+if has("unix")
+  nnoremap <leader>wfa :saveas <C-R>=expand("%:p:h") . "/" <CR>
+else
+  nnoremap <leader>wfa :saveas <C-R>=expand("%:p:h") . "\\" <CR>
+endif
 "-------------------------------------------------------------------------------
 
 
@@ -367,6 +381,8 @@ set wildcharm=<C-Z>
 nnoremap <silent> <A-`> :b <C-Z>
 cnoremap <A-`> <Right>
 cnoremap <C-c> <Home><Right>d<CR>
+cnoremap <C-s><C-v> <Home><Del>vs<CR>
+cnoremap <C-s><C-h> <Home><Del>sp<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -722,7 +738,7 @@ nnoremap Q gqip
 
 
 " "Undo (Gundo)" Persistent undo, along with Gundo to parse the ungo history.
-set undolevels=500
+set undolevels=1000
 set undofile
 set undodir=$HOME/.vim/local/tmp/undos//
 nnoremap <leader>uu :GundoToggle<CR>
@@ -1164,7 +1180,7 @@ vnoremap <silent><leader>dd "_d
 " the default Leader key, it is too easily accessible. So its mapped
 " to <leader> s <leader> which adds a space immediately. Alternatively,
 " <leader> s has a delayed effect.
-nnoremap <leader>ss i<Space><Esc>l
+nnoremap <Space><Space> i<Space><Esc>l
 "-------------------------------------------------------------------------------
 
 
@@ -1271,12 +1287,6 @@ inoremap aa @
 "*******************************************************************************
 " NAVIGATION: "{{{5
 "*******************************************************************************
-" "Disable Cursor Keys"
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-"-------------------------------------------------------------------------------
 
 
 
@@ -1333,7 +1343,7 @@ set incsearch           " Highlight search terms dynamically and incrementally
 set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set wrapscan            " Set the search scan to wrap around the file
-nnoremap <silent> <leader><leader> :nohlsearch<Bar>:echo<CR>
+nnoremap <silent> \ :nohlsearch<Bar>:echo<CR>
 nnoremap <silent> <leader>hw
       \ :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hlsearch<CR>
 "-------------------------------------------------------------------------------
@@ -1425,7 +1435,6 @@ function! TermEnv()
     setlocal nocursorcolumn
     setlocal norelativenumber
     setlocal colorcolumn=0
-    call clearmatches()
   endif
 endfunction
 "-------------------------------------------------------------------------------
@@ -1457,6 +1466,15 @@ noremap <silent> <leader>mj <C-w>J
 noremap <silent> <leader>mk <C-w>K
 noremap <silent> <leader>ml <C-w>L
 noremap <silent> <leader>mx <C-w>x
+"-------------------------------------------------------------------------------
+
+
+
+" "Resize Windows"
+nnoremap <left> <C-w><
+nnoremap <right> <C-w>>
+nnoremap <up> <C-w>-
+nnoremap <down> <C-w>+
 "-------------------------------------------------------------------------------
 
 
@@ -1542,3 +1560,5 @@ endif
 
 
 nnoremap <Leader><F5> :!tmux source-file ~/.tmux.conf<CR>
+
+" TODO: http://vim.wikia.com/wiki/Word_under_cursor_for_command
