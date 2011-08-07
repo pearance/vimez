@@ -148,6 +148,7 @@ set updatetime=1000
 
 " "Wildmenu"
 set wildchar=<Tab>
+set wildcharm=<C-z>
 set wildmenu                 " Enable file/command auto-completion
 set wildmode=longest,full    " Auto-complete up to ambiguity
 set <A-h>=h
@@ -363,21 +364,13 @@ augroup END
 
 
 
-" "Buffer Navigation (Simple)"
-nnoremap <silent> <F12> :bnext<CR>
-nnoremap <silent> <F11> :bprev<CR>
-"-------------------------------------------------------------------------------
-
-
-
 " "Buffer Navigation (Wild Menu)" Tab through buffers, similar to
 " tabbing through open programs via Alt-Tab on most common desktop
 " environments. From http://vim.wikia.com/wiki/Easier_buffer_switching
 " You
 set <A-`>=`
-set wildcharm=<C-Z>
-nnoremap <silent> <A-`> :b <C-Z>
-cnoremap <A-`> <Right>
+nnoremap <A-`> :b <C-z><C-z>
+cnoremap <A-`> <C-z>
 cnoremap <C-c> <Home><Right>d<CR>
 cnoremap <C-s><C-v> <Home><Del>vs<CR>
 cnoremap <C-s><C-h> <Home><Del>sp<CR>
@@ -401,7 +394,7 @@ let g:BufKillOverrideCtrlCaret=1
 " "Sessions (Session.vim)"
 let g:session_autoload = 'yes'
 let g:session_autosave = 'yes'
-let g:session_directory = '~/.vim/local/sessions/'
+let g:session_directory = '~/.vim.local/sessions/'
 
 set sessionoptions=
 set ssop+=blank        " Blank	empty windows
@@ -491,7 +484,7 @@ set writebackup                   " Make a backup before overwriting a file
 if has("win32") || has("win64")
   set backupdir=$TMP              " TODO: Set for Windows and Mac environments
 else
-  set backupdir=$HOME/.vim/local/tmp/backups//
+  set backupdir=$HOME/.vim.local/tmp/backups//
 end
 "-------------------------------------------------------------------------------
 
@@ -504,7 +497,7 @@ set updatecount=100
 if has("win32") || has("win64")   " TODO: Set for Windows and Mac environments
   set directory=$TMP
 else
-  set directory=$HOME/.vim/local/tmp/swaps//
+  set directory=$HOME/.vim.local/tmp/swaps//
 end
 "-------------------------------------------------------------------------------
 
@@ -735,7 +728,7 @@ nnoremap Q gqip
 " "Undo (Gundo)" Persistent undo, along with Gundo to parse the ungo history.
 set undolevels=1000
 set undofile
-set undodir=$HOME/.vim/local/tmp/undos//
+set undodir=$HOME/.vim.local/tmp/undos//
 nnoremap <leader>uu :GundoToggle<CR>
 "-------------------------------------------------------------------------------
 
@@ -833,7 +826,7 @@ nnoremap <silent> <leader>jp k<S-v>xpk:join<CR>
 set nospell               " Dynamic spell checking off by default
 set spelllang=en_us       " Default language
 set spellsuggest=5        " How many spelling suggestions to list
-set spellfile=~/.vim/local/spell/en.utf-8.add " Custom spell file
+set spellfile=~/.vim.local/spell/en.utf-8.add " Custom spell file
 nmap <silent> <leader>ts :setlocal spell!<CR>
       \ <Bar>:echo "   Spell Check: " . strpart("OffOn", 3 * &spell, 3)<CR>
 
