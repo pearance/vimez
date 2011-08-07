@@ -798,6 +798,13 @@ vmap <M-l> dElp`[v`]
 
 
 
+" "Hyper Put" Put currently selected text into the adjecent window pane.
+map <silent><Leader>ll "zyw<C-w>wo<Esc>"zp<C-w>w
+map <silent><Leader>hh "zyw<C-w>wo<Esc>"zp<C-w>w
+"-------------------------------------------------------------------------------
+
+
+
 " "Add & Remove Blank Lines" Use the +plus and -minus keys to add and remove
 " blank lines below the current line. With the Shift modifier, add and remove
 " blank lines from above the current line.
@@ -1542,7 +1549,6 @@ function! HelpBack()
 endfunction
 "-------------------------------------------------------------------------------
 " "}}}
-
 
 
 
