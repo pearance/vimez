@@ -1416,6 +1416,12 @@ nnoremap <silent> <leader>tct :XtermColorTable<CR>
 
 
 
+" "Terminal Multiplexer (Tmux)" Reload .tmux.conf file.
+nnoremap <Leader><F5> :!tmux source-file ~/.tmux.conf<CR>
+"-------------------------------------------------------------------------------
+
+
+
 " "Terminal (ConqueShell)"
 nnoremap <silent> <leader>nt :ConqueTerm bash<CR>
 let g:ConqueTerm_Color = 1
@@ -1508,6 +1514,7 @@ noremap <silent> <leader>sh :split<CR>
 "*******************************************************************************
 " HELP: "{{{
 "*******************************************************************************
+map <silent> <Leader>help "zyw:exe "h ".@z.""<CR>
 augroup HelpGroup
   autocmd! HelpGroup
   autocmd WinEnter,BufEnter * :call HelpEnv()   " Set the help environment.
@@ -1557,8 +1564,3 @@ endfunction
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
-
-
-nnoremap <Leader><F5> :!tmux source-file ~/.tmux.conf<CR>
-
-" TODO: http://vim.wikia.com/wiki/Word_under_cursor_for_command
