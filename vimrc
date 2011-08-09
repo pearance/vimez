@@ -163,7 +163,8 @@ cmap <C-l> <Right>
 
 " "Reload Vim"
 nnoremap <silent> <F5> :
-      \ so $MYVIMRC<CR>
+      \ ColorClear<CR>
+      \ <Bar> :so $MYVIMRC<CR>
       \ <Bar> :nohlsearch<CR>
       \ <Bar> <C-w>=
       \ <Bar> :call Msg('VimEz Reloaded!')<CR>
@@ -215,9 +216,9 @@ set shellslash  " Use forward slash for shell file names (Windows)
 " "Open/Edit File" Give a prompt for opening files in the same dir as the
 " current buffer's file.
 if has("unix")
-  nnoremap <leader>ef :e <C-R>=expand("%:p:h") . "/" <CR>
+  nnoremap <leader>of :edit <C-R>=expand("%:p:h") . "/" <CR>
 else
-  nnoremap <leader>ef :e <C-R>=expand("%:p:h") . "\\" <CR>
+  nnoremap <leader>of :edit <C-R>=expand("%:p:h") . "\\" <CR>
 endif
 "-------------------------------------------------------------------------------
 
@@ -225,9 +226,9 @@ endif
 
 " "Write File"
 if has("unix")
-  nnoremap <leader>wf :w <C-R>=expand("%:p:h") . "/" <CR>
+  nnoremap <leader>wf :write <C-R>=expand("%:p:h") . "/" <CR>
 else
-  nnoremap <leader>wf :w <C-R>=expand("%:p:h") . "\\" <CR>
+  nnoremap <leader>wf :write <C-R>=expand("%:p:h") . "\\" <CR>
 endif
 "-------------------------------------------------------------------------------
 
@@ -366,10 +367,9 @@ augroup END
 
 " "Buffer Navigation (Wild Menu)" Tab through buffers, similar to
 " tabbing through open programs via Alt-Tab on most common desktop
-" environments. From http://vim.wikia.com/wiki/Easier_buffer_switching
-" You
+" environments.
 set <A-`>=`
-nnoremap <A-`> :b <C-z><C-z>
+nnoremap <A-`> :b <C-z>
 cnoremap <A-`> <C-z>
 cnoremap <C-c> <Home><Right>d<CR>
 cnoremap <C-s><C-v> <Home><Del>vs<CR>
@@ -379,14 +379,14 @@ cnoremap <C-s><C-h> <Home><Del>sp<CR>
 
 
 " "Buffer Navigation (CommandT)"
-nmap <silent> <leader>jj :CommandTBuffer<CR>
+nnoremap <silent> <leader>jj :CommandTBuffer<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Previous Buffer (BufKill)" This is refered to in Vim parlance as the 'Alternate
 " Buffer' stock keymap is ctrl-^. Leader n for greater Convenience.
-nmap <silent> <leader>pb :BA<CR>
+nnoremap <silent> <leader>pb :BA<CR>
 let g:BufKillOverrideCtrlCaret=1
 "-------------------------------------------------------------------------------
 
@@ -428,28 +428,42 @@ set ssop+=winsize	     " Window sizes
 
 
 
-" "Write Session (Vim-Session)" Save the current session. Including
-" buffers, untitled blank buffers, current directory, folds, help,
-" options, tabs, window sizes.
+" "New Session (Vim-Session)"
+nnoremap <leader>ns :SaveSession<CR><Bar>:CloseSession<CR><Bar>
+      \ :SaveSession .vim<Left><Left><Left><Left>
+"-------------------------------------------------------------------------------
+
+
+
+" "Write Session (Vim-Session)"
 nnoremap <leader>ws :SaveSession<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Open Session (Vim-Session)"
-nnoremap <leader>os :OpenSession<CR>
+nnoremap <leader>os :SaveSession<CR><Bar>:OpenSession<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Close Session (Vim-Session)"
-nnoremap <leader>cs :CloseSession<CR>
+nnoremap <leader>cs :SaveSession<CR><Bar>:CloseSession<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Delete Session (Vim-Session)"
 nnoremap <leader>ds :DeleteSession<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Current Session Status"
+function! CurrentSession()
+  let g:currSession = fnamemodify(v:this_session, ":t:r")
+  return g:currSession
+endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -533,7 +547,7 @@ endfunction
 
 
 
-" "File Type"
+" "File Type Status"
 function! Filetype_status()
   if &filetype == ""
     return "Plain\ Text"
@@ -546,7 +560,7 @@ endfunction
 
 
 
-" "File Encoding"
+" "File Encoding Status"
 function! Fileencoding_status()
   if &fileencoding == ""
     if &encoding != ""
@@ -564,7 +578,7 @@ endfunction
 
 
 
-" "File Format"
+" "File Format Status"
 function! Fileformat_status()
   if &fileformat == ""
     return "--"
@@ -779,14 +793,14 @@ vmap <C-l> >gv
 " "Bubbling Word(s) (Unimpaired)" Consistent use of [hjkl] with the Control modifier to
 " transport words around. Up/down by one line and left/right by one word plus
 " a space.
-set <M-h>=h
-set <M-j>=j
-set <M-k>=k
-set <M-l>=l
-vmap <M-h> dBhp`[v`]
-vmap <M-j> djhp`[v`]
-vmap <M-k> dkhp`[v`]
-vmap <M-l> dElp`[v`]
+set <A-h>=h
+set <A-j>=j
+set <A-k>=k
+set <A-l>=l
+vmap <A-h> dBhp`[v`]
+vmap <A-j> djhp`[v`]
+vmap <A-k> dkhp`[v`]
+vmap <A-l> dElp`[v`]
 "-------------------------------------------------------------------------------
 
 
@@ -1006,20 +1020,19 @@ set laststatus=2                  " Keep status lines visible at all times.
 set cmdheight=1                   " Number of lines to use for the command-line.
 
 set statusline=
-set stl+=%#User1#                       " Normal
+set stl+=%#User2#                       " Dimmed
+set stl+=[                              " Open bracket
+set stl+=S:%{CurrentSession()}          " Current Session
+set stl+=]                              " Close bracket
 set stl+=\                              " Space
+set stl+=%#User1#                       " Brighten
 set stl+=%t                             " Filename
-set stl+=%w                             " Preview flag
 set stl+=%{Filestate_status()}          " File status
 set stl+=%#User2#                       " Dimmed
+set stl+=%w                             " Preview flag
 set stl+=\                              " Space
 set stl+=\                              " Space
 set stl+=\                              " Space
-set stl+=[                              " Open bracket
-set stl+=%{Filetype_status()}\/         " File type
-set stl+=%{Fileencoding_status()}\/     " File encoding
-set stl+=%{Fileformat_status()}         " File format
-set stl+=]                              " Close bracket
 set stl+=%=                             " Align right
 set stl+=                               " TODO: diff mode flag
 set stl+=                               " TODO: scrollbind flag
@@ -1028,12 +1041,17 @@ set stl+=%{WrapFlag()}                  " Wrap flag
 set stl+=%{Spell_flag()}                " Spellcheck flag
 set stl+=[                              " Open bracket
 set stl+=%{Expandtab_flag()}            " Soft tab flag
-set stl+=%{Tabstop_status()}              " Tab size
+set stl+=%{Tabstop_status()}            " Tab size
+set stl+=]                              " Close bracket
+set stl+=\                              " Space
+set stl+=[                              " Open bracket
+set stl+=%{Filetype_status()}\/         " File type
+set stl+=%{Fileencoding_status()}\/     " File encoding
+set stl+=%{Fileformat_status()}         " File format
 set stl+=]                              " Close bracket
 set stl+=\                              " Space
 set stl+=\                              " Space
-set stl+=\                              " Space
-set stl+=%#User1#                       " Strong
+set stl+=%#User1#                       " Brighten
 set stl+=%05(C:%v%)                     " Current column
 set stl+=\                              " Space
 set stl+=%06(L:%l%)                     " Current line
@@ -1203,6 +1221,7 @@ nmap <silent> <leader>tt :setlocal expandtab!<CR>
 
 " Prompt for tab size and apply to softtabstop, tabstop, and shiftwidth.
 function! Tab()
+  echohl ModeMsg
   let l:tabstop = 1 * input('Tab Size: ')
   if l:tabstop > 0
     let &l:sts = l:tabstop
