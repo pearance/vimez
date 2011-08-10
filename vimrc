@@ -815,10 +815,10 @@ map <silent><Leader>hh "zyw<C-w>wo<Esc>"zp<C-w>w
 " "Add & Remove Blank Lines" Use the +plus and -minus keys to add and remove
 " blank lines below the current line. With the Shift modifier, add and remove
 " blank lines from above the current line.
-nnoremap <silent>- m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
-nnoremap <silent>_ m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
-nnoremap <silent>= :set paste<CR>m`o<Esc>``:set nopaste<CR>
-nnoremap <silent>+ :set paste<CR>m`O<Esc>``:set nopaste<CR>
+"nnoremap <silent>- m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
+"nnoremap <silent>_ m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+"nnoremap <silent>= :set paste<CR>m`o<Esc>``:set nopaste<CR>
+"nnoremap <silent>+ :set paste<CR>m`O<Esc>``:set nopaste<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1487,10 +1487,10 @@ noremap <silent> <leader>mx <C-w>x
 
 
 " "Resize Windows"
-nnoremap <left> <C-w><
-nnoremap <right> <C-w>>
-nnoremap <up> <C-w>-
-nnoremap <down> <C-w>+
+nnoremap - <C-w><
+nnoremap = <C-w>>
+nnoremap _ <C-w>-
+nnoremap + <C-w>+
 "-------------------------------------------------------------------------------
 
 
@@ -1573,3 +1573,9 @@ endfunction
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
+let g:ScreenImpl = 'Tmux'
+
+"TODO: http://robots.thoughtbot.com/post/2641409235/a-tmux-crash-course
+"TODO: https://github.com/thoughtbot/dotfiles
+nnoremap ,t <C-b>"
+
