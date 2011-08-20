@@ -1,7 +1,10 @@
-" Name: VimEz initrc
-" Description: A robust Vim IDE distribution." Maintainer: Fontaine Cook <fontaine.cook@pearance.com
-" Dependencies: Requires Vim 7.2 or higher.
-" Version: 0.1a
+
+" Title:          initrc
+"	Description:    Initial configuration file for VimEz.
+" Author:         Fontaine Cook <fontaine.cook@pearance.com>
+" Maintainer:     Fontaine Cook <fontaine.cook@pearance.com>
+"	Last Modified:  08/10/2011
+"------------------------------------------------------------------------------
 
 
 
@@ -9,21 +12,22 @@
 set nocompatible            " Harnest the iMprovements brough by Vim.
 filetype on
 filetype off
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
-"*****************************************************************************
+"*******************************************************************************
 " PLUGIN BUNDLES:
-"*****************************************************************************
+"*******************************************************************************
 " "Plugin Manager (Vundle)"
 set rtp+=~/.vim/bundle/Vundle/
 call vundle#rc()
 Bundle "VimEz/Vundle"
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 " TODO: auto update: http://www.charlietanksley.net/philtex/sane-vim-plugin-management/
+" TODO: https://github.com/vim-scripts/vimwiki
 
 " "Plugin Bundles"
 Bundle "VimEz/ScrollColors"
@@ -42,13 +46,14 @@ Bundle "VimEz/Markdown"
 Bundle "VimEz/XtermColorTable"
 Bundle "VimEz/ConqueShell"
 Bundle "VimEz/ShowMarks"
-"-----------------------------------------------------------------------------
+Bundle "VimEz/Tmux"
+"-------------------------------------------------------------------------------
 
 
 
 " "File Type Detection"
 filetype plugin indent on         " Automatically detect file types.
-"-----------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
