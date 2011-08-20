@@ -105,12 +105,14 @@ endif
 
 
 " "Restore Cursor Position" Restore original cursor position when reopening a file.
-augroup RestorCursor
-  autocmd! RestorCursor
-  autocmd BufReadPost *
-  \ if line("'\"") > 1 && line("'\"") <= line("$") |
-  \   exe "normal! g'\"" |
-  \ endif
+augroup RestoreCursor
+  autocmd! RestoreCursor
+  autocmd BufReadPost * call PositionCursorFromViminfo()
+  function! PositionCursorFromViminfo()
+    if !(bufname("%") =~ '\(COMMIT_EDITMSG\)') && line("'\"") > 1 && line("'\"") <= line("$")
+      exe "normal! g`\""
+    endif
+  endfunction
 augroup END
 "-------------------------------------------------------------------------------
 
@@ -158,23 +160,6 @@ cmap <A-h> <Left>
 cmap <C-h> <Left>
 cmap <A-l> <Right>
 cmap <C-l> <Right>
-"-------------------------------------------------------------------------------
-
-
-
-" "Reload Vim"
-nnoremap <silent> <F5> :
-      \ ColorClear<CR>
-      \ <Bar> :so $MYVIMRC<CR>
-      \ <Bar> :nohlsearch<CR>
-      \ <Bar> <C-w>=
-      \ <Bar> :call Msg('VimEz Reloaded!')<CR>
-
-augroup LocalReload
-  autocmd! LocalReload
-  autocmd bufwritepost .vimrc source $MYVIMRC | exe 'CSApprox' | nohlsearch
-  autocmd bufwritepost .vimrc call Msg('VimEz Reloaded!')
-augroup END
 "-------------------------------------------------------------------------------
 
 
@@ -277,6 +262,10 @@ nnoremap <leader>rf :Rename<Space>
 " "Browse Files (NERDTree)" Conventional file browser panel with bookmarking
 " abilities. Provides an efficient way to view file hierarchies.
 let NERDTreeChDirMode=2
+let NERDTreeMapOpenSplit='h'
+let NERDTreeMapPreviewSplit='gh'
+let NERDTreeMapOpenVSplit='v'
+let NERDTreeMapPreviewVSplit='gv'
 nnoremap <silent><leader><CR> :NERDTreeToggle .<CR>
 "-------------------------------------------------------------------------------
 
@@ -369,12 +358,11 @@ augroup END
 " "Buffer Navigation (Wild Menu)" Tab through buffers, similar to
 " tabbing through open programs via Alt-Tab on most common desktop
 " environments.
-set <A-`>=`
-nnoremap <A-`> :b <C-z><C-z>
-cnoremap <A-`> <C-z>
-cnoremap <C-c> <Home><Right>d<CR>
-cnoremap <C-s><C-v> <Home><Del>vs<CR>
-cnoremap <C-s><C-h> <Home><Del>sp<CR>
+nnoremap <Leader><Tab> :b <C-z><C-z>
+
+cnoremap <Silent> <C-c> <Home><Right>d<CR>
+cnoremap <C-v> <Home><Del>vs<CR>
+cnoremap <C-h> <Home><Del>sp<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -606,7 +594,7 @@ endfunction
 augroup Filetype_Assoc
   autocmd! Filetype_Assoc
 
-  " "Shell Filetype" Automatically chmod +x Shell and Perl scripts
+  " "Shell Scripts" Automatically chmod +x Shell and Perl scripts
   autocmd BufWritePost *.sh call Executable()
   function! Executable()
     exe "silent! !chmod +x %"
@@ -614,17 +602,16 @@ augroup Filetype_Assoc
     call Msg("Written as an executable shell script!")
   endfunction
   "-------------------------------------------------------------------------------
-  au BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
 
 
 
-  " "Template Filetype" Make the template .tpl files behave like html files
+  " "Smarty Template" Make the template .tpl files behave like html files
   autocmd BufNewFile,BufRead *.tpl set filetype=html
   "-------------------------------------------------------------------------------
 
 
 
-  " "Drupal Module Filetypes" *.module and *.install files.
+  " "Drupal Module" *.module and *.install files.
   autocmd BufNewFile,BufRead *.module set filetype=php
   autocmd BufNewFile,BufRead *.install set filetype=php
   autocmd BufNewFile,BufRead *.test set filetype=php
@@ -645,30 +632,7 @@ augroup END
 "*******************************************************************************
 " EDIT: "{{{
 "*******************************************************************************
-" "Edit Vimrc" This would be Vim's version of [Edit Preferences]. Upon saving
-" the file is sourced so most of time your changes should take effect
-" immediately. However, some changes will only take effect after restarting Vim.
-nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Edit Initrc"
-nnoremap <silent> <leader>ei :e $HOME/.vim/initrc<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Edit Color Scheme"
-nnoremap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Edit Tmux"
-nnoremap <silent> <leader>et :e $HOME/.tmux.conf<CR>
-"-------------------------------------------------------------------------------
-
+vnoremap i <Esc>i
 
 
 " "Yanking (Copy)"
@@ -678,63 +642,12 @@ nnoremap yL v$y$
 
 
 
-" "Format Options"
-set formatoptions=
-set fo-=t  " Auto-wrap text using textwidth
-set fo-=c  " Auto-wrap comments using textwidth, inserting the current comment
-           " leader automatically.
-set fo-=r  " Automatically insert the current comment leader after hitting
-           " <Enter> in Insert mode.
-set fo-=o  " Automatically insert the current comment leader after hitting 'o' or
-           " 'O' in Normal mode.
-set fo-=q  " Allow formatting of comments with 'gq'.
-           " Note that formatting will not change blank lines or lines containing
-           " only the comment leader.  A new paragraph starts after such a line,
-           " or when the comment leader changes.
-set fo-=w  " Trailing white space indicates a paragraph continues in the next line.
-           " A line that ends in a non-white character ends a paragraph.
-set fo-=a  " Automatic formatting of paragraphs.  Every time text is inserted or
-           " deleted the paragraph will be reformatted.  See |auto-format|.
-           " When the 'c' flag is present this only happens for recognized
-           " comments.
-set fo-=n  " When formatting text, recognize numbered lists.  This actually uses
-           " the 'formatlistpat' option, thus any kind of list can be used.  The
-           " indent of the text after the number is used for the next line.  The
-           " default is to find a number, optionally followed by '.', ':', ')',
-           " ']' or '}'.  Note that 'autoindent' must be set too.  Doesn't work
-           " well together with "2".
-           " Example: >
-           " 	1. the first item
-           " 	   wraps
-           " 	2. the second item
-set fo-=2  " When formatting text, use the indent of the second line of a paragraph
-           " for the rest of the paragraph, instead of the indent of the first
-           " line.  This supports paragraphs in which the first line has a
-           " different indent than the rest.  Note that 'autoindent' must be set
-           " too.  Example: >
-           " 		first line of a paragraph
-           " 	second line of the same paragraph
-           " 	third line.
-set fo-=v  " Vi-compatible auto-wrapping in insert mode: Only break a line at a
-           " blank that you have entered during the current insert command.  (Note:
-           " this is not 100% Vi compatible.  Vi has some 'unexpected features' or
-           " bugs in this area.  It uses the screen column instead of the line
-           " column.)
-set fo-=b  " Like 'v', but only auto-wrap if you enter a blank at or before
-           " the wrap margin.  If the line was longer than 'textwidth' when you
-           " started the insert, or you do not enter a blank in the insert before
-           " reaching 'textwidth', Vim does not perform auto-wrapping.
-set fo-=l  " Long lines are not broken in insert mode: When a line was longer than
-           " 'textwidth' when the insert command started, Vim does not
-           " automatically format it.
-set fo-=m  " Also break at a multi-byte character above 255.  This is useful for
-           " Asian text where every character is a word on its own.
-set fo-=M  " When joining lines, don't insert a space before or after a multi-byte
-           " character.  Overrules the 'B' flag.
-set fo-=B  " When joining lines, don't insert a space between two multi-byte
-           " characters.  Overruled by the 'M' flag.
-set fo-=1  " Don't break a line after a one-letter word.  It's broken before it
-           " instead (if possible).
+" "Deleting (Cut)"
+nnoremap dH v0r<Space>
+nnoremap dL v$hd
+nnoremap DD v0r<Space>
+nnoremap CC v0r<Space>R
+"-------------------------------------------------------------------------------
 
 
 
@@ -835,8 +748,16 @@ map <silent><Leader>hh "zyw<C-w>wo<Esc>"zp<C-w>w
 " So, this functionality is mapped to Leader jn and jp for join next (line
 " below) and join previous (line above) with the current line.
 set nojoinspaces
-nnoremap <silent> <leader>jn :join<CR>
-nnoremap <silent> <leader>jp k<S-v>xpk:join<CR>
+nnoremap <silent> <leader>jn :call Join()<CR>
+nnoremap <silent> <leader>jp k<S-v>xpk:call Join()<CR>
+function! Join()
+  normal! $
+  normal! l
+  let l = line(".")
+  let c = col(".")
+  join
+  call cursor(l, c)
+endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -874,6 +795,54 @@ endfunction
 
 autocmd BufWritePre * call StripTrailingWhitespace()
 autocmd FileType filetype1,filetype2 let b:noStripWhitespace=1 "TODO: this goes in vimrc.local
+"-------------------------------------------------------------------------------
+
+
+
+" "Edit Vimrc" This would be Vim's version of [Edit Preferences]. Upon saving
+" the file is sourced so most of time your changes should take effect
+" immediately. However, some changes will only take effect after restarting Vim.
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Redraw/Reload"
+" Manually
+nnoremap <silent> <F5> :redraw!<CR><Bar> :call Msg('VimEz Redrawn!')<CR>
+nnoremap <silent> <F5><F5>
+      \       :ColorClear<CR>
+      \ <Bar> :so $MYVIMRC<CR>
+      \ <Bar> :nohlsearch<CR>
+      \ <Bar> :call Msg('VimEz Reloaded!')<CR>
+      \ <Bar> <C-w>=
+
+" Automatically
+augroup LocalReload
+  autocmd! LocalReload
+  autocmd bufwritepost .vimrc source $MYVIMRC | exe 'CSApprox' | nohlsearch
+  autocmd bufwritepost .vimrc call Msg('VimEz Reloaded!')
+  autocmd bufwritepost vimez.vim source $MYVIMRC | exe 'CSApprox' | nohlsearch
+  autocmd bufwritepost vimez.vim call Msg('VimEz Reloaded!')
+augroup END
+"-------------------------------------------------------------------------------
+
+
+
+" "Edit Initrc"
+nnoremap <silent> <leader>ei :e $HOME/.vim/initrc<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Edit Color Scheme"
+nnoremap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Edit Tmux" Edit and reload on write.
+nnoremap <silent> <leader>et :e $HOME/.tmux.conf<CR>
 "-------------------------------------------------------------------------------
 " "}}}
 
@@ -967,7 +936,7 @@ set listchars+=trail:.
 set listchars+=extends:>
 set listchars+=precedes:<
 set listchars+=nbsp:%
-nnoremap <silent> <leader>tl :setlocal list!<CR>
+nnoremap <silent> <leader>ti :setlocal list!<CR>
       \ <Bar>:echo "   Invisible: " . strpart("OffOn", 3 * &list, 3)<CR>
 " No need for a flag, clearly visible if on.
 "-------------------------------------------------------------------------------
@@ -1024,7 +993,7 @@ endif
 set showmode                      " Message on status line to show current mode.
 set showcmd                       " Show (partial) command in states line.
 set laststatus=2                  " Keep status lines visible at all times.
-set cmdheight=1                   " Number of lines to use for the command-line.
+set cmdheight=2                   " Number of lines to use for the command-line.
 
 set statusline=
 set stl+=%#User2#                       " Dimmed
@@ -1078,10 +1047,63 @@ set stl+=%<                             " Truncate this side of the aisle
 "*******************************************************************************
 " INSERT: "{{{
 "*******************************************************************************
-" "Insert Mode"
-vnoremap i <Esc>i
-inoremap <C-v> <Esc>v
-"-------------------------------------------------------------------------------
+" "Format Options"
+set formatoptions=
+set fo-=t  " Auto-wrap text using textwidth
+set fo-=c  " Auto-wrap comments using textwidth, inserting the current comment
+           " leader automatically.
+set fo-=r  " Automatically insert the current comment leader after hitting
+           " <Enter> in Insert mode.
+set fo-=o  " Automatically insert the current comment leader after hitting 'o' or
+           " 'O' in Normal mode.
+set fo-=q  " Allow formatting of comments with 'gq'.
+           " Note that formatting will not change blank lines or lines containing
+           " only the comment leader.  A new paragraph starts after such a line,
+           " or when the comment leader changes.
+set fo-=w  " Trailing white space indicates a paragraph continues in the next line.
+           " A line that ends in a non-white character ends a paragraph.
+set fo-=a  " Automatic formatting of paragraphs.  Every time text is inserted or
+           " deleted the paragraph will be reformatted.  See |auto-format|.
+           " When the 'c' flag is present this only happens for recognized
+           " comments.
+set fo-=n  " When formatting text, recognize numbered lists.  This actually uses
+           " the 'formatlistpat' option, thus any kind of list can be used.  The
+           " indent of the text after the number is used for the next line.  The
+           " default is to find a number, optionally followed by '.', ':', ')',
+           " ']' or '}'.  Note that 'autoindent' must be set too.  Doesn't work
+           " well together with "2".
+           " Example: >
+           " 	1. the first item
+           " 	   wraps
+           " 	2. the second item
+set fo-=2  " When formatting text, use the indent of the second line of a paragraph
+           " for the rest of the paragraph, instead of the indent of the first
+           " line.  This supports paragraphs in which the first line has a
+           " different indent than the rest.  Note that 'autoindent' must be set
+           " too.  Example: >
+           " 		first line of a paragraph
+           " 	second line of the same paragraph
+           " 	third line.
+set fo-=v  " Vi-compatible auto-wrapping in insert mode: Only break a line at a
+           " blank that you have entered during the current insert command.  (Note:
+           " this is not 100% Vi compatible.  Vi has some 'unexpected features' or
+           " bugs in this area.  It uses the screen column instead of the line
+           " column.)
+set fo-=b  " Like 'v', but only auto-wrap if you enter a blank at or before
+           " the wrap margin.  If the line was longer than 'textwidth' when you
+           " started the insert, or you do not enter a blank in the insert before
+           " reaching 'textwidth', Vim does not perform auto-wrapping.
+set fo-=l  " Long lines are not broken in insert mode: When a line was longer than
+           " 'textwidth' when the insert command started, Vim does not
+           " automatically format it.
+set fo-=m  " Also break at a multi-byte character above 255.  This is useful for
+           " Asian text where every character is a word on its own.
+set fo-=M  " When joining lines, don't insert a space before or after a multi-byte
+           " character.  Overrules the 'B' flag.
+set fo-=B  " When joining lines, don't insert a space between two multi-byte
+           " characters.  Overruled by the 'M' flag.
+set fo-=1  " Don't break a line after a one-letter word.  It's broken before it
+           " instead (if possible).
 
 
 
@@ -1225,8 +1247,8 @@ set autoindent          " Enable auto indentation
 set copyindent          " Copy the previous indentation on autoindenting
 nnoremap <Tab> i<Tab><Esc>l
 nnoremap <S-Tab> i<BS><Esc>l
-vmap <Tab> >gv
-vmap <S-Tab> <gv
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 nnoremap <leader>tab :call Tab()<CR>
 command! -nargs=* Tab call Tab()
 nnoremap <silent> <leader>tt :setlocal expandtab!<CR>
@@ -1350,7 +1372,7 @@ inoremap <C-l> <Right>
 " "Hyper h|j|k|l" Consistent use of h|j|k|l with Shift to hyper traverse
 " the buffer universe!
 nnoremap <S-h> ^
-nnoremap <S-j> <C-d>
+"nnoremap <S-j> <C-d>
 nnoremap <S-k> <C-u>
 nnoremap <S-l> $
 vnoremap <S-h> ^
@@ -1374,9 +1396,10 @@ set incsearch           " Highlight search terms dynamically and incrementally
 set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set wrapscan            " Set the search scan to wrap around the file
-nnoremap <silent> \ :nohlsearch<Bar>:echo<CR>
-nnoremap <silent> <leader>hw
+nnoremap <silent> \\ :nohlsearch<CR>
+nnoremap <silent> <Leader>hw
       \ :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hlsearch<CR>
+cnoremap <silent> <CR> <CR><Bar>:nohlsearch<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1447,9 +1470,6 @@ nnoremap <silent> <leader>tct :XtermColorTable<CR>
 
 
 
-" "Terminal Multiplexer (Tmux)" Reload .tmux.conf file.
-nnoremap <Leader><F5> :!tmux source-file ~/.tmux.conf<CR>
-"-------------------------------------------------------------------------------
 
 
 
