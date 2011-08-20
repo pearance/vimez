@@ -30,6 +30,7 @@ Bundle "VimEz/Vundle"
 " TODO: https://github.com/vim-scripts/vimwiki
 
 " "Plugin Bundles"
+Bundle "VimEz/MolokaiEz"
 Bundle "VimEz/ScrollColors"
 Bundle "VimEz/CSApprox"
 Bundle "VimEz/NerdTree"

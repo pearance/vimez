@@ -43,7 +43,7 @@ set term=$TERM
 " "Color Scheme"
 set background=dark         " Use a dark background.
 set t_Co=256                " Force terminal to go into 256 color mode.
-colorscheme vimez	          " Default color scheme.
+colorscheme molokaiEz       " Default color scheme.
 syntax on		                " Syntax highlighting on.
 
 " Show syntax highlighting group for current word.
@@ -615,7 +615,6 @@ augroup Filetype_Assoc
   autocmd BufNewFile,BufRead *.module set filetype=php
   autocmd BufNewFile,BufRead *.install set filetype=php
   autocmd BufNewFile,BufRead *.test set filetype=php
-
 augroup END
 "-------------------------------------------------------------------------------
 " "}}}
