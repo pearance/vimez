@@ -32,7 +32,7 @@ let g:colors_name="vimez"
 
 
 " "General Syntax"
-hi Normal           guifg=#af87ff guibg=#121212 gui=bold
+hi Normal           guifg=#ffffff guibg=#121212
 hi NonText          guifg=#444444 guibg=NONE
 "-------------------------------------------------------------------------------
 
@@ -45,12 +45,21 @@ hi CursorColumn                   guibg=#1C1C1C
 hi ColorColumn                    guibg=#080808
 hi LineNr           guifg=#606060 guibg=#262626
 hi SignColumn       guifg=#AFD700 guibg=#262626
-hi VertSplit        guifg=#87FF00 guibg=#121212 gui=bold
+hi VertSplit        guifg=#87FF00 guibg=bg      gui=bold
 hi Visual                         guibg=#303030
 hi VisualNOS                      guibg=#403D3D
-hi WildMenu         guifg=#080808 guibg=#5fd700 gui=bold
-hi Title            guifg=#ef5939
-hi Todo             guifg=#FFFF00 guibg=bg      gui=bold
+hi WildMenu         guifg=#080808 guibg=#5faf00 gui=bold
+hi title            guifg=#ef5939
+hi todo             guifg=#ffff00 guibg=bg      gui=bold
+"-------------------------------------------------------------------------------
+
+
+
+" "Messages"
+hi ModeMsg          guifg=#ffffff guibg=bg      gui=bold
+hi ErrorMsg         guifg=#FF0000 guibg=bg      gui=bold
+hi MoreMsg          guifg=#ffffff guibg=bg      gui=bold
+hi WarningMsg       guifg=#ffffff guibg=bg      gui=bold
 "-------------------------------------------------------------------------------
 
 
@@ -155,15 +164,6 @@ hi Pmenu            guifg=#5fdfff guibg=#444444
 hi PmenuSel                       guibg=#808080
 hi PmenuSbar                      guibg=#080808
 hi PmenuThumb       guifg=#5fdfff
-"-------------------------------------------------------------------------------
-
-
-
-" "Messages"
-hi ModeMsg          guifg=#5fdfff guibg=bg
-hi ErrorMsg         guifg=#FF0000 guibg=bg      gui=bold
-hi MoreMsg          guifg=#5fdfff guibg=bg
-hi WarningMsg       guifg=#5fdfff guibg=bg      gui=bold
 "-------------------------------------------------------------------------------
 
 
