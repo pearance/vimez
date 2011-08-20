@@ -1,8 +1,9 @@
-" Name: VimEz vimrc
-" Description: A robust Vim IDE distribution.
-" Maintainer: Fontaine Cook <fontaine.cook@pearance.com
-" Dependencies: Requires Vim 7.2 or higher.
-" Version: 0.1a
+" Title:          vimrc
+"	Description:    Main configuration file for VimEz.
+" Author:         Fontaine Cook <fontaine.cook@pearance.com>
+" Maintainer:     Fontaine Cook <fontaine.cook@pearance.com>
+"	Last Modified:  08/10/2011
+"------------------------------------------------------------------------------
 
 
 
@@ -117,8 +118,8 @@ augroup END
 
 " "Performance Tweaks"
 set ttyfast            " Indicates a fast terminal connection.
-set synmaxcol=2048     " Prevent long lines from slowing down redraws.
-set lazyredraw                    " Don't redraw while executing macros.
+set synmaxcol=1000     " Prevent long lines from slowing down redraws.
+set lazyredraw         " Don't redraw while executing macros.
 "-------------------------------------------------------------------------------
 
 
@@ -133,9 +134,9 @@ set timeoutlen=750 "TODO: RESEARCH
 
 
 " "Mouse"
-set mouse=a                  " Enable mouse usage (all modes)
-set selectmode=mouse         " Selection with the mouse trigers Select mode
-set ttymouse=xterm2          " Enable basic mouse functionality in a terminal
+"set mouse=a                  " Enable mouse usage (all modes)
+"set selectmode=mouse         " Selection with the mouse trigers Select mode
+"set ttymouse=xterm2          " Enable basic mouse functionality in a terminal
 "-------------------------------------------------------------------------------
 
 
@@ -276,7 +277,7 @@ nnoremap <leader>rf :Rename<Space>
 " "Browse Files (NERDTree)" Conventional file browser panel with bookmarking
 " abilities. Provides an efficient way to view file hierarchies.
 let NERDTreeChDirMode=2
-nnoremap <leader><CR> :NERDTreeToggle .<CR>
+nnoremap <silent><leader><CR> :NERDTreeToggle .<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -369,7 +370,7 @@ augroup END
 " tabbing through open programs via Alt-Tab on most common desktop
 " environments.
 set <A-`>=`
-nnoremap <A-`> :b <C-z>
+nnoremap <A-`> :b <C-z><C-z>
 cnoremap <A-`> <C-z>
 cnoremap <C-c> <Home><Right>d<CR>
 cnoremap <C-s><C-v> <Home><Del>vs<CR>
@@ -386,7 +387,7 @@ nnoremap <silent> <leader>jj :CommandTBuffer<CR>
 
 " "Previous Buffer (BufKill)" This is refered to in Vim parlance as the 'Alternate
 " Buffer' stock keymap is ctrl-^. Leader n for greater Convenience.
-nnoremap <silent> <leader>pb :BA<CR>
+nnoremap <silent> <leader><BS> :BA<CR>
 let g:BufKillOverrideCtrlCaret=1
 "-------------------------------------------------------------------------------
 
@@ -613,6 +614,7 @@ augroup Filetype_Assoc
     call Msg("Written as an executable shell script!")
   endfunction
   "-------------------------------------------------------------------------------
+  au BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
 
 
 
@@ -623,9 +625,9 @@ augroup Filetype_Assoc
 
 
   " "Drupal Module Filetypes" *.module and *.install files.
-  autocmd BufRead,BufNewFile *.module set filetype=php
-  autocmd BufRead,BufNewFile *.install set filetype=php
-  autocmd BufRead,BufNewFile *.test set filetype=php
+  autocmd BufNewFile,BufRead *.module set filetype=php
+  autocmd BufNewFile,BufRead *.install set filetype=php
+  autocmd BufNewFile,BufRead *.test set filetype=php
 
 augroup END
 "-------------------------------------------------------------------------------
@@ -643,7 +645,7 @@ augroup END
 "*******************************************************************************
 " EDIT: "{{{
 "*******************************************************************************
-" "Edit Vimrc" This would be Vim's version of [Edit Preferences] :-) Upon saving
+" "Edit Vimrc" This would be Vim's version of [Edit Preferences]. Upon saving
 " the file is sourced so most of time your changes should take effect
 " immediately. However, some changes will only take effect after restarting Vim.
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
@@ -663,10 +665,15 @@ nnoremap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
 
 
 
-" "Virtual Edit" Allow the cursor to go where no cursor has gone before.
-" Navigate into lines and columns that are not real.
-set virtualedit=all
-set nostartofline
+" "Edit Tmux"
+nnoremap <silent> <leader>et :e $HOME/.tmux.conf<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Yanking (Copy)"
+nnoremap yH v0y
+nnoremap yL v$y$
 "-------------------------------------------------------------------------------
 
 
@@ -1071,6 +1078,13 @@ set stl+=%<                             " Truncate this side of the aisle
 "*******************************************************************************
 " INSERT: "{{{
 "*******************************************************************************
+" "Insert Mode"
+vnoremap i <Esc>i
+inoremap <C-v> <Esc>v
+"-------------------------------------------------------------------------------
+
+
+
 " "Autocompletion/Snippets (NeoComplCache)"
 " Autocompletion General Settings
 set cpt+=.		    " Scan the current buffer ('wrapscan' is ignored)
@@ -1254,13 +1268,13 @@ function! Expandtab_flag()
   if &expandtab == 0
     return ""
   else
-    return "Soft\ "
+    return "S"
   endif
 endfunction
 
 " Generate statusline flags for softtabstop, tabstop, and shiftwidth.
 function! Tabstop_status()
-  let str = "Tab:" . &tabstop
+  let str = "T:" . &tabstop
   " Show softtabstop or shiftwidth if not equal tabstop
   if   (&softtabstop && (&softtabstop != &tabstop))
   \ || (&shiftwidth  && (&shiftwidth  != &tabstop))
@@ -1297,15 +1311,22 @@ inoremap aa @
 "*******************************************************************************
 " NAVIGATION: "{{{
 "*******************************************************************************
-
-
-
 " "Escape" A more efficient alternative to the escape key.
 inoremap jj <Esc>
 inoremap JJ <Esc>
 cnoremap jj <C-c>
 cnoremap JJ <C-c>
-cnoremap jo <Enter><leader><leader>
+vnoremap <Space><Space> <Esc>
+"-------------------------------------------------------------------------------
+
+
+
+" "Virtual Edit" Allow the cursor to go where no cursor has gone before.
+" Navigate into lines and columns that are not real.
+set virtualedit+=block
+set virtualedit+=insert
+set virtualedit+=onemore
+set nostartofline
 "-------------------------------------------------------------------------------
 
 
@@ -1329,12 +1350,12 @@ inoremap <C-l> <Right>
 " "Hyper h|j|k|l" Consistent use of h|j|k|l with Shift to hyper traverse
 " the buffer universe!
 nnoremap <S-h> ^
-nnoremap <S-j> 20j
-nnoremap <S-k> 20k
+nnoremap <S-j> <C-d>
+nnoremap <S-k> <C-u>
 nnoremap <S-l> $
 vnoremap <S-h> ^
-vnoremap <S-j> 20j
-vnoremap <S-k> 20k
+vnoremap <S-j> <C-d>
+vnoremap <S-k> <C-u>
 vnoremap <S-l> $
 "-------------------------------------------------------------------------------
 
@@ -1573,9 +1594,3 @@ endfunction
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
-let g:ScreenImpl = 'Tmux'
-
-"TODO: http://robots.thoughtbot.com/post/2641409235/a-tmux-crash-course
-"TODO: https://github.com/thoughtbot/dotfiles
-nnoremap ,t <C-b>"
-
