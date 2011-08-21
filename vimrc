@@ -5,6 +5,7 @@
 "	Last Modified:  08/10/2011
 "------------------------------------------------------------------------------
 
+" TODO: http://vim.runpaint.org/typing/using-templates/
 
 
 "*******************************************************************************
@@ -360,7 +361,7 @@ augroup END
 " environments.
 nnoremap <Leader><Tab> :b <C-z><C-z>
 
-cnoremap <Silent> <C-c> <Home><Right>d<CR>
+cnoremap <C-c> <Home><Right>d<CR>
 cnoremap <C-v> <Home><Del>vs<CR>
 cnoremap <C-h> <Home><Del>sp<CR>
 "-------------------------------------------------------------------------------
@@ -631,9 +632,6 @@ augroup END
 "*******************************************************************************
 " EDIT: "{{{
 "*******************************************************************************
-vnoremap i <Esc>i
-
-
 " "Yanking (Copy)"
 nnoremap yH v0y
 nnoremap yL v$y$
@@ -690,10 +688,10 @@ set go+=a               " TODO: Visual selection automatically copied to the cli
 " "Bulbbling Line (Unimpaired)" Consistent use of [hjkl] with the Shift modifier to move a
 " line of text around. Up/down by one line and left/right by amount of
 " shiftwidth.
-nmap <C-h> <<
-nmap <C-j> ]e
-nmap <C-k> [e
-nmap <C-l> >>
+nmap <S-h> <<
+nmap <S-j> ]e
+nmap <S-k> [e
+nmap <S-l> >>
 "-------------------------------------------------------------------------------
 
 
@@ -701,10 +699,10 @@ nmap <C-l> >>
 " "Bubbling Block (Unimpaired)" Consistent use of [hjkl] with the Shift modifier to move a
 " block of text around. Up/down by one line and left/right by amount of
 " shiftwidth.
-vmap <C-h> <gv
-vmap <C-j> ]egv
-vmap <C-k> [egv
-vmap <C-l> >gv
+vmap <S-h> <gv
+vmap <S-j> ]egv
+vmap <S-k> [egv
+vmap <S-l> >gv
 "-------------------------------------------------------------------------------
 
 
@@ -712,14 +710,14 @@ vmap <C-l> >gv
 " "Bubbling Word(s) (Unimpaired)" Consistent use of [hjkl] with the Control modifier to
 " transport words around. Up/down by one line and left/right by one word plus
 " a space.
-set <A-h>=h
-set <A-j>=j
-set <A-k>=k
-set <A-l>=l
-vmap <A-h> dBhp`[v`]
-vmap <A-j> djhp`[v`]
-vmap <A-k> dkhp`[v`]
-vmap <A-l> dElp`[v`]
+"set <A-h>=h
+"set <A-j>=j
+"set <A-k>=k
+"set <A-l>=l
+"vmap <A-h> dBhp`[v`]
+"vmap <A-j> djhp`[v`]
+"vmap <A-k> dkhp`[v`]
+"vmap <A-l> dElp`[v`]
 "-------------------------------------------------------------------------------
 
 
@@ -835,7 +833,7 @@ nnoremap <silent> <leader>ei :e $HOME/.vim/initrc<CR>
 
 
 " "Edit Color Scheme"
-nnoremap <silent> <leader>ecs :e $HOME/.vim/colors/vimez.vim<CR>
+nnoremap <silent> <leader>ecs :e $HOME/.vim/bundle/MolokaiEz/colors/molokaiEz.vim<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1370,14 +1368,14 @@ inoremap <C-l> <Right>
 
 " "Hyper h|j|k|l" Consistent use of h|j|k|l with Shift to hyper traverse
 " the buffer universe!
-nnoremap <S-h> ^
-"nnoremap <S-j> <C-d>
-nnoremap <S-k> <C-u>
-nnoremap <S-l> $
-vnoremap <S-h> ^
-vnoremap <S-j> <C-d>
-vnoremap <S-k> <C-u>
-vnoremap <S-l> $
+nnoremap <C-h> 0
+nnoremap <C-j> <C-d>
+nnoremap <C-k> <C-u>
+nnoremap <C-l> $l
+vnoremap <C-h> ^
+vnoremap <C-j> <C-d>
+vnoremap <C-k> <C-u>
+vnoremap <C-l> $
 "-------------------------------------------------------------------------------
 
 
