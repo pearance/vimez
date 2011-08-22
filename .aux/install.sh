@@ -150,16 +150,6 @@ sleep $DLY
 
 
 
-# Checkout plugin versions.
-#/bin/mv ~/.vim/bundle/ConqueShell/doc/tags ~/.vim.local/tmp/
-#cd ~/.vim/bundle/ConqueShell/; git checkout 2.0; cd ~/.vim
-#/bin/mv ~/.vim.local/tmp/tags ~/.vim/bundle/ConqueShell/doc/
-#printf "%${COL}s"
-#/bin/echo -en $BD$G "ok"$NO
-#------------------------------------------------------------------------------
-
-
-
 # Clean up.
 /bin/echo -e $BD$M
 /bin/echo -en "* Cleaning up...                     "

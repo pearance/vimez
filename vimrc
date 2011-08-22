@@ -267,7 +267,7 @@ let NERDTreeMapOpenSplit='h'
 let NERDTreeMapPreviewSplit='gh'
 let NERDTreeMapOpenVSplit='v'
 let NERDTreeMapPreviewVSplit='gv'
-nnoremap <Silent><Leader><CR> :NERDTreeToggle .<CR>
+nnoremap <silent><Leader><CR> :NERDTreeToggle .<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -278,61 +278,61 @@ let g:CommandTMaxHeight=10                    " Show this amount of results max
 let g:CommandTAcceptSelectionSplitMap=['/']   " Key to open file in split win
 let g:CommandTAcceptSelectionVSplitMap=[';']  " Key to open file in vsplit win
 let g:CommandTCancelMap=[',']                 " Key to cancel Command-T
-nnoremap <Silent> <Leader>kk :CommandT<CR>
+nnoremap <silent> <Leader>kk :CommandT<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "New Buffer"
-nnoremap <Silent> <Leader>nb :enew<CR><Bar>i<Space><BS><Esc>
+nnoremap <silent> <Leader>nb :enew<CR><Bar>i<Space><BS><Esc>
 "-------------------------------------------------------------------------------
 
 
 
 " "Write Buffer"
-nnoremap <Silent> <Leader>w :write<CR>
-nnoremap <Silent> <Leader>wb :write<CR>
-inoremap <Silent> <C-s> :update<CR>
-nnoremap <Silent> <C-s> :update<CR>
-vnoremap <Silent> <C-s> :update<CR>
+nnoremap <silent> <Leader>w :write<CR>
+nnoremap <silent> <Leader>wb :write<CR>
+inoremap <silent> <C-s> :update<CR>
+nnoremap <silent> <C-s> :update<CR>
+vnoremap <silent> <C-s> :update<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Write All Buffers" Write all modified buffers. Buffers without a filename will not be
 " saved.
-nnoremap <Silent> <Leader>wa :wall<CR>:exe ":echo 'All buffers saved to files!'"<CR>
+nnoremap <silent> <Leader>wa :wall<CR>:exe ":echo 'All buffers saved to files!'"<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Close Buffer (BufKill)" The i<Space><Esc> is required by an empty buffer
 " created by enew in order to close it and remove it form the buffer list.
-nnoremap <Silent> <Leader>cb :BD<CR>
+nnoremap <silent> <Leader>cb :BD<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Close Buffer & Window"
-nnoremap <Silent> <Leader>cbb :bd<CR>
+nnoremap <silent> <Leader>cbb :bd<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Close Others (BufOnly)"
-nnoremap <Silent> <Leader>co :BufOnly<CR>
+nnoremap <silent> <Leader>co :BufOnly<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Close All"
-nnoremap <Silent> <Leader>cab :exec "1," . bufnr('$') . "bd"<CR>
+nnoremap <silent> <Leader>cab :exec "1," . bufnr('$') . "bd"<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Undo Close (BufKill)"
-nnoremap <Silent> <Leader>uc :BUNDO<CR>
+nnoremap <silent> <Leader>uc :BUNDO<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -341,7 +341,7 @@ nnoremap <Silent> <Leader>uc :BUNDO<CR>
 " (gvim only).
 augroup FocusLost
   autocmd! FocusLost
-  autocmd FocusLost * Silent! wa
+  autocmd FocusLost * silent! wa
 augroup END
 "-------------------------------------------------------------------------------
 
@@ -361,7 +361,7 @@ augroup END
 " environments.
 nnoremap <Leader><Tab> :b <C-z><C-z>
 
-cnoremap <Silent><C-c> <Home><Right>d<CR>
+cnoremap <silent><C-c> <Home><Right>d<CR>
 cnoremap <C-v> <Home><Del>vs<CR>
 cnoremap <C-h> <Home><Del>sp<CR>
 "-------------------------------------------------------------------------------
@@ -369,14 +369,14 @@ cnoremap <C-h> <Home><Del>sp<CR>
 
 
 " "Buffer Navigation (CommandT)"
-nnoremap <Silent> <Leader>jj :CommandTBuffer<CR>
+nnoremap <silent> <Leader>jj :CommandTBuffer<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Previous Buffer (BufKill)" This is refered to in Vim parlance as the 'Alternate
 " Buffer' stock keymap is ctrl-^. Leader n for greater Convenience.
-nnoremap <Silent> <Leader><BS> :BA<CR>
+nnoremap <silent> <Leader><BS> :BA<CR>
 let g:BufKillOverrideCtrlCaret=1
 "-------------------------------------------------------------------------------
 
@@ -598,7 +598,7 @@ augroup Filetype_Assoc
   " "Shell Scripts" Automatically chmod +x Shell and Perl scripts
   autocmd BufWritePost *.sh call Executable()
   function! Executable()
-    exe "Silent! !chmod +x %"
+    exe "silent! !chmod +x %"
     redraw!
     call Msg("Written as an executable shell script!")
   endfunction
@@ -723,8 +723,8 @@ vmap <S-l> >gv
 
 
 " "Hyper Put" Put currently selected text into the adjecent window pane.
-map <Silent><Leader>ll "zyw<C-w>wo<Esc>"zp<C-w>w
-map <Silent><Leader>hh "zyw<C-w>wo<Esc>"zp<C-w>w
+map <silent><Leader>ll "zyw<C-w>wo<Esc>"zp<C-w>w
+map <silent><Leader>hh "zyw<C-w>wo<Esc>"zp<C-w>w
 "-------------------------------------------------------------------------------
 
 
@@ -732,10 +732,10 @@ map <Silent><Leader>hh "zyw<C-w>wo<Esc>"zp<C-w>w
 " "Add & Remove Blank Lines" Use the +plus and -minus keys to add and remove
 " blank lines below the current line. With the Shift modifier, add and remove
 " blank lines from above the current line.
-"nnoremap <Silent>- m`:Silent +g/\m^\s*$/d<CR>``:noh<CR>
-"nnoremap <Silent>_ m`:Silent -g/\m^\s*$/d<CR>``:noh<CR>
-"nnoremap <Silent>= :set paste<CR>m`o<Esc>``:set nopaste<CR>
-"nnoremap <Silent>+ :set paste<CR>m`O<Esc>``:set nopaste<CR>
+"nnoremap <silent>- m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
+"nnoremap <silent>_ m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+"nnoremap <silent>= :set paste<CR>m`o<Esc>``:set nopaste<CR>
+"nnoremap <silent>+ :set paste<CR>m`O<Esc>``:set nopaste<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -745,8 +745,8 @@ map <Silent><Leader>hh "zyw<C-w>wo<Esc>"zp<C-w>w
 " So, this functionality is mapped to Leader jn and jp for join next (line
 " below) and join previous (line above) with the current line.
 set nojoinspaces
-nnoremap <Silent> <Leader>jn :call Join()<CR>
-nnoremap <Silent> <Leader>jp k<S-v>xpk:call Join()<CR>
+nnoremap <silent> <Leader>jn :call Join()<CR>
+nnoremap <silent> <Leader>jp k<S-v>xpk:call Join()<CR>
 function! Join()
   normal! $
   normal! l
@@ -766,7 +766,7 @@ set nospell               " Dynamic spell checking off by default
 set spelllang=en_us       " Default language
 set spellsuggest=5        " How many spelling suggestions to list
 set spellfile=~/.vim.local/spell/en.utf-8.add " Custom spell file
-nmap <Silent> <Leader>ts :setlocal spell!<CR>
+nmap <silent> <Leader>ts :setlocal spell!<CR>
       \ <Bar>:echo "   Spell Check: " . strpart("OffOn", 3 * &spell, 3)<CR>
 
 " Generate a statusline flag for Spell Check"
@@ -799,15 +799,15 @@ autocmd FileType filetype1,filetype2 let b:noStripWhitespace=1 "TODO: this goes 
 " "Edit Vimrc" This would be Vim's version of [Edit Preferences]. Upon saving
 " the file is sourced so most of time your changes should take effect
 " immediately. However, some changes will only take effect after restarting Vim.
-nnoremap <Silent> <Leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <Leader>ev :e $MYVIMRC<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Redraw/Reload"
 " Manually
-nnoremap <Silent> <F5> :redraw!<CR><Bar> :call Msg('VimEz Redrawn!')<CR>
-nnoremap <Silent> <F5><F5>
+nnoremap <silent> <F5> :redraw!<CR><Bar> :call Msg('VimEz Redrawn!')<CR>
+nnoremap <silent> <F5><F5>
       \       :ColorClear<CR>
       \ <Bar> :so $MYVIMRC<CR>
       \ <Bar> :nohlsearch<CR>
@@ -819,27 +819,27 @@ augroup LocalReload
   autocmd! LocalReload
   autocmd bufwritepost .vimrc source $MYVIMRC | exe 'CSApprox' | nohlsearch
   autocmd bufwritepost .vimrc call Msg('VimEz Reloaded!')
-  autocmd bufwritepost vimez.vim source $MYVIMRC | exe 'CSApprox' | nohlsearch
-  autocmd bufwritepost vimez.vim call Msg('VimEz Reloaded!')
+  autocmd bufwritepost molokaiEz.vim source $MYVIMRC | exe 'CSApprox' | nohlsearch
+  autocmd bufwritepost molokaiEz.vim call Msg('VimEz Reloaded!')
 augroup END
 "-------------------------------------------------------------------------------
 
 
 
 " "Edit Initrc"
-nnoremap <Silent> <Leader>ei :e $HOME/.vim/initrc<CR>
+nnoremap <silent> <Leader>ei :e $HOME/.vim/initrc<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Edit Color Scheme"
-nnoremap <Silent> <Leader>ecs :e $HOME/.vim/bundle/MolokaiEz/colors/molokaiEz.vim<CR>
+nnoremap <silent> <Leader>ecs :e $HOME/.vim/bundle/MolokaiEz/colors/molokaiEz.vim<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Edit Tmux" Edit and reload on write.
-nnoremap <Silent> <Leader>et :e $HOME/.tmux.conf<CR>
+nnoremap <silent> <Leader>et :e $HOME/.tmux.conf<CR>
 "-------------------------------------------------------------------------------
 " "}}}
 
@@ -933,7 +933,7 @@ set listchars+=trail:.
 set listchars+=extends:>
 set listchars+=precedes:<
 set listchars+=nbsp:%
-nnoremap <Silent> <Leader>ti :setlocal list!<CR>
+nnoremap <silent> <Leader>ti :setlocal list!<CR>
       \ <Bar>:echo "   Invisible: " . strpart("OffOn", 3 * &list, 3)<CR>
 " No need for a flag, clearly visible if on.
 "-------------------------------------------------------------------------------
@@ -967,7 +967,7 @@ endfunction
 
 " "Colorcolumn"
 if exists('+colorcolumn')
-  nnoremap <Silent> <Leader>tcc :call ToggleCC()<CR>
+  nnoremap <silent> <Leader>tcc :call ToggleCC()<CR>
   let g:ccToggle = 0
 
   function! ToggleCC()
@@ -1214,8 +1214,8 @@ nnoremap <BS> i<BS><Right><Esc>
 " Insert mode you have to stretch for the delete key, and to add insult to
 " injury its location varies from keyboard to keyboard.
 inoremap <C-d> <Del>
-nnoremap <Silent><Leader>dd "_d
-vnoremap <Silent><Leader>dd "_d
+nnoremap <silent><Leader>dd "_d
+vnoremap <silent><Leader>dd "_d
 "-------------------------------------------------------------------------------
 
 
@@ -1248,8 +1248,8 @@ vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 nnoremap <Leader>tab :call Tab()<CR>
 command! -nargs=* Tab call Tab()
-nnoremap <Silent> <Leader>tt :setlocal expandtab!<CR>
-nmap <Silent> <Leader>tt :setlocal expandtab!<CR>
+nnoremap <silent> <Leader>tt :setlocal expandtab!<CR>
+nmap <silent> <Leader>tt :setlocal expandtab!<CR>
       \ <Bar>:echo "   Soft Tabs: " . strpart("OffOn", 3 * &expandtab, 3)<CR>
 
 " Prompt for tab size and apply to softtabstop, tabstop, and shiftwidth.
@@ -1393,10 +1393,9 @@ set incsearch           " Highlight search terms dynamically and incrementally
 set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set wrapscan            " Set the search scan to wrap around the file
-nnoremap <Silent> \\ :nohlsearch<CR>
-nnoremap <Silent> <Leader>hw
+nnoremap <silent> \\ :nohlsearch<CR>
+nnoremap <silent> <Leader>hw
       \ :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hlsearch<CR>
-cnoremap <Silent> <CR> <CR><Bar>:nohlsearch<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1418,7 +1417,6 @@ function! SearchReplace()
   " Get replace string.
   call inputsave()
   let  NewString = input("Search for: ".CurrentString."   Replace with: ")
-  echo "\r"
   call inputrestore()
 
   " Determine wether or not to search for whole word only.
@@ -1443,10 +1441,10 @@ let g:showmarks_enable = 0
 let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 let g:showmarks_textlower = ")"
 let g:showmarks_textupper = "]"
-nnoremap <Silent> <Leader>tm :ShowMarksToggle<cr>
-nnoremap <Silent> <Leader>cm :ShowMarksClearMark<cr>
-nnoremap <Silent> <Leader>cam :ShowMarksClearAll<cr>
-nnoremap <Silent> <Leader>mm :ShowMarksPlaceMark<cr>
+nnoremap <silent> <Leader>tm :ShowMarksToggle<cr>
+nnoremap <silent> <Leader>cm :ShowMarksClearMark<cr>
+nnoremap <silent> <Leader>cam :ShowMarksClearAll<cr>
+nnoremap <silent> <Leader>mm :ShowMarksPlaceMark<cr>
 "-------------------------------------------------------------------------------
  "}}}
 
@@ -1463,7 +1461,7 @@ nnoremap <Silent> <Leader>mm :ShowMarksPlaceMark<cr>
 " TOOLS: "{{{
 "*******************************************************************************
 " "Color Table (XtermColorTable)"
-nnoremap <Silent> <Leader>tct :XtermColorTable<CR>
+nnoremap <silent> <Leader>tct :XtermColorTable<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1472,7 +1470,7 @@ nnoremap <Silent> <Leader>tct :XtermColorTable<CR>
 
 
 " "Terminal (ConqueShell)"
-nnoremap <Silent> <Leader>nt :ConqueTerm bash<CR>
+nnoremap <silent> <Leader>nt :ConqueTerm bash<CR>
 let g:ConqueTerm_Color = 1
 let g:ConqueTerm_SessionSupport = 1
 let g:ConqueTerm_ReadUnfocused = 1
@@ -1507,20 +1505,20 @@ endfunction
 " WINDOW: "{{{
 "*******************************************************************************
 " "Focus Windows"
-noremap <Silent> <Leader>h  :wincmd h<CR>
-noremap <Silent> <Leader>j  :wincmd j<CR>
-noremap <Silent> <Leader>k  :wincmd k<CR>
-noremap <Silent> <Leader>l  :wincmd l<CR>
+noremap <silent> <Leader>h  :wincmd h<CR>
+noremap <silent> <Leader>j  :wincmd j<CR>
+noremap <silent> <Leader>k  :wincmd k<CR>
+noremap <silent> <Leader>l  :wincmd l<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Move Windows"
-noremap <Silent> <Leader>mh <C-w>H
-noremap <Silent> <Leader>mj <C-w>J
-noremap <Silent> <Leader>mk <C-w>K
-noremap <Silent> <Leader>ml <C-w>L
-noremap <Silent> <Leader>mx <C-w>x
+noremap <silent> <Leader>mh <C-w>H
+noremap <silent> <Leader>mj <C-w>J
+noremap <silent> <Leader>mk <C-w>K
+noremap <silent> <Leader>ml <C-w>L
+noremap <silent> <Leader>mx <C-w>x
 "-------------------------------------------------------------------------------
 
 
@@ -1535,20 +1533,20 @@ nnoremap + <C-w>+
 
 
 " "Close Windows"
-noremap <Silent> <Leader>cj :wincmd j<CR>:close<CR>
-noremap <Silent> <Leader>ch :wincmd h<CR>:close<CR>
-noremap <Silent> <Leader>ck :wincmd k<CR>:close<CR>
-noremap <Silent> <Leader>cl :wincmd l<CR>:close<CR>
-noremap <Silent> <Leader>cw :close<CR>
+noremap <silent> <Leader>cj :wincmd j<CR>:close<CR>
+noremap <silent> <Leader>ch :wincmd h<CR>:close<CR>
+noremap <silent> <Leader>ck :wincmd k<CR>:close<CR>
+noremap <silent> <Leader>cl :wincmd l<CR>:close<CR>
+noremap <silent> <Leader>cw :close<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Split Windows"
 set nosplitbelow
-noremap <Silent> <Leader>sv :vsplit<CR><Bar><C-w>l
+noremap <silent> <Leader>sv :vsplit<CR><Bar><C-w>l
 set splitright
-noremap <Silent> <Leader>sh :split<CR>
+noremap <silent> <Leader>sh :split<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1563,7 +1561,7 @@ noremap <Silent> <Leader>sh :split<CR>
 "*******************************************************************************
 " HELP: "{{{
 "*******************************************************************************
-map <Silent> <Leader>help "zyw:exe "h ".@z.""<CR>
+map <silent> <Leader>help "zyw:exe "h ".@z.""<CR>
 augroup HelpGroup
   autocmd! HelpGroup
   autocmd WinEnter,BufEnter * :call HelpEnv()   " Set the help environment.

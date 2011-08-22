@@ -45,7 +45,6 @@ Bundle "VimEz/Unimpaired"
 Bundle "VimEz/Colorizer"
 Bundle "VimEz/Markdown"
 Bundle "VimEz/XtermColorTable"
-Bundle "VimEz/ConqueShell"
 Bundle "VimEz/ShowMarks"
 Bundle "VimEz/Tmux"
 "-------------------------------------------------------------------------------
