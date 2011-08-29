@@ -54,7 +54,9 @@ clear
 /bin/echo -en "* Backing up existing Vim install... "
 cd ~
 /bin/mkdir -p ~/tmp
-/bin/rm ~/tmp/vimez.install.log
+if [ -f ~/tmp/vimez.install.log ]; then
+  /bin/rm ~/tmp/vimez.install.log
+fi
 /bin/rm -fr ~/backup/vimez/
 /bin/mkdir -p ~/backup/vimez/
 for i in .vimrc .gvimrc .vim
