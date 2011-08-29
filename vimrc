@@ -634,15 +634,15 @@ augroup END
 " EDIT: "{{{
 "*******************************************************************************
 " "Yanking (Copy)"
-nnoremap yH v0y
-nnoremap yL v$y$
+nnoremap yh v0y
+nnoremap yl v$y$
 "-------------------------------------------------------------------------------
 
 
 
 " "Deleting (Cut)"
-nnoremap dH v0r<Space>
-nnoremap dL v$hd
+nnoremap dh v0r<Space>
+nnoremap dl v$hd
 nnoremap DD v0r<Space>
 nnoremap CC v0r<Space>R
 "-------------------------------------------------------------------------------
@@ -1020,13 +1020,13 @@ set stl+=\                              " Space
 set stl+=\                              " Space
 set stl+=\                              " Space
 set stl+=%=                             " Align right
-set stl+=[%{Filetype_status()}]         " File type
-set stl+=\                              " Space
 set stl+=                               " TODO: diff mode flag
 set stl+=                               " TODO: scrollbind flag
 set stl+=                               " TODO: capslock flag
+set stl+=%{AutoCloseFlag()}             " Auto Close flag
 set stl+=%{WrapFlag()}                  " Wrap flag
 set stl+=%{SpellFlag()}                 " Spellcheck flag
+set stl+=\                              " Space
 set stl+=[                              " Open bracket
 set stl+=%{ExpandTabFlag()}             " Soft tab flag
 set stl+=%{TabStopStatus()}             " Tab size
@@ -1036,6 +1036,9 @@ set stl+=[                              " Open bracket
 set stl+=%{Fileencoding_status()}\/     " File encoding
 set stl+=%{Fileformat_status()}         " File format
 set stl+=]                              " Close bracket
+set stl+=\                              " Space
+set stl+=%#User1#                       " Brighten
+set stl+=[%{Filetype_status()}]         " File type
 set stl+=%<                             " Truncate this side of the aisle
 "-------------------------------------------------------------------------------
 " "}}}
@@ -1200,6 +1203,34 @@ inoremap <expr><BS>  neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><CR>  neocomplcache#smart_close_popup()."\<CR>"
 nnoremap <Leader>es  :NeoComplCacheEditSnippets<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Auto Close (AutoClose)"
+let g:AutoClosePairs = {'(': ')', '{': '}', '[': ']', '"': '"', "'": "'", '<': '>'}
+let g:acStatus = 1
+map <Leader>tac :call ToggleAutoClose()<CR>
+function! ToggleAutoClose()
+  if g:acStatus == 0
+    let g:acStatus = 1
+    AutoCloseOn
+    echo "Auto Close: On"
+  else
+    let g:acStatus = 0
+    AutoCloseOff
+    echo "Auto Close: Off"
+  endif
+endfunction
+
+" Generate a statusline flag for AutoClose.
+function! AutoCloseFlag()
+  if g:acStatus == 0
+    return ""
+  else
+    return "[A]"
+  endif
+endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -1571,7 +1602,7 @@ noremap <silent><Leader>sh :split<CR>
 "*******************************************************************************
 " HELP: "{{{
 "*******************************************************************************
-map <silent><Leader>help "zyw:exe "h ".@z.""<CR>
+nnoremap <silent><Leader>help "zyw:exe "h ".@z.""<CR>
 augroup HelpGroup
   autocmd! HelpGroup
   autocmd WinEnter,BufEnter * :call HelpEnv()   " Set the help environment.

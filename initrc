@@ -46,6 +46,7 @@ Bundle "VimEz/Colorizer"
 Bundle "VimEz/Markdown"
 Bundle "VimEz/XtermColorTable"
 Bundle "VimEz/ShowMarks"
+Bundle "VimEz/AutoClose"
 Bundle "VimEz/Tmux"
 "-------------------------------------------------------------------------------
 
