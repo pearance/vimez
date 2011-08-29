@@ -488,7 +488,7 @@ set writebackup                   " Make a backup before overwriting a file
 if has("win32") || has("win64")
   set backupdir=$TMP              " TODO: Set for Windows and Mac environments
 else
-  set backupdir=$HOME/.vim.local/tmp/backups//
+  set backupdir=$HOME/.vim.local/tmp/backups//,.
 end
 "-------------------------------------------------------------------------------
 
@@ -501,7 +501,7 @@ set updatecount=100
 if has("win32") || has("win64")   " TODO: Set for Windows and Mac environments
   set directory=$TMP
 else
-  set directory=$HOME/.vim.local/tmp/swaps//
+  set directory=$HOME/.vim.local/tmp/swaps//,.
 end
 "-------------------------------------------------------------------------------
 
@@ -659,7 +659,7 @@ nnoremap Q gqip
 " "Undo (Gundo)" Persistent undo, along with Gundo to parse the ungo history.
 set undolevels=1000
 set undofile
-set undodir=$HOME/.vim.local/tmp/undos//
+set undodir=$HOME/.vim.local/tmp/undos//,.
 nnoremap <Leader>uu :GundoToggle<CR>
 "-------------------------------------------------------------------------------
 
@@ -770,7 +770,7 @@ nmap <silent> <Leader>ts :setlocal spell!<CR>
       \ <Bar>:echo "   Spell Check: " . strpart("OffOn", 3 * &spell, 3)<CR>
 
 " Generate a statusline flag for Spell Check"
-function! Spell_flag()
+function! SpellFlag()
   if &spell == 0
     return ""
   else
@@ -935,7 +935,14 @@ set listchars+=precedes:<
 set listchars+=nbsp:%
 nnoremap <silent> <Leader>ti :setlocal list!<CR>
       \ <Bar>:echo "   Invisible: " . strpart("OffOn", 3 * &list, 3)<CR>
-" No need for a flag, clearly visible if on.
+" Generate a statusline flag for Invisible Characters
+function! InvisibleCharFlag()
+  if &spell == 0
+    return ""
+  else
+    return "[I]"
+  endif
+endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -993,6 +1000,10 @@ set laststatus=2                  " Keep status lines visible at all times.
 set cmdheight=2                   " Number of lines to use for the command-line.
 
 set statusline=
+set stl+=\                              " Space
+set stl+=%#User1#                       " Brighten
+set stl+=%04(%l%),%02(%v%)              " Current line
+set stl+=\                              " Space
 set stl+=%#User2#                       " Dimmed
 set stl+=[                              " Open bracket
 set stl+=S:%{CurrentSession()}          " Current Session
@@ -1007,32 +1018,29 @@ set stl+=\                              " Space
 set stl+=\                              " Space
 set stl+=\                              " Space
 set stl+=%=                             " Align right
+set stl+=[%{Filetype_status()}]         " File type
+set stl+=\                              " Space
 set stl+=                               " TODO: diff mode flag
 set stl+=                               " TODO: scrollbind flag
 set stl+=                               " TODO: capslock flag
 set stl+=%{WrapFlag()}                  " Wrap flag
-set stl+=%{Spell_flag()}                " Spellcheck flag
+set stl+=%{SpellFlag()}                " Spellcheck flag
+set stl+=%{InvisibleCharFlag()}         " Invisible character flag
 set stl+=[                              " Open bracket
-set stl+=%{Expandtab_flag()}            " Soft tab flag
-set stl+=%{Tabstop_status()}            " Tab size
+set stl+=%{ExpandTabFlag()}            " Soft tab flag
+set stl+=%{TabStopStatus()}            " Tab size
 set stl+=]                              " Close bracket
 set stl+=\                              " Space
 set stl+=[                              " Open bracket
-set stl+=%{Filetype_status()}\/         " File type
 set stl+=%{Fileencoding_status()}\/     " File encoding
 set stl+=%{Fileformat_status()}         " File format
 set stl+=]                              " Close bracket
-set stl+=\                              " Space
-set stl+=\                              " Space
-set stl+=%#User1#                       " Brighten
-set stl+=%05(C:%v%)                     " Current column
-set stl+=\                              " Space
-set stl+=%06(L:%l%)                     " Current line
 set stl+=%<                             " Truncate this side of the aisle
 "-------------------------------------------------------------------------------
 " "}}}
 
 
+"set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
 
 
 
@@ -1119,7 +1127,7 @@ set cpt-=k{dict}  " Scan the file {dict}.  Several "k" flags can be given,
 set cpt-=s		    " Scan the files given with the 'thesaurus' option
 set cpt-=s{tsr}	  " Scan the file {tsr}.  Several "s" flags can be given,
                   " patterns are valid too.
-set cpt+=i		    " Scan current and included files
+set cpt-=i		    " Scan current and included files
 set cpt-=d		    " Scan current and included files for defined name or macro
                 	    " |i_CTRL-X_CTRL-D|
 set cpt+=]		    " Tag completion
@@ -1283,7 +1291,7 @@ function! TabSummary()
 endfunction
 
 " Generate a statusline flag for expandtab.
-function! Expandtab_flag()
+function! ExpandTabFlag()
   if &expandtab == 0
     return ""
   else
@@ -1292,7 +1300,7 @@ function! Expandtab_flag()
 endfunction
 
 " Generate statusline flags for softtabstop, tabstop, and shiftwidth.
-function! Tabstop_status()
+function! TabStopStatus()
   let str = "T:" . &tabstop
   " Show softtabstop or shiftwidth if not equal tabstop
   if   (&softtabstop && (&softtabstop != &tabstop))
