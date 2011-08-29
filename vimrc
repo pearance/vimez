@@ -1617,6 +1617,7 @@ function! HelpEnv()
     setlocal nocursorcolumn
     setlocal norelativenumber
     setlocal colorcolumn=0
+    setlocal noexpandtab
   endif
 endfunction
 
