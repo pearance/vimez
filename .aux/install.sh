@@ -41,9 +41,9 @@ DLY=1
 # Establish "Grand" Title.
 clear
 /bin/echo -e $BD$RE$M
-/bin/echo -e "                                       "
-/bin/echo -e "             VimEz Install             "
-/bin/echo -e "                                       "
+/bin/echo -e "                                         "
+/bin/echo -e "              VimEz Install              "
+/bin/echo -e "                                         "
 /bin/echo -e $NO
 #------------------------------------------------------------------------------
 
@@ -52,19 +52,25 @@ clear
 # Backup any remnants of an existing Vim install.
 /bin/echo -e $BD$M
 /bin/echo -en "* Backing up existing Vim install... "
+
 cd ~
-/bin/mkdir -p ~/tmp
-if [ -f ~/tmp/vimez.install.log ]; then
+
+if [ -e ~/tmp/vimez.install.log ]; then
   /bin/rm ~/tmp/vimez.install.log
 fi
-/bin/rm -fr ~/backup/vimez/
+/bin/mkdir -p ~/tmp
+
+if [ -e ~/backup/vimez/]; then
+  /bin/rm -fr ~/backup/vimez/
+fi
 /bin/mkdir -p ~/backup/vimez/
+
 for i in .vimrc .gvimrc .vim
   do [ -e $i ] && /bin/mv -f $i backup/vimez/$i
 done
 #printf "%-0s"
 sleep $DLY
-/bin/echo -e $BD$G"ok"$NO
+/bin/echo -e $BD$G"done"$NO
 #------------------------------------------------------------------------------
 
 
@@ -75,22 +81,7 @@ sleep $DLY
 git clone git://github.com/VimEz/VimEz.git ~/.vim >>~/tmp/vimez.install.log 2>&1
 #printf "%-19s"
 sleep $DLY
-/bin/echo -e $BD$G"ok"$NO
-#------------------------------------------------------------------------------
-
-
-
-# Link to vimrc and gvimrc configuration files.
-/bin/echo -e $BD$M
-/bin/echo -en "* Linking to configuration files...  "
-cd ~
-/bin/rm -f ~/.vimrc
-/bin/rm -f ~/.gvimrc
-/bin/ln -s .vim/vimrc .vimrc
-/bin/ln -s .vim/gvimrc .gvimrc
-#printf "%-2s"
-sleep $DLY
-/bin/echo -e $BD$G"ok"$NO
+/bin/echo -e $BD$G"done"$NO
 #------------------------------------------------------------------------------
 
 
@@ -98,6 +89,7 @@ sleep $DLY
 # Create .vim.local structure.
 /bin/echo -e $BD$M
 /bin/echo -en "* Generating .vim.local structure... "
+/bin/mkdir -p ~/.vim.local/data/
 /bin/mkdir -p ~/.vim.local/sessions/
 /bin/mkdir -p ~/.vim.local/spell/
 /bin/mkdir -p ~/.vim.local/tmp/backups/
@@ -105,7 +97,7 @@ sleep $DLY
 /bin/mkdir -p ~/.vim.local/tmp/undos/
 #printf "%${COL}s"
 sleep $DLY
-/bin/echo -e $BD$G"ok"$NO
+/bin/echo -e $BD$G"done"$NO
 #------------------------------------------------------------------------------
 
 
@@ -114,12 +106,33 @@ sleep $DLY
 /bin/echo -e $BD$M
 /bin/echo -en "* Populating .vim.local structure... "
 touch ~/.vim.local/spell/en.utf-8.add
-/bin/cp -f ~/.vim/.aux/initrc.local.example ~/.vim.local/
-/bin/cp -f ~/.vim/.aux/vimrc.local.example ~/.vim.local/
-/bin/cp -f ~/.vim/.aux/gvimrc.local.example ~/.vim.local/
+/bin/cp -f ~/.vim/.aux/initrc.local ~/.vim.local/
+/bin/cp -f ~/.vim/.aux/vimrc.local ~/.vim.local/
+/bin/cp -f ~/.vim/.aux/gvimrc.local ~/.vim.local/
 #printf "%${COL}s"
 sleep $DLY
-/bin/echo -e $BD$G"ok"$NO
+/bin/echo -e $BD$G"done"$NO
+#------------------------------------------------------------------------------
+
+
+
+# Link to configuration files.
+/bin/echo -e $BD$M
+/bin/echo -en "* Linking to configuration files...  "
+cd ~
+for i in .vimrc .gvimrc
+  do [ -e $i ] && /bin/rm -f ~/$i
+done
+
+/bin/ln -s .vim/vimrc .vimrc
+/bin/ln -s .vim/gvimrc .gvimrc
+/bin/ln -s .vim.local/vimrc.local .vimrc.local
+/bin/ln -s .vim.local/gvimrc.local .gvimrc.local
+/bin/ln -s .vim.local/initrc.local .initrc.local
+
+#printf "%-2s"
+sleep $DLY
+/bin/echo -e $BD$G"done"$NO
 #------------------------------------------------------------------------------
 
 
@@ -132,7 +145,7 @@ vim -u ~/.vim/initrc +BundleInstall "+let g:session_directory = '~/.vim.local/se
 /bin/rm -r ~/.vim/sessions
 #printf "%${COL}s"
 sleep $DLY
-/bin/echo -e $BD$G"ok"$NO
+/bin/echo -e $BD$G"done"$NO
 #------------------------------------------------------------------------------
 
 
@@ -147,7 +160,7 @@ make >>~/tmp/vimez.install.log 2>&1
 cd ~
 #printf "%${COL}s"
 sleep $DLY
-/bin/echo -e $BD$G"ok"$NO
+/bin/echo -e $BD$G"done"$NO
 #------------------------------------------------------------------------------
 
 
@@ -158,7 +171,7 @@ sleep $DLY
 /bin/rm ~/install.sh >>~/tmp/vimez.install.log 2>&1
 #printf "%${COL}s"
 sleep $DLY
-/bin/echo -e $BD$G"ok"$NO
+/bin/echo -e $BD$G"done"$NO
 #------------------------------------------------------------------------------
 
 
