@@ -49,6 +49,9 @@ Bundle "VimEz/ShowMarks"
 Bundle "VimEz/AutoClose"
 Bundle "VimEz/tComment"
 Bundle "VimEz/Tmux"
+Bundle "VimEz/Surround"
+Bundle "VimEz/Repeat"
+Bundle "VimEz/YankRing"
 "-------------------------------------------------------------------------------
 
 

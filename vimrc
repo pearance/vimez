@@ -80,13 +80,6 @@ set history=1000          " Amount of commands and searches to keep in history.
 
 
 
-" "Vim Info"
-set viminfo='1000,f1,<500,h " Save local/global marks, registers, etc
-"-------------------------------------------------------------------------------
-
-
-
-
 " "Character Encoding" Default to UTF-8 character encoding unless the terminal
 " doesn't support it. In which case use Latin1 character encoding instead.
 if has("multi_byte")
@@ -201,13 +194,18 @@ set shellslash  " Use forward slash for shell file names (Windows)
 
 
 
-" "Open/Edit File" Give a prompt for opening files in the same dir as the
+" "Edit (New/Open) File" Give a prompt for opening files in the same dir as the
 " current buffer's file.
 if has("unix")
-  nnoremap <Leader>of :edit <C-R>=expand("%:p:h") . "/" <CR>
+  nnoremap <Leader>ef :edit <C-R>=expand("%:p:h") . "/" <CR>
 else
-  nnoremap <Leader>of :edit <C-R>=expand("%:p:h") . "\\" <CR>
+  nnoremap <Leader>ef :edit <C-R>=expand("%:p:h") . "\\" <CR>
 endif
+
+augroup templates
+  autocmd!
+  autocmd BufNewFile * silent! 0r  ~/.vim.local/templates/%:e.tpl
+augroup END
 "-------------------------------------------------------------------------------
 
 
@@ -222,7 +220,7 @@ endif
 
 
 
-" "Write File!" with root permission.
+" "Write File! as Root" with root permission.
 cmap w!! w !sudo tee % >/dev/null
 "-------------------------------------------------------------------------------
 
@@ -268,6 +266,7 @@ let NERDTreeMapOpenSplit='h'
 let NERDTreeMapPreviewSplit='gh'
 let NERDTreeMapOpenVSplit='v'
 let NERDTreeMapPreviewVSplit='gv'
+let NERDTreeBookmarksFile=expand("$HOME/.vim.local/data/NERDTreeBookmarks")
 nnoremap <silent><Leader><CR> :NERDTreeToggle .<CR>
 "-------------------------------------------------------------------------------
 
@@ -284,15 +283,16 @@ nnoremap <silent><Leader>kk :CommandT<CR>
 
 
 
-" "New Buffer"
-nnoremap <silent><Leader>nb :enew<CR><Bar>i<Space><BS><Esc>
+" "Edit New Buffer"
+nnoremap <silent><Leader>eb :enew<CR><Bar>i<Space><BS><Esc>
+nnoremap <silent><Leader>enb :enew<CR><Bar>i<Space><BS><Esc>
 "-------------------------------------------------------------------------------
 
 
 
 " "Write Buffer"
-nnoremap <silent><Leader>w :write<CR>
-nnoremap <silent><Leader>wb :write<CR>
+nnoremap <silent><Leader>w :update<CR>
+nnoremap <silent><Leader>wb :update<CR>
 inoremap <silent> <C-s> :update<CR>
 nnoremap <silent> <C-s> :update<CR>
 vnoremap <silent> <C-s> :update<CR>
@@ -300,8 +300,8 @@ vnoremap <silent> <C-s> :update<CR>
 
 
 
-" "Write All Buffers" Write all modified buffers. Buffers without a filename will not be
-" saved.
+" "Write All Buffers" Write all modified buffers. Buffers without a filename
+" will not be saved.
 nnoremap <silent><Leader>wa :wall<CR>:exe ":echo 'All buffers saved to files!'"<CR>
 "-------------------------------------------------------------------------------
 
@@ -476,7 +476,7 @@ set vi+=h	    " Disable 'hlsearch' highlighting when starting
 set vi+=%	    " Buffer list (restored when starting Vim without arguments)
 set vi+=c	    " Convert the text using 'encoding'
 set vi+=s100  " Max amount of kilobytes of any single register.
-set vi-=n	    " Name used for the viminfo file (must be the last option)
+set vi+=n~/.vim.local/data/viminfo	" Name used for the viminfo file.
 "-------------------------------------------------------------------------------
 
 
@@ -633,14 +633,20 @@ augroup END
 "*******************************************************************************
 " EDIT: "{{{
 "*******************************************************************************
-" "Yanking (Copy)"
+" "Yanking (Copying | Yankring)"
 nnoremap yh v0y
 nnoremap yl v$y$
+let g:yankring_max_history = 1000
+let g:yankring_max_display = 78
+let g:yankring_dot_repeat_yank = 1
+let g:yankring_window_height = 8
+let g:yankring_history_dir = '$HOME/.vim.local/data/'
+let g:yankring_history_file = 'yankring_history'
 "-------------------------------------------------------------------------------
 
 
 
-" "Deleting (Cut)"
+" "Deleting (Cuting)"
 nnoremap dh v0r<Space>
 nnoremap dl v$hd
 nnoremap DD v0r<Space>
@@ -1023,6 +1029,7 @@ set stl+=%=                             " Align right
 set stl+=                               " TODO: diff mode flag
 set stl+=                               " TODO: scrollbind flag
 set stl+=                               " TODO: capslock flag
+set stl+=%{AutoCompleteFlag()}          " Auto Complete flag
 set stl+=%{AutoCloseFlag()}             " Auto Close flag
 set stl+=%{WrapFlag()}                  " Wrap flag
 set stl+=%{SpellFlag()}                 " Spellcheck flag
@@ -1058,13 +1065,13 @@ set stl+=%<                             " Truncate this side of the aisle
 " "Format Options"
 set formatoptions=
 set fo-=t  " Auto-wrap text using textwidth
-set fo-=c  " Auto-wrap comments using textwidth, inserting the current comment
+set fo+=c  " Auto-wrap comments using textwidth, inserting the current comment
            " Leader automatically.
-set fo-=r  " Automatically insert the current comment Leader after hitting
+set fo+=r  " Automatically insert the current comment Leader after hitting
            " <Enter> in Insert mode.
 set fo-=o  " Automatically insert the current comment Leader after hitting 'o' or
            " 'O' in Normal mode.
-set fo-=q  " Allow formatting of comments with 'gq'.
+set fo+=q  " Allow formatting of comments with 'gq'.
            " Note that formatting will not change blank lines or lines containing
            " only the comment Leader.  A new paragraph starts after such a line,
            " or when the comment Leader changes.
@@ -1074,7 +1081,7 @@ set fo-=a  " Automatic formatting of paragraphs.  Every time text is inserted or
            " deleted the paragraph will be reformatted.  See |auto-format|.
            " When the 'c' flag is present this only happens for recognized
            " comments.
-set fo-=n  " When formatting text, recognize numbered lists.  This actually uses
+set fo+=n  " When formatting text, recognize numbered lists.  This actually uses
            " the 'formatlistpat' option, thus any kind of list can be used.  The
            " indent of the text after the number is used for the next line.  The
            " default is to find a number, optionally followed by '.', ':', ')',
@@ -1084,7 +1091,7 @@ set fo-=n  " When formatting text, recognize numbered lists.  This actually uses
            " 	1. the first item
            " 	   wraps
            " 	2. the second item
-set fo-=2  " When formatting text, use the indent of the second line of a paragraph
+set fo+=2  " When formatting text, use the indent of the second line of a paragraph
            " for the rest of the paragraph, instead of the indent of the first
            " line.  This supports paragraphs in which the first line has a
            " different indent than the rest.  Note that 'autoindent' must be set
@@ -1110,7 +1117,7 @@ set fo-=M  " When joining lines, don't insert a space before or after a multi-by
            " character.  Overrules the 'B' flag.
 set fo-=B  " When joining lines, don't insert a space between two multi-byte
            " characters.  Overruled by the 'M' flag.
-set fo-=1  " Don't break a line after a one-letter word.  It's broken before it
+set fo+=1  " Don't break a line after a one-letter word.  It's broken before it
            " instead (if possible).
 
 
@@ -1172,6 +1179,28 @@ let g:neocomplcache_dictionary_filetype_lists = {
     \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ }
 
+map <Leader>ta :call ToggleAutoComplete()<CR>
+function! ToggleAutoComplete()
+  if g:neocomplcache_disable_auto_complete == 1
+    let g:neocomplcache_disable_auto_complete = 0
+    NeoComplCacheEnable
+    echo "Auto Completion: On"
+  else
+    let g:neocomplcache_disable_auto_complete = 1
+    NeoComplCacheDisable
+    echo "Auto Completion: Off"
+  endif
+endfunction
+
+" Generate a statusline flag for AutoComplete.
+function! AutoCompleteFlag()
+  if g:neocomplcache_disable_auto_complete == 1
+    return ""
+  else
+    return "[A]"
+  endif
+endfunction
+
 " Configure Omnicompletion
 augroup AutoComplete
   autocmd! AutoComplete
@@ -1228,7 +1257,7 @@ function! AutoCloseFlag()
   if g:acStatus == 0
     return ""
   else
-    return "[A]"
+    return "[C]"
   endif
 endfunction
 "-------------------------------------------------------------------------------
@@ -1661,6 +1690,6 @@ function! ToggleOnOff(OptionName, OnOrOff)
 endfunction
 
 
-if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
+if filereadable(expand("$HOME/.vimrc.local"))
+  source $HOME/.vimrc.local
 endif
