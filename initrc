@@ -39,19 +39,21 @@ Bundle "VimEz/Rename2"
 Bundle "VimEz/Session"
 Bundle "VimEz/BufKill"
 Bundle "VimEz/BufOnly"
-Bundle "VimEz/Gundo.vim"
+Bundle "VimEz/Gundo"
 Bundle "VimEz/NeoComplCache"
 Bundle "VimEz/Unimpaired"
 Bundle "VimEz/Colorizer"
 Bundle "VimEz/Markdown"
 Bundle "VimEz/XtermColorTable"
 Bundle "VimEz/ShowMarks"
-Bundle "VimEz/AutoClose"
+" Bundle "VimEz/AutoClose" Having issues with this and function keys
 Bundle "VimEz/tComment"
 Bundle "VimEz/Tmux"
 Bundle "VimEz/Surround"
 Bundle "VimEz/Repeat"
 Bundle "VimEz/YankRing"
+Bundle "VimEz/rvm"
+Bundle "VimEz/ZenCoding"
 "-------------------------------------------------------------------------------
 
 
