@@ -31,6 +31,7 @@ runtime macros/matchit.vim
 runtime ftplugin/man.vim
 "-------------------------------------------------------------------------------
 
+" let g:gundo_disable = 1
 
 
 "*******************************************************************************
@@ -162,7 +163,6 @@ cmap <C-l> <Right>
 " "Message" Prints [long] message up to (&columns-1) length without the "Press
 " Enter" prompt.
 function! Msg(msg)
-  echohl ModeMsg
   let x=&ruler | let y=&showcmd
   set noruler noshowcmd
   redraw
@@ -259,6 +259,12 @@ nnoremap <Leader>rf :Rename<Space>
 
 
 
+" "Change Directory" globally to the directory of the current buffer.
+map <leader>cd :cd %:p:h<CR>
+"-------------------------------------------------------------------------------
+
+
+
 " "Browse Files (NERDTree)" Conventional file browser panel with bookmarking
 " abilities. Provides an efficient way to view file hierarchies.
 let NERDTreeChDirMode=2
@@ -291,9 +297,9 @@ nnoremap <silent><Leader>enb :enew<CR><Bar>i<Space><BS><Esc>
 
 
 " "Write Buffer"
-nnoremap <silent><Leader>w :update<CR>
+nnoremap <silent><Leader>w :write<CR>
 nnoremap <silent><Leader>wb :update<CR>
-inoremap <silent> <C-s> :update<CR>
+inoremap <silent> <C-s> <Esc>:update<CR>
 nnoremap <silent> <C-s> :update<CR>
 vnoremap <silent> <C-s> :update<CR>
 "-------------------------------------------------------------------------------
@@ -343,15 +349,6 @@ nnoremap <silent><Leader>uc :BUNDO<CR>
 augroup FocusLost
   autocmd! FocusLost
   autocmd FocusLost * silent! wa
-augroup END
-"-------------------------------------------------------------------------------
-
-
-
-" "Change Working Directory" to the file in the current buffer
-augroup CWD
-  autocmd! CWD
-  autocmd BufEnter * lcd %:p:h
 augroup END
 "-------------------------------------------------------------------------------
 
@@ -428,6 +425,17 @@ nnoremap <Leader>ns :SaveSession<CR><Bar>:CloseSession<CR><Bar>
 
 " "Write Session (Vim-Session)"
 nnoremap <Leader>ws :SaveSession<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Write Session As (Vim-Session)"
+nnoremap <Leader>wsa :call WriteSessionAs()<CR>
+function! WriteSessionAs()
+  call inputsave()
+  let SessionName = input('Session Name: ')
+  exe "SaveSession " . SessionName
+endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -686,7 +694,7 @@ nmap <Leader>va ggVG
 
 " "Clipboard"
 set clipboard+=unnamed  " Use system clipboard for yanks
-set pastetoggle=<F7>    " Avoid double indetation when pasting formatted text
+set pastetoggle=<F6>    " Avoid double indetation when pasting formatted text
 set go+=a               " TODO: Visual selection automatically copied to the clipboard
 "-------------------------------------------------------------------------------
 
@@ -695,10 +703,10 @@ set go+=a               " TODO: Visual selection automatically copied to the cli
 " "Bulbbling Line (Unimpaired)" Consistent use of [hjkl] with the Shift modifier to move a
 " line of text around. Up/down by one line and left/right by amount of
 " shiftwidth.
-nmap <S-h> <<
-nmap <S-j> ]e
-nmap <S-k> [e
-nmap <S-l> >>
+nmap <C-h> <<
+nmap <C-j> ]e
+nmap <C-k> [e
+nmap <C-l> >>
 "-------------------------------------------------------------------------------
 
 
@@ -706,10 +714,10 @@ nmap <S-l> >>
 " "Bubbling Block (Unimpaired)" Consistent use of [hjkl] with the Shift modifier to move a
 " block of text around. Up/down by one line and left/right by amount of
 " shiftwidth.
-vmap <S-h> <gv
-vmap <S-j> ]egv
-vmap <S-k> [egv
-vmap <S-l> >gv
+vmap <C-h> <gv
+vmap <C-j> ]egv
+vmap <C-k> [egv
+vmap <C-l> >gv
 "-------------------------------------------------------------------------------
 
 
@@ -761,6 +769,7 @@ function! Join()
   let c = col(".")
   join
   call cursor(l, c)
+  " silent! call repeat#set("\<leader>jn",1:count) todo: make work w/repeat.vim
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -822,12 +831,15 @@ nnoremap <silent> <F5><F5>
       \ <Bar> :nohlsearch<CR>
       \ <Bar> :call Msg('VimEz Reloaded!')<CR>
       \ <Bar> <C-w>=
+      \ <Bar> <C-w>h
 
 " Automatically
 augroup LocalReload
   autocmd! LocalReload
   autocmd bufwritepost .vimrc source $MYVIMRC | exe 'CSApprox' | nohlsearch
   autocmd bufwritepost .vimrc call Msg('VimEz Reloaded!')
+  autocmd bufwritepost vimrc source $MYVIMRC | exe 'CSApprox' | nohlsearch
+  autocmd bufwritepost vimrc call Msg('VimEz Reloaded!')
   autocmd bufwritepost molokaiEz.vim source $MYVIMRC | exe 'CSApprox' | nohlsearch
   autocmd bufwritepost molokaiEz.vim call Msg('VimEz Reloaded!')
 augroup END
@@ -874,8 +886,11 @@ set titlestring+=%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
 
 " "Line Numbers"
 set relativenumber
-set numberwidth=5
 set numberwidth=4
+nnoremap <silent><Leader>tn
+      \ :setlocal norelativenumber!<CR><Bar>
+      \ :let OnOrOff=&wrap<CR><Bar>
+      \ :call ToggleOnOff("Word Wrap", OnOrOff)<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1167,6 +1182,9 @@ let g:neocomplcache_enable_auto_select = 0
 let g:neocomplcache_enable_auto_delimiter = 0
 let g:neocomplcache_snippets_complete_disable_runtime_snippets = 1
 let g:neocomplcache_snippets_dir = $HOME.'/.vim/snippets'
+if !exists('g:neocomplcache_filetype_include_lists')
+  let g:neocomplcache_filetype_include_lists= {}
+endif
 
 " Set snips_author.
 if !exists('snips_author')
@@ -1176,7 +1194,6 @@ endif
 " Configure Dictionaries
 let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ }
 
 map <Leader>ta :call ToggleAutoComplete()<CR>
@@ -1192,6 +1209,7 @@ function! ToggleAutoComplete()
   endif
 endfunction
 
+
 " Generate a statusline flag for AutoComplete.
 function! AutoCompleteFlag()
   if g:neocomplcache_disable_auto_complete == 1
@@ -1200,6 +1218,7 @@ function! AutoCompleteFlag()
     return "[A]"
   endif
 endfunction
+
 
 " Configure Omnicompletion
 augroup AutoComplete
@@ -1222,7 +1241,7 @@ let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
-" Configure Neocomplcache Mappings
+" " Configure Neocomplcache Mappings
 imap <expr><Tab>
   \ neocomplcache#sources#snippets_complete#expandable() ?
   \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ?
@@ -1310,6 +1329,7 @@ set smarttab            " Uses shiftwidth instead of tabstop at start of lines.
 set shiftround          " Use multiples of shiftwidth when indenting
 set autoindent          " Enable auto indentation
 set copyindent          " Copy the previous indentation on autoindenting
+set smartindent
 nnoremap <Tab> i<Tab><Esc>l
 nnoremap <S-Tab> i<BS><Esc>l
 vnoremap <Tab> >gv
@@ -1324,7 +1344,6 @@ nmap <silent><Leader>tt
 
 " Prompt for tab size and apply to softtabstop, tabstop, and shiftwidth.
 function! Tab()
-  echohl ModeMsg
   let l:tabstop = 1 * input('Tab Size: ')
   if l:tabstop > 0
     let &l:sts = l:tabstop
@@ -1336,20 +1355,15 @@ endfunction
 
 " Message a summary of current tab settings.
 function! TabSummary()
-  try
-    echohl ModeMsg
-    echon 'Current tab settings: '
-    echon 'tabstop='.&l:ts
-    echon ' shiftwidth='.&l:sw
-    echon ' softtabstop='.&l:sts
+    echo 'Current tab settings: '
+    echo 'tabstop='.&l:ts
+    echo ' shiftwidth='.&l:sw
+    echo ' softtabstop='.&l:sts
     if &l:et
-      echon ' expandtab'
+      echo ' expandtab'
     else
-      echon ' noexpandtab'
+      echo ' noexpandtab'
     endif
-  finally
-    echohl None
-  endtry
 endfunction
 
 " Generate a statusline flag for expandtab.
@@ -1382,9 +1396,9 @@ endfunction
 
 
 " "Common Symbols"
-inoremap uu _
-inoremap hh =>
-inoremap aa @
+" inoremap uu _
+" inoremap hh =>
+" inoremap aa @
 "-------------------------------------------------------------------------------
 "}}}
 
@@ -1437,15 +1451,15 @@ inoremap <C-l> <Right>
 
 
 " "Hyper h|j|k|l" Consistent use of h|j|k|l with Shift to hyper traverse
-" the buffer universe!
-nnoremap <C-h> 0
-nnoremap <C-j> <C-d>
-nnoremap <C-k> <C-u>
-nnoremap <C-l> $l
-vnoremap <C-h> ^
-vnoremap <C-j> <C-d>
-vnoremap <C-k> <C-u>
-vnoremap <C-l> $
+" the buffer uiverse!
+nnoremap <S-h> ^
+nnoremap <S-j> <C-d>
+nnoremap <S-k> <C-u>
+nnoremap <S-l> $l
+vnoremap <S-h> ^
+vnoremap <S-j> <C-d>
+vnoremap <S-k> <C-u>
+vnoremap <S-l> $
 "-------------------------------------------------------------------------------
 
 
@@ -1536,32 +1550,9 @@ nnoremap <silent><Leader>tct :XtermColorTable<CR>
 
 
 
-
-
-
-" "Terminal (ConqueShell)"
-nnoremap <silent><Leader>nt :ConqueTerm bash<CR>
-let g:ConqueTerm_Color = 1
-let g:ConqueTerm_SessionSupport = 1
-let g:ConqueTerm_ReadUnfocused = 1
-let g:ConqueTerm_InsertOnEnter = 0
-
-augroup TermGroup
-  autocmd! TermGroup
-  autocmd WinEnter,BufEnter * :call TermEnv()   " Set the help environment.
-augroup END
-
-" Set the help environment.
-function! TermEnv()
-  if &filetype == 'conque_term'
-    setlocal nocursorline
-    setlocal nocursorcolumn
-    setlocal norelativenumber
-    setlocal colorcolumn=0
-  endif
-endfunction
+" "Present Working Directory"
+nnoremap <silent><Leader>pwd :pwd<CR>
 "-------------------------------------------------------------------------------
-
 
 
 
