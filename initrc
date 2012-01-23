@@ -1,13 +1,12 @@
-
-" Title:          initrc
-"	Description:    Initial configuration file for VimEz.
-" Author:         Fontaine Cook <fontaine.cook@pearance.com>
-" Maintainer:     Fontaine Cook <fontaine.cook@pearance.com>
-"	Last Modified:  08/10/2011
+" Title:         initrc
+"	Description:   Initial configuration file for VimEz.
+" Authors:       Fontaine Cook, Various Contributors
+" Maintainer:    Fontaine Cook, Various Contributors
+"	Last Modified: Fri Jan 06, 2012  09:20PM
 "------------------------------------------------------------------------------
 
-
-
+" GENERAL: "{{{
+"*******************************************************************************
 " "Initilization"
 set nocompatible            " Harnest the iMprovements brough by Vim.
 filetype on
@@ -16,7 +15,6 @@ filetype off
 
 
 
-"*******************************************************************************
 " PLUGIN BUNDLES:
 "*******************************************************************************
 " "Plugin Manager (Vundle)"
@@ -24,10 +22,6 @@ set rtp+=~/.vim/bundle/Vundle/
 call vundle#rc()
 Bundle "VimEz/Vundle"
 "-------------------------------------------------------------------------------
-
-
-" TODO: auto update: http://www.charlietanksley.net/philtex/sane-vim-plugin-management/
-" TODO: https://github.com/vim-scripts/vimwiki
 
 " "Plugin Bundles"
 Bundle "VimEz/MolokaiEz"
@@ -46,7 +40,7 @@ Bundle "VimEz/Colorizer"
 Bundle "VimEz/Markdown"
 Bundle "VimEz/XtermColorTable"
 Bundle "VimEz/ShowMarks"
-" Bundle "VimEz/AutoClose" Having issues with this and function keys
+Bundle "VimEz/DelimitMate"
 Bundle "VimEz/tComment"
 Bundle "VimEz/Tmux"
 Bundle "VimEz/Surround"
