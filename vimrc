@@ -1,44 +1,23 @@
-" Title:          vimrc
-"	Description:    Main configuration file for VimEz.
-" Author:         Fontaine Cook <fontaine.cook@pearance.com>
-" Maintainer:     Fontaine Cook <fontaine.cook@pearance.com>
-"	Last Modified:  08/10/2011
+" Title:         vimrc
+"	Description:   Main configuration file for VimEz.
+" Authors:       Fontaine Cook, Various Contributors
+" Maintainers:   Fontaine Cook, Various Contributors
+"	Last Modified: Mon Jan 23, 2012  10:20PM
 "------------------------------------------------------------------------------
 
-" TODO: http://vim.runpaint.org/typing/using-templates/
-
-
+" GENERAL: "{{{
 "*******************************************************************************
-" CONTENT:
-"*******************************************************************************
-" + General Settings
-" + File Buffer
-" + Filetype Associations
-" + Edit
-" + View
-" + Insert
-" + Navigation
-" + Tools
-" + Window
-" + Help
-"-------------------------------------------------------------------------------
-
-
-
 " "Initialization"
-source $HOME/.vim/initrc    " Include dependent plugin bundles.
+source ~/.vim/initrc    " Include dependent plugin bundles.
 runtime macros/matchit.vim
 runtime ftplugin/man.vim
 "-------------------------------------------------------------------------------
 
-" let g:gundo_disable = 1
 
 
-"*******************************************************************************
-" GENERAL SETTINGS: "{{{1
-"*******************************************************************************
 " "Terminal Environment"
 set term=$TERM
+"-------------------------------------------------------------------------------
 
 
 
@@ -76,7 +55,7 @@ nnoremap q; q:
 
 
 " "History"
-set history=1000          " Amount of commands and searches to keep in history.
+set history=100          " Amount of commands and searches to keep in history.
 "-------------------------------------------------------------------------------
 
 
@@ -100,23 +79,9 @@ endif
 
 
 
-" "Restore Cursor Position" Restore original cursor position when reopening a file.
-augroup RestoreCursor
-  autocmd! RestoreCursor
-  autocmd BufReadPost * call PositionCursorFromViminfo()
-  function! PositionCursorFromViminfo()
-    if !(bufname("%") =~ '\(COMMIT_EDITMSG\)') && line("'\"") > 1 && line("'\"") <= line("$")
-      exe "normal! g`\""
-    endif
-  endfunction
-augroup END
-"-------------------------------------------------------------------------------
-
-
-
 " "Performance Tweaks"
 set ttyfast            " Indicates a fast terminal connection.
-set synmaxcol=1000     " Prevent long lines from slowing down redraws.
+set synmaxcol=200      " Prevent long lines from slowing down redraws.
 set lazyredraw         " Don't redraw while executing macros.
 "-------------------------------------------------------------------------------
 
@@ -160,29 +125,15 @@ cmap <C-l> <Right>
 
 
 
-" "Message" Prints [long] message up to (&columns-1) length without the "Press
-" Enter" prompt.
-function! Msg(msg)
-  let x=&ruler | let y=&showcmd
-  set noruler noshowcmd
-  redraw
-  echo a:msg
-  let &ruler=x | let &showcmd=y
-endfun
-"*******************************************************************************
+
+
+
+
+
+
+
 " "}}}
-
-
-
-
-
-
-
-
-
-
-"*******************************************************************************
-" FILE BUFFER: "{{{
+" BUFFER: "{{{
 "*******************************************************************************
 " "General File/Buffer Settings"
 set fileformats=unix,dos,mac
@@ -193,7 +144,7 @@ set shellslash  " Use forward slash for shell file names (Windows)
 "-------------------------------------------------------------------------------
 
 
-
+" TODO: Needs work
 " "Edit (New/Open) File" Give a prompt for opening files in the same dir as the
 " current buffer's file.
 if has("unix")
@@ -202,10 +153,22 @@ else
   nnoremap <Leader>ef :edit <C-R>=expand("%:p:h") . "\\" <CR>
 endif
 
-augroup templates
+augroup Templates
   autocmd!
   autocmd BufNewFile * silent! 0r  ~/.vim.local/templates/%:e.tpl
 augroup END
+"-------------------------------------------------------------------------------
+
+
+
+" "Goto File Horizontal"
+nnoremap gfh :wincmd f<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Goto File Vertical"
+nnoremap gfv :vertical wincmd f<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -272,7 +235,7 @@ let NERDTreeMapOpenSplit='h'
 let NERDTreeMapPreviewSplit='gh'
 let NERDTreeMapOpenVSplit='v'
 let NERDTreeMapPreviewVSplit='gv'
-let NERDTreeBookmarksFile=expand("$HOME/.vim.local/data/NERDTreeBookmarks")
+let NERDTreeBookmarksFile=expand("~/.vim.local/data/NERDTreeBookmarks")
 nnoremap <silent><Leader><CR> :NERDTreeToggle .<CR>
 "-------------------------------------------------------------------------------
 
@@ -280,18 +243,20 @@ nnoremap <silent><Leader><CR> :NERDTreeToggle .<CR>
 
 " "Search Files (Command-T)" Faster alternative of locating and opening
 " files, than the conventional browsing of a directory tree.
-let g:CommandTMaxHeight=10                    " Show this amount of results max
-let g:CommandTAcceptSelectionSplitMap=['/']   " Key to open file in split win
-let g:CommandTAcceptSelectionVSplitMap=[';']  " Key to open file in vsplit win
-let g:CommandTCancelMap=[',']                 " Key to cancel Command-T
+let g:CommandTMaxHeight=10                        " Show this amount of results max
+let g:CommandTAlwaysShowDotFiles=0
+let g:CommandTScanDotDirectories=1
+let g:CommandTAcceptSelectionSplitMap=['<C-h>']   " Key to open file in split win
+let g:CommandTAcceptSelectionVSplitMap=['<C-v>']  " Key to open file in vsplit win
+let g:CommandTCancelMap=[',']                     " Key to cancel Command-T
 nnoremap <silent><Leader>kk :CommandT<CR>
+nnoremap <Leader>fc :CommandTFlush<CR><Bar>:echo "Command=T Flushed"<CR>
 "-------------------------------------------------------------------------------
 
 
 
-" "Edit New Buffer"
-nnoremap <silent><Leader>eb :enew<CR><Bar>i<Space><BS><Esc>
-nnoremap <silent><Leader>enb :enew<CR><Bar>i<Space><BS><Esc>
+" "New Buffer"
+nnoremap <silent><Leader>nb :enew<CR><Bar>i<Space><BS><Esc>
 "-------------------------------------------------------------------------------
 
 
@@ -360,8 +325,8 @@ augroup END
 nnoremap <Leader><Tab> :b <C-z><C-z>
 
 cnoremap <silent><C-c> <Home><Right>d<CR>
-cnoremap <C-v> <Home><Del>vs<CR>
-cnoremap <C-h> <Home><Del>sp<CR>
+cnoremap <C-s><C-v> <Home><Del>vs<CR>
+cnoremap <C-s><C-h> <Home><Del>sp<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -497,7 +462,7 @@ set writebackup                   " Make a backup before overwriting a file
 if has("win32") || has("win64")
   set backupdir=$TMP              " TODO: Set for Windows and Mac environments
 else
-  set backupdir=$HOME/.vim.local/tmp/backups//,.
+  set backupdir=~/.vim.local/tmp/backups//,.
 end
 "-------------------------------------------------------------------------------
 
@@ -510,7 +475,7 @@ set updatecount=100
 if has("win32") || has("win64")   " TODO: Set for Windows and Mac environments
   set directory=$TMP
 else
-  set directory=$HOME/.vim.local/tmp/swaps//,.
+  set directory=~/.vim.local/tmp/swaps//,.
 end
 "-------------------------------------------------------------------------------
 
@@ -587,58 +552,17 @@ function! Fileformat_status()
   endif
 endfunction
 "-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 " "}}}
-
-
-
-
-
-
-
-
-
-
-"*******************************************************************************
-" FILETYPE ASSOCIATIONS:{{{3
-"*******************************************************************************
-augroup Filetype_Assoc
-  autocmd! Filetype_Assoc
-
-  " "Shell Scripts" Automatically chmod +x Shell and Perl scripts
-  autocmd BufWritePost *.sh call Executable()
-  function! Executable()
-    exe "silent! !chmod +x %"
-    redraw!
-    call Msg("Written as an executable shell script!")
-  endfunction
-  "-------------------------------------------------------------------------------
-
-
-
-  " "Smarty Template" Make the template .tpl files behave like html files
-  autocmd BufNewFile,BufRead *.tpl set filetype=html
-  "-------------------------------------------------------------------------------
-
-
-
-  " "Drupal Module" *.module and *.install files.
-  autocmd BufNewFile,BufRead *.module set filetype=php
-  autocmd BufNewFile,BufRead *.install set filetype=php
-  autocmd BufNewFile,BufRead *.test set filetype=php
-augroup END
-"-------------------------------------------------------------------------------
-" "}}}
-
-
-
-
-
-
-
-
-
-
-"*******************************************************************************
 " EDIT: "{{{
 "*******************************************************************************
 " "Yanking (Copying | Yankring)"
@@ -648,7 +572,7 @@ let g:yankring_max_history = 1000
 let g:yankring_max_display = 78
 let g:yankring_dot_repeat_yank = 1
 let g:yankring_window_height = 8
-let g:yankring_history_dir = '$HOME/.vim.local/data/'
+let g:yankring_history_dir = '~/.vim.local/data/'
 let g:yankring_history_file = 'yankring_history'
 "-------------------------------------------------------------------------------
 
@@ -674,7 +598,7 @@ nnoremap Q gqip
 " "Undo (Gundo)" Persistent undo, along with Gundo to parse the ungo history.
 set undolevels=1000
 set undofile
-set undodir=$HOME/.vim.local/tmp/undos//,.
+set undodir=~/.vim.local/tmp/undos//,.
 nnoremap <silent><Leader>uu :GundoToggle<CR>
 "-------------------------------------------------------------------------------
 
@@ -848,33 +772,32 @@ augroup END
 
 
 " "Edit Initrc"
-nnoremap <silent><Leader>ei :e $HOME/.vim/initrc<CR>
+nnoremap <silent><Leader>ei :e ~/.vim/initrc<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Edit Color Scheme"
-nnoremap <silent><Leader>ecs :e $HOME/.vim/bundle/MolokaiEz/colors/molokaiEz.vim<CR>
+nnoremap <silent><Leader>ecs :e ~/.vim/bundle/MolokaiEz/colors/molokaiEz.vim<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Edit Tmux" Edit and reload on write.
-nnoremap <silent><Leader>et :e $HOME/.tmux.conf<CR>
+nnoremap <silent><Leader>et :e ~/.tmux.conf<CR>
 "-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 " "}}}
-
-
-
-
-
-
-
-
-
-
-"*******************************************************************************
-" VIEW: "{{{4
+" VIEW: "{{{
 "*******************************************************************************
 " "Title Bar" Set title bar to display current file, path, and server hostname.
 set title
@@ -884,13 +807,52 @@ set titlestring+=%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
 
 
 
-" "Line Numbers"
+" "Line Numbers" TODO:Need to finish!
 set relativenumber
-set numberwidth=4
-nnoremap <silent><Leader>tn
-      \ :setlocal norelativenumber!<CR><Bar>
-      \ :let OnOrOff=&wrap<CR><Bar>
-      \ :call ToggleOnOff("Word Wrap", OnOrOff)<CR>
+let g:numbermode=1
+set numberwidth=3
+nnoremap <silent><Leader>tnm :call g:ToggleNumberMode()<CR>
+nnoremap <silent><Leader>tn :call g:ToggleNumber()<CR>
+
+function! g:ToggleNumberMode()
+  if(&relativenumber==1)
+    set number
+    let g:numbermode=0
+    echo "Number Type: Normal"
+  else
+    set relativenumber
+    let g:numbermode=1
+    echo "Number Type: Relative"
+  endif
+endfunction
+
+function! g:ToggleNumber()
+  if(g:numbermode==1)
+    call g:ToggleRelativeNumber()
+  else
+  	call g:ToggleNormalNumber()
+  endif
+endfunction
+
+function! g:ToggleNormalNumber()
+  if(&number==1)
+    setlocal nonumber
+  else
+    setlocal number
+  endif
+  let OnOrOff=&number
+  call ToggleOnOff("Line Numbers", OnOrOff)
+endfunction
+
+function! g:ToggleRelativeNumber()
+  if(&relativenumber==1)
+    setlocal norelativenumber
+  else
+    setlocal relativenumber
+  endif
+  let OnOrOff=&relativenumber
+  call ToggleOnOff("Relative Line Numbers", OnOrOff)
+endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -995,23 +957,49 @@ endfunction
 "-------------------------------------------------------------------------------
 
 
-" "Colorcolumn"
+" "Print Margin" TODO: Needs work
 if exists('+colorcolumn')
-  nnoremap <silent><Leader>tcc :call ToggleCC()<CR>
+  nnoremap <silent><Leader>tpm :call ToggleCC()<CR>
   let g:ccToggle = 0
 
   function! ToggleCC()
     if g:ccToggle == 0
       set colorcolumn=0
       redraw!
-      let g:ccToggle = 1
+      let g:ccToggle=1
     else
       set colorcolumn=+1
       redraw!
-      let g:ccToggle = 0
+      let g:ccToggle=0
     endif
   endfunction
 endif
+"-------------------------------------------------------------------------------
+
+
+
+" "Folds"
+augroup Folds
+  autocmd! Folds
+  autocmd FileType * set foldcolumn=2
+augroup END
+"-------------------------------------------------------------------------------
+
+
+
+" "View Options"
+set viewoptions-=options
+set viewdir=~/.vim.local/view//,.
+augroup vimrc
+    autocmd BufWritePost *
+    \   if expand('%') != '' && &buftype !~ 'nofile'
+    \|      mkview
+    \|  endif
+    autocmd BufRead *
+    \   if expand('%') != '' && &buftype !~ 'nofile'
+    \|      silent loadview
+    \|  endif
+augroup END
 "-------------------------------------------------------------------------------
 
 
@@ -1045,7 +1033,6 @@ set stl+=                               " TODO: diff mode flag
 set stl+=                               " TODO: scrollbind flag
 set stl+=                               " TODO: capslock flag
 set stl+=%{AutoCompleteFlag()}          " Auto Complete flag
-set stl+=%{AutoCloseFlag()}             " Auto Close flag
 set stl+=%{WrapFlag()}                  " Wrap flag
 set stl+=%{SpellFlag()}                 " Spellcheck flag
 set stl+=\                              " Space
@@ -1063,18 +1050,17 @@ set stl+=%#User1#                       " Brighten
 set stl+=[%{Filetype_status()}]         " File type
 set stl+=%<                             " Truncate this side of the aisle
 "-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 " "}}}
-
-
-
-
-
-
-
-
-
-
-"*******************************************************************************
 " INSERT: "{{{
 "*******************************************************************************
 " "Format Options"
@@ -1181,7 +1167,7 @@ let g:neocomplcache_disable_select_mode_mappings = 1
 let g:neocomplcache_enable_auto_select = 0
 let g:neocomplcache_enable_auto_delimiter = 0
 let g:neocomplcache_snippets_complete_disable_runtime_snippets = 1
-let g:neocomplcache_snippets_dir = $HOME.'/.vim/snippets'
+let g:neocomplcache_snippets_dir = '~/.vim/snippets'
 if !exists('g:neocomplcache_filetype_include_lists')
   let g:neocomplcache_filetype_include_lists= {}
 endif
@@ -1223,13 +1209,15 @@ endfunction
 " Configure Omnicompletion
 augroup AutoComplete
   autocmd! AutoComplete
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType c setlocal omnifunc=ccomplete#Complete
-  autocmd FileType vim setlocal omnifunc=syntaxcomplete#Complete
+  autocmd FileType xml            setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType xhtml,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType css            setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType javascript     setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType php            setlocal omnifunc=phpcomplete#CompletePHP
+  autocmd FileType ruby           setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType python         setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType c              setlocal omnifunc=ccomplete#Complete
+  autocmd FileType perl,vim       setlocal omnifunc=syntaxcomplete#Complete
 augroup END
 
 " Enable Custom Omnicompletion
@@ -1255,36 +1243,16 @@ nnoremap <Leader>es  :NeoComplCacheEditSnippets<CR>
 
 
 
-" "Auto Close (AutoClose)"
-let g:AutoClosePairs = {'(': ')', '{': '}', '[': ']', '"': '"', "'": "'", '<': '>'}
-let g:acStatus = 1
-map <Leader>tac :call ToggleAutoClose()<CR>
-function! ToggleAutoClose()
-  if g:acStatus == 0
-    let g:acStatus = 1
-    AutoCloseOn
-    echo "Auto Close: On"
-  else
-    let g:acStatus = 0
-    AutoCloseOff
-    echo "Auto Close: Off"
-  endif
-endfunction
-
-" Generate a statusline flag for AutoClose.
-function! AutoCloseFlag()
-  if g:acStatus == 0
-    return ""
-  else
-    return "[C]"
-  endif
-endfunction
+" "Auto Close (DelimitMate)"
+let delimitMate_expand_cr = 1
 "-------------------------------------------------------------------------------
 
 
 
 " "Enter" Restore some familiar behavior to the Enter key, in Normal mode.
 nnoremap <CR> i<CR><Esc>
+nnoremap <CR><CR> o<Esc>
+inoremap <CR><CR> <C-o>o
 "-------------------------------------------------------------------------------
 
 
@@ -1329,6 +1297,7 @@ set smarttab            " Uses shiftwidth instead of tabstop at start of lines.
 set shiftround          " Use multiples of shiftwidth when indenting
 set autoindent          " Enable auto indentation
 set copyindent          " Copy the previous indentation on autoindenting
+set preserveindent      " Preserve existing characters for indenting
 set smartindent
 nnoremap <Tab> i<Tab><Esc>l
 nnoremap <S-Tab> i<BS><Esc>l
@@ -1400,18 +1369,17 @@ endfunction
 " inoremap hh =>
 " inoremap aa @
 "-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 "}}}
-
-
-
-
-
-
-
-
-
-
-"*******************************************************************************
 " NAVIGATION: "{{{
 "*******************************************************************************
 " "Escape" A more efficient alternative to the escape key.
@@ -1478,7 +1446,7 @@ set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set wrapscan            " Set the search scan to wrap around the file
 nnoremap <silent> \\ :nohlsearch<CR>
-nnoremap <silent><Leader>hw
+nnoremap <silent><Leader>sw
       \ :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hlsearch<CR>
 "-------------------------------------------------------------------------------
 
@@ -1521,7 +1489,7 @@ endfunction
 
 
 " "Marks (ShowMarks)"
-let g:showmarks_enable = 0
+let g:showmarks_enable = 1
 let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 let g:showmarks_textlower = ")"
 let g:showmarks_textupper = "]"
@@ -1530,7 +1498,6 @@ nnoremap <silent><Leader>cm  :ShowMarksClearMark<CR>
 nnoremap <silent><Leader>cam :ShowMarksClearAll<CR>
 nnoremap <silent><Leader>mm  :ShowMarksPlaceMark<CR>
 "-------------------------------------------------------------------------------
- "}}}
 
 
 
@@ -1541,7 +1508,7 @@ nnoremap <silent><Leader>mm  :ShowMarksPlaceMark<CR>
 
 
 
-"*******************************************************************************
+"}}}
 " TOOLS: "{{{
 "*******************************************************************************
 " "Color Table (XtermColorTable)"
@@ -1562,7 +1529,8 @@ nnoremap <silent><Leader>pwd :pwd<CR>
 
 
 
-"*******************************************************************************
+
+" }}}
 " WINDOW: "{{{
 "*******************************************************************************
 " "Focus Windows"
@@ -1585,10 +1553,10 @@ noremap <silent><Leader>mx <C-w>x
 
 
 " "Resize Windows"
-nnoremap - <C-w><
-nnoremap = <C-w>>
-nnoremap _ <C-w>-
-nnoremap + <C-w>+
+nnoremap <Left> <C-w><
+nnoremap <Right> <C-w>>
+nnoremap <Up> <C-w>-
+nnoremap <Down> <C-w>+
 "-------------------------------------------------------------------------------
 
 
@@ -1619,10 +1587,10 @@ noremap <silent><Leader>sh :split<CR>
 
 
 
-"*******************************************************************************
+" }}}
 " HELP: "{{{
 "*******************************************************************************
-nnoremap <silent><Leader>help "zyw:exe "h ".@z.""<CR>
+nnoremap <silent><F1> "zyw:exe "h ".@z.""<CR>
 augroup HelpGroup
   autocmd! HelpGroup
   autocmd WinEnter,BufEnter * :call HelpEnv()   " Set the help environment.
@@ -1659,28 +1627,141 @@ function! HelpBack()
   endif
 endfunction
 "-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 " "}}}
-
-
-
-
-
-
-
-
-
-
+" AUXILIARY: "{{{
 "*******************************************************************************
-" SUPPORTIVE FUNCTIONS: "{{{
-"*******************************************************************************
+augroup FiletypeSettings
+  autocmd! FiletypeSettings
+
+  " "Shell Scripts" Automatically chmod +x Shell and Perl scripts
+  autocmd BufWritePost *.sh call Executable()
+  function! Executable()
+    exe "silent! !chmod +x %"
+    redraw!
+    call Msg("Written as an executable shell script!")
+  endfunction
+  "-----------------------------------------------------------------------------
+
+
+
+  " "Smarty Template" Make the template .tpl files behave like html files
+  autocmd BufNewFile,BufRead  *.tpl     set filetype=xhtml
+  "-----------------------------------------------------------------------------
+
+
+
+  " "Drupal Module" *.module and *.install files.
+  autocmd BufNewFile,BufRead  *.module  set filetype=php
+  autocmd BufNewFile,BufRead  *.install set filetype=php
+  autocmd BufNewFile,BufRead  *.test    set filetype=php
+  "-----------------------------------------------------------------------------
+
+
+
+  " "XML/HTML/CSS/Javascript/PHP"
+  autocmd BufNewFile,BufRead *.htm      set filetype=xhtml.css.javascript
+  autocmd BufNewFile,BufRead *.html     set filetype=xhtml.css.javascript
+  autocmd FileType xhtml,php,xml        inoremap <buffer> </ </<C-x><C-o>
+  autocmd FileType xhtml,php            iab <buffer> <hr> <hr />
+  autocmd FileType xhtml,php            iab <buffer> <br> <br />
+
+  " "PHP"
+  au BufRead *.php                      set filetype=xhtml.css.javascript.php
+  au BufNewFile *.php                   set filetype=xhtml.css.javascript.php
+  autocmd FileType php                  let php_minlines=500
+
+
+
+  " "Vim Script"
+  " autocmd BufNewFile,BufRead {.,_}vimrc set foldmethod=marker
+  "-----------------------------------------------------------------------------
+
+
+
+  " "Apache Config"
+  autocmd BufNewFile,BufRead /*apache*  set filetype=apache
+  "-----------------------------------------------------------------------------
+
+
+
+  " "Apache Config"
+  autocmd BufNewFile,BufRead *.txt      setlocal tw=78
+  "-----------------------------------------------------------------------------
+
+
+augroup END
+"-------------------------------------------------------------------------------
+
+
+
+" "Toggle On/Off Function"
+" Prints a message of the current toggled state of various features.
 function! ToggleOnOff(OptionName, OnOrOff)
   let OptionName = a:OptionName
   let OnOrOff = a:OnOrOff
 	let OptionState = strpart("OffOn", 3 * OnOrOff, 3)
 	echo OptionName . ": " . OptionState
 endfunction
+"-------------------------------------------------------------------------------
 
 
-if filereadable(expand("$HOME/.vimrc.local"))
-  source $HOME/.vimrc.local
+
+" "Message Funtion"
+" Prints [long] message up to (&columns-1) length without the 'Press Enter'
+" prompt.
+function! Msg(msg)
+  let x=&ruler | let y=&showcmd
+  set noruler noshowcmd
+  redraw
+  echo a:msg
+  let &ruler=x | let &showcmd=y
+endfunction
+"-------------------------------------------------------------------------------
+
+" If buffer modified, update any 'Last modified: ' in the first 20 lines.
+" 'Last modified: ' can have up to 10 characters before (they are retained).
+" Restores cursor and window position using save_cursor variable.
+function! LastModified()
+  if &modified
+    let save_cursor = getpos(".")
+    let n = min([20, line("$")])
+    keepjumps exe '1,' . n . 's#^\(.\{,10}Last Modified: \).*#\1' .
+          \ strftime('%a %b %d, %Y  %I:%M%p') . '#e'
+    call histdel('search', -1)
+    call setpos('.', save_cursor)
+  endif
+endfunction
+autocmd BufWritePre * call LastModified()
+
+
+
+" "Source Local Config"
+if filereadable(expand("~/.vimrc.local"))
+	source ~/.vimrc.local
 endif
+"-------------------------------------------------------------------------------
+
+
+
+
+set clipboard+=unnamed
+vnoremap y "*y
+vnoremap Y "*Y
+nnoremap p "*p
+nnoremap P "*P
+
+
+
+
+" vim: set fdm=marker:
+" "}}}
