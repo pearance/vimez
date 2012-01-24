@@ -2,7 +2,7 @@
 "	Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-"	Last Modified: Mon Jan 23, 2012  10:20PM
+"	Last Modified: Mon Jan 23, 2012  10:43PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -1676,8 +1676,7 @@ augroup FiletypeSettings
   autocmd FileType xhtml,php            iab <buffer> <br> <br />
 
   " "PHP"
-  au BufRead *.php                      set filetype=xhtml.css.javascript.php
-  au BufNewFile *.php                   set filetype=xhtml.css.javascript.php
+  au BufNewFile,BufRead *.php           set filetype=php.xhtml.css.javascript
   autocmd FileType php                  let php_minlines=500
 
 
