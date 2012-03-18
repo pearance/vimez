@@ -4,7 +4,7 @@
 #	Description:    VimEz installation script.
 # Author:         Fontaine Cook <fontaine.cook@pearance.com>
 # Maintainer:     Fontaine Cook <fontaine.cook@pearance.com>
-#	Last Modified: Sun Mar 18, 2012  06:48PM
+#	Last Modified: Sun Mar 18, 2012  06:58PM
 #
 #	Copyright 2011 Pearance LLC.
 #
@@ -87,7 +87,7 @@ sleep $DLY
 # Clone VimEz
 /bin/echo -e $BD$M
 /bin/echo -en "* Cloning VimEz...                   "
-git clone git://github.com/VimEz/VimEz.git ~/.vim >>~/tmp/vimez.install.log 2>&1
+git clone -u git://github.com/VimEz/VimEz.git ~/.vim >>~/tmp/vimez.install.log 2>&1
 #printf "%-19s"
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
