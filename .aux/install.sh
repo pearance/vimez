@@ -4,7 +4,7 @@
 #	Description:    VimEz installation script.
 # Author:         Fontaine Cook <fontaine.cook@pearance.com>
 # Maintainer:     Fontaine Cook <fontaine.cook@pearance.com>
-#	Last Modified: Sun Mar 18, 2012  06:08PM
+#	Last Modified: Sun Mar 18, 2012  06:12PM
 #
 #	Copyright 2011 Pearance LLC.
 #
@@ -66,15 +66,15 @@ fi
 /bin/mkdir -p ~/backup/vimez/
 
 if [ -e ~/.vimrc ]; then
-  do [ -e .vimrc ] && /bin/mv -f .vimrc backup/vimez/.
+  /bin/mv -f .vimrc backup/vimez/.vimrc
 fi
 
 if [ -e ~/.gvimrc ]; then
-  do [ -e .gvimrc ] && /bin/mv -f .gvimrc backup/vimez/.
+  /bin/mv -f .gvimrc backup/vimez/.
 fi
 
 if [ -e ~/.vim ]; then
-  do [ -e .vim ] && /bin/mv -f .vim backup/vimez/.
+  && /bin/mv -f .vim backup/vimez/.
 fi
 
 #printf "%-0s"
