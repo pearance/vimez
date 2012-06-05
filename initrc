@@ -2,7 +2,7 @@
 "	Description:   Initial configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainer:    Fontaine Cook, Various Contributors
-"	Last Modified: Fri Jan 06, 2012  09:20PM
+"	Last Modified: Mon Jun 04, 2012  09:38PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -51,14 +51,14 @@ Bundle "VimEz/ZenCoding"
 "-------------------------------------------------------------------------------
 
 
-
 " "File Type Detection"
 filetype plugin indent on         " Automatically detect file types.
 "-------------------------------------------------------------------------------
 
 
 
-
+"TODO:
+" http://bugfixer.endel.me/2012/05/14/commandt-vs-ctrlp/
 
 
 
