@@ -4,7 +4,7 @@
 #	Description:    VimEz installation script.
 # Author:         Fontaine Cook <fontaine.cook@pearance.com>
 # Maintainer:     Fontaine Cook <fontaine.cook@pearance.com>
-#	Last Modified: Sun Mar 18, 2012  06:58PM
+#	Last Modified: Tue Sep 11, 2012  01:04PM
 #
 #	Copyright 2011 Pearance LLC.
 #
@@ -101,6 +101,7 @@ sleep $DLY
 /bin/mkdir -p ~/.vim.local/data/
 /bin/mkdir -p ~/.vim.local/sessions/
 /bin/mkdir -p ~/.vim.local/spell/
+/bin/mkdir -p ~/.vim.local/view/
 /bin/mkdir -p ~/.vim.local/tmp/backups/
 /bin/mkdir -p ~/.vim.local/tmp/swaps/
 /bin/mkdir -p ~/.vim.local/tmp/undos/
