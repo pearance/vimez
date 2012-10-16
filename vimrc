@@ -2,7 +2,7 @@
 "	Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-"	Last Modified: Mon Jan 23, 2012  10:43PM
+"	Last Modified: Wed Sep 12, 2012  12:16PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -81,7 +81,7 @@ endif
 
 " "Performance Tweaks"
 set ttyfast            " Indicates a fast terminal connection.
-set synmaxcol=200      " Prevent long lines from slowing down redraws.
+set synmaxcol=300      " Prevent long lines from slowing down redraws.
 set lazyredraw         " Don't redraw while executing macros.
 "-------------------------------------------------------------------------------
 
@@ -1276,12 +1276,8 @@ vnoremap <silent><Leader>dd "_d
 
 
 " "Space" A sensible compromise for the ability to add a quick space whilst in
-" Normal mode, but not with the Space bar. This is to safe guard against
-" accidentally adding space in the middle of critical syntax. In addition to
-" the default Leader key, it is too easily accessible. So its mapped
-" to <Leader> s <Leader> which adds a space immediately. Alternatively,
-" <Leader> s has a delayed effect.
-nnoremap <Space><Space> i<Space><Esc>l
+" Normal mode.
+nnoremap <Space> i<Space><Esc>l
 "-------------------------------------------------------------------------------
 
 
@@ -1674,6 +1670,8 @@ augroup FiletypeSettings
   autocmd FileType xhtml,php,xml        inoremap <buffer> </ </<C-x><C-o>
   autocmd FileType xhtml,php            iab <buffer> <hr> <hr />
   autocmd FileType xhtml,php            iab <buffer> <br> <br />
+
+
 
   " "PHP"
   au BufNewFile,BufRead *.php           set filetype=php.xhtml.css.javascript
