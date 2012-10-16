@@ -2,7 +2,7 @@
 "	Description:   Initial configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainer:    Fontaine Cook, Various Contributors
-"	Last Modified: Mon Jun 04, 2012  09:38PM
+"	Last Modified: Tue Oct 16, 2012  06:37AM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -20,34 +20,38 @@ filetype off
 " "Plugin Manager (Vundle)"
 set rtp+=~/.vim/bundle/Vundle/
 call vundle#rc()
-Bundle "VimEz/Vundle"
+Bundle "gmarik/vundle"
 "-------------------------------------------------------------------------------
 
 " "Plugin Bundles"
 Bundle "VimEz/MolokaiEz"
-Bundle "VimEz/ScrollColors"
-Bundle "VimEz/CSApprox"
-Bundle "VimEz/NerdTree"
-Bundle "VimEz/Command-T"
-Bundle "VimEz/Rename2"
-Bundle "VimEz/Session"
-Bundle "VimEz/BufKill"
-Bundle "VimEz/BufOnly"
-Bundle "VimEz/Gundo"
-Bundle "VimEz/NeoComplCache"
-Bundle "VimEz/Unimpaired"
-Bundle "VimEz/Colorizer"
-Bundle "VimEz/Markdown"
-Bundle "VimEz/XtermColorTable"
 Bundle "VimEz/ShowMarks"
-Bundle "VimEz/DelimitMate"
-Bundle "VimEz/tComment"
 Bundle "VimEz/Tmux"
-Bundle "VimEz/Surround"
-Bundle "VimEz/Repeat"
-Bundle "VimEz/YankRing"
-Bundle "VimEz/rvm"
-Bundle "VimEz/ZenCoding"
+
+Bundle "vim-scripts/CSApprox"
+Bundle "vim-scripts/ScrollColors"
+Bundle "vim-scripts/Rename2"
+Bundle "vim-scripts/bufkill.vim"
+Bundle "vim-scripts/YankRing.vim"
+Bundle "tpope/vim-surround"
+Bundle "tpope/vim-repeat"
+Bundle "tpope/vim-rvm"
+Bundle "tpope/vim-unimpaired"
+Bundle "Shougo/neocomplcache"
+Bundle "tomtom/tcomment_vim"
+Bundle "xolox/vim-session"
+Bundle "scrooloose/nerdtree"
+Bundle "duff/vim-bufonly"
+Bundle "sjl/gundo.vim"
+Bundle "lilydjwg/colorizer"
+Bundle "plasticboy/vim-markdown"
+Bundle "guns/xterm-color-table.vim"
+Bundle "Raimondi/delimitMate"
+Bundle "mattn/zencoding-vim"
+
+
+
+" Bundle "docunext/closetag.vim"
 "-------------------------------------------------------------------------------
 
 
