@@ -2,7 +2,7 @@
 "	Description:   Initial configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainer:    Fontaine Cook, Various Contributors
-"	Last Modified: Tue Oct 16, 2012  06:37AM
+"	Last Modified: Wed Oct 17, 2012  10:52AM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -18,18 +18,14 @@ filetype off
 " PLUGIN BUNDLES:
 "*******************************************************************************
 " "Plugin Manager (Vundle)"
-set rtp+=~/.vim/bundle/Vundle/
+set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle "gmarik/vundle"
 "-------------------------------------------------------------------------------
 
 " "Plugin Bundles"
-Bundle "VimEz/MolokaiEz"
-Bundle "VimEz/ShowMarks"
-Bundle "VimEz/Tmux"
-
-Bundle "vim-scripts/CSApprox"
-Bundle "vim-scripts/ScrollColors"
+" UI/UX
+Bundle "vimez/showmarks"
 Bundle "vim-scripts/Rename2"
 Bundle "vim-scripts/bufkill.vim"
 Bundle "vim-scripts/YankRing.vim"
@@ -38,19 +34,39 @@ Bundle "tpope/vim-repeat"
 Bundle "tpope/vim-rvm"
 Bundle "tpope/vim-unimpaired"
 Bundle "Shougo/neocomplcache"
+Bundle "Shougo/neocomplcache-snippets-complete"
 Bundle "tomtom/tcomment_vim"
 Bundle "xolox/vim-session"
 Bundle "scrooloose/nerdtree"
 Bundle "duff/vim-bufonly"
 Bundle "sjl/gundo.vim"
-Bundle "lilydjwg/colorizer"
-Bundle "plasticboy/vim-markdown"
-Bundle "guns/xterm-color-table.vim"
 Bundle "Raimondi/delimitMate"
 Bundle "mattn/zencoding-vim"
+Bundle "kien/ctrlp.vim"
 
 
 
+" Syntax
+Bundle "othree/html5.vim"
+Bundle "hail2u/vim-css-syntax"
+Bundle "hail2u/vim-css3-syntax"
+Bundle "pangloss/vim-javascript"
+Bundle "groenewege/vim-less"
+Bundle "plasticboy/vim-markdown"
+Bundle "vimez/tmux"
+
+
+
+" Theme
+Bundle "vimez/themes"
+Bundle "vim-scripts/CSApprox"
+Bundle "vim-scripts/ScrollColors"
+Bundle "lilydjwg/colorizer"
+Bundle "guns/xterm-color-table.vim"
+
+
+
+" Needs Review
 " Bundle "docunext/closetag.vim"
 "-------------------------------------------------------------------------------
 
@@ -62,7 +78,6 @@ filetype plugin indent on         " Automatically detect file types.
 
 
 "TODO:
-" http://bugfixer.endel.me/2012/05/14/commandt-vs-ctrlp/
 
 
 
