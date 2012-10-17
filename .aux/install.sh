@@ -4,7 +4,7 @@
 #	Description:    VimEz installation script.
 # Author:         Fontaine Cook <fontaine.cook@pearance.com>
 # Maintainer:     Fontaine Cook <fontaine.cook@pearance.com>
-#	Last Modified: Tue Sep 11, 2012  01:04PM
+#	Last Modified: Wed Oct 17, 2012  01:13PM
 #
 #	Copyright 2011 Pearance LLC.
 #
@@ -87,7 +87,7 @@ sleep $DLY
 # Clone VimEz
 /bin/echo -e $BD$M
 /bin/echo -en "* Cloning VimEz...                   "
-git clone -u git://github.com/VimEz/VimEz.git ~/.vim >>~/tmp/vimez.install.log 2>&1
+git clone -u git://github.com/vimez/vimez.git ~/.vim >>~/tmp/vimez.install.log 2>&1
 #printf "%-19s"
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
@@ -150,24 +150,9 @@ sleep $DLY
 # Clone Vundle and install plugin/bundles.
 /bin/echo -e $BD$M
 /bin/echo -en "* Installing plugin bundles...       "
-git clone http://github.com/VimEz/Vundle.git ~/.vim/bundle/Vundle >>~/tmp/vimez.install.log 2>&1
+git clone http://github.com/vimez/vundle.git ~/.vim/bundle/vundle >>~/tmp/vimez.install.log 2>&1
 vim -u ~/.vim/initrc +BundleInstall "+let g:session_directory = '~/.vim.local/sessions/'" +q >>~/tmp/vimez.install.log 2>&1
 /bin/rm -r ~/.vim/sessions
-#printf "%${COL}s"
-sleep $DLY
-/bin/echo -e $BD$G"done"$NO
-#------------------------------------------------------------------------------
-
-
-
-# Install Command-T C extension.
-/bin/echo -e $BD$M
-/bin/echo -en "* Compiling Command-T extensions...  "
-rvm use system >>~/tmp/vimez.install.log 2>&1
-cd ~/.vim/bundle/Command-T/ruby/command-t/
-ruby extconf.rb >>~/tmp/vimez.install.log 2>&1
-make >>~/tmp/vimez.install.log 2>&1
-cd ~
 #printf "%${COL}s"
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
