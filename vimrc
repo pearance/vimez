@@ -2,7 +2,7 @@
 "	Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-"	Last Modified: Wed Sep 12, 2012  12:16PM
+"	Last Modified: Wed Oct 17, 2012  12:27PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -75,6 +75,9 @@ if has("multi_byte")
     endif
   endif
 endif
+
+scriptencoding utf-8
+set encoding=utf-8
 "-------------------------------------------------------------------------------
 
 
@@ -236,21 +239,20 @@ let NERDTreeMapPreviewSplit='gh'
 let NERDTreeMapOpenVSplit='v'
 let NERDTreeMapPreviewVSplit='gv'
 let NERDTreeBookmarksFile=expand("~/.vim.local/data/NERDTreeBookmarks")
+let NERDTreeDirArrows=0
 nnoremap <silent><Leader><CR> :NERDTreeToggle .<CR>
 "-------------------------------------------------------------------------------
 
 
 
-" "Search Files (Command-T)" Faster alternative of locating and opening
+" "Search Files/Buffers/MRU (CtrlP)" Faster alternative of locating and opening
 " files, than the conventional browsing of a directory tree.
-let g:CommandTMaxHeight=10                        " Show this amount of results max
-let g:CommandTAlwaysShowDotFiles=0
-let g:CommandTScanDotDirectories=1
-let g:CommandTAcceptSelectionSplitMap=['<C-h>']   " Key to open file in split win
-let g:CommandTAcceptSelectionVSplitMap=['<C-v>']  " Key to open file in vsplit win
-let g:CommandTCancelMap=[',']                     " Key to cancel Command-T
-nnoremap <silent><Leader>kk :CommandT<CR>
-nnoremap <Leader>fc :CommandTFlush<CR><Bar>:echo "Command=T Flushed"<CR>
+nnoremap <silent><Leader>jj :CtrlPBuffer<CR>
+nnoremap <silent><Leader>kk :CtrlPMRU<CR>
+nnoremap <silent><Leader>ll :CtrlP<CR>
+let g:ctrlp_prompt_mappings = {
+  \ 'PrtExit()':            ['<esc>', '<c-c>', ','],
+  \ }
 "-------------------------------------------------------------------------------
 
 
@@ -327,12 +329,6 @@ nnoremap <Leader><Tab> :b <C-z><C-z>
 cnoremap <silent><C-c> <Home><Right>d<CR>
 cnoremap <C-s><C-v> <Home><Del>vs<CR>
 cnoremap <C-s><C-h> <Home><Del>sp<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Buffer Navigation (CommandT)"
-nnoremap <silent><Leader>jj :CommandTBuffer<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -661,13 +657,6 @@ vmap <C-l> >gv
 
 
 
-" "Hyper Put" Put currently selected text into the adjecent window pane.
-map <silent><Leader>ll "zyw<C-w>wo<Esc>"zp<C-w>w
-map <silent><Leader>hh "zyw<C-w>wo<Esc>"zp<C-w>w
-"-------------------------------------------------------------------------------
-
-
-
 " "Add & Remove Blank Lines" Use the +plus and -minus keys to add and remove
 " blank lines below the current line. With the Shift modifier, add and remove
 " blank lines from above the current line.
@@ -778,7 +767,7 @@ nnoremap <silent><Leader>ei :e ~/.vim/initrc<CR>
 
 
 " "Edit Color Scheme"
-nnoremap <silent><Leader>ecs :e ~/.vim/bundle/MolokaiEz/colors/molokaiEz.vim<CR>
+nnoremap <silent><Leader>ecs :e ~/.vim/bundle/themes/colors/molokaiEz.vim<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1551,8 +1540,8 @@ noremap <silent><Leader>mx <C-w>x
 " "Resize Windows"
 nnoremap <Left> <C-w><
 nnoremap <Right> <C-w>>
-nnoremap <Up> <C-w>-
-nnoremap <Down> <C-w>+
+nnoremap <Up> <C-w>+
+nnoremap <Down> <C-w>-
 "-------------------------------------------------------------------------------
 
 
@@ -1680,7 +1669,8 @@ augroup FiletypeSettings
 
 
   " "Vim Script"
-  " autocmd BufNewFile,BufRead {.,_}vimrc set foldmethod=marker
+  autocmd BufNewFile,BufRead {.,_,}vimrc set foldmethod=marker
+  autocmd BufNewFile,BufRead .vim        set ft=vim
   "-----------------------------------------------------------------------------
 
 
@@ -1761,4 +1751,5 @@ nnoremap P "*P
 
 
 " vim: set fdm=marker:
+" vim: set ft=vim:
 " "}}}
