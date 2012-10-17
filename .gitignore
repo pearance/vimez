@@ -7,3 +7,5 @@ bundle/
 
 # Ignore local folder (user local settings)
 local/
+
+!.aux/
