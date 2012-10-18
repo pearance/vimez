@@ -2,7 +2,7 @@
 "	Description:   Initial configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainer:    Fontaine Cook, Various Contributors
-"	Last Modified: Wed Oct 17, 2012  10:52AM
+"	Last Modified: Thu Oct 18, 2012  07:15AM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -63,12 +63,8 @@ Bundle "vim-scripts/CSApprox"
 Bundle "vim-scripts/ScrollColors"
 Bundle "lilydjwg/colorizer"
 Bundle "guns/xterm-color-table.vim"
-
-
-
-" Needs Review
-" Bundle "docunext/closetag.vim"
 "-------------------------------------------------------------------------------
+
 
 
 " "File Type Detection"
@@ -80,7 +76,7 @@ filetype plugin indent on         " Automatically detect file types.
 "TODO:
 
 
-
+"NOTE: Suspect AutoClose conflicts with other bundles.
 
 
 
