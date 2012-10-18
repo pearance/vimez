@@ -2,7 +2,7 @@
 "	Description:   Initial configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainer:    Fontaine Cook, Various Contributors
-"	Last Modified: Thu Oct 18, 2012  07:15AM
+"	Last Modified: Thu Oct 18, 2012  08:27AM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -20,6 +20,7 @@ filetype off
 " "Plugin Manager (Vundle)"
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+let g:vundle_default_git_proto = 'git'
 Bundle "gmarik/vundle"
 "-------------------------------------------------------------------------------
 
