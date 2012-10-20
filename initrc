@@ -2,7 +2,7 @@
 "	Description:   Initial configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainer:    Fontaine Cook, Various Contributors
-"	Last Modified: Sat Oct 20, 2012  08:34AM
+"	Last Modified: Sat Oct 20, 2012  11:12AM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -65,6 +65,7 @@ Bundle "Raimondi/delimitMate"
 Bundle "mattn/zencoding-vim"
 Bundle "kien/ctrlp.vim"
 Bundle "benmills/vimux"
+Bundle "docunext/closetag.vim"
 
 
 
@@ -81,7 +82,7 @@ filetype plugin indent on         " Automatically detect file types.
 "TODO:
 
 
-"NOTE: Suspect AutoClose conflicts with other bundles.
+"NOTE:
 
 
 
