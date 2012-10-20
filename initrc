@@ -2,7 +2,7 @@
 "	Description:   Initial configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainer:    Fontaine Cook, Various Contributors
-"	Last Modified: Sat Oct 20, 2012  07:18AM
+"	Last Modified: Sat Oct 20, 2012  08:34AM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -55,7 +55,7 @@ Bundle "tpope/vim-repeat"
 Bundle "tpope/vim-rvm"
 Bundle "tpope/vim-unimpaired"
 Bundle "Shougo/neocomplcache"
-Bundle "Shougo/neocomplcache-snippets-complete"
+Bundle "Shougo/neosnippet"
 Bundle "tomtom/tcomment_vim"
 Bundle "xolox/vim-session"
 Bundle "scrooloose/nerdtree"
