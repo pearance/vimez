@@ -2,7 +2,7 @@
 "	Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-"	Last Modified: Sat Oct 20, 2012  08:19AM
+"	Last Modified: Sat Oct 20, 2012  05:01PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -243,12 +243,13 @@ nnoremap <silent><Leader><CR> :NERDTreeToggle .<CR>
 
 " "Search Files/Buffers/MRU (CtrlP)" Faster alternative of locating and opening
 " files, than the conventional browsing of a directory tree.
-nnoremap <silent><Leader>jj :CtrlPBuffer<CR>
-nnoremap <silent><Leader>kk :CtrlPMRU<CR>
-nnoremap <silent><Leader>ll :CtrlP<CR>
+let g:ctrlp_map = '<Leader>ll'
 let g:ctrlp_prompt_mappings = {
   \ 'PrtExit()':            ['<esc>', '<c-c>', ','],
   \ }
+nnoremap <silent><Leader>jj :CtrlPBuffer<CR>
+nnoremap <silent><Leader>kk :CtrlPMRU<CR>
+nnoremap <silent><Leader>ll :CtrlP<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1108,26 +1109,26 @@ set fo+=1  " Don't break a line after a one-letter word.  It's broken before it
 
 
 
-" "Autocompletion/Snippets (NeoComplCache)"
-" Autocompletion General Settings
-set cpt+=.		    " Scan the current buffer ('wrapscan' is ignored)
-set cpt+=w		    " Scan buffers from other windows
-set cpt+=b		    " Scan other loaded buffers that are in the buffer list
-set cpt+=u		    " Scan the unloaded buffers that are in the buffer list
-set cpt+=U		    " Scan the buffers that are not in the buffer list
-set cpt-=k		    " Scan the files given with the 'dictionary' option
-set cpt+=kspell   " Use the currently active spell checking |spell|
-set cpt-=k{dict}  " Scan the file {dict}.  Several "k" flags can be given,
-                  " patterns are valid too.  For example:
-                  " 	:set cpt=k/usr/dict/*,k~/spanish
-set cpt-=s		    " Scan the files given with the 'thesaurus' option
-set cpt-=s{tsr}	  " Scan the file {tsr}.  Several "s" flags can be given,
-                  " patterns are valid too.
-set cpt-=i		    " Scan current and included files
-set cpt-=d		    " Scan current and included files for defined name or macro
+" "Autocompletion (Omnicompletion/NeoComplCache)"
+" Native Autocompletion Settings
+set complete+=.		    " Scan the current buffer ('wrapscan' is ignored)
+set complete+=w		    " Scan buffers from other windows
+set complete+=b		    " Scan other loaded buffers that are in the buffer list
+set complete+=u		    " Scan the unloaded buffers that are in the buffer list
+set complete+=U		    " Scan the buffers that are not in the buffer list
+set complete-=k		    " Scan the files given with the 'dictionary' option
+set complete+=kspell  " Use the currently active spell checking |spell|
+set complete-=k{dict} " Scan the file {dict}.  Several "k" flags can be given,
+                      " patterns are valid too.  For example:
+                      " 	:set complete=k/usr/dict/*,k~/spanish
+set complete-=s		    " Scan the files given with the 'thesaurus' option
+set complete-=s{tsr}	" Scan the file {tsr}.  Several "s" flags can be given,
+                      " patterns are valid too.
+set complete-=i		    " Scan current and included files
+set complete-=d		    " Scan current and included files for name or macro
                 	    " |i_CTRL-X_CTRL-D|
-set cpt+=]		    " Tag completion
-set cpt+=t		    " Same as "]"
+set complete+=]		    " Tag completion
+set complete+=t		    " Same as "]"
 
 set infercase   	" Match is adjusted depending on the typed text.
 set pumheight=15  " Pop Up Menu height in lines
@@ -1155,11 +1156,6 @@ let g:neocomplcache_snippets_complete_disable_runtime_snippets = 1
 let g:neocomplcache_snippets_dir = '~/.vim/snippets'
 if !exists('g:neocomplcache_filetype_include_lists')
   let g:neocomplcache_filetype_include_lists= {}
-endif
-
-" Set snips_author.
-if !exists('snips_author')
-  let g:snips_author = 'Your Name Here'
 endif
 
 " Configure Dictionaries
@@ -1214,11 +1210,7 @@ let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
-" " Configure Neocomplcache Mappings
-imap <expr><Tab>
-  \ neocomplcache#sources#snippets_complete#expandable() ?
-  \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ?
-  \ "\<C-n>" : "\<Tab>"
+" Configure Neocomplcache Mappings
 inoremap <expr><C-z> neocomplcache#undo_completion()
 inoremap <expr><BS>  neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
@@ -1226,10 +1218,22 @@ inoremap <expr><CR>  neocomplcache#smart_close_popup()."\<CR>"
 nnoremap <Leader>es  :NeoComplCacheEditSnippets<CR>
 "-------------------------------------------------------------------------------
 
+" "Snippets (NeoSnippets)"
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"")
+
+" Set snips_author.
+if !exists('snips_author')
+  let g:snips_author = 'Your Name Here'
+endif
+"-------------------------------------------------------------------------------
+
 
 
 " "Auto Close (DelimitMate)"
-let delimitMate_expand_cr = 1
 "-------------------------------------------------------------------------------
 
 
@@ -1619,70 +1623,72 @@ endfunction
 
 
 " "}}}
-" AUXILIARY: "{{{
+" AUTOMATED COMMANDS: "{{{
 "*******************************************************************************
 augroup FiletypeSettings
-  autocmd! FiletypeSettings
+autocmd! FiletypeSettings
 
-  " "Shell Scripts" Automatically chmod +x Shell and Perl scripts
-  autocmd BufWritePost *.sh call Executable()
-  function! Executable()
-    exe "silent! !chmod +x %"
-    redraw!
-    call Msg("Written as an executable shell script!")
-  endfunction
-  "-----------------------------------------------------------------------------
+" "Templates"
+autocmd BufNewFile *                  silent! 0r  ~/.vim.local/templates/%:e.tpl
+"-----------------------------------------------------------------------------
 
-
-
-  " "Smarty Template" Make the template .tpl files behave like html files
-  autocmd BufNewFile,BufRead  *.tpl     set filetype=xhtml
-  "-----------------------------------------------------------------------------
+" "HTML"
+autocmd BufNewFile,BufRead *.htm      set filetype=html
+autocmd BufNewFile,BufRead *.html     set filetype=html
+" Close open tags automatically upon entering </
+autocmd Filetype html                 call EnableCloseTag()
 
 
 
-  " "Drupal Module" *.module and *.install files.
-  autocmd BufNewFile,BufRead  *.module  set filetype=php
-  autocmd BufNewFile,BufRead  *.install set filetype=php
-  autocmd BufNewFile,BufRead  *.test    set filetype=php
-  "-----------------------------------------------------------------------------
+" "XML/XSL"
+autocmd Filetype xml                  call EnableCloseTag()
+autocmd Filetype xsl                  call EnableCloseTag()
+"-----------------------------------------------------------------------------
 
 
 
-  " "XML/HTML/CSS/Javascript/PHP"
-  autocmd BufNewFile,BufRead *.htm      set filetype=xhtml.css.javascript
-  autocmd BufNewFile,BufRead *.html     set filetype=xhtml.css.javascript
-  autocmd FileType xhtml,php,xml        inoremap <buffer> </ </<C-x><C-o>
-  autocmd FileType xhtml,php            iab <buffer> <hr> <hr />
-  autocmd FileType xhtml,php            iab <buffer> <br> <br />
-  " Templates
-  " autocmd BufNewFile *                  silent! 0r  ~/.vim/bundle/templates/%:e.tpl
-  " autocmd BufNewFile *                  silent! 0r  ~/.vim.local/templates/%:e.tpl
+" "Shell Script"
+autocmd BufWritePost *.sh             call MakeFileExecutable()
+"-----------------------------------------------------------------------------
 
 
 
-  " "PHP"
-  au BufNewFile,BufRead *.php           set filetype=php.xhtml.css.javascript
-  autocmd FileType php                  let php_minlines=500
+" "Smarty Template Engine"
+autocmd BufNewFile,BufRead *.tpl      set filetype=html
+"-----------------------------------------------------------------------------
 
 
 
-  " "Vim Script"
-  autocmd BufNewFile,BufRead {.,_,}vimrc set foldmethod=marker
-  autocmd BufNewFile,BufRead .vim        set ft=vim
-  "-----------------------------------------------------------------------------
+" "Drupal CMS Framework"
+autocmd BufNewFile,BufRead *.module   set filetype=php
+autocmd BufNewFile,BufRead *.install  set filetype=php
+autocmd BufNewFile,BufRead *.test     set filetype=php
+"-----------------------------------------------------------------------------
 
 
 
-  " "Apache Config"
-  autocmd BufNewFile,BufRead /*apache*  set filetype=apache
-  "-----------------------------------------------------------------------------
+" "PHP"
+autocmd BufNewFile,BufRead *.php      set filetype=php
+autocmd FileType php                  let php_minlines=500
 
 
 
-  " "Apache Config"
-  autocmd BufNewFile,BufRead *.txt      setlocal tw=78
-  "-----------------------------------------------------------------------------
+" "Vim Script"
+autocmd BufNewFile,BufRead {.,_,}vimrc set foldmethod=marker
+autocmd BufNewFile,BufRead .vim        set ft=vim
+"-----------------------------------------------------------------------------
+
+
+
+" "Apache Config"
+autocmd BufNewFile,BufRead /*apache*  set filetype=apache
+"-----------------------------------------------------------------------------
+
+
+
+" "Plain Text"
+autocmd BufNewFile,BufRead *.txt      setlocal tw=79
+"-----------------------------------------------------------------------------
 
 
 augroup END
@@ -1728,6 +1734,18 @@ function! LastModified()
   endif
 endfunction
 autocmd BufWritePre * call LastModified()
+
+
+
+function! EnableCloseTag()
+    source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
+endfunction
+
+function! MakeFileExecutable()
+  exe "silent! !chmod +x %"
+  redraw!
+  call Msg("Written as an executable shell script!")
+endfunction
 
 
 
