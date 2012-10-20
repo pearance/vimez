@@ -2,7 +2,7 @@
 "	Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-"	Last Modified: Wed Oct 17, 2012  12:27PM
+"	Last Modified: Sat Oct 20, 2012  08:19AM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -24,8 +24,9 @@ set term=$TERM
 " "Color Scheme"
 set background=dark         " Use a dark background.
 set t_Co=256                " Force terminal to go into 256 color mode.
-colorscheme molokaiEz       " Default color scheme.
 syntax on		                " Syntax highlighting on.
+colorscheme molokaiEz       " Default color scheme.
+nnoremap <Leader>etheme :SCROLL<CR>
 
 " Show syntax highlighting group for current word.
 function! <SID>SynStack()
@@ -155,11 +156,6 @@ if has("unix")
 else
   nnoremap <Leader>ef :edit <C-R>=expand("%:p:h") . "\\" <CR>
 endif
-
-augroup Templates
-  autocmd!
-  autocmd BufNewFile * silent! 0r  ~/.vim.local/templates/%:e.tpl
-augroup END
 "-------------------------------------------------------------------------------
 
 
@@ -1659,6 +1655,9 @@ augroup FiletypeSettings
   autocmd FileType xhtml,php,xml        inoremap <buffer> </ </<C-x><C-o>
   autocmd FileType xhtml,php            iab <buffer> <hr> <hr />
   autocmd FileType xhtml,php            iab <buffer> <br> <br />
+  " Templates
+  " autocmd BufNewFile *                  silent! 0r  ~/.vim/bundle/templates/%:e.tpl
+  " autocmd BufNewFile *                  silent! 0r  ~/.vim.local/templates/%:e.tpl
 
 
 
