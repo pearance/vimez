@@ -2,7 +2,7 @@
 "	Description:   Initial configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainer:    Fontaine Cook, Various Contributors
-"	Last Modified: Thu Oct 18, 2012  08:27AM
+"	Last Modified: Sat Oct 20, 2012  07:18AM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -25,6 +25,26 @@ Bundle "gmarik/vundle"
 "-------------------------------------------------------------------------------
 
 " "Plugin Bundles"
+" Theme
+Bundle "vimez/themes"
+Bundle "vim-scripts/CSApprox"
+Bundle "vim-scripts/ScrollColors"
+Bundle "lilydjwg/colorizer"
+Bundle "guns/xterm-color-table.vim"
+
+
+
+" Syntax
+Bundle "othree/html5.vim"
+Bundle "hail2u/vim-css-syntax"
+Bundle "hail2u/vim-css3-syntax"
+Bundle "pangloss/vim-javascript"
+Bundle "groenewege/vim-less"
+Bundle "plasticboy/vim-markdown"
+Bundle "vimez/tmux"
+
+
+
 " UI/UX
 Bundle "vimez/showmarks"
 Bundle "vim-scripts/Rename2"
@@ -44,26 +64,10 @@ Bundle "sjl/gundo.vim"
 Bundle "Raimondi/delimitMate"
 Bundle "mattn/zencoding-vim"
 Bundle "kien/ctrlp.vim"
+Bundle "benmills/vimux"
 
 
 
-" Syntax
-Bundle "othree/html5.vim"
-Bundle "hail2u/vim-css-syntax"
-Bundle "hail2u/vim-css3-syntax"
-Bundle "pangloss/vim-javascript"
-Bundle "groenewege/vim-less"
-Bundle "plasticboy/vim-markdown"
-Bundle "vimez/tmux"
-
-
-
-" Theme
-Bundle "vimez/themes"
-Bundle "vim-scripts/CSApprox"
-Bundle "vim-scripts/ScrollColors"
-Bundle "lilydjwg/colorizer"
-Bundle "guns/xterm-color-table.vim"
 "-------------------------------------------------------------------------------
 
 
