@@ -2,7 +2,7 @@
 "	Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-"	Last Modified: Sat Oct 20, 2012  08:19PM
+"	Last Modified: Sat Oct 20, 2012  08:45PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -1242,7 +1242,7 @@ endif
 " "Backspace"
 " Restore expected functionality to the Backspace key, while in
 " Normal mode. Such as backspacing the amount of shiftwidth.
-set backspace=indent,eol,start    " Sane backspacing in Insert mode
+set backspace=indent,eol,start
 nnoremap <BS> i<BS><Right><Esc>
 "-------------------------------------------------------------------------------
 
@@ -1251,8 +1251,10 @@ nnoremap <BS> i<BS><Right><Esc>
 " "Delete"
 " Simple delete key in insert mode
 inoremap <C-d> <Del>
-nnoremap <silent><Leader>dd "_d
-vnoremap <silent><Leader>dd "_d
+" Delete contents of a line only
+nnoremap <silent><Leader>dd cc<Esc>
+" Delete contents of several lines only
+vnoremap <silent><Leader>dd 0r<Space>
 "-------------------------------------------------------------------------------
 
 
@@ -1265,7 +1267,6 @@ nnoremap <Space><Space> i<Space><Esc>l
 nmap - [<Space>
 "Add a blank line below cursor position
 nmap = ]<Space>
-
 "-------------------------------------------------------------------------------
 
 
