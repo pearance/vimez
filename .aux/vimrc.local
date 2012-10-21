@@ -1,1 +1,4 @@
 " Enter your custom local settings here.
+
+" "Paragraph Formatting"
+" set formatprg=par
