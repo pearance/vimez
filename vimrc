@@ -2,7 +2,7 @@
 "	Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-"	Last Modified: Sun Oct 21, 2012  05:46AM
+"	Last Modified: Sun Oct 21, 2012  05:15PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -558,9 +558,25 @@ endfunction
 " "}}}
 " EDIT: "{{{
 "*******************************************************************************
-" "Yanking (Copying | Yankring)"
+" "Yank | Put | Clipboard (Copy | Paste | Yankring)"
+set clipboard+=unnamedplus  " Use system clipboard for yanks
+set pastetoggle=<F6>    " Avoid double indetation when pasting formatted text
+set go+=a               " TODO: Visual selection automatically copied to the clipboard
+
+nnoremap y "*y
+nnoremap yy "*Y
+nnoremap p "*pV`]=
+nnoremap P "*PV`]=
+vnoremap y "*y
+vnoremap Y "*Y
+
+" Preserve indentation while put (pasting) text from the system clipboard
+" imap <C-v>  <C-O>:set paste<CR><C-O>:set nopaste<CR>
+
+" Yank from current cursor position to left or right end respectively.
 nnoremap yh v0y
 nnoremap yl v$y$
+
 let g:yankring_max_history = 1000
 let g:yankring_max_display = 78
 let g:yankring_dot_repeat_yank = 1
@@ -605,14 +621,6 @@ nnoremap <Leader>v V`]
 
 " "Select All"
 nmap <Leader>a ggVG
-"-------------------------------------------------------------------------------
-
-
-
-" "Clipboard"
-set clipboard+=unnamed  " Use system clipboard for yanks
-set pastetoggle=<F6>    " Avoid double indetation when pasting formatted text
-set go+=a               " TODO: Visual selection automatically copied to the clipboard
 "-------------------------------------------------------------------------------
 
 
@@ -1482,8 +1490,8 @@ let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 let g:showmarks_textlower = ")"
 let g:showmarks_textupper = "]"
 nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
-nnoremap <silent><Leader>cm  :ShowMarksClearMark<CR>
-nnoremap <silent><Leader>cam :ShowMarksClearAll<CR>
+nnoremap <silent><Leader>dm  :ShowMarksClearMark<CR>
+nnoremap <silent><Leader>dam :ShowMarksClearAll<CR>
 nnoremap <silent><Leader>mm  :ShowMarksPlaceMark<CR>
 "-------------------------------------------------------------------------------
 
@@ -1773,14 +1781,10 @@ endif
 "-------------------------------------------------------------------------------
 
 
+" TODO:
 
-
-set clipboard+=unnamed
-" vnoremap y "*y
-" vnoremap Y "*Y
-" nnoremap p "*p
-" nnoremap P "*P
-
+" FIXME:
+" NOTE:
 
 
 
