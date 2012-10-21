@@ -2,7 +2,7 @@
 "	Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-"	Last Modified: Sat Oct 20, 2012  08:45PM
+"	Last Modified: Sun Oct 21, 2012  05:46AM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -241,7 +241,7 @@ nnoremap <silent><Leader>,, :NERDTreeToggle .<CR>
 
 
 
-" "Search Files/Buffers/MRU (CtrlP)" Faster alternative of locating and opening
+" "Search Files | Buffers | MRU (CtrlP)" Faster alternative of locating and opening
 " files, than the conventional browsing of a directory tree.
 let g:ctrlp_map = '<Leader>ll'
 let g:ctrlp_prompt_mappings = {
@@ -604,7 +604,7 @@ nnoremap <Leader>v V`]
 
 
 " "Select All"
-nmap <Leader>va ggVG
+nmap <Leader>a ggVG
 "-------------------------------------------------------------------------------
 
 
@@ -1431,9 +1431,10 @@ set incsearch           " Highlight search terms dynamically and incrementally
 set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set wrapscan            " Set the search scan to wrap around the file
-nnoremap <silent> \\ :nohlsearch<CR>
-nnoremap <silent><Leader>sw
-      \ :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hlsearch<CR>
+" Clear search highlight
+nnoremap <silent> ,<Space> :nohlsearch<CR>
+" Prevent search current word command from jumping
+nnoremap * *``
 "-------------------------------------------------------------------------------
 
 
@@ -1775,10 +1776,10 @@ endif
 
 
 set clipboard+=unnamed
-vnoremap y "*y
-vnoremap Y "*Y
-nnoremap p "*p
-nnoremap P "*P
+" vnoremap y "*y
+" vnoremap Y "*Y
+" nnoremap p "*p
+" nnoremap P "*P
 
 
 
