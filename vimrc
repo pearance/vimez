@@ -2,7 +2,7 @@
 "	Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-"	Last Modified: Sat Oct 20, 2012  05:01PM
+"	Last Modified: Sat Oct 20, 2012  08:19PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -236,7 +236,7 @@ let NERDTreeMapOpenVSplit='v'
 let NERDTreeMapPreviewVSplit='gv'
 let NERDTreeBookmarksFile=expand("~/.vim.local/data/NERDTreeBookmarks")
 let NERDTreeDirArrows=0
-nnoremap <silent><Leader><CR> :NERDTreeToggle .<CR>
+nnoremap <silent><Leader>,, :NERDTreeToggle .<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -640,7 +640,7 @@ vmap <C-l> >gv
 
 
 " "Bubbling Word(s) (Unimpaired)" Consistent use of [hjkl] with the Control modifier to
-" transport words around. Up/down by one line and left/right by one word plus
+  " transport words around. Up/down by one line and left/right by one word plus
 " a space.
 "set <A-h>=h
 "set <A-j>=j
@@ -654,18 +654,18 @@ vmap <C-l> >gv
 
 
 
-" "Add & Remove Blank Lines" Use the +plus and -minus keys to add and remove
-" blank lines below the current line. With the Shift modifier, add and remove
-" blank lines from above the current line.
-"nnoremap <silent>- m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
-"nnoremap <silent>_ m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
-"nnoremap <silent>= :set paste<CR>m`o<Esc>``:set nopaste<CR>
-"nnoremap <silent>+ :set paste<CR>m`O<Esc>``:set nopaste<CR>
+" "Break to Next or Previous Line"
+" Restore some familiar behavior to the Enter key, in Normal mode.
+" Break to line below in normal mode
+nnoremap <CR> i<CR><Esc>
+" Break to line above in normal mode
+nmap <Leader><CR> DO<Esc>p
 "-------------------------------------------------------------------------------
 
 
 
-" "Join Next or Previous line" Normally Shift-j joins the line below with the
+" "Join Next or Previous line"
+" Normally Shift-j joins the line below with the
 " current one, but felt it best to maintain [hjkl] as directional arrow keys.
 " So, this functionality is mapped to Leader jn and jp for join next (line
 " below) and join previous (line above) with the current line.
@@ -679,7 +679,8 @@ function! Join()
   let c = col(".")
   join
   call cursor(l, c)
-  " silent! call repeat#set("\<leader>jn",1:count) todo: make work w/repeat.vim
+  " TODO: make work w/repeat.vim
+  " silent! call repeat#set("\<leader>jn",1:count)
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1238,15 +1239,8 @@ endif
 
 
 
-" "Enter" Restore some familiar behavior to the Enter key, in Normal mode.
-nnoremap <CR> i<CR><Esc>
-nnoremap <CR><CR> o<Esc>
-inoremap <CR><CR> <C-o>o
-"-------------------------------------------------------------------------------
-
-
-
-" "Backspace" Restore expected functionality to the Backspace key, while in
+" "Backspace"
+" Restore expected functionality to the Backspace key, while in
 " Normal mode. Such as backspacing the amount of shiftwidth.
 set backspace=indent,eol,start    " Sane backspacing in Insert mode
 nnoremap <BS> i<BS><Right><Esc>
@@ -1254,9 +1248,8 @@ nnoremap <BS> i<BS><Right><Esc>
 
 
 
-" "Delete" In Normal mode we have the 'x' key to delete forward characters. In
-" Insert mode you have to stretch for the delete key, and to add insult to
-" injury its location varies from keyboard to keyboard.
+" "Delete"
+" Simple delete key in insert mode
 inoremap <C-d> <Del>
 nnoremap <silent><Leader>dd "_d
 vnoremap <silent><Leader>dd "_d
@@ -1264,9 +1257,15 @@ vnoremap <silent><Leader>dd "_d
 
 
 
-" "Space" A sensible compromise for the ability to add a quick space whilst in
+" "Space"
+" A sensible compromise for the ability to add a quick space whilst in
 " Normal mode.
-nnoremap <Space> i<Space><Esc>l
+nnoremap <Space><Space> i<Space><Esc>l
+"Add a blank line above cursor position
+nmap - [<Space>
+"Add a blank line below cursor position
+nmap = ]<Space>
+
 "-------------------------------------------------------------------------------
 
 
@@ -1284,8 +1283,6 @@ set autoindent          " Enable auto indentation
 set copyindent          " Copy the previous indentation on autoindenting
 set preserveindent      " Preserve existing characters for indenting
 set smartindent
-nnoremap <Tab> i<Tab><Esc>l
-nnoremap <S-Tab> i<BS><Esc>l
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 nnoremap <Leader>tab :call Tab()<CR>
@@ -1377,8 +1374,9 @@ vnoremap <Space><Space> <Esc>
 
 
 
-" "Virtual Edit" Allow the cursor to go where no cursor has gone before.
-" Navigate into lines and columns that are not real.
+" "Virtual Edit"
+" Allow the cursor to go where no cursor has gone before. Navigate into lines
+" and columns that are not real.
 set virtualedit+=block
 set virtualedit+=insert
 set virtualedit+=onemore
@@ -1403,7 +1401,8 @@ inoremap <C-l> <Right>
 
 
 
-" "Hyper h|j|k|l" Consistent use of h|j|k|l with Shift to hyper traverse
+" "Hyper h|j|k|l"
+" Consistent use of h|j|k|l with Shift to hyper traverse
 " the buffer uiverse!
 nnoremap <S-h> ^
 nnoremap <S-j> <C-d>
@@ -1417,7 +1416,8 @@ vnoremap <S-l> $
 
 
 
-" "Ignore Wrapped Lines" Prevent jumping over wrapped lines & use visual lines.
+" "Ignore Wrapped Lines"
+" Prevent jumping over wrapped lines & use visual lines.
 nnoremap j gj
 nnoremap k gk
 "-------------------------------------------------------------------------------
@@ -1437,7 +1437,8 @@ nnoremap <silent><Leader>sw
 
 
 
-" "Search and Replace" TODO: Add functionality for visual selection
+" "Search and Replace"
+" TODO: Add functionality for visual selection
 nnoremap <Leader>asr :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 nnoremap <Leader>sr :call SearchReplace()<CR>
 function! SearchReplace()
@@ -1625,18 +1626,18 @@ endfunction
 " "}}}
 " AUTOMATED COMMANDS: "{{{
 "*******************************************************************************
-augroup FiletypeSettings
-autocmd! FiletypeSettings
-
-" "Templates"
-autocmd BufNewFile *                  silent! 0r  ~/.vim.local/templates/%:e.tpl
+augroup AlFileTypes
+  autocmd BufWritePre *                 call LastModified()
+  autocmd BufNewFile *                  silent! 0r  ~/.vim.local/templates/%:e.tpl
+augroup END
 "-----------------------------------------------------------------------------
 
-" "HTML"
-autocmd BufNewFile,BufRead *.htm      set filetype=html
-autocmd BufNewFile,BufRead *.html     set filetype=html
-" Close open tags automatically upon entering </
-autocmd Filetype html                 call EnableCloseTag()
+augroup HTML
+  autocmd BufNewFile,BufRead *.htm      set filetype=html
+  autocmd BufNewFile,BufRead *.html     set filetype=html
+  autocmd Filetype html                 call EnableCloseTag()
+augroup END
+"-----------------------------------------------------------------------------
 
 
 
@@ -1674,8 +1675,11 @@ autocmd FileType php                  let php_minlines=500
 
 
 " "Vim Script"
-autocmd BufNewFile,BufRead {.,_,}vimrc set foldmethod=marker
-autocmd BufNewFile,BufRead .vim        set ft=vim
+autocmd BufNewFile,BufRead vimrc      set foldmethod=marker
+autocmd BufNewFile,BufRead .vimrc     set foldmethod=marker
+autocmd BufNewFile,BufRead _vimrc     set foldmethod=marker
+autocmd BufNewFile,BufRead .initrc     set foldmethod=marker
+autocmd BufNewFile,BufRead .vim       set filetype=vim
 "-----------------------------------------------------------------------------
 
 
@@ -1720,6 +1724,10 @@ function! Msg(msg)
 endfunction
 "-------------------------------------------------------------------------------
 
+
+
+
+" "Last Modified"
 " If buffer modified, update any 'Last modified: ' in the first 20 lines.
 " 'Last modified: ' can have up to 10 characters before (they are retained).
 " Restores cursor and window position using save_cursor variable.
@@ -1733,19 +1741,26 @@ function! LastModified()
     call setpos('.', save_cursor)
   endif
 endfunction
-autocmd BufWritePre * call LastModified()
+"-------------------------------------------------------------------------------
 
 
 
+" "Enable Close Tag"
+" Close open tags automatically upon entering </
 function! EnableCloseTag()
     source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 endfunction
+"-------------------------------------------------------------------------------
 
+
+
+" "Make File Executable"
 function! MakeFileExecutable()
   exe "silent! !chmod +x %"
   redraw!
   call Msg("Written as an executable shell script!")
 endfunction
+"-------------------------------------------------------------------------------
 
 
 
