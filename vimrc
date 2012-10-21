@@ -2,7 +2,7 @@
 "	Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-"	Last Modified: Sun Oct 21, 2012  05:15PM
+"	Last Modified: Sun Oct 21, 2012  05:57PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -597,7 +597,6 @@ nnoremap CC v0r<Space>R
 
 
 " "Paragraph Formatting"
-" set formatprg=par " TODO Put this in my vimrc.local
 vnoremap Q gq
 nnoremap Q gqip
 "-------------------------------------------------------------------------------
@@ -1688,7 +1687,7 @@ autocmd FileType php                  let php_minlines=500
 autocmd BufNewFile,BufRead vimrc      set foldmethod=marker
 autocmd BufNewFile,BufRead .vimrc     set foldmethod=marker
 autocmd BufNewFile,BufRead _vimrc     set foldmethod=marker
-autocmd BufNewFile,BufRead .initrc     set foldmethod=marker
+autocmd BufNewFile,BufRead .initrc    set foldmethod=marker
 autocmd BufNewFile,BufRead .vim       set filetype=vim
 "-----------------------------------------------------------------------------
 
