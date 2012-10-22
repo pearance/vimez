@@ -2,7 +2,7 @@
 "	Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-"	Last Modified: Sun Oct 21, 2012  09:14PM
+"	Last Modified: Sun Oct 21, 2012  09:47PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -563,12 +563,12 @@ set clipboard+=unnamedplus  " Use system clipboard for yanks.
 set pastetoggle=<F6>        " Preserve indetation when pasting formatted text.
 set go+=a                   " ?
 
-nnoremap y "*y
-nnoremap yy "*Y
-nnoremap p "*gp
-nnoremap P "*gP
-vnoremap y "*y
-vnoremap Y "*Y
+nnoremap y  "+y
+nnoremap yy "+Y
+nnoremap p  "+gp
+nnoremap P  "+gP
+vnoremap y  "+y
+vnoremap Y  "+Y
 
 " Preserve indentation while put (pasting) text from the system clipboard
 " imap <C-v>  <C-O>:set paste<CR><C-O>:set nopaste<CR>
@@ -576,7 +576,7 @@ vnoremap Y "*Y
 " Yank from current cursor position to left or right end respectively.
 nnoremap yh v0y
 nnoremap yl v$y$
-nnoremap <silent><Leader>p :YRShow<CR>
+nnoremap <silent><Leader>pp :YRShow<CR>
 
 let g:yankring_max_history = 1000
 let g:yankring_dot_repeat_yank = 1
@@ -1627,6 +1627,8 @@ augroup AlFileTypes
   autocmd BufWritePre *                 call LastModified()
   autocmd BufWritePre *                 call StripTrailingWhitespace()
   autocmd BufNewFile *                  silent! 0r  ~/.vim.local/templates/%:e.tpl
+  " Change the directory to the current file upon entering a buffer.
+  autocmd BufEnter *                    silent! lcd %:p:h
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1781,9 +1783,10 @@ endif
 "-------------------------------------------------------------------------------
 
 
-" TODO:
+" TODO: Refactor statusline
 
-" FIXME:
+" FIXME: LastModified function jumps
+
 " NOTE:
 
 
