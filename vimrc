@@ -2,7 +2,7 @@
 "	Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-"	Last Modified: Sun Oct 21, 2012  05:57PM
+"	Last Modified: Sun Oct 21, 2012  09:14PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -559,14 +559,14 @@ endfunction
 " EDIT: "{{{
 "*******************************************************************************
 " "Yank | Put | Clipboard (Copy | Paste | Yankring)"
-set clipboard+=unnamedplus  " Use system clipboard for yanks
-set pastetoggle=<F6>    " Avoid double indetation when pasting formatted text
-set go+=a               " TODO: Visual selection automatically copied to the clipboard
+set clipboard+=unnamedplus  " Use system clipboard for yanks.
+set pastetoggle=<F6>        " Preserve indetation when pasting formatted text.
+set go+=a                   " ?
 
 nnoremap y "*y
 nnoremap yy "*Y
-nnoremap p "*pV`]=
-nnoremap P "*PV`]=
+nnoremap p "*gp
+nnoremap P "*gP
 vnoremap y "*y
 vnoremap Y "*Y
 
@@ -576,11 +576,14 @@ vnoremap Y "*Y
 " Yank from current cursor position to left or right end respectively.
 nnoremap yh v0y
 nnoremap yl v$y$
+nnoremap <silent><Leader>p :YRShow<CR>
 
 let g:yankring_max_history = 1000
-let g:yankring_max_display = 78
 let g:yankring_dot_repeat_yank = 1
-let g:yankring_window_height = 8
+let g:yankring_window_height = 10
+let g:yankring_min_element_length = 3
+let g:yankring_replace_n_pkey = '<C-p>'
+let g:yankring_replace_n_nkey = '<C-n>'
 let g:yankring_history_dir = '~/.vim.local/data/'
 let g:yankring_history_file = 'yankring_history'
 "-------------------------------------------------------------------------------
@@ -713,21 +716,6 @@ function! SpellFlag()
     return "[S]"
   endif
 endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Strip Trailing Whitespace" Quickly remove trailing whitespace.
-function! StripTrailingWhitespace()
-  " Only strip if the b:noStripeWhitespace variable isn't set
-  if exists('b:noStripWhitespace')
-      return
-  endif
-  %s/\s\+$//e
-endfunction
-
-autocmd BufWritePre * call StripTrailingWhitespace()
-autocmd FileType filetype1,filetype2 let b:noStripWhitespace=1 "TODO: this goes in vimrc.local
 "-------------------------------------------------------------------------------
 
 
@@ -1637,6 +1625,7 @@ endfunction
 "*******************************************************************************
 augroup AlFileTypes
   autocmd BufWritePre *                 call LastModified()
+  autocmd BufWritePre *                 call StripTrailingWhitespace()
   autocmd BufNewFile *                  silent! 0r  ~/.vim.local/templates/%:e.tpl
 augroup END
 "-----------------------------------------------------------------------------
@@ -1749,6 +1738,18 @@ function! LastModified()
     call histdel('search', -1)
     call setpos('.', save_cursor)
   endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Strip Trailing Whitespace"
+function! StripTrailingWhitespace()
+  " Only strip if the b:noStripeWhitespace variable isn't set
+  if exists('b:noStripWhitespace')
+    return
+  endif
+  %s/\s\+$//e
 endfunction
 "-------------------------------------------------------------------------------
 
