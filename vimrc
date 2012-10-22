@@ -2,7 +2,7 @@
 " Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-" Last Modified: Mon Oct 22, 2012  11:35AM
+" Last Modified: Mon Oct 22, 2012  12:13PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -15,18 +15,13 @@ runtime ftplugin/man.vim
 
 
 
-" "Terminal Environment"
-set term=$TERM
-"-------------------------------------------------------------------------------
-
-
-
-" "Color Scheme"
+" "Color Scheme & Syntax Highlighting"
 set background=dark         " Use a dark background.
 set t_Co=256                " Force terminal to go into 256 color mode.
+set synmaxcol=300           " Prevent long lines from slowing down redraws.
 syntax on		                " Syntax highlighting on.
 colorscheme molokaiEz       " Default color scheme.
-nnoremap <Leader>etheme :SCROLL<CR>
+nnoremap <Leader>theme :SCROLL<CR>
 
 " Show syntax highlighting group for current word.
 function! <SID>SynStack()
@@ -82,10 +77,8 @@ endif
 
 
 
-" "Performance Tweaks"
+" "Terminal Settings"
 set ttyfast            " Indicates a fast terminal connection.
-set synmaxcol=300      " Prevent long lines from slowing down redraws.
-set lazyredraw         " Don't redraw while executing macros.
 "-------------------------------------------------------------------------------
 
 
