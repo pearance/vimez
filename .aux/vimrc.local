@@ -2,3 +2,12 @@
 
 " "Paragraph Formatting"
 " set formatprg=par
+"-------------------------------------------------------------------------------
+
+
+
+" "Strip Trailing Whitespace"
+" Uncomment and replace filetype1,filetype2... with filetypes you don't want
+" trailing whitespace striped automatically upon file write.
+autocmd FileType filetype1,filetype2 let b:noStripWhitespace=1
+"-------------------------------------------------------------------------------
