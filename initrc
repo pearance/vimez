@@ -2,7 +2,7 @@
 "	Description:   Initial configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainer:    Fontaine Cook, Various Contributors
-"	Last Modified: Sun Oct 21, 2012  05:49PM
+"	Last Modified: Mon Oct 22, 2012  11:22AM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -45,31 +45,33 @@ Bundle "vimez/tmux"
 
 
 
-" UI/UX
-Bundle "vimez/showmarks"
-Bundle "vim-scripts/Rename2"
-Bundle "vim-scripts/bufkill.vim"
+" Editing
 Bundle "vim-scripts/YankRing.vim"
 Bundle "tpope/vim-surround"
-Bundle "tpope/vim-repeat"
-Bundle "tpope/vim-rvm"
-Bundle "tpope/vim-unimpaired"
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/neosnippet"
 Bundle "tomtom/tcomment_vim"
-Bundle "xolox/vim-session"
-Bundle "scrooloose/nerdtree"
-Bundle "duff/vim-bufonly"
 Bundle "sjl/gundo.vim"
-Bundle "Raimondi/delimitMate"
 Bundle "mattn/zencoding-vim"
+Bundle "docunext/closetag.vim"
+Bundle "tpope/vim-repeat"
+Bundle "Raimondi/delimitMate"
+
+
+
+
+" Interface
+Bundle "Lokaltog/vim-powerline"
 Bundle "kien/ctrlp.vim"
 Bundle "benmills/vimux"
-Bundle "docunext/closetag.vim"
-Bundle "Lokaltog/vim-powerline"
-
-
-
+Bundle "duff/vim-bufonly"
+Bundle "vim-scripts/bufkill.vim"
+Bundle "vimez/showmarks"
+Bundle "tpope/vim-unimpaired"
+Bundle "tpope/vim-rvm"
+Bundle "xolox/vim-session"
+Bundle "scrooloose/nerdtree"
+Bundle "vim-scripts/Rename2"
 "-------------------------------------------------------------------------------
 
 
