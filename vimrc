@@ -1,8 +1,8 @@
 " Title:         vimrc
-"	Description:   Main configuration file for VimEz.
+" Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-"	Last Modified: Sun Oct 21, 2012  09:47PM
+" Last Modified: Mon Oct 22, 2012  11:35AM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -61,10 +61,12 @@ set history=100          " Amount of commands and searches to keep in history.
 
 
 
-" "Character Encoding" Default to UTF-8 character encoding unless the terminal
-" doesn't support it. In which case use Latin1 character encoding instead.
+" "Character Encoding"
+" Default to UTF-8 character encoding unless the terminal doesn't support it. In
+" which case use Latin1 character encoding instead.
 if has("multi_byte")
   set encoding=utf-8
+  scriptencoding utf-8
   if $TERM == "linux" || $TERM_PROGRAM == "GLterm"
     set termencoding=latin1
   endif
@@ -76,9 +78,6 @@ if has("multi_byte")
     endif
   endif
 endif
-
-scriptencoding utf-8
-set encoding=utf-8
 "-------------------------------------------------------------------------------
 
 
@@ -235,7 +234,6 @@ let NERDTreeMapPreviewSplit='gh'
 let NERDTreeMapOpenVSplit='v'
 let NERDTreeMapPreviewVSplit='gv'
 let NERDTreeBookmarksFile=expand("~/.vim.local/data/NERDTreeBookmarks")
-let NERDTreeDirArrows=0
 nnoremap <silent><Leader>,, :NERDTreeToggle .<CR>
 "-------------------------------------------------------------------------------
 
@@ -1427,7 +1425,7 @@ set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set wrapscan            " Set the search scan to wrap around the file
 " Clear search highlight
-nnoremap <silent> ,<Space> :nohlsearch<CR>
+nnoremap <silent><Leader>/ :nohlsearch<CR>
 " Prevent search current word command from jumping
 nnoremap * *``
 "-------------------------------------------------------------------------------
