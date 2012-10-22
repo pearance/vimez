@@ -4,7 +4,7 @@
 #	Description:    VimEz installation script.
 # Author:         Fontaine Cook <fontaine.cook@pearance.com>
 # Maintainer:     Fontaine Cook <fontaine.cook@pearance.com>
-#	Last Modified: Wed Oct 17, 2012  01:13PM
+#	Last Modified: Mon Oct 22, 2012  01:53PM
 #
 #	Copyright 2011 Pearance LLC.
 #
@@ -69,10 +69,6 @@ if [ -e ~/.vimrc ]; then
   /bin/mv -f ~/.vimrc backup/vimez/
 fi
 
-if [ -e ~/.gvimrc ]; then
-  /bin/mv -f ~/.gvimrc backup/vimez/
-fi
-
 if [ -e ~/.vim ]; then
   /bin/mv -f ~/.vim backup/vimez/
 fi
@@ -118,7 +114,6 @@ sleep $DLY
 touch ~/.vim.local/spell/en.utf-8.add
 /bin/cp -f ~/.vim/.aux/initrc.local ~/.vim.local/
 /bin/cp -f ~/.vim/.aux/vimrc.local ~/.vim.local/
-/bin/cp -f ~/.vim/.aux/gvimrc.local ~/.vim.local/
 #printf "%${COL}s"
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
@@ -130,14 +125,12 @@ sleep $DLY
 /bin/echo -e $BD$M
 /bin/echo -en "* Linking to configuration files...  "
 cd ~
-for i in .vimrc .gvimrc
+for i in .vimrc
   do [ -e $i ] && /bin/rm -f ~/$i
 done
 
 /bin/ln -s .vim/vimrc .vimrc
-/bin/ln -s .vim/gvimrc .gvimrc
 /bin/ln -s .vim.local/vimrc.local .vimrc.local
-/bin/ln -s .vim.local/gvimrc.local .gvimrc.local
 /bin/ln -s .vim.local/initrc.local .initrc.local
 
 #printf "%-2s"
