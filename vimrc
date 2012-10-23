@@ -1,14 +1,22 @@
-" Title:         vimrc
-" Description:   Main configuration file for VimEz.
+" __     _____ __  __ ____   ____
+" \ \   / /_ _|  \/  |  _ \ / ___|
+"  \ \ / / | || |\/| | |_) | |
+"   \ V /  | || |  | |  _ <| |___
+"    \_/  |___|_|  |_|_| \_\\____|
+"
+"
+" Description:   The primary Vim configuration file.
 " Authors:       Fontaine Cook, Various Contributors
-" Maintainers:   Fontaine Cook, Various Contributors
-" Last Modified: Tue Oct 23, 2012  05:34PM
+" Maintainers:
 "------------------------------------------------------------------------------
+
+
 
 " GENERAL: "{{{
 "*******************************************************************************
 " "Initialization"
-so ~/.vim/initrc    " Include dependent plugin bundles.
+so ~/.vim/initrc                  " Include dependent plugin bundles.
+filetype plugin indent on         " Automatically detect file types.
 runtime macros/matchit.vim
 runtime ftplugin/man.vim
 "-------------------------------------------------------------------------------
@@ -22,7 +30,6 @@ set synmaxcol=300           " Prevent long lines from slowing down redraws.
 syntax on		                " Syntax highlighting on.
 colorscheme molokai-ez       " Default color scheme.
 nnoremap <Leader>theme :SCROLL<CR>
-
 
 " Show syntax highlighting group for current word.
 function! <SID>SynStack()
@@ -330,6 +337,8 @@ let g:BufKillOverrideCtrlCaret=1
 
 
 " "Sessions (Session.vim)"
+" Changes the effect of the :mksession command. It is a comma separated list of
+" words.  Each word enables saving and restoring something:
 let g:session_autoload = 'yes'
 let g:session_autosave = 'yes'
 let g:session_directory = '~/.vim.local/sessions/'
@@ -943,7 +952,7 @@ endif
 " "Folds"
 augroup Folds
   autocmd! Folds
-  autocmd FileType * set foldcolumn=2
+  autocmd FileType * set foldcolumn=1
 augroup END
 "-------------------------------------------------------------------------------
 
@@ -1465,7 +1474,6 @@ endfunction
 
 
 " "Marks (ShowMarks)"
-let g:showmarks_enable = 1
 let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 let g:showmarks_textlower = ")"
 let g:showmarks_textupper = "]"
@@ -1781,6 +1789,7 @@ endif
 autocmd bufwritepost .vimrc call Pl#Load()
 autocmd bufwritepost molokai-ez.vim call Pl#Load()
 "-------------------------------------------------------------------------------
+" "}}}
 
 
 
@@ -1789,12 +1798,13 @@ autocmd bufwritepost molokai-ez.vim call Pl#Load()
 " TODO: Remove remnants of status line
 " TODO: special invisible characters
 
+
 " FIXME:
+
 
 " NOTE:
 
 
 
-" vim: set fdm=marker:
 " vim: set ft=vim:
-" "}}}
+" vim: set fdm=marker:
