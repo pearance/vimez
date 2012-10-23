@@ -2,13 +2,13 @@
 " Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-" Last Modified: Mon Oct 22, 2012  12:13PM
+" Last Modified: Tue Oct 23, 2012  02:05PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
 "*******************************************************************************
 " "Initialization"
-source ~/.vim/initrc    " Include dependent plugin bundles.
+so ~/.vim/initrc    " Include dependent plugin bundles.
 runtime macros/matchit.vim
 runtime ftplugin/man.vim
 "-------------------------------------------------------------------------------
@@ -20,8 +20,9 @@ set background=dark         " Use a dark background.
 set t_Co=256                " Force terminal to go into 256 color mode.
 set synmaxcol=300           " Prevent long lines from slowing down redraws.
 syntax on		                " Syntax highlighting on.
-colorscheme molokaiEz       " Default color scheme.
+colorscheme molokai-ez       " Default color scheme.
 nnoremap <Leader>theme :SCROLL<CR>
+
 
 " Show syntax highlighting group for current word.
 function! <SID>SynStack()
@@ -41,7 +42,8 @@ let mapleader="\<Space>"  " Map personal modifier aka Leader key.
 
 
 
-" "Commandline" More convenient entrance to Commandline and Commandline Edit mode from Normal mode.
+" "Commandline"
+" More convenient entrance to Commandline and Commandline Edit mode from Normal mode.
 nnoremap ; :
 vnoremap ; :
 nnoremap ;; ;
@@ -730,18 +732,6 @@ nnoremap <silent> <F5><F5>
       \ <Bar> <C-w>=
       \ <Bar> <C-w>h
 
-" Automatically
-augroup LocalReload
-  autocmd! LocalReload
-  autocmd bufwritepost .vimrc source $MYVIMRC | exe 'CSApprox' | nohlsearch
-  autocmd bufwritepost .vimrc call Msg('VimEz Reloaded!')
-  autocmd bufwritepost vimrc source $MYVIMRC | exe 'CSApprox' | nohlsearch
-  autocmd bufwritepost vimrc call Msg('VimEz Reloaded!')
-  autocmd bufwritepost molokaiEz.vim source $MYVIMRC | exe 'CSApprox' | nohlsearch
-  autocmd bufwritepost molokaiEz.vim call Msg('VimEz Reloaded!')
-augroup END
-"-------------------------------------------------------------------------------
-
 
 
 " "Edit Initrc"
@@ -751,7 +741,7 @@ nnoremap <silent><Leader>ei :e ~/.vim/initrc<CR>
 
 
 " "Edit Color Scheme"
-nnoremap <silent><Leader>ecs :e ~/.vim/bundle/themes/colors/molokaiEz.vim<CR>
+nnoremap <silent><Leader>ecs :e ~/.vim/bundle/themes/colors/molokai-ez.vim<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -983,45 +973,52 @@ set showcmd                       " Show (partial) command in states line.
 set laststatus=2                  " Keep status lines visible at all times.
 set cmdheight=2                   " Number of lines to use for the command-line.
 
-set statusline=
-set stl+=%#User1#                       " Brighten
-set stl+=\                              " Space
-set stl+=%04(%l%),%02(%v%)              " Current line
-set stl+=\                              " Space
-set stl+=%#User2#                       " Dimmed
-set stl+=[                              " Open bracket
-set stl+=S:%{CurrentSession()}          " Current Session
-set stl+=]                              " Close bracket
-set stl+=\                              " Space
-set stl+=%#User1#                       " Brighten
-set stl+=%t                             " Filename
-set stl+=%{Filestate_status()}          " File status
-set stl+=%#User2#                       " Dimmed
-set stl+=%w                             " Preview flag
-set stl+=\                              " Space
-set stl+=\                              " Space
-set stl+=\                              " Space
-set stl+=%=                             " Align right
-set stl+=                               " TODO: diff mode flag
-set stl+=                               " TODO: scrollbind flag
-set stl+=                               " TODO: capslock flag
-set stl+=%{AutoCompleteFlag()}          " Auto Complete flag
-set stl+=%{WrapFlag()}                  " Wrap flag
-set stl+=%{SpellFlag()}                 " Spellcheck flag
-set stl+=\                              " Space
-set stl+=[                              " Open bracket
-set stl+=%{ExpandTabFlag()}             " Soft tab flag
-set stl+=%{TabStopStatus()}             " Tab size
-set stl+=]                              " Close bracket
-set stl+=\                              " Space
-set stl+=[                              " Open bracket
-set stl+=%{Fileencoding_status()}\/     " File encoding
-set stl+=%{Fileformat_status()}         " File format
-set stl+=]                              " Close bracket
-set stl+=\                              " Space
-set stl+=%#User1#                       " Brighten
-set stl+=[%{Filetype_status()}]         " File type
-set stl+=%<                             " Truncate this side of the aisle
+" set statusline=
+" set stl+=%#User1#                       " Brighten
+" set stl+=\                              " Space
+" set stl+=%04(%l%),%02(%v%)              " Current line
+" set stl+=\                              " Space
+" set stl+=%#User2#                       " Dimmed
+" set stl+=[                              " Open bracket
+" set stl+=S:%{CurrentSession()}          " Current Session
+" set stl+=]                              " Close bracket
+" set stl+=\                              " Space
+" set stl+=%#User1#                       " Brighten
+" set stl+=%t                             " Filename
+" set stl+=%{Filestate_status()}          " File status
+" set stl+=%#User2#                       " Dimmed
+" set stl+=%w                             " Preview flag
+" set stl+=\                              " Space
+" set stl+=\                              " Space
+" set stl+=\                              " Space
+" set stl+=%=                             " Align right
+" set stl+=                               " TODO: diff mode flag
+" set stl+=                               " TODO: scrollbind flag
+" set stl+=                               " TODO: capslock flag
+" set stl+=%{AutoCompleteFlag()}          " Auto Complete flag
+" set stl+=%{WrapFlag()}                  " Wrap flag
+" set stl+=%{SpellFlag()}                 " Spellcheck flag
+" set stl+=\                              " Space
+" set stl+=[                              " Open bracket
+" set stl+=%{ExpandTabFlag()}             " Soft tab flag
+" set stl+=%{TabStopStatus()}             " Tab size
+" set stl+=]                              " Close bracket
+" set stl+=\                              " Space
+" set stl+=[                              " Open bracket
+" set stl+=%{Fileencoding_status()}\/     " File encoding
+" set stl+=%{Fileformat_status()}         " File format
+" set stl+=]                              " Close bracket
+" set stl+=\                              " Space
+" set stl+=%#User1#                       " Brighten
+" set stl+=[%{Filetype_status()}]         " File type
+" set stl+=%<                             " Truncate this side of the aisle
+"-------------------------------------------------------------------------------
+
+
+" "Power Line"
+let g:Powerline_cache_enabled = 0
+let g:Powerline_symbols = 'unicode'
+call Pl#Theme#InsertSegment('ws_marker', 'after', 'lineinfo')
 "-------------------------------------------------------------------------------
 
 
@@ -1612,9 +1609,10 @@ endfunction
 
 
 " "}}}
-" AUTOMATED COMMANDS: "{{{
+" ACTIONS: "{{{
 "*******************************************************************************
-augroup AlFileTypes
+augroup AllFileTypes
+  autocmd!
   autocmd BufWritePre *                 call LastModified()
   autocmd BufWritePre *                 call StripTrailingWhitespace()
   autocmd BufNewFile *                  silent! 0r  ~/.vim.local/templates/%:e.tpl
@@ -1623,7 +1621,10 @@ augroup AlFileTypes
 augroup END
 "-----------------------------------------------------------------------------
 
+
+
 augroup HTML
+  autocmd!
   autocmd BufNewFile,BufRead *.htm      set filetype=html
   autocmd BufNewFile,BufRead *.html     set filetype=html
   autocmd Filetype html                 call EnableCloseTag()
@@ -1666,11 +1667,16 @@ autocmd FileType php                  let php_minlines=500
 
 
 " "Vim Script"
-autocmd BufNewFile,BufRead vimrc      set foldmethod=marker
-autocmd BufNewFile,BufRead .vimrc     set foldmethod=marker
-autocmd BufNewFile,BufRead _vimrc     set foldmethod=marker
-autocmd BufNewFile,BufRead .initrc    set foldmethod=marker
-autocmd BufNewFile,BufRead .vim       set filetype=vim
+augroup LocalReload
+  autocmd!
+  autocmd BufNewFile,BufRead .vim       set filetype=vim
+  autocmd bufwritepost .vimrc so $MYVIMRC | exe 'CSApprox' | nohlsearch
+  autocmd bufwritepost  vimrc so $MYVIMRC | exe 'CSApprox' | nohlsearch
+  autocmd bufwritepost .vimrc call Msg('VimEz Reloaded!')
+  autocmd bufwritepost  vimrc call Msg('VimEz Reloaded!')
+  autocmd bufwritepost  molokai-ez.vim so $MYVIMRC | exe 'CSApprox' | nohlsearch
+  autocmd bufwritepost  molokai-ez.vim call Msg('VimEz Reloaded!')
+augroup END
 "-----------------------------------------------------------------------------
 
 
@@ -1686,6 +1692,16 @@ autocmd BufNewFile,BufRead *.txt      setlocal tw=79
 "-----------------------------------------------------------------------------
 
 
+
+" "Vimez Dev"
+augroup VimezDev
+  autocmd!
+  autocmd bufwritepost .vimrc so $MYVIMRC | exe 'CSApprox' | nohlsearch
+  autocmd bufwritepost  vimrc so $MYVIMRC | exe 'CSApprox' | nohlsearch
+  autocmd bufwritepost .vimrc call Msg('VimEz Reloaded!')
+  autocmd bufwritepost  vimrc call Msg('VimEz Reloaded!')
+  autocmd bufwritepost  molokai-ez.vim so $MYVIMRC | exe 'CSApprox' | nohlsearch
+  autocmd bufwritepost  molokai-ez.vim call Msg('VimEz Reloaded!')
 augroup END
 "-------------------------------------------------------------------------------
 
@@ -1751,7 +1767,7 @@ endfunction
 " "Enable Close Tag"
 " Close open tags automatically upon entering </
 function! EnableCloseTag()
-    source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
+    so ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1769,12 +1785,22 @@ endfunction
 
 " "Source Local Config"
 if filereadable(expand("~/.vimrc.local"))
-	source ~/.vimrc.local
+	so ~/.vimrc.local
 endif
 "-------------------------------------------------------------------------------
 
 
+
+" "Wrap Up"
+" HACK: Reload Powerline color scheme.
+autocmd bufwritepost .vimrc call Pl#Load()
+autocmd bufwritepost molokai-ez.vim call Pl#Load()
+"-------------------------------------------------------------------------------
+
+
+
 " TODO: Refactor statusline
+" TODO: Finish grouping autocmds
 
 " FIXME: LastModified function jumps
 
