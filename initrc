@@ -1,11 +1,16 @@
-" Title:         initrc
+"  ___ _   _ ___ _____ ____   ____
+" |_ _| \ | |_ _|_   _|  _ \ / ___|
+"  | ||  \| || |  | | | |_) | |
+"  | || |\  || |  | | |  _ <| |___
+" |___|_| \_|___| |_| |_| \_\\____|
+"
+"
 "	Description:   Initial configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
-" Maintainer:    Fontaine Cook, Various Contributors
-"	Last Modified: Mon Oct 22, 2012  11:22AM
-"------------------------------------------------------------------------------
+" Maintainer:
+"-------------------------------------------------------------------------------
 
-" GENERAL: "{{{
+" PLUGIN BUNDLES: "{{{
 "*******************************************************************************
 " "Initilization"
 set nocompatible            " Harnest the iMprovements brough by Vim.
@@ -15,14 +20,14 @@ filetype off
 
 
 
-" PLUGIN BUNDLES:
-"*******************************************************************************
 " "Plugin Manager (Vundle)"
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 let g:vundle_default_git_proto = 'git'
 Bundle "gmarik/vundle"
 "-------------------------------------------------------------------------------
+
+
 
 " "Plugin Bundles"
 " Theme
@@ -59,7 +64,6 @@ Bundle "Raimondi/delimitMate"
 
 
 
-
 " Interface
 Bundle "Lokaltog/vim-powerline"
 Bundle "kien/ctrlp.vim"
@@ -73,28 +77,20 @@ Bundle "xolox/vim-session"
 Bundle "scrooloose/nerdtree"
 Bundle "vim-scripts/Rename2"
 "-------------------------------------------------------------------------------
-
-
-
-" "File Type Detection"
-filetype plugin indent on         " Automatically detect file types.
-"-------------------------------------------------------------------------------
+"}}}
 
 
 
 " TODO:
 
+
 " FIXME:
+
+
 " NOTE:
 
 
 
 
-
-
-
-
-
-
-
 " vim: set ft=vim:
+" vim: set fdm=marker:
