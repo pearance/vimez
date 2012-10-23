@@ -2,7 +2,7 @@
 " Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-" Last Modified: Tue Oct 23, 2012  04:30PM
+" Last Modified: Tue Oct 23, 2012  04:57PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -88,16 +88,8 @@ set ttyfast            " Indicates a fast terminal connection.
 " "Timeout Length" The time waited for a key code or mapped key sequence to
 " complete.  As you become more fluent with the key mappings you may want toC
 " drop this to 250.
-set timeoutlen=750 "TODO: RESEARCH
+set timeoutlen=500 "TODO: RESEARCH
 "set notimeout ttimeout ttimeoutlen=200
-"-------------------------------------------------------------------------------
-
-
-
-" "Mouse"
-"set mouse=a                  " Enable mouse usage (all modes)
-"set selectmode=mouse         " Selection with the mouse trigers Select mode
-"set ttymouse=xterm2          " Enable basic mouse functionality in a terminal
 "-------------------------------------------------------------------------------
 
 
@@ -119,6 +111,12 @@ cmap <A-h> <Left>
 cmap <C-h> <Left>
 cmap <A-l> <Right>
 cmap <C-l> <Right>
+"-------------------------------------------------------------------------------
+
+
+
+" "Display Full Path"
+nnoremap <silent><C-g> 2<C-g>
 "-------------------------------------------------------------------------------
 
 
