@@ -6,6 +6,14 @@
 
 
 
+" "Mouse"
+"set mouse=a                  " Enable mouse usage (all modes)
+"set selectmode=mouse         " Selection with the mouse trigers Select mode
+"set ttymouse=xterm2          " Enable basic mouse functionality in a terminal
+"-------------------------------------------------------------------------------
+
+
+
 " "Strip Trailing Whitespace"
 " Uncomment and replace filetype1,filetype2... with filetypes you don't want
 " trailing whitespace striped automatically upon file write.
@@ -35,13 +43,14 @@ if has("gui_running")
   " Ubuntu Mono
   " set guifont=Terminus\ for\ Powerline\ 8
   " Source Code Pro
+  "-------------------------------------------------------------------------------
+
 
 
   " "Powerline Statusline"
   " This option defines which set of symbols and dividers you want to use. There
   " are currently three available options: "compatible", "unicode" and "fancy".
   let g:Powerline_symbols = 'unicode'
-
+  "-------------------------------------------------------------------------------
 
 endif
-"-------------------------------------------------------------------------------
