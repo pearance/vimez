@@ -1,4 +1,18 @@
+"  __     _____ __  __ ____   ____   _     ___   ____    _    _
+"  \ \   / /_ _|  \/  |  _ \ / ___| | |   / _ \ / ___|  / \  | |
+"   \ \ / / | || |\/| | |_) | |     | |  | | | | |     / _ \ | |
+"    \ V /  | || |  | |  _ <| |___ _| |___ |_| | |___ / ___ \| |___
+"     \_/  |___|_|  |_|_| \_\\____(_)_____\___/ \____/_/   \_\_____|
+"
+"
+" Description:   The local Vim configuration file.
+" Authors:       Fontaine Cook, Various Contributors
+" Maintainers:
+"-------------------------------------------------------------------------------
+
 " Enter your custom local settings here.
+
+
 
 " "Paragraph Formatting"
 " set formatprg=par
@@ -54,3 +68,5 @@ if has("gui_running")
   "-------------------------------------------------------------------------------
 
 endif
+
+" vim: set ft=vim:
