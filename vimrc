@@ -2,7 +2,7 @@
 " Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-" Last Modified: Tue Oct 23, 2012  02:05PM
+" Last Modified: Tue Oct 23, 2012  02:42PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -1245,7 +1245,7 @@ vnoremap <silent><Leader>dd 0r<Space>
 " "Space"
 " A sensible compromise for the ability to add a quick space whilst in
 " Normal mode.
-nnoremap <Space><Space> i<Space><Esc>l
+nnoremap ,<Space> i<Space><Esc>l
 "Add a blank line above cursor position
 nmap - [<Space>
 "Add a blank line below cursor position
@@ -1254,9 +1254,10 @@ nmap = ]<Space>
 
 
 
-" "Tab Indentation" Tab to indent one level and Shift-Tab to go back one
-" level, based on tab settings. Acts on a single line while in Normal mode and
-" blocks of text while in Visual mode.
+" "Tab Indentation"
+" Tab to indent one level and Shift-Tab to go back one level, based on tab
+" settings. Acts on a single line while in Normal mode and blocks of text while
+" in Visual mode.
 set expandtab           " Expand tabs using spaces instead of a tab char
 set shiftwidth=2        " Amount of shift when in Normal mode
 set tabstop=2           " Number of spaces that a <Tab> in the file counts for.
@@ -1267,17 +1268,22 @@ set autoindent          " Enable auto indentation
 set copyindent          " Copy the previous indentation on autoindenting
 set preserveindent      " Preserve existing characters for indenting
 set smartindent
+
+" Give the tab key utiltiy in normal & visual modes.
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
+nnoremap ,<Tab> i<Tab><Esc>
+
+" Mappings to toggle soft tab.
 nnoremap <Leader>tab :call Tab()<CR>
-command! -nargs=* Tab call Tab()
-nnoremap <silent><Leader>tt :setlocal expandtab!<CR>
-nmap <silent><Leader>tt
+nnoremap <silent><Leader>tt
       \ :setlocal expandtab!<CR><Bar>
       \ :let OnOrOff=&expandtab<CR><Bar>
       \ :call ToggleOnOff("Soft Tabs", OnOrOff)<CR>
 
-" Prompt for tab size and apply to softtabstop, tabstop, and shiftwidth.
+" Define a Tab command that calls a function that prompts for a tab size and
+" applies it uniformally to softtabstop, tabstop, and shiftwidth.
+command! -nargs=* Tab call Tab()
 function! Tab()
   let l:tabstop = 1 * input('Tab Size: ')
   if l:tabstop > 0
@@ -1290,8 +1296,8 @@ endfunction
 
 " Message a summary of current tab settings.
 function! TabSummary()
-    echo 'Current tab settings: '
-    echo 'tabstop='.&l:ts
+    echo ' Current tab settings: '
+    echo ' tabstop='.&l:ts
     echo ' shiftwidth='.&l:sw
     echo ' softtabstop='.&l:sts
     if &l:et
@@ -1415,7 +1421,7 @@ set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set wrapscan            " Set the search scan to wrap around the file
 " Clear search highlight
-nnoremap <silent><Leader>/ :nohlsearch<CR>
+nnoremap <silent>,, :nohlsearch<CR>
 " Prevent search current word command from jumping
 nnoremap * *``
 "-------------------------------------------------------------------------------
@@ -1801,6 +1807,8 @@ autocmd bufwritepost molokai-ez.vim call Pl#Load()
 
 " TODO: Refactor statusline
 " TODO: Finish grouping autocmds
+" TODO: Remove remnants of status line
+" TODO: special invisible characters
 
 " FIXME: LastModified function jumps
 
