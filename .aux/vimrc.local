@@ -11,3 +11,37 @@
 " trailing whitespace striped automatically upon file write.
 autocmd FileType filetype1,filetype2 let b:noStripWhitespace=1
 "-------------------------------------------------------------------------------
+
+
+
+" "*** gVim & MacVim ***"
+"
+if has("gui_running")
+
+  " "Default Font"
+  " set guifont=Anonymous\ Pro\ for\ Powerline:h14
+  " set guifont=Bitstream\ Vera\ Sans\ Mono\ for\ Powerline:h14
+  " Consolas here
+  " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+  " Droid Sans Mono here
+  " Envy Code here
+  " Incosolata here
+  " Menlo here
+  " Mensch here
+  " Lucida Sans Typewriter
+  " Meslo DZ Regular
+  " Monaco
+  " Monofur
+  " Ubuntu Mono
+  " set guifont=Terminus\ for\ Powerline\ 8
+  " Source Code Pro
+
+
+  " "Powerline Statusline"
+  " This option defines which set of symbols and dividers you want to use. There
+  " are currently three available options: "compatible", "unicode" and "fancy".
+  let g:Powerline_symbols = 'unicode'
+
+
+endif
+"-------------------------------------------------------------------------------
