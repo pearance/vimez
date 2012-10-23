@@ -2,7 +2,7 @@
 " Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-" Last Modified: Tue Oct 23, 2012  02:42PM
+" Last Modified: Tue Oct 23, 2012  04:30PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -1359,7 +1359,7 @@ inoremap jj <Esc>
 inoremap JJ <Esc>
 cnoremap jj <C-c>
 cnoremap JJ <C-c>
-vnoremap <Space><Space> <Esc>
+vnoremap ,, <Esc>
 "-------------------------------------------------------------------------------
 
 
