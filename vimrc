@@ -2,7 +2,7 @@
 " Description:   Main configuration file for VimEz.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:   Fontaine Cook, Various Contributors
-" Last Modified: Tue Oct 23, 2012  04:57PM
+" Last Modified: Tue Oct 23, 2012  05:34PM
 "------------------------------------------------------------------------------
 
 " GENERAL: "{{{
@@ -85,16 +85,17 @@ set ttyfast            " Indicates a fast terminal connection.
 
 
 
-" "Timeout Length" The time waited for a key code or mapped key sequence to
-" complete.  As you become more fluent with the key mappings you may want toC
-" drop this to 250.
+" "Timeout Length"
+" The time waited for a key code or mapped key sequence to complete.  As you
+" become more fluent with the key mappings you may want toC drop this to 250.
 set timeoutlen=500 "TODO: RESEARCH
 "set notimeout ttimeout ttimeoutlen=200
 "-------------------------------------------------------------------------------
 
 
 
-" "Update Time" How frequent marks, statusbar, swap files, and other are updated.
+" "Update Time"
+" How frequent marks, statusbar, swap files, and other are updated.
 set updatetime=1000
 "-------------------------------------------------------------------------------
 
@@ -1617,7 +1618,6 @@ endfunction
 "*******************************************************************************
 augroup AllFileTypes
   autocmd!
-  autocmd BufWritePre *                 call LastModified()
   autocmd BufWritePre *                 call StripTrailingWhitespace()
   autocmd BufNewFile *                  silent! 0r  ~/.vim.local/templates/%:e.tpl
   " Change the directory to the current file upon entering a buffer.
@@ -1737,25 +1737,6 @@ endfunction
 
 
 
-
-" "Last Modified"
-" If buffer modified, update any 'Last modified: ' in the first 20 lines.
-" 'Last modified: ' can have up to 10 characters before (they are retained).
-" Restores cursor and window position using save_cursor variable.
-function! LastModified()
-  if &modified
-    let save_cursor = getpos(".")
-    let n = min([20, line("$")])
-    keepjumps exe '1,' . n . 's#^\(.\{,10}Last Modified: \).*#\1' .
-          \ strftime('%a %b %d, %Y  %I:%M%p') . '#e'
-    call histdel('search', -1)
-    call setpos('.', save_cursor)
-  endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
 " "Strip Trailing Whitespace"
 function! StripTrailingWhitespace()
   " Only strip if the b:noStripeWhitespace variable isn't set
@@ -1808,7 +1789,7 @@ autocmd bufwritepost molokai-ez.vim call Pl#Load()
 " TODO: Remove remnants of status line
 " TODO: special invisible characters
 
-" FIXME: LastModified function jumps
+" FIXME:
 
 " NOTE:
 
