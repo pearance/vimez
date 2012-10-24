@@ -1594,6 +1594,7 @@ endfunction
 " "}}}
 " ACTIONS: "{{{
 " *******************************************************************************
+" "All File Types"
 augroup AllFileTypes
   autocmd!
   autocmd BufWritePre *                 call StripTrailingWhitespace()
@@ -1605,6 +1606,7 @@ augroup END
 
 
 
+" "HTML"
 augroup HTML
   autocmd!
   autocmd BufNewFile,BufRead *.htm      set filetype=html
@@ -1616,36 +1618,52 @@ augroup END
 
 
 " "XML/XSL"
-autocmd Filetype xml                  call EnableCloseTag()
-autocmd Filetype xsl                  call EnableCloseTag()
+augroup XMLXSL
+  autocmd!
+  autocmd Filetype xml                  call EnableCloseTag()
+  autocmd Filetype xsl                  call EnableCloseTag()
+augroup END
 "-----------------------------------------------------------------------------
 
 
 
 " "Shell Script"
-autocmd BufNewFile,BufRead *.sh       set filetype=sh
-autocmd BufWritePost *.sh             call MakeFileExecutable()
+augroup ShellScript
+  autocmd!
+  autocmd BufNewFile,BufRead *.sh       set filetype=sh
+  autocmd BufWritePost *.sh             call MakeFileExecutable()
+augroup END
 "-----------------------------------------------------------------------------
 
 
 
 " "Smarty Template Engine"
-autocmd BufNewFile,BufRead *.tpl      set filetype=html
+augroup Smarty
+  autocmd!
+  autocmd BufNewFile,BufRead *.tpl      set filetype=html
+augroup END
 "-----------------------------------------------------------------------------
 
 
 
 " "Drupal CMS Framework"
-autocmd BufNewFile,BufRead *.module   set filetype=php
-autocmd BufNewFile,BufRead *.install  set filetype=php
-autocmd BufNewFile,BufRead *.test     set filetype=php
+augroup DrupalCMS
+  autocmd!
+  autocmd BufNewFile,BufRead *.module   set filetype=php
+  autocmd BufNewFile,BufRead *.install  set filetype=php
+  autocmd BufNewFile,BufRead *.test     set filetype=php
+augroup END
 "-----------------------------------------------------------------------------
 
 
 
 " "PHP"
-autocmd BufNewFile,BufRead *.php      set filetype=php
-autocmd FileType php                  let php_minlines=500
+augroup PHP
+  autocmd!
+  autocmd BufNewFile,BufRead *.php      set filetype=php
+  autocmd FileType php                  let php_minlines=500
+augroup END
+"-----------------------------------------------------------------------------
 
 
 
@@ -1659,13 +1677,19 @@ augroup END
 
 
 " "Apache Config"
-autocmd BufNewFile,BufRead /*apache*  set filetype=apache
+augroup ApacheConfig
+  autocmd!
+  autocmd BufNewFile,BufRead /*apache*  set filetype=apache
+augroup END
 "-----------------------------------------------------------------------------
 
 
 
 " "Plain Text"
-autocmd BufNewFile,BufRead *.txt      setlocal tw=79
+augroup PlainText
+  autocmd!
+autocmd BufNewFile,BufRead *.txt      setlocal tw=80
+augroup END
 "-----------------------------------------------------------------------------
 
 
