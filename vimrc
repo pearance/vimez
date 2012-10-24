@@ -5,15 +5,15 @@
 "    \_/  |___|_|  |_|_| \_\\____|
 "
 "
-" Description:   The primary Vim configuration file.
 " Authors:       Fontaine Cook, Various Contributors
 " Maintainers:
+" Description:   The primary Vim configuration file.
 "------------------------------------------------------------------------------
 
 
 
 " GENERAL: "{{{
-"*******************************************************************************
+" *******************************************************************************
 " "Initialization"
 so ~/.vim/initrc                  " Include dependent plugin bundles.
 filetype plugin indent on         " Automatically detect file types.
@@ -138,7 +138,7 @@ nnoremap <silent><C-g> 2<C-g>
 
 " "}}}
 " BUFFER: "{{{
-"*******************************************************************************
+" *******************************************************************************
 " "General File/Buffer Settings"
 set fileformats=unix,dos,mac
 set hidden      " Hide buffers when they are abandoned
@@ -558,16 +558,16 @@ endfunction
 
 " "}}}
 " EDIT: "{{{
-"*******************************************************************************
+" *******************************************************************************
 " "Yank | Put | Clipboard (Copy | Paste | Yankring)"
 set clipboard+=unnamedplus  " Use system clipboard for yanks.
 set pastetoggle=<F6>        " Preserve indetation when pasting formatted text.
 set go+=a                   " ?
 
-nnoremap y  "+y
+nnoremap Y  "+Y
 nnoremap yy "+Y
-nnoremap p  "+gp
-nnoremap P  "+gP
+nnoremap p  "+]p
+nnoremap P  "+]P
 vnoremap y  "+y
 vnoremap Y  "+Y
 
@@ -721,41 +721,8 @@ endfunction
 
 
 
-" "Edit Vimrc" This would be Vim's version of [Edit Preferences]. Upon saving
-" the file is sourced so most of time your changes should take effect
-" immediately. However, some changes will only take effect after restarting Vim.
-nnoremap <silent><Leader>ev :e $MYVIMRC<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Redraw/Reload"
-" Manually
-nnoremap <silent> <F5> :redraw!<CR><Bar> :call Msg('VimEz Redrawn!')<CR>
-nnoremap <silent> <F5><F5>
-      \       :ColorClear<CR>
-      \ <Bar> :so $MYVIMRC<CR>
-      \ <Bar> :nohlsearch<CR>
-      \ <Bar> :call Msg('VimEz Reloaded!')<CR>
-      \ <Bar> <C-w>=
-      \ <Bar> <C-w>h
-
-
-
-" "Edit Initrc"
-nnoremap <silent><Leader>ei :e ~/.vim/initrc<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Edit Color Scheme"
-nnoremap <silent><Leader>ecs :e ~/.vim/bundle/themes/colors/molokai-ez.vim<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Edit Tmux" Edit and reload on write.
-nnoremap <silent><Leader>et :e ~/.tmux.conf<CR>
+" "Reload"
+nnoremap <silent><F5> :call Reload()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -769,7 +736,7 @@ nnoremap <silent><Leader>et :e ~/.tmux.conf<CR>
 
 " "}}}
 " VIEW: "{{{
-"*******************************************************************************
+" *******************************************************************************
 " "Title Bar" Set title bar to display current file, path, and server hostname.
 set title
 set titlestring=%t%(%{Filestate_status()}%)
@@ -952,14 +919,13 @@ endif
 " "Folds"
 augroup Folds
   autocmd! Folds
-  autocmd FileType * set foldcolumn=1
+  autocmd FileType * set foldcolumn=2
 augroup END
 "-------------------------------------------------------------------------------
 
 
 
 " "View Options"
-set viewoptions-=options
 set viewdir=~/.vim.local/view//,.
 augroup vimrc
     autocmd BufWritePost *
@@ -1024,9 +990,13 @@ set cmdheight=2                   " Number of lines to use for the command-line.
 
 
 " "Power Line"
-let g:Powerline_cache_enabled = 0
-let g:Powerline_symbols = 'unicode'
 call Pl#Theme#InsertSegment('ws_marker', 'after', 'lineinfo')
+let g:Powerline_cache_enabled = 0
+let g:Powerline_symbols = 'compatible'
+let g:Powerline_symbols_override = {
+    \ 'BRANCH': [0x2213],
+    \ 'LINE': 'LN',
+    \ }
 "-------------------------------------------------------------------------------
 
 
@@ -1040,7 +1010,7 @@ call Pl#Theme#InsertSegment('ws_marker', 'after', 'lineinfo')
 
 " "}}}
 " INSERT: "{{{
-"*******************************************************************************
+" *******************************************************************************
 " "Format Options"
 set formatoptions=
 set fo-=t  " Auto-wrap text using textwidth
@@ -1361,7 +1331,7 @@ endfunction
 
 "}}}
 " NAVIGATION: "{{{
-"*******************************************************************************
+" *******************************************************************************
 " "Escape" A more efficient alternative to the escape key.
 inoremap jj <Esc>
 inoremap JJ <Esc>
@@ -1494,7 +1464,7 @@ nnoremap <silent><Leader>mm  :ShowMarksPlaceMark<CR>
 
 "}}}
 " TOOLS: "{{{
-"*******************************************************************************
+" *******************************************************************************
 " "Color Table (XtermColorTable)"
 nnoremap <silent><Leader>tct :XtermColorTable<CR>
 "-------------------------------------------------------------------------------
@@ -1516,7 +1486,7 @@ nnoremap <silent><Leader>pwd :pwd<CR>
 
 " }}}
 " WINDOW: "{{{
-"*******************************************************************************
+" *******************************************************************************
 " "Focus Windows"
 noremap <silent><Leader>h  :wincmd h<CR>
 noremap <silent><Leader>j  :wincmd j<CR>
@@ -1573,7 +1543,7 @@ noremap <silent><Leader>sh :split<CR>
 
 " }}}
 " HELP: "{{{
-"*******************************************************************************
+" *******************************************************************************
 nnoremap <silent><F1> "zyw:exe "h ".@z.""<CR>
 augroup HelpGroup
   autocmd! HelpGroup
@@ -1623,7 +1593,7 @@ endfunction
 
 " "}}}
 " ACTIONS: "{{{
-"*******************************************************************************
+" *******************************************************************************
 augroup AllFileTypes
   autocmd!
   autocmd BufWritePre *                 call StripTrailingWhitespace()
@@ -1653,6 +1623,7 @@ autocmd Filetype xsl                  call EnableCloseTag()
 
 
 " "Shell Script"
+autocmd BufNewFile,BufRead *.sh       set filetype=sh
 autocmd BufWritePost *.sh             call MakeFileExecutable()
 "-----------------------------------------------------------------------------
 
@@ -1679,15 +1650,9 @@ autocmd FileType php                  let php_minlines=500
 
 
 " "Vim Script"
-augroup LocalReload
+augroup VimScript
   autocmd!
   autocmd BufNewFile,BufRead .vim       set filetype=vim
-  autocmd bufwritepost .vimrc so $MYVIMRC | exe 'CSApprox' | nohlsearch
-  autocmd bufwritepost  vimrc so $MYVIMRC | exe 'CSApprox' | nohlsearch
-  autocmd bufwritepost .vimrc call Msg('VimEz Reloaded!')
-  autocmd bufwritepost  vimrc call Msg('VimEz Reloaded!')
-  autocmd bufwritepost  molokai-ez.vim so $MYVIMRC | exe 'CSApprox' | nohlsearch
-  autocmd bufwritepost  molokai-ez.vim call Msg('VimEz Reloaded!')
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1708,13 +1673,34 @@ autocmd BufNewFile,BufRead *.txt      setlocal tw=79
 " "Vimez Dev"
 augroup VimezDev
   autocmd!
-  autocmd bufwritepost .vimrc so $MYVIMRC | exe 'CSApprox' | nohlsearch
-  autocmd bufwritepost  vimrc so $MYVIMRC | exe 'CSApprox' | nohlsearch
-  autocmd bufwritepost .vimrc call Msg('VimEz Reloaded!')
-  autocmd bufwritepost  vimrc call Msg('VimEz Reloaded!')
-  autocmd bufwritepost  molokai-ez.vim so $MYVIMRC | exe 'CSApprox' | nohlsearch
-  autocmd bufwritepost  molokai-ez.vim call Msg('VimEz Reloaded!')
+  " autocmd bufwritepost .vimrc so $MYVIMRC | exe 'CSApprox' | nohlsearch
+  " autocmd bufwritepost  vimrc so $MYVIMRC | exe 'CSApprox' | nohlsearch
+  " autocmd bufwritepost .vimrc call Msg('VimEz Reloaded!')
+  " autocmd bufwritepost  vimrc call Msg('VimEz Reloaded!')
+  " autocmd bufwritepost  molokai-ez.vim so $MYVIMRC | exe 'CSApprox' | nohlsearch
+  " autocmd bufwritepost  molokai-ez.vim call Msg('VimEz Reloaded!')
 augroup END
+"-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+" "}}}
+" FUNCTIONS: "{{{
+" *******************************************************************************
+if !exists("*Reload")
+  function! Reload()
+    nohlsearch
+    so $MYVIMRC
+    call Msg('VimEz Reloaded!')
+  endfunction
+endif
 "-------------------------------------------------------------------------------
 
 
