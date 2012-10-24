@@ -69,6 +69,10 @@ if [ -e ~/.vimrc ]; then
   /bin/mv -f ~/.vimrc backup/vimez/
 fi
 
+if [ -e ~/.gvimrc ]; then
+  /bin/mv -f ~/.gvimrc backup/vimez/
+fi
+
 if [ -e ~/.vim ]; then
   /bin/mv -f ~/.vim backup/vimez/
 fi
