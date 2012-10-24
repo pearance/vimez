@@ -5,15 +5,60 @@
 "     \_/  |___|_|  |_|_| \_\\____(_)_____\___/ \____/_/   \_\_____|
 "
 "
-" Description:   The local Vim configuration file.
-" Authors:       Fontaine Cook, Various Contributors
-" Maintainers:
+" Maintainer:    Me
+" Description:   The local Vim configuration file. Here is where you get your
+"                overides on.
+"------------------------------------------------------------------------------
+
+
+" CONFIG FILES: "{{{
+" *******************************************************************************
+" This would be Vim's version of accessing [Edit Preferences]. These files are
+" sourced post save, so most of the time your changes should take effect
+" immediately. However, some changes will only take effect after restarting Vim.
+
+
+
+" "Local Initialization"
+so ~/.vim.local/initrc.local            " Include dependent plugin bundles.
 "-------------------------------------------------------------------------------
 
-" Enter your custom local settings here.
+
+
+" "Edit Initrc"
+nnoremap <silent><Leader>e<F1> :e ~/.vim.local/initrc.local<CR>
+"-------------------------------------------------------------------------------
 
 
 
+" "Edit Vimrc"
+nnoremap <silent><Leader>e<F2> :e ~/.vim.local/vimrc.local<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Edit Color Scheme" TODO: make local override with
+" http://www.vim.org/scripts/script.php?script_id=1641
+nnoremap <silent><Leader>e<F3> :e ~/.vim.local/bundle/themes/colors/molokai-ez.vim<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Edit Tmux Conf"
+nnoremap <silent><Leader>e<F4> :e ~/.tmux.conf<CR>
+"-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+" }}}
+" UNCATEGORIZED: "{{{
 " "Paragraph Formatting"
 " set formatprg=par
 "-------------------------------------------------------------------------------
