@@ -1592,7 +1592,7 @@ endfunction
 
 
 " "}}}
-" ACTIONS: "{{{
+" AUTOMATION: "{{{
 " *******************************************************************************
 " "All File Types"
 augroup AllFileTypes
@@ -1688,7 +1688,7 @@ augroup END
 " "Plain Text"
 augroup PlainText
   autocmd!
-autocmd BufNewFile,BufRead *.txt      setlocal tw=80
+autocmd BufNewFile,BufRead *.txt        setlocal tw=80
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1697,12 +1697,8 @@ augroup END
 " "Vimez Dev"
 augroup VimezDev
   autocmd!
-  " autocmd bufwritepost .vimrc so $MYVIMRC | exe 'CSApprox' | nohlsearch
-  " autocmd bufwritepost  vimrc so $MYVIMRC | exe 'CSApprox' | nohlsearch
-  " autocmd bufwritepost .vimrc call Msg('VimEz Reloaded!')
-  " autocmd bufwritepost  vimrc call Msg('VimEz Reloaded!')
-  " autocmd bufwritepost  molokai-ez.vim so $MYVIMRC | exe 'CSApprox' | nohlsearch
-  " autocmd bufwritepost  molokai-ez.vim call Msg('VimEz Reloaded!')
+  autocmd bufwritepost  vimrc,.vimrc,_vimrc,vimrc.local     call Reload()
+  autocmd bufwritepost  molokai-ez.vim                      call Reload()
 augroup END
 "-------------------------------------------------------------------------------
 
@@ -1722,7 +1718,11 @@ if !exists("*Reload")
   function! Reload()
     nohlsearch
     so $MYVIMRC
-    call Msg('VimEz Reloaded!')
+    " Reapproximate hex color codes for terminal
+    exe 'CSApprox'
+    " Reapply Powerline color scheme
+    call Pl#Load()
+    call Msg('VimEz Written & Reloaded!')
   endfunction
 endif
 "-------------------------------------------------------------------------------
@@ -1791,15 +1791,9 @@ if filereadable(expand("~/.vimrc.local"))
 	so ~/.vimrc.local
 endif
 "-------------------------------------------------------------------------------
-
-
-
-" "Wrap Up"
-" HACK: Reload Powerline color scheme.
-autocmd bufwritepost .vimrc call Pl#Load()
-autocmd bufwritepost molokai-ez.vim call Pl#Load()
-"-------------------------------------------------------------------------------
 " "}}}
+
+
 
 
 
@@ -1810,10 +1804,6 @@ autocmd bufwritepost molokai-ez.vim call Pl#Load()
 
 
 " FIXME:
-
-
-" NOTE:
-
 
 
 " vim: set ft=vim:
