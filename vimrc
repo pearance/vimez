@@ -234,6 +234,7 @@ let NERDTreeMapOpenSplit='h'
 let NERDTreeMapPreviewSplit='gh'
 let NERDTreeMapOpenVSplit='v'
 let NERDTreeMapPreviewVSplit='gv'
+let NERDTreeDirArrows=1
 let NERDTreeBookmarksFile=expand("~/.vim.local/data/NERDTreeBookmarks")
 nnoremap <silent><Leader>,, :NERDTreeToggle .<CR>
 "-------------------------------------------------------------------------------
@@ -1702,6 +1703,7 @@ augroup END
 augroup VimezDev
   autocmd!
   autocmd bufwritepost  vimrc,.vimrc,_vimrc,vimrc.local     call Reload()
+  autocmd bufwritepost  initrc,initrc.local                 call Reload()
   autocmd bufwritepost  molokai-ez.vim                      call Reload()
 augroup END
 "-------------------------------------------------------------------------------
@@ -1733,7 +1735,7 @@ endif
 
 
 
-" "Toggle On/Off Function"
+" "Toggle On/Off"
 " Prints a message of the current toggled state of various features.
 function! ToggleOnOff(OptionName, OnOrOff)
   let OptionName = a:OptionName
@@ -1745,7 +1747,7 @@ endfunction
 
 
 
-" "Message Funtion"
+" "Messages"
 " Prints [long] message up to (&columns-1) length without the 'Press Enter'
 " prompt.
 function! Msg(msg)
@@ -1787,6 +1789,7 @@ function! MakeFileExecutable()
   call Msg("Written as an executable shell script!")
 endfunction
 "-------------------------------------------------------------------------------
+" "}}}
 
 
 
@@ -1795,7 +1798,6 @@ if filereadable(expand("~/.vimrc.local"))
 	so ~/.vimrc.local
 endif
 "-------------------------------------------------------------------------------
-" "}}}
 
 
 
