@@ -942,7 +942,7 @@ augroup END
 
 
 " "Status Line"
-set showmode                      " Message on status line to show current mode.
+set noshowmode                    " Message on status line to show current mode.
 set showcmd                       " Show (partial) command in states line.
 set laststatus=2                  " Keep status lines visible at all times.
 set cmdheight=2                   " Number of lines to use for the command-line.
@@ -990,13 +990,17 @@ set cmdheight=2                   " Number of lines to use for the command-line.
 
 
 " "Power Line"
-call Pl#Theme#InsertSegment('ws_marker', 'after', 'lineinfo')
 let g:Powerline_cache_enabled = 0
 let g:Powerline_symbols = 'compatible'
+let g:Powerline_stl_path_style = 'filename'
+let g:Powerline_theme = 'default'
+let g:Powerline_colorscheme = 'default'
 let g:Powerline_symbols_override = {
     \ 'BRANCH': [0x2213],
     \ 'LINE': 'LN',
     \ }
+call Pl#Theme#InsertSegment('ws_marker', 'after', 'lineinfo')
+" call Pl#Theme#RemoveSegment('rvm')
 "-------------------------------------------------------------------------------
 
 
@@ -1798,9 +1802,9 @@ endif
 
 
 " TODO: Refactor statusline
-" TODO: Finish grouping autocmds
 " TODO: Remove remnants of status line
 " TODO: special invisible characters
+" TODO: map ,l next buffer and ,h to previous
 
 
 " FIXME:
