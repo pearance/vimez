@@ -12,11 +12,83 @@
 
 
 
+" BUNDLES: {{{
+" ******************************************************************************
+
+" "Initilization"
+set nocompatible
+filetype on
+filetype off
+"-------------------------------------------------------------------------------
+
+
+
+" "Plugin Manager (Vundle)"
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+let g:vundle_default_git_proto = 'git'
+Bundle "gmarik/vundle"
+"-------------------------------------------------------------------------------
+
+
+
+" "Plugin Bundles"
+Bundle "vimez/themes"
+Bundle "vim-scripts/CSApprox"
+Bundle "vim-scripts/ScrollColors"
+Bundle "lilydjwg/colorizer"
+Bundle "othree/html5.vim"
+Bundle "hail2u/vim-css-syntax"
+Bundle "hail2u/vim-css3-syntax"
+Bundle "pangloss/vim-javascript"
+Bundle "groenewege/vim-less"
+Bundle "plasticboy/vim-markdown"
+Bundle "vimez/tmux"
+Bundle "vim-scripts/YankRing.vim"
+Bundle "tpope/vim-surround"
+Bundle "Shougo/neocomplcache"
+Bundle "Shougo/neosnippet"
+Bundle "tomtom/tcomment_vim"
+Bundle "sjl/gundo.vim"
+Bundle "mattn/zencoding-vim"
+Bundle "docunext/closetag.vim"
+Bundle "tpope/vim-repeat"
+Bundle "Raimondi/delimitMate"
+Bundle "Lokaltog/vim-powerline"
+Bundle "kien/ctrlp.vim"
+Bundle "benmills/vimux"
+Bundle "duff/vim-bufonly"
+Bundle "vim-scripts/bufkill.vim"
+Bundle "vimez/showmarks"
+Bundle "tpope/vim-unimpaired"
+Bundle "tpope/vim-rvm"
+Bundle "xolox/vim-session"
+Bundle "scrooloose/nerdtree"
+Bundle "vim-scripts/Rename2"
+Bundle "godlygeek/tabular"
+Bundle "ervandew/screen"
+"-------------------------------------------------------------------------------
+
+
+
+" "Detect File Types"
+filetype plugin indent on
+"-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+" }}}
 " GENERAL: "{{{
-" *******************************************************************************
-" "Initialization"
-so ~/.vim/initrc                  " Include dependent plugin bundles.
-filetype plugin indent on         " Automatically detect file types.
+" ******************************************************************************
+
+" "Runtimes"
 runtime macros/matchit.vim
 runtime ftplugin/man.vim
 "-------------------------------------------------------------------------------
@@ -150,7 +222,8 @@ nnoremap <silent><F5> :call Reload()<CR>
 
 " "}}}
 " BUFFER: "{{{
-" *******************************************************************************
+" ******************************************************************************
+
 " "General File/Buffer Settings"
 set fileformats=unix,dos,mac
 set hidden      " Hide buffers when they are abandoned
@@ -486,11 +559,11 @@ nnoremap <Leader>Q :qa<CR>
 
 " "}}}
 " EDIT: "{{{
-" *******************************************************************************
+" ******************************************************************************
+
 " "Yank | Put | Clipboard (Copy | Paste | Yankring)"
 set clipboard+=unnamedplus  " Use system clipboard for yanks.
 set pastetoggle=<F6>        " Preserve indetation when pasting formatted text.
-set go+=a                   " ?
 
 nnoremap Y  "+Y
 nnoremap yy "+Y
@@ -540,12 +613,6 @@ set undolevels=1000
 set undofile
 set undodir=~/.vim.local/tmp/undos//,.
 nnoremap <silent><Leader>uu :GundoToggle<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Reselect Pasted Text"
-nnoremap <Leader>v V`]
 "-------------------------------------------------------------------------------
 
 
@@ -649,11 +716,11 @@ nmap <silent><Leader>ts
 
 " "}}}
 " VIEW: "{{{
-" *******************************************************************************
+" ******************************************************************************
+
 " "Title Bar" Set title bar to display current file, path, and server hostname.
 set title
-set titlestring=%t%(%{Filestate_status()}%)
-set titlestring+=%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
+set titlestring=%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
 "-------------------------------------------------------------------------------
 
 
@@ -861,7 +928,8 @@ call Pl#Theme#InsertSegment('ws_marker', 'after', 'lineinfo')
 
 " "}}}
 " INSERT: "{{{
-" *******************************************************************************
+" ******************************************************************************
+
 " "Format Options"
 set formatoptions=
 set fo-=t  " Auto-wrap text using textwidth
@@ -1146,7 +1214,8 @@ endfunction
 
 "}}}
 " NAVIGATION: "{{{
-" *******************************************************************************
+" ******************************************************************************
+
 " "Escape" A more efficient alternative to the escape key.
 inoremap jj <Esc>
 inoremap JJ <Esc>
@@ -1223,10 +1292,9 @@ nnoremap * *``
 
 
 
-" "Search and Replace"
-" TODO: Add functionality for visual selection
-nnoremap <Leader>asr :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
-nnoremap <Leader>sr :call SearchReplace()<CR>
+" "Find and Replace"
+nnoremap <C-f> :call FindReplace()<CR>
+vnoremap <C-f> :call FindReplace()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1252,7 +1320,8 @@ nnoremap <silent><Leader>mm  :ShowMarksPlaceMark<CR>
 
 "}}}
 " TOOLS: "{{{
-" *******************************************************************************
+" ******************************************************************************
+
 " "Execute Terminal Commands (Vimux)"
 let g:VimuxOrientation = "h"
 
@@ -1300,7 +1369,8 @@ nnoremap <silent><Leader>pwd :pwd<CR>
 
 " }}}
 " WINDOW: "{{{
-" *******************************************************************************
+" ******************************************************************************
+
 " "Focus Windows"
 noremap <silent><Leader>h  :wincmd h<CR>
 noremap <silent><Leader>j  :wincmd j<CR>
@@ -1357,7 +1427,8 @@ noremap <silent><Leader>sh :split<CR>
 
 " }}}
 " AUTOMATION: "{{{
-" *******************************************************************************
+" ******************************************************************************
+
 " "All File Types"
 augroup AllFileTypes
   autocmd!
@@ -1489,7 +1560,9 @@ augroup END
 
 " "}}}
 " FUNCTIONS: "{{{
-" *******************************************************************************
+" ******************************************************************************
+
+" "Reload Configurations"
 if !exists("*Reload")
   function! Reload()
     nohlsearch
@@ -1498,7 +1571,7 @@ if !exists("*Reload")
     exe 'CSApprox'
     " Reapply Powerline color scheme
     call Pl#Load()
-    call Msg('VimEz Written & Reloaded!')
+    call Msg('Vim Configuration Written & Reloaded!')
   endfunction
 endif
 "-------------------------------------------------------------------------------
@@ -1635,10 +1708,9 @@ endfunction
 
 
 
-" "Search and Replace"
-function! SearchReplace()
-  let CurrentWord=expand("<cword>")
-
+" "Find and Replace"
+function! FindReplace()
+  let CurrentWord=GetVisual()
   " Get search string.
   call inputsave()
   let  CurrentString = input("Search for: ", CurrentWord)
@@ -1658,30 +1730,82 @@ function! SearchReplace()
   if option == 0
     echon "Invalid response. Please try again."
   elseif option == 1
-    " Execute whole word only search and replace.
+    " Find exact matches.
     exe "%s/\\<".CurrentString."\\>/".NewString."/gc"
   elseif option == 2
-    " Execute normal search and replace.
+    " Find any matches.
     exe "%s/".CurrentString."/".NewString."/gc"
   endif
 endfunction
 "-------------------------------------------------------------------------------
+
+
+
+" "Escape String"
+" Escape special characters in a string for exact matching. This is useful to
+" copying strings from the file to the search tool Based on this
+" - http://peterodding.com/code/vim/profile/autoload/xolox/escape.vim
+function! EscapeString (string)
+  let string=a:string
+  " Escape regex characters
+  let string = escape(string, '^$.*\/~[]')
+  " Escape the line endings
+  let string = substitute(string, '\n', '\\n', 'g')
+  return string
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Get Visual Selection"
+" Get the current visual block for search and replaces This function passed the
+" visual block through a string escape function above. Based on
+" - http://stackoverflow.com/questions/676600/vim-replace-selected-text/677918#677918
+function! GetVisual() range
+  " Save the current register and clipboard
+  let reg_save = getreg('"')
+  let regtype_save = getregtype('"')
+  let cb_save = &clipboard
+  set clipboard&
+
+  " Put the current visual selection in the " register
+  normal! ""gvy
+  let selection = getreg('"')
+
+  " Put the saved registers and clipboards back
+  call setreg('"', reg_save, regtype_save)
+  let &clipboard = cb_save
+
+  "Escape any special characters in the selection
+  let escaped_selection = EscapeString(selection)
+
+  return escaped_selection
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 " "}}}
 " WRAP: "{{{
-" *******************************************************************************
+" ******************************************************************************
 
-
-
-" "Source Local Config"
+" "Load Local Configurations"
 if filereadable(expand("~/.vimrc.local"))
-	so ~/.vimrc.local
+  so ~/.vimrc.local
 endif
 "-------------------------------------------------------------------------------
 
 
 
 
-
+" "Todo/s, Fixme/s"
 " TODO: Refactor statusline
 " TODO: Remove remnants of status line
 " TODO: special invisible characters
@@ -1690,6 +1814,7 @@ endif
 " TODO: session info in powerline
 " TODO: consolidate tmp files in vim.local dir to tmp folder
 
+" XXX
 
 " FIXME:
 
