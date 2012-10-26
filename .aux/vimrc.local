@@ -11,6 +11,14 @@
 "------------------------------------------------------------------------------
 
 
+" BUNDLES: "{{{
+" *******************************************************************************
+" "Local Bundles"
+" here
+"-------------------------------------------------------------------------------
+
+
+" }}}
 " CONFIG FILES: "{{{
 " *******************************************************************************
 " This would be Vim's version of accessing [Edit Preferences]. These files are
@@ -19,33 +27,21 @@
 
 
 
-" "Local Initialization"
-so ~/.vim.local/initrc.local            " Include dependent plugin bundles.
-"-------------------------------------------------------------------------------
-
-
-
-" "Edit Initrc"
-nnoremap <silent><Leader>e<F1> :e ~/.vim.local/initrc.local<CR>
-"-------------------------------------------------------------------------------
-
-
-
 " "Edit Vimrc"
-nnoremap <silent><Leader>e<F2> :e ~/.vim.local/vimrc.local<CR>
+nnoremap <silent><Leader>e1 :e ~/.vim.local/vimrc.local<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Edit Color Scheme" TODO: make local override with
 " http://www.vim.org/scripts/script.php?script_id=1641
-nnoremap <silent><Leader>e<F3> :e ~/.vim.local/bundle/themes/colors/molokai-ez.vim<CR>
+nnoremap <silent><Leader>e2 :e ~/.vim.local/bundle/themes/colors/molokai-ez.vim<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Edit Tmux Conf"
-nnoremap <silent><Leader>e<F4> :e ~/.tmux.conf<CR>
+nnoremap <silent><Leader>e3 :e ~/.tmux.conf<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -59,6 +55,17 @@ nnoremap <silent><Leader>e<F4> :e ~/.tmux.conf<CR>
 
 " }}}
 " UNCATEGORIZED: "{{{
+" *******************************************************************************
+
+" "Spell Checking"
+" Make sure to update the spelllang to your language. Custom words are tucked
+" away in the .vim/spell folder.
+set nospell               " Options: spell or nospell
+set spelllang=en_us       " Default language
+"-------------------------------------------------------------------------------
+
+
+
 " "Paragraph Formatting"
 " set formatprg=par
 "-------------------------------------------------------------------------------
