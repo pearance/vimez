@@ -63,6 +63,7 @@ Bundle "xolox/vim-session"
 Bundle "scrooloose/nerdtree"
 Bundle "vim-scripts/Rename2"
 Bundle "godlygeek/tabular"
+Bundle "ervandew/screen"
 "-------------------------------------------------------------------------------
 
 
@@ -77,5 +78,4 @@ Bundle "godlygeek/tabular"
 
 
 
-" vim: set ft=vim:
-" vim: set fdm=marker:
+" vim:ft=vim:fdm=marker:
