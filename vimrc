@@ -312,7 +312,7 @@ let NERDTreeMapPreviewSplit='gh'
 let NERDTreeMapOpenVSplit='v'
 let NERDTreeMapPreviewVSplit='gv'
 let NERDTreeDirArrows=1
-let NERDTreeBookmarksFile=expand("~/.vim.local/data/NERDTreeBookmarks")
+let NERDTreeBookmarksFile=expand("~/.vim.local/tmp/NERDTreeBookmarks")
 nnoremap <silent><Leader>,, :NERDTreeToggle .<CR>
 "-------------------------------------------------------------------------------
 
@@ -417,7 +417,7 @@ let g:BufKillOverrideCtrlCaret=1
 " words.  Each word enables saving and restoring something:
 let g:session_autoload = 'yes'
 let g:session_autosave = 'yes'
-let g:session_directory = '~/.vim.local/sessions/'
+let g:session_directory = '~/.vim.local/tmp/sessions/'
 
 set sessionoptions=
 set ssop+=blank        " Blank	empty windows
@@ -505,7 +505,7 @@ set vi+=h	    " Disable 'hlsearch' highlighting when starting
 set vi+=%	    " Buffer list (restored when starting Vim without arguments)
 set vi+=c	    " Convert the text using 'encoding'
 set vi+=s100  " Max amount of kilobytes of any single register.
-set vi+=n~/.vim.local/data/viminfo	" Name used for the viminfo file.
+set vi+=n~/.vim.local/tmp/viminfo	" Name used for the viminfo file.
 "-------------------------------------------------------------------------------
 
 
@@ -586,7 +586,7 @@ let g:yankring_window_height = 10
 let g:yankring_min_element_length = 3
 let g:yankring_replace_n_pkey = '<C-p>'
 let g:yankring_replace_n_nkey = '<C-n>'
-let g:yankring_history_dir = '~/.vim.local/data/'
+let g:yankring_history_dir = '~/.vim.local/tmp/'
 let g:yankring_history_file = 'yankring_history'
 "-------------------------------------------------------------------------------
 
@@ -692,13 +692,13 @@ endfunction
 
 
 
-" "Spell Checking" Remember spelling bees? Those were the days. Make sure to
-" update the spelllang to your language. Custom words are tucked away in the
-" .vim/spell folder. Leader ts toggles dynamic spell checking.
+" "Spell Checking"
+" Make sure to update the spelllang to your language. Custom words are tucked
+" away in the .vim/spell folder.
 set nospell               " Dynamic spell checking off by default
 set spelllang=en_us       " Default language
 set spellsuggest=5        " How many spelling suggestions to list
-set spellfile=~/.vim.local/spell/en.utf-8.add " Custom spell file
+set spellfile=~/.vim.local/dictionaries/en.utf-8.add " Custom spell file
 nmap <silent><Leader>ts
       \ :setl spell!<CR><Bar>
       \ :let OnOrOff=&spell<CR><Bar>
@@ -883,7 +883,7 @@ augroup END
 
 
 " "View Options"
-set viewdir=~/.vim.local/view//,.
+set viewdir=~/.vim.local/tmp/view//,.
 augroup vimrc
     autocmd BufWritePost *
     \   if expand('%') != '' && &buftype !~ 'nofile'
