@@ -1,26 +1,19 @@
 #!/bin/bash
-#------------------------------------------------------------------------------
-# Title:          .install.sh (VimEz)
+#  ___ _   _ ____ _____  _    _     _       ____  _   _
+# |_ _| \ | / ___|_   _|/ \  | |   | |     / ___|| | | |
+#  | ||  \| \___ \ | | / _ \ | |   | |     \___ \| |_| |
+#  | || |\  |___) || |/ ___ \| |___| |___ _ ___) |  _  |
+# |___|_| \_|____/ |_/_/   \_\_____|_____(_)____/|_| |_|
+#
+# Author:         Fontaine Cook
+# Maintainer:
 #	Description:    VimEz installation script.
-# Author:         Fontaine Cook <fontaine.cook@pearance.com>
-# Maintainer:     Fontaine Cook <fontaine.cook@pearance.com>
-#	Last Modified: Mon Oct 22, 2012  01:53PM
-#
-#	Copyright 2011 Pearance LLC.
-#
-#	This program is free software; you can redistribute it and/or
-#	modify it under the terms of the GNU General Public License as
-#	published by the Free Software Foundation.
-#
-#	This program is distributed in the hope that it will be useful, but
-#	WITHOUT ANY WARRANTY; without even the implied warranty of
-#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-#	General Public License for more details.
-#------------------------------------------------------------------------------
+##------------------------------------------------------------------------------
 
 
 
-# Declare variables.
+# VARIABLES {{{
+
 NO="\033[0;39m"
 BD="\033[1;39m"
 RE="\033[4;39m"
@@ -38,7 +31,8 @@ DLY=1
 
 
 
-# Establish "Grand" Title.
+# }}}
+# TITLE {{{
 clear
 /bin/echo -e $BD$RE$M
 /bin/echo -e "                                         "
@@ -48,6 +42,9 @@ clear
 #------------------------------------------------------------------------------
 
 
+
+# }}}
+# BACKUP {{{
 
 # Backup any remnants of an existing Vim install.
 /bin/echo -e $BD$M
@@ -84,7 +81,9 @@ sleep $DLY
 
 
 
-# Clone VimEz
+# }}}
+# DOWNLOAD VIMEZ {{{
+
 /bin/echo -e $BD$M
 /bin/echo -en "* Cloning VimEz...                   "
 git clone -u git://github.com/vimez/vimez.git ~/.vim >>~/tmp/vimez.install.log 2>&1
@@ -95,13 +94,16 @@ sleep $DLY
 
 
 
-# Create .vim.local structure.
+# }}}
+# CREATE LOCAL DIRECTORIES {{{
+
 /bin/echo -e $BD$M
 /bin/echo -en "* Generating .vim.local structure... "
-/bin/mkdir -p ~/.vim.local/data/
-/bin/mkdir -p ~/.vim.local/sessions/
-/bin/mkdir -p ~/.vim.local/spell/
-/bin/mkdir -p ~/.vim.local/view/
+/bin/mkdir -p ~/.vim.local/dictionaries/
+/bin/mkdir -p ~/.vim.local/templates/
+/bin/mkdir -p ~/.vim.local/bundle/
+/bin/mkdir -p ~/.vim.local/tmp/sessions/
+/bin/mkdir -p ~/.vim.local/tmp/view/
 /bin/mkdir -p ~/.vim.local/tmp/backups/
 /bin/mkdir -p ~/.vim.local/tmp/swaps/
 /bin/mkdir -p ~/.vim.local/tmp/undos/
@@ -112,30 +114,31 @@ sleep $DLY
 
 
 
-# Populate .vim.local structure.
+# }}}
+# POPULATE LOCAL DIRECTORIES
+
 /bin/echo -e $BD$M
 /bin/echo -en "* Populating .vim.local structure... "
-touch ~/.vim.local/spell/en.utf-8.add
-/bin/cp -f ~/.vim/.aux/initrc.local ~/.vim.local/
+touch ~/.vim.local/dictionaries/en.utf-8.add
 /bin/cp -f ~/.vim/.aux/vimrc.local ~/.vim.local/
-#printf "%${COL}s"
-sleep $DLY
-/bin/echo -e $BD$G"done"$NO
+#printf "%${col}s"
+sleep $dly
+/bin/echo -e $bd$g"done"$no
 #------------------------------------------------------------------------------
 
 
 
-# Link to configuration files.
+# }}}
+# LINK TO CONFIGURATION FILES {{{
+
 /bin/echo -e $BD$M
 /bin/echo -en "* Linking to configuration files...  "
-cd ~
-for i in .vimrc
-  do [ -e $i ] && /bin/rm -f ~/$i
-done
 
-/bin/ln -s .vim/vimrc .vimrc
-/bin/ln -s .vim.local/vimrc.local .vimrc.local
-/bin/ln -s .vim.local/initrc.local .initrc.local
+cd ~
+/bin/rm -f ~/.vimrc
+
+/bin/ln -s ~/.vim/vimrc .vimrc
+/bin/ln -s ~/.vim.local/vimrc.local .vimrc.local
 
 #printf "%-2s"
 sleep $DLY
@@ -144,12 +147,17 @@ sleep $DLY
 
 
 
-# Clone Vundle and install plugin/bundles.
+# }}}
+# DOWNLOAD VUNDLE & INSTALL {{{
+
 /bin/echo -e $BD$M
 /bin/echo -en "* Installing plugin bundles...       "
+
 git clone http://github.com/vimez/vundle.git ~/.vim/bundle/vundle >>~/tmp/vimez.install.log 2>&1
-vim -u ~/.vim/initrc +BundleInstall "+let g:session_directory = '~/.vim.local/sessions/'" +q >>~/tmp/vimez.install.log 2>&1
+vim -u ~/.vim/initrc +BundleInstall "+let g:session_directory = '~/.vim.local/tmp/sessions/'" +q >>~/tmp/vimez.install.log 2>&1
+
 /bin/rm -r ~/.vim/sessions
+
 #printf "%${COL}s"
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
@@ -157,17 +165,21 @@ sleep $DLY
 
 
 
-# Clean up.
+# }}}
+# WRAP {{{
+
 /bin/echo -e $BD$M
 /bin/echo -en "* Cleaning up...                     "
+
 /bin/rm ~/install.sh >>~/tmp/vimez.install.log 2>&1
+
 #printf "%${COL}s"
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
-#------------------------------------------------------------------------------
 
-
-
-# Outro
 /bin/echo -e $BD$C"\nInstallation Complete\n\n"
 /bin/echo -e "                    Happy vimming!"
+#------------------------------------------------------------------------------
+
+#vim:fdm=marker:
+# }}}
