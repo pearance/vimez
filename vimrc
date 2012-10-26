@@ -23,6 +23,12 @@ runtime ftplugin/man.vim
 
 
 
+" "Help"
+nnoremap <silent><F1> "zyw:exe "h ".@z.""<CR>
+"-------------------------------------------------------------------------------
+
+
+
 " "Color Scheme & Syntax Highlighting"
 set background=dark         " Use a dark background.
 set t_Co=256                " Force terminal to go into 256 color mode.
@@ -129,6 +135,12 @@ nnoremap <silent><C-g> 2<C-g>
 
 
 
+" "Reload"
+nnoremap <silent><F5> :call Reload()<CR>
+"-------------------------------------------------------------------------------
+
+
+
 
 
 
@@ -214,21 +226,13 @@ nnoremap <Leader>dddf :call DeleteFile()<CR>
 
 
 
-" "Rename File (Rename2)" This is handled by the Rename2 plugin and provides
-" the following command: Rename[!] {newname}.
+" "Rename File (Rename2)"
 nnoremap <Leader>rf :Rename<Space>
 "-------------------------------------------------------------------------------
 
 
 
-" "Change Directory" globally to the directory of the current buffer.
-map <leader>cd :cd %:p:h<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Browse Files (NERDTree)" Conventional file browser panel with bookmarking
-" abilities. Provides an efficient way to view file hierarchies.
+" "Browse Files (NERDTree)"
 let NERDTreeChDirMode=2
 let NERDTreeMapOpenSplit='h'
 let NERDTreeMapPreviewSplit='gh'
@@ -241,8 +245,7 @@ nnoremap <silent><Leader>,, :NERDTreeToggle .<CR>
 
 
 
-" "Search Files | Buffers | MRU (CtrlP)" Faster alternative of locating and opening
-" files, than the conventional browsing of a directory tree.
+" "Search for Files, Buffers, or MRU (CtrlP)"
 let g:ctrlp_map = '<Leader>ll'
 let g:ctrlp_prompt_mappings = {
   \ 'PrtExit()':            ['<esc>', '<c-c>', ','],
@@ -270,15 +273,14 @@ vnoremap <silent> <C-s> :update<CR>
 
 
 
-" "Write All Buffers" Write all modified buffers. Buffers without a filename
-" will not be saved.
-nnoremap <silent><Leader>wa :wall<CR>:exe ":echo 'All buffers saved to files!'"<CR>
+" "Write All Buffers"
+" Write all modified buffers. Buffers without a filename will not be saved.
+nnoremap <silent><Leader>wab :wall<CR>:exe ":echo 'All buffers saved to files!'"<CR>
 "-------------------------------------------------------------------------------
 
 
 
-" "Close Buffer (BufKill)" The i<Space><Esc> is required by an empty buffer
-" created by enew in order to close it and remove it form the buffer list.
+" "Close Buffer (BufKill)"
 nnoremap <silent><Leader>cb :BD<CR>
 "-------------------------------------------------------------------------------
 
@@ -290,13 +292,13 @@ nnoremap <silent><Leader>cbb :bd<CR>
 
 
 
-" "Close Others (BufOnly)"
-nnoremap <silent><Leader>co :BufOnly<CR>
+" "Close Other Buffers (BufOnly)"
+nnoremap <silent><Leader>cob :BufOnly<CR>
 "-------------------------------------------------------------------------------
 
 
 
-" "Close All"
+" "Close All Buffers"
 nnoremap <silent><Leader>cab :exec "1," . bufnr('$') . "bd"<CR>
 "-------------------------------------------------------------------------------
 
@@ -391,11 +393,6 @@ nnoremap <Leader>ws :SaveSession<CR>
 
 " "Write Session As (Vim-Session)"
 nnoremap <Leader>wsa :call WriteSessionAs()<CR>
-function! WriteSessionAs()
-  call inputsave()
-  let SessionName = input('Session Name: ')
-  exe "SaveSession " . SessionName
-endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -414,15 +411,6 @@ nnoremap <Leader>cs :SaveSession<CR><Bar>:CloseSession<CR>
 
 " "Delete Session (Vim-Session)"
 nnoremap <Leader>ds :DeleteSession<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Current Session Status"
-function! CurrentSession()
-  let g:currSession = fnamemodify(v:this_session, ":t:r")
-  return g:currSession
-endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -485,67 +473,6 @@ nnoremap <Leader>wqq :SaveSession<CR>:wqa<CR>
 " "Quit" Simpler exit strategy, that prompts if there is any unsaved buffers
 " open.
 nnoremap <Leader>Q :qa<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "File Status"
-function! Filestate_status()
-  " Writable
-  if &readonly || &buftype == "nowrite" || &buftype == "help"
-    return '!'
-  " Modified
-  elseif &modified != 0
-    return '*'
-  " Unmodified
-  else
-    return ' '
-  endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "File Type Status"
-function! Filetype_status()
-  if &filetype == ""
-    return "Plain\ Text"
-  else
-    "let vimez_filetype = substitute(&filetype, "\\w\\+", "\\U\\0", "g")
-    return &filetype
-  endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "File Encoding Status"
-function! Fileencoding_status()
-  if &fileencoding == ""
-    if &encoding != ""
-      "let vimez_encoding = substitute(&encoding, "\\w\\+", "\\U\\0", "g")
-      return &encoding
-    else
-      return "--"
-    endif
-  else
-    "let vimez_fileencoding = substitute(&fileencoding, "\\w\\+", "\\U\\0", "g")
-    return &fileencoding
-  endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "File Format Status"
-function! Fileformat_status()
-  if &fileformat == ""
-    return "--"
-  else
-    "let vimez_fileformat = substitute(&fileformat, "\\w\\+", "\\U\\0", "g")
-    return &fileformat
-  endif
-endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -709,21 +636,6 @@ nmap <silent><Leader>ts
       \ :setl spell!<CR><Bar>
       \ :let OnOrOff=&spell<CR><Bar>
       \ :call ToggleOnOff("Spell Checker", OnOrOff)<CR>
-
-" Generate a statusline flag for Spell Check"
-function! SpellFlag()
-  if &spell == 0
-    return ""
-  else
-    return "[S]"
-  endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Reload"
-nnoremap <silent><F5> :call Reload()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -884,36 +796,13 @@ nnoremap <silent><Leader>tw
       \ :setlocal wrap!<CR><Bar>
       \ :let OnOrOff=&wrap<CR><Bar>
       \ :call ToggleOnOff("Word Wrap", OnOrOff)<CR>
-
-" Generate a statusline flag for Line Wrap"
-function! WrapFlag()
-  if &wrap == 0
-    return ""
-  else
-    return "[W]"
-  endif
-endfunction
 "-------------------------------------------------------------------------------
 
 
 " "Print Margin" TODO: Needs work
-if exists('+colorcolumn')
-  nnoremap <silent><Leader>tpm :call ToggleCC()<CR>
-  let g:ccToggle = 0
-
-  function! ToggleCC()
-    if g:ccToggle == 0
-      set colorcolumn=0
-      redraw!
-      let g:ccToggle=1
-    else
-      set colorcolumn=+1
-      redraw!
-      let g:ccToggle=0
-    endif
-  endfunction
-endif
-"-------------------------------------------------------------------------------
+nnoremap <silent><Leader>tpm :call TogglePrintMargin()<CR>
+" let g:ccToggle = 0
+"------------------------------------------------------------------------------
 
 
 
@@ -942,55 +831,12 @@ augroup END
 
 
 
-" "Status Line"
+" "Status Line (Powerline)"
 set noshowmode                    " Message on status line to show current mode.
 set showcmd                       " Show (partial) command in states line.
 set laststatus=2                  " Keep status lines visible at all times.
 set cmdheight=2                   " Number of lines to use for the command-line.
 
-" set statusline=
-" set stl+=%#User1#                       " Brighten
-" set stl+=\                              " Space
-" set stl+=%04(%l%),%02(%v%)              " Current line
-" set stl+=\                              " Space
-" set stl+=%#User2#                       " Dimmed
-" set stl+=[                              " Open bracket
-" set stl+=S:%{CurrentSession()}          " Current Session
-" set stl+=]                              " Close bracket
-" set stl+=\                              " Space
-" set stl+=%#User1#                       " Brighten
-" set stl+=%t                             " Filename
-" set stl+=%{Filestate_status()}          " File status
-" set stl+=%#User2#                       " Dimmed
-" set stl+=%w                             " Preview flag
-" set stl+=\                              " Space
-" set stl+=\                              " Space
-" set stl+=\                              " Space
-" set stl+=%=                             " Align right
-" set stl+=                               " TODO: diff mode flag
-" set stl+=                               " TODO: scrollbind flag
-" set stl+=                               " TODO: capslock flag
-" set stl+=%{AutoCompleteFlag()}          " Auto Complete flag
-" set stl+=%{WrapFlag()}                  " Wrap flag
-" set stl+=%{SpellFlag()}                 " Spellcheck flag
-" set stl+=\                              " Space
-" set stl+=[                              " Open bracket
-" set stl+=%{ExpandTabFlag()}             " Soft tab flag
-" set stl+=%{TabStopStatus()}             " Tab size
-" set stl+=]                              " Close bracket
-" set stl+=\                              " Space
-" set stl+=[                              " Open bracket
-" set stl+=%{Fileencoding_status()}\/     " File encoding
-" set stl+=%{Fileformat_status()}         " File format
-" set stl+=]                              " Close bracket
-" set stl+=\                              " Space
-" set stl+=%#User1#                       " Brighten
-" set stl+=[%{Filetype_status()}]         " File type
-" set stl+=%<                             " Truncate this side of the aisle
-"-------------------------------------------------------------------------------
-
-
-" "Power Line"
 let g:Powerline_cache_enabled = 0
 let g:Powerline_symbols = 'compatible'
 let g:Powerline_stl_path_style = 'filename'
@@ -1144,16 +990,6 @@ function! ToggleAutoComplete()
 endfunction
 
 
-" Generate a statusline flag for AutoComplete.
-function! AutoCompleteFlag()
-  if g:neocomplcache_disable_auto_complete == 1
-    return ""
-  else
-    return "[A]"
-  endif
-endfunction
-
-
 " Configure Omnicompletion
 augroup AutoComplete
   autocmd! AutoComplete
@@ -1289,32 +1125,6 @@ function! TabSummary()
       echo ' noexpandtab'
     endif
 endfunction
-
-" Generate a statusline flag for expandtab.
-function! ExpandTabFlag()
-  if &expandtab == 0
-    return ""
-  else
-    return "S"
-  endif
-endfunction
-
-" Generate statusline flags for softtabstop, tabstop, and shiftwidth.
-function! TabStopStatus()
-  let str = "T:" . &tabstop
-  " Show softtabstop or shiftwidth if not equal tabstop
-  if   (&softtabstop && (&softtabstop != &tabstop))
-  \ || (&shiftwidth  && (&shiftwidth  != &tabstop))
-    let str = "TS:" . &tabstop
-    if &softtabstop
-      let str = str . "\ STS:" . &softtabstop
-    endif
-    if &shiftwidth != &tabstop
-      let str = str . "\ SW:" . &shiftwidth
-    endif
-  endif
-  return str
-endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -1403,8 +1213,10 @@ set incsearch           " Highlight search terms dynamically and incrementally
 set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set wrapscan            " Set the search scan to wrap around the file
+
 " Clear search highlight
 nnoremap <silent>,, :nohlsearch<CR>
+
 " Prevent search current word command from jumping
 nnoremap * *``
 "-------------------------------------------------------------------------------
@@ -1415,35 +1227,6 @@ nnoremap * *``
 " TODO: Add functionality for visual selection
 nnoremap <Leader>asr :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 nnoremap <Leader>sr :call SearchReplace()<CR>
-function! SearchReplace()
-  let CurrentWord=expand("<cword>")
-
-  " Get search string.
-  call inputsave()
-  let  CurrentString = input("Search for: ", CurrentWord)
-  if (empty(CurrentString))
-   return
-  endif
-  call inputrestore()
-
-  " Get replace string.
-  call inputsave()
-  let  NewString = input("Search for: ".CurrentString."   Replace with: ")
-  call inputrestore()
-
-  " Determine wether or not to search for whole word only.
-  redraw!
-  let option = confirm("Search for whole word only? ", "&Yes\n&No", 2)
-  if option == 0
-    echon "Invalid response. Please try again."
-  elseif option == 1
-    " Execute whole word only search and replace.
-    exe "%s/\\<".CurrentString."\\>/".NewString."/gc"
-  elseif option == 2
-    " Execute normal search and replace.
-    exe "%s/".CurrentString."/".NewString."/gc"
-  endif
-endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -1470,8 +1253,34 @@ nnoremap <silent><Leader>mm  :ShowMarksPlaceMark<CR>
 "}}}
 " TOOLS: "{{{
 " *******************************************************************************
-" "Color Table (XtermColorTable)"
-nnoremap <silent><Leader>tct :XtermColorTable<CR>
+" "Execute Terminal Commands (Vimux)"
+let g:VimuxOrientation = "h"
+
+" Prompt for a command to run
+map <Leader>xp :VimuxPromptCommand<CR>
+
+" Run last command executed by VimuxRunCommand
+map <Leader>xl :VimuxRunLastCommand<CR>
+
+" Inspect runner pane
+map <Leader>xi :VimuxInspectRunner<CR>
+
+" Interrupt any command running in the runner pane
+map <Leader>xs :VimuxInterruptRunner<CR>
+
+" Clear ths tmux history of the runner pane for when
+" you enter tmux scroll mode inside the runner pane.
+map <Leader>xc :VimuxClearRunnerHistory<CR>
+
+" Close all other tmux panes in current window
+map <Leader>xx :VimuxClosePanes<CR>
+
+" Close vim tmux runner opened by VimuxRunCommand
+map <Leader>xq :VimuxCloseRunner<CR>
+
+map <Leader>xx :call VimuxRunCommand("clear")<CR>
+
+map <F9> :call VimuxRunCommand("colors")<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1547,56 +1356,6 @@ noremap <silent><Leader>sh :split<CR>
 
 
 " }}}
-" HELP: "{{{
-" *******************************************************************************
-nnoremap <silent><F1> "zyw:exe "h ".@z.""<CR>
-augroup HelpGroup
-  autocmd! HelpGroup
-  autocmd WinEnter,BufEnter * :call HelpEnv()   " Set the help environment.
-  autocmd WinEnter,BufEnter * :call HelpEnter() " Map Enter to jump to subject.
-  autocmd WinEnter,BufEnter * :call HelpBack()  " Map Backspace to jump back.
-augroup END
-
-" Set the help environment.
-function! HelpEnv()
-  if &filetype == 'help'
-    setlocal nocursorline
-    setlocal nocursorcolumn
-    setlocal norelativenumber
-    setlocal colorcolumn=0
-    setlocal noexpandtab
-  endif
-endfunction
-
-" Map Enter to jump to subject.
-function! HelpEnter()
-  if &filetype == 'help'
-    nnoremap <CR> <C-]>
-  else
-    nnoremap <CR> i<CR><Esc>
-  endif
-endfunction
-
-" Map Backspace to jump back.
-function! HelpBack()
-  if &filetype == 'help'
-    nnoremap <BS> <C-T>
-  else
-    nnoremap <BS> i<BS><Right><Esc>
-  endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-" "}}}
 " AUTOMATION: "{{{
 " *******************************************************************************
 " "All File Types"
@@ -1699,6 +1458,17 @@ augroup END
 
 
 
+" "Help"
+augroup HelpGroup
+  autocmd!
+  autocmd WinEnter,BufEnter * :call HelpEnvironment()
+  autocmd WinEnter,BufEnter * :call HelpJumpForward()
+  autocmd WinEnter,BufEnter * :call HelpJumpBack()
+augroup END
+"-------------------------------------------------------------------------------
+
+
+
 " "Vimez Dev"
 augroup VimezDev
   autocmd!
@@ -1747,6 +1517,22 @@ endfunction
 
 
 
+" "Toggle Print Margin"
+function! TogglePrintMargin()
+  if g:ccToggle == 0
+    set colorcolumn=0
+    redraw!
+    let g:ccToggle=1
+  else
+    set colorcolumn=+1
+    redraw!
+    let g:ccToggle=0
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
 " "Messages"
 " Prints [long] message up to (&columns-1) length without the 'Press Enter'
 " prompt.
@@ -1773,10 +1559,67 @@ endfunction
 
 
 
+" "Write Session As"
+function! WriteSessionAs()
+  call inputsave()
+  let SessionName = input('Session Name: ')
+  exe "SaveSession " . SessionName
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Set Help Environment"
+function! HelpEnvironment()
+  if &filetype == 'help'
+    setlocal nocursorline
+    setlocal nocursorcolumn
+    setlocal norelativenumber
+    setlocal colorcolumn=0
+    setlocal noexpandtab
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Help Jump Forward"
+function! HelpJumpForward()
+  if &filetype == 'help'
+    nnoremap <CR> <C-]>
+  else
+    nnoremap <CR> i<CR><Esc>
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Help Jump Back"
+function! HelpJumpBack()
+  if &filetype == 'help'
+    nnoremap <BS> <C-T>
+  else
+    nnoremap <BS> i<BS><Right><Esc>
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
 " "Enable Close Tag"
 " Close open tags automatically upon entering </
 function! EnableCloseTag()
     so ~/.vim/bundle/closetag.vim/plugin/closetag.vim
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Current Session Status"
+function! CurrentSession()
+  let g:currSession = fnamemodify(v:this_session, ":t:r")
+  return g:currSession
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1789,7 +1632,43 @@ function! MakeFileExecutable()
   call Msg("Written as an executable shell script!")
 endfunction
 "-------------------------------------------------------------------------------
+
+
+
+" "Search and Replace"
+function! SearchReplace()
+  let CurrentWord=expand("<cword>")
+
+  " Get search string.
+  call inputsave()
+  let  CurrentString = input("Search for: ", CurrentWord)
+  if (empty(CurrentString))
+   return
+  endif
+  call inputrestore()
+
+  " Get replace string.
+  call inputsave()
+  let  NewString = input("Search for: ".CurrentString."   Replace with: ")
+  call inputrestore()
+
+  " Determine wether or not to search for whole word only.
+  redraw!
+  let option = confirm("Search for whole word only? ", "&Yes\n&No", 2)
+  if option == 0
+    echon "Invalid response. Please try again."
+  elseif option == 1
+    " Execute whole word only search and replace.
+    exe "%s/\\<".CurrentString."\\>/".NewString."/gc"
+  elseif option == 2
+    " Execute normal search and replace.
+    exe "%s/".CurrentString."/".NewString."/gc"
+  endif
+endfunction
+"-------------------------------------------------------------------------------
 " "}}}
+" WRAP: "{{{
+" *******************************************************************************
 
 
 
@@ -1807,10 +1686,13 @@ endif
 " TODO: Remove remnants of status line
 " TODO: special invisible characters
 " TODO: map ,l next buffer and ,h to previous
+" TODO: map function keys to... Vundle commands to update and install
+" TODO: session info in powerline
+" TODO: consolidate tmp files in vim.local dir to tmp folder
 
 
 " FIXME:
 
 
-" vim: set ft=vim:
-" vim: set fdm=marker:
+" vim:ft=vim:fdm=marker:
+" }}}
