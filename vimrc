@@ -106,16 +106,9 @@ set background=dark         " Use a dark background.
 set t_Co=256                " Force terminal to go into 256 color mode.
 set synmaxcol=300           " Prevent long lines from slowing down redraws.
 syntax on		                " Syntax highlighting on.
-colorscheme molokai-ez       " Default color scheme.
-nnoremap <Leader>theme :SCROLL<CR>
+colorscheme molokai-ez      " Default color scheme.
 
 " Show syntax highlighting group for current word.
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunction
 nnoremap <Leader>syn :call <SID>SynStack()<CR>
 "-------------------------------------------------------------------------------
 
@@ -191,6 +184,8 @@ set wildchar=<Tab>
 set wildcharm=<C-z>
 set wildmenu                 " Enable file/command auto-completion
 set wildmode=longest,full    " Auto-complete up to ambiguity
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 set <A-h>=h
 set <A-l>=l
 cmap <A-h> <Left>
@@ -233,13 +228,32 @@ set shellslash  " Use forward slash for shell file names (Windows)
 "-------------------------------------------------------------------------------
 
 
-" TODO: Needs work
-" "Edit (New/Open) File" Give a prompt for opening files in the same dir as the
-" current buffer's file.
+
+" "Edit (New/Open) File"
 if has("unix")
   nnoremap <Leader>ef :edit <C-R>=expand("%:p:h") . "/" <CR>
 else
   nnoremap <Leader>ef :edit <C-R>=expand("%:p:h") . "\\" <CR>
+endif
+"-------------------------------------------------------------------------------
+
+
+
+" "Write File"
+if has("unix")
+  nnoremap <Leader>wf :write <C-R>=expand("%:p:h") . "/" <CR>
+else
+  nnoremap <Leader>wf :write <C-R>=expand("%:p:h") . "\\" <CR>
+endif
+"-------------------------------------------------------------------------------
+
+
+
+" "Write File As"
+if has("unix")
+  nnoremap <Leader>wfa :saveas <C-R>=expand("%:p:h") . "/" <CR>
+else
+  nnoremap <Leader>wfa :saveas <C-R>=expand("%:p:h") . "\\" <CR>
 endif
 "-------------------------------------------------------------------------------
 
@@ -257,44 +271,8 @@ nnoremap gfv :vertical wincmd f<CR>
 
 
 
-" "Write File"
-if has("unix")
-  nnoremap <Leader>wf :write <C-R>=expand("%:p:h") . "/" <CR>
-else
-  nnoremap <Leader>wf :write <C-R>=expand("%:p:h") . "\\" <CR>
-endif
-"-------------------------------------------------------------------------------
-
-
-
-" "Write File! as Root" with root permission.
+" "Write File! as Root"
 cmap w!! w !sudo tee % >/dev/null
-"-------------------------------------------------------------------------------
-
-
-
-" "Write File As"
-if has("unix")
-  nnoremap <Leader>wfa :saveas <C-R>=expand("%:p:h") . "/" <CR>
-else
-  nnoremap <Leader>wfa :saveas <C-R>=expand("%:p:h") . "\\" <CR>
-endif
-"-------------------------------------------------------------------------------
-
-
-
-" "Delete File"
-function! DeleteFile()
-  let l:delprompt = input('Are you sure? ')
-  if l:delprompt == "y" || "Y"
-    :echo delete(@%)
-    :BD
-  else
-    redraw!
-    return
-  endif
-endfunction
-nnoremap <Leader>dddf :call DeleteFile()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -320,8 +298,13 @@ nnoremap <silent><Leader>,, :NERDTreeToggle .<CR>
 
 " "Search for Files, Buffers, or MRU (CtrlP)"
 let g:ctrlp_map = '<Leader>ll'
+let g:ctrlp_cache_dir = $HOME.'/.vim.local/tmp/cache/ctrlp'
+let g:ctrlp_open_multiple_files = '1vjr'
+let g:ctrlp_open_new_file = 'r'
+let g:ctrlp_show_hidden = 1
 let g:ctrlp_prompt_mappings = {
   \ 'PrtExit()':            ['<esc>', '<c-c>', ','],
+  \ 'CreateNewFile()':      ['<c-b>'],
   \ }
 nnoremap <silent><Leader>jj :CtrlPBuffer<CR>
 nnoremap <silent><Leader>kk :CtrlPMRU<CR>
@@ -428,7 +411,7 @@ set ssop+=folds	       " Manually created folds, opened/closed folds and local
 set ssop+=globals	     " Global variables that start with an uppercase letter
                        " and contain at least one lowercase letter.  Only
                        " String and Number types are stored.
-set ssop+=help		     " The help window
+set ssop+=help		     " Restore help windows.
 set ssop+=localoptions " Options and mappings local to a window or buffer (not
                        " global values for local options)
 set ssop+=options	     " All options and mappings (also global values for local
@@ -451,46 +434,39 @@ set ssop+=winsize	     " Window sizes
 
 
 
-" "New Session (Vim-Session)"
-nnoremap <Leader>ns :SaveSession<CR><Bar>:CloseSession<CR><Bar>
-      \ :SaveSession .vim<Left><Left><Left><Left>
-"-------------------------------------------------------------------------------
-
-
-
 " "Write Session (Vim-Session)"
-nnoremap <Leader>ws :SaveSession<CR>
+nnoremap <silent><Leader>ws :SaveSession<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Write Session As (Vim-Session)"
-nnoremap <Leader>wsa :call WriteSessionAs()<CR>
+nnoremap <silent><Leader>wsa :call WriteSessionAs()<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Open Session (Vim-Session)"
-nnoremap <Leader>os :SaveSession<CR><Bar>:OpenSession<CR>
+nnoremap <silent><Leader>os :SaveSession<CR><Bar>:OpenSession<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Close Session (Vim-Session)"
-nnoremap <Leader>cs :SaveSession<CR><Bar>:CloseSession<CR>
+nnoremap <silent><Leader>cs :SaveSession<CR><Bar>:CloseSession<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Delete Session (Vim-Session)"
-nnoremap <Leader>ds :DeleteSession<CR>
+nnoremap <silent><Leader>ds :DeleteSession<CR>
 "-------------------------------------------------------------------------------
 
 
 
-" "Vim Info" A memory dump to remember information from the last
-" session. The viminfo file is read upon startup and written when
-" exiting Vim.
+" "Vim Info"
+" A memory dump to remember information from the last session. The viminfo file
+" is read upon startup and written when exiting Vim.
 set viminfo=
 set vi+='1000 " Amount of files to save marks
 set vi+=f1    " Store global marks A-Z and 0-9
@@ -516,7 +492,7 @@ set writebackup                   " Make a backup before overwriting a file
 
  " List of directories for the backup file
 if has("win32") || has("win64")
-  set backupdir=$TMP              " TODO: Set for Windows and Mac environments
+  set backupdir=~/_vim.local/tmp/backups//,.
 else
   set backupdir=~/.vim.local/tmp/backups//,.
 end
@@ -524,12 +500,13 @@ end
 
 
 
-" "Swap Files" This creates a binary version of each file as a backup in the
-" event there is a crash, you have a shot at recovering your file. The swap is
-" updated on every 100th character.
+" "Swap Files"
+" This creates a binary version of each file as a backup in the event there is
+" a crash, you have a shot at recovering your file. The swap is updated on every
+" 100th character.
 set updatecount=100
-if has("win32") || has("win64")   " TODO: Set for Windows and Mac environments
-  set directory=$TMP
+if has("win32") || has("win64")
+  set directory=~/_vim.local/tmp/swaps//,.
 else
   set directory=~/.vim.local/tmp/swaps//,.
 end
@@ -538,14 +515,14 @@ end
 
 
 " "Write and Quit"
-nnoremap <Leader>wqq :SaveSession<CR>:wqa<CR>
+nnoremap <silent><Leader>wqq :SaveSession<CR>:wqa<CR>
 "-------------------------------------------------------------------------------
 
 
 
-" "Quit" Simpler exit strategy, that prompts if there is any unsaved buffers
-" open.
-nnoremap <Leader>Q :qa<CR>
+" "Quit"
+" Simpler exit strategy, that prompts if there is any unsaved buffers open.
+nnoremap <silent><Leader>Q :qa<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -678,16 +655,6 @@ nmap <Leader><CR> DO<Esc>p
 set nojoinspaces
 nnoremap <silent><Leader>jn :call Join()<CR>
 nnoremap <silent><Leader>jp k<S-v>xpk:call Join()<CR>
-function! Join()
-  normal! $
-  normal! l
-  let l = line(".")
-  let c = col(".")
-  join
-  call cursor(l, c)
-  " TODO: make work w/repeat.vim
-  " silent! call repeat#set("\<leader>jn",1:count)
-endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -782,11 +749,11 @@ set novisualbell        " No blinking on error
 
 
 
-" "Cursor Hightlights" This helps maintain your bearings by highlighting the
+" "Cursor Highlights" This helps maintain your bearings by highlighting the
 " current line the cursor is on as well as the current column. You can Toggle
-" Cursor Hightlights with Leader tch.
-set cursorline          " Enable cursor line hightlight
-set cursorcolumn        " Enable cursor column hightligh
+" Cursor Highlights with Leader tch.
+set cursorline          " Enable cursor line highlight
+set cursorcolumn        " Enable cursor column highlight
 autocmd WinEnter * setlocal cursorline
 autocmd WinLeave * setlocal nocursorline
 autocmd WinEnter * setlocal cursorcolumn
@@ -816,7 +783,7 @@ set shortmess-=s " Don't give "search hit BOTTOM, continuing at TOP" or "search
                  " hit TOP, continuing at BOTTOM" messages
 set shortmess+=t " Truncate file message at the start if it is too long to fit
                  " on the command-line, "<" will appear in the left most column.
-set shortmess-=T " Truncate other messages in the middle if they are too long to
+set shortmess+=T " Truncate other messages in the middle if they are too long to
                  " fit on the command line.  "..." will appear in the middle.
 set shortmess-=W " Don't give "written" or "[w]" when writing a file
 set shortmess-=A " Don't give the "ATTENTION" message when an existing
@@ -866,34 +833,17 @@ nnoremap <silent><Leader>tw
 "-------------------------------------------------------------------------------
 
 
-" "Print Margin" TODO: Needs work
+
+" "Print Margin"
+let g:ccToggle = 1
 nnoremap <silent><Leader>tpm :call TogglePrintMargin()<CR>
-" let g:ccToggle = 0
 "------------------------------------------------------------------------------
-
-
-
-" "Folds"
-augroup Folds
-  autocmd! Folds
-  autocmd FileType * set foldcolumn=2
-augroup END
-"-------------------------------------------------------------------------------
 
 
 
 " "View Options"
 set viewdir=~/.vim.local/tmp/view//,.
-augroup vimrc
-    autocmd BufWritePost *
-    \   if expand('%') != '' && &buftype !~ 'nofile'
-    \|      mkview
-    \|  endif
-    autocmd BufRead *
-    \   if expand('%') != '' && &buftype !~ 'nofile'
-    \|      silent loadview
-    \|  endif
-augroup END
+set viewoptions=folds,options,cursor,unix,slash
 "-------------------------------------------------------------------------------
 
 
@@ -1285,9 +1235,6 @@ set wrapscan            " Set the search scan to wrap around the file
 
 " Clear search highlight
 nnoremap <silent>,, :nohlsearch<CR>
-
-" Prevent search current word command from jumping
-nnoremap * *``
 "-------------------------------------------------------------------------------
 
 
@@ -1429,13 +1376,25 @@ noremap <silent><Leader>sh :split<CR>
 " AUTOMATION: "{{{
 " ******************************************************************************
 
+" "On Start"
+augroup Start
+  autocmd!
+  autocmd VimEnter *                    echo
+        \ "  Welcome to VimEz, Happy Coding! :-)"
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
 " "All File Types"
 augroup AllFileTypes
   autocmd!
-  autocmd BufWritePre *                 call StripTrailingWhitespace()
+  autocmd FileType *                    set foldcolumn=2
   autocmd BufNewFile *                  silent! 0r  ~/.vim.local/templates/%:e.tpl
-  " Change the directory to the current file upon entering a buffer.
   autocmd BufEnter *                    silent! lcd %:p:h
+  autocmd BufWritePre *                 call StripTrailingWhitespace()
+  autocmd BufWritePost *                call SaveView()
+  autocmd BufRead *                     call LoadView()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1632,6 +1591,17 @@ endfunction
 
 
 
+" "Show Syntax Highlight Group"
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
 " "Write Session As"
 function! WriteSessionAs()
   call inputsave()
@@ -1705,6 +1675,42 @@ function! MakeFileExecutable()
   call Msg("Written as an executable shell script!")
 endfunction
 "-------------------------------------------------------------------------------
+
+
+
+" "Save Buffer View"
+function! SaveView()
+  if expand('%') != '' && &buftype !~ 'nofile'
+    silent! mkview
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Load Buffer View"
+function! LoadView()
+  if expand('%') != '' && &buftype !~ 'nofile'
+      silent! loadview
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Join"
+function! Join()
+  normal! $
+  normal! l
+  let l = line(".")
+  let c = col(".")
+  join
+  call cursor(l, c)
+  " TODO: make work w/repeat.vim
+  " silent! call repeat#set("\<leader>jn",1:count)
+endfunction
+"-------------------------------------------------------------------------------
+
 
 
 
