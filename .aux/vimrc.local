@@ -66,6 +66,14 @@ set spelllang=en_us       " Default language
 
 
 
+" "Common Symbols"
+" inoremap uu _
+" inoremap hh =>
+" inoremap aa @
+"-------------------------------------------------------------------------------
+
+
+
 " "Paragraph Formatting"
 " set formatprg=par
 "-------------------------------------------------------------------------------
@@ -118,6 +126,16 @@ if has("gui_running")
   " are currently three available options: "compatible", "unicode" and "fancy".
   let g:Powerline_symbols = 'unicode'
   "-------------------------------------------------------------------------------
+
+
+
+	" "Write on Focus Lost" Write all buffers to file upon leaving buffer
+	" (gvim only).
+	augroup FocusLost
+  	" au! FocusLost
+  	" au! FocusLost * silent!			wa
+	augroup END
+	"-------------------------------------------------------------------------------
 
 endif
 
