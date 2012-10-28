@@ -192,11 +192,7 @@ set wildmenu                 " Enable file/command auto-completion
 set wildmode=longest,full    " Auto-complete up to ambiguity
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-set <A-h>=h
-set <A-l>=l
-cmap <A-h> <Left>
 cmap <C-h> <Left>
-cmap <A-l> <Right>
 cmap <C-l> <Right>
 "-------------------------------------------------------------------------------
 
@@ -591,10 +587,10 @@ nmap <Leader>a ggVG
 " "Bulbbling Line (Unimpaired)" Consistent use of [hjkl] with the Shift modifier to move a
 " line of text around. Up/down by one line and left/right by amount of
 " shiftwidth.
-nmap <C-h> <<
-nmap <C-j> ]e
-nmap <C-k> [e
-nmap <C-l> >>
+nmap <S-h> <<
+nmap <S-j> ]e
+nmap <S-k> [e
+nmap <S-l> >>
 "-------------------------------------------------------------------------------
 
 
@@ -602,25 +598,10 @@ nmap <C-l> >>
 " "Bubbling Block (Unimpaired)" Consistent use of [hjkl] with the Shift modifier to move a
 " block of text around. Up/down by one line and left/right by amount of
 " shiftwidth.
-vmap <C-h> <gv
-vmap <C-j> ]egv
-vmap <C-k> [egv
-vmap <C-l> >gv
-"-------------------------------------------------------------------------------
-
-
-
-" "Bubbling Word(s) (Unimpaired)" Consistent use of [hjkl] with the Control modifier to
-  " transport words around. Up/down by one line and left/right by one word plus
-" a space.
-"set <A-h>=h
-"set <A-j>=j
-"set <A-k>=k
-"set <A-l>=l
-"vmap <A-h> dBhp`[v`]
-"vmap <A-j> djhp`[v`]
-"vmap <A-k> dkhp`[v`]
-"vmap <A-l> dElp`[v`]
+vmap <S-h> <gv
+vmap <S-j> ]egv
+vmap <S-k> [egv
+vmap <S-l> >gv
 "-------------------------------------------------------------------------------
 
 
@@ -1092,14 +1073,14 @@ inoremap <C-l> <Right>
 
 " "Hyper h|j|k|l"
 " Consistent use of h|j|k|l with Shift to hyper traverse the buffer universe!
-nnoremap <S-h> ^
-nnoremap <S-j> <C-d>
-nnoremap <S-k> <C-u>
-nnoremap <S-l> $l
-vnoremap <S-h> ^
-vnoremap <S-j> <C-d>
-vnoremap <S-k> <C-u>
-vnoremap <S-l> $
+nnoremap <silent><Leader>h ^
+nnoremap <silent><Leader>j <C-d>
+nnoremap <silent><Leader>k <C-u>
+nnoremap <silent><Leader>l $l
+vnoremap <silent><Leader>h ^
+vnoremap <silent><Leader>j <C-d>
+vnoremap <silent><Leader>k <C-u>
+vnoremap <silent><Leader>l $
 "-------------------------------------------------------------------------------
 
 
@@ -1210,20 +1191,30 @@ nmap <Leader>tc <Plug>Colorizer
 " ******************************************************************************
 
 " "Focus Windows"
-noremap <silent><Leader>h  :wincmd h<CR>
-noremap <silent><Leader>j  :wincmd j<CR>
-noremap <silent><Leader>k  :wincmd k<CR>
-noremap <silent><Leader>l  :wincmd l<CR>
+noremap <silent><C-h> :wincmd h<CR>
+noremap <silent><C-j>	:wincmd j<CR>
+noremap <silent><C-k> :wincmd k<CR>
+noremap <silent><C-l> :wincmd l<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Move Windows"
-noremap <silent><Leader>mh <C-w>H
-noremap <silent><Leader>mj <C-w>J
-noremap <silent><Leader>mk <C-w>K
-noremap <silent><Leader>ml <C-w>L
-noremap <silent><Leader>mx <C-w>x
+noremap <silent><C-m><C-h> <C-w>H
+noremap <silent><C-m><C-j> <C-w>J
+noremap <silent><C-m><C-k> <C-w>K
+noremap <silent><C-m><C-l> <C-w>L
+noremap <silent><C-m><C-x> <C-w>x
+"-------------------------------------------------------------------------------
+
+
+
+" "Close Windows"
+noremap <silent><C-c><C-j> :wincmd j<CR>:close<CR>
+noremap <silent><C-c><C-h> :wincmd h<CR>:close<CR>
+noremap <silent><C-c><C-k> :wincmd k<CR>:close<CR>
+noremap <silent><C-c><C-l> :wincmd l<CR>:close<CR>
+noremap <silent><C-c><C-w> :close<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1231,18 +1222,8 @@ noremap <silent><Leader>mx <C-w>x
 " "Resize Windows"
 nnoremap <Left> <C-w><
 nnoremap <Right> <C-w>>
-nnoremap <Up> <C-w>+
-nnoremap <Down> <C-w>-
-"-------------------------------------------------------------------------------
-
-
-
-" "Close Windows"
-noremap <silent><Leader>cj :wincmd j<CR>:close<CR>
-noremap <silent><Leader>ch :wincmd h<CR>:close<CR>
-noremap <silent><Leader>ck :wincmd k<CR>:close<CR>
-noremap <silent><Leader>cl :wincmd l<CR>:close<CR>
-noremap <silent><Leader>cw :close<CR>
+nnoremap <Up> <C-w>-
+nnoremap <Down> <C-w>+
 "-------------------------------------------------------------------------------
 
 
