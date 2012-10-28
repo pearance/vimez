@@ -372,22 +372,9 @@ nnoremap <silent><Leader>uc :BUNDO<CR>
 
 
 
-" "Buffer Navigation (Wild Menu)" Tab through buffers, similar to
-" tabbing through open programs via Alt-Tab on most common desktop
-" environments.
-nnoremap <Leader><Tab> :b <C-z><C-z>
-
-cnoremap <silent><C-c> <Home><Right>d<CR>
-cnoremap <C-s><C-v> <Home><Del>vs<CR>
-cnoremap <C-s><C-h> <Home><Del>sp<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Previous Buffer (BufKill)" This is refered to in Vim parlance as the 'Alternate
-" Buffer' stock keymap is ctrl-^. Leader n for greater Convenience.
-nnoremap <silent><Leader><BS> :BA<CR>
-let g:BufKillOverrideCtrlCaret=1
+" "Next & Previous Buffer (Unimpaired)"
+nmap ,h [b
+nmap ,l ]b
 "-------------------------------------------------------------------------------
 
 
