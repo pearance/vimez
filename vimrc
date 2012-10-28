@@ -163,6 +163,12 @@ set ttyfast            " Indicates a fast terminal connection.
 
 
 
+" "Mode Lines"
+set modelines=5
+"-------------------------------------------------------------------------------
+
+
+
 " "Timeout Length"
 " The time waited for a key code or mapped key sequence to complete.  As you
 " become more fluent with the key mappings you may want toC drop this to 250.
@@ -369,8 +375,8 @@ nnoremap <silent><Leader>uc :BUNDO<CR>
 " "Write on Focus Lost" Write all buffers to file upon leaving buffer
 " (gvim only).
 augroup FocusLost
-  autocmd! FocusLost
-  autocmd FocusLost * silent! wa
+  au! FocusLost
+  au FocusLost * silent! wa
 augroup END
 "-------------------------------------------------------------------------------
 
@@ -538,23 +544,25 @@ nnoremap <silent><Leader>Q :qa<CR>
 " EDIT: "{{{
 " ******************************************************************************
 
-" "Yank | Put | Clipboard (Copy | Paste | Yankring)"
+" "Yank (Yankring)"
 set clipboard+=unnamedplus  " Use system clipboard for yanks.
-set pastetoggle=<F6>        " Preserve indetation when pasting formatted text.
 
-nnoremap Y  "+Y
+nnoremap Y  "+y$
 nnoremap yy "+Y
-nnoremap p  "+]p
-nnoremap P  "+]P
-vnoremap y  "+y
 vnoremap Y  "+Y
-
-" Preserve indentation while put (pasting) text from the system clipboard
-" imap <C-v>  <C-O>:set paste<CR><C-O>:set nopaste<CR>
+vnoremap y  "+y
 
 " Yank from current cursor position to left or right end respectively.
 nnoremap yh v0y
 nnoremap yl v$y$
+"-------------------------------------------------------------------------------
+
+
+
+" "Put (YankRing)"
+set pastetoggle=<F6>        " Preserve indetation when pasting formatted text.
+nnoremap P  "+]P
+nnoremap p  "+]p
 nnoremap <silent><Leader>pp :YRShow<CR>
 
 let g:yankring_max_history = 1000
@@ -565,6 +573,9 @@ let g:yankring_replace_n_pkey = '<C-p>'
 let g:yankring_replace_n_nkey = '<C-n>'
 let g:yankring_history_dir = '~/.vim.local/tmp/'
 let g:yankring_history_file = 'yankring_history'
+
+" Preserve indentation while put (pasting) text from the system clipboard
+" imap <C-v>  <C-O>:set paste<CR><C-O>:set nopaste<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -692,52 +703,12 @@ set titlestring=%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
 
 
 
-" "Line Numbers" TODO:Need to finish!
+" "Line Numbers"
 set relativenumber
-let g:numbermode=1
+let g:numbertype=1
 set numberwidth=3
-nnoremap <silent><Leader>tnm :call g:ToggleNumberMode()<CR>
-nnoremap <silent><Leader>tn :call g:ToggleNumber()<CR>
-
-function! g:ToggleNumberMode()
-  if(&relativenumber==1)
-    set number
-    let g:numbermode=0
-    echo "Number Type: Normal"
-  else
-    set relativenumber
-    let g:numbermode=1
-    echo "Number Type: Relative"
-  endif
-endfunction
-
-function! g:ToggleNumber()
-  if(g:numbermode==1)
-    call g:ToggleRelativeNumber()
-  else
-  	call g:ToggleNormalNumber()
-  endif
-endfunction
-
-function! g:ToggleNormalNumber()
-  if(&number==1)
-    setlocal nonumber
-  else
-    setlocal number
-  endif
-  let OnOrOff=&number
-  call ToggleOnOff("Line Numbers", OnOrOff)
-endfunction
-
-function! g:ToggleRelativeNumber()
-  if(&relativenumber==1)
-    setlocal norelativenumber
-  else
-    setlocal relativenumber
-  endif
-  let OnOrOff=&relativenumber
-  call ToggleOnOff("Relative Line Numbers", OnOrOff)
-endfunction
+nnoremap <silent><Leader>tnt :call g:ToggleNumberType()<CR>
+nnoremap <silent><Leader>tn :call g:ToggleNumbers()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -749,16 +720,11 @@ set novisualbell        " No blinking on error
 
 
 
-" "Cursor Highlights" This helps maintain your bearings by highlighting the
-" current line the cursor is on as well as the current column. You can Toggle
-" Cursor Highlights with Leader tch.
+" "Cursor Highlights"
+" This helps maintain your bearings by highlighting the current line the cursor
+" is on as well as the current column.
 set cursorline          " Enable cursor line highlight
 set cursorcolumn        " Enable cursor column highlight
-autocmd WinEnter * setlocal cursorline
-autocmd WinLeave * setlocal nocursorline
-autocmd WinEnter * setlocal cursorcolumn
-autocmd WinLeave * setlocal nocursorcolumn
-nmap <silent><Leader>tch :setlocal cursorline! cursorcolumn!<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -793,21 +759,19 @@ set shortmess+=I " Don't give the intro message when starting Vim |:intro|.
 
 
 
-" "Invisible Characters" This controls non-printable characters that denote
-" certain formatting information. Such as eol, tabs, trailing space, etc. You
-" can specify which characters to use as well.By default invisible characters
-" are off and can be toggle on via Leader ti.
-set nolist                    " Don't show non-printable character by default
-set listchars+=eol:~
-set listchars+=tab:>-
+" "Hidden Characters"
+" This controls visibility of non-printable characters that denote certain
+" formatting information. Such as eol, tabs, trailing space, etc.
+set nolist
+set listchars+=eol:¬
+set listchars+=tab:▸-
 set listchars+=trail:.
 set listchars+=extends:>
 set listchars+=precedes:<
-set listchars+=nbsp:%
-nnoremap <silent><Leader>ti
+nnoremap <silent><Leader>th
       \ :setlocal list!<CR><Bar>
       \ :let OnOrOff=&list<CR><Bar>
-      \ :call ToggleOnOff("Invisible Characters", OnOrOff)<CR>
+      \ :call ToggleOnOff("Hidden Characters", OnOrOff)<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -835,8 +799,8 @@ nnoremap <silent><Leader>tw
 
 
 " "Print Margin"
-let g:ccToggle = 1
 nnoremap <silent><Leader>tpm :call TogglePrintMargin()<CR>
+let g:MarginState = 1
 "------------------------------------------------------------------------------
 
 
@@ -961,8 +925,8 @@ set complete-=d		    " Scan current and included files for name or macro
 set complete+=]		    " Tag completion
 set complete+=t		    " Same as "]"
 
-set infercase   	" Match is adjusted depending on the typed text.
-set pumheight=15  " Pop Up Menu height in lines
+set infercase					" Match is adjusted depending on the typed text.
+set pumheight=20			" Pop Up Menu height in lines
 
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_disable_auto_complete = 0
@@ -994,33 +958,8 @@ let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default' : '',
     \ }
 
+" Toggle Auto Completion
 map <Leader>ta :call ToggleAutoComplete()<CR>
-function! ToggleAutoComplete()
-  if g:neocomplcache_disable_auto_complete == 1
-    let g:neocomplcache_disable_auto_complete = 0
-    NeoComplCacheEnable
-    echo "Auto Completion: On"
-  else
-    let g:neocomplcache_disable_auto_complete = 1
-    NeoComplCacheDisable
-    echo "Auto Completion: Off"
-  endif
-endfunction
-
-
-" Configure Omnicompletion
-augroup AutoComplete
-  autocmd! AutoComplete
-  autocmd FileType xml            setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType xhtml,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType css            setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType javascript     setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType php            setlocal omnifunc=phpcomplete#CompletePHP
-  autocmd FileType ruby           setlocal omnifunc=rubycomplete#Complete
-  autocmd FileType python         setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType c              setlocal omnifunc=ccomplete#Complete
-  autocmd FileType perl,vim       setlocal omnifunc=syntaxcomplete#Complete
-augroup END
 
 " Enable Custom Omnicompletion
 if !exists('g:neocomplcache_omni_patterns')
@@ -1095,7 +1034,7 @@ nmap = ]<Space>
 " Tab to indent one level and Shift-Tab to go back one level, based on tab
 " settings. Acts on a single line while in Normal mode and blocks of text while
 " in Visual mode.
-set expandtab           " Expand tabs using spaces instead of a tab char
+set noexpandtab         " Expand tabs using spaces instead of a tab char
 set shiftwidth=2        " Amount of shift when in Normal mode
 set tabstop=2           " Number of spaces that a <Tab> in the file counts for.
 set softtabstop=2       " Set amount of spaces for a tab
@@ -1240,7 +1179,6 @@ nnoremap <silent>,, :nohlsearch<CR>
 
 
 " "Find and Replace"
-nnoremap <C-f> :call FindReplace()<CR>
 vnoremap <C-f> :call FindReplace()<CR>
 "-------------------------------------------------------------------------------
 
@@ -1303,6 +1241,12 @@ map <F9> :call VimuxRunCommand("colors")<CR>
 
 " "Present Working Directory"
 nnoremap <silent><Leader>pwd :pwd<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Hex Color Fill (Colorizer)"
+nmap <Leader>tc <Plug>Colorizer
 "-------------------------------------------------------------------------------
 
 
@@ -1376,95 +1320,36 @@ noremap <silent><Leader>sh :split<CR>
 " AUTOMATION: "{{{
 " ******************************************************************************
 
+" TODO: Migrate to respective ftplugin/filetype.vim files, once this is fleshed
+" out. http://vim.wikia.com/wiki/Keep_your_vimrc_file_clean
+
 " "On Start"
 augroup Start
-  autocmd!
-  autocmd VimEnter *                    echo
+  au!
+  au VimEnter *                    echo
         \ "  Welcome to VimEz, Happy Coding! :-)"
 augroup END
 "-----------------------------------------------------------------------------
 
 
 
-" "All File Types"
-augroup AllFileTypes
-  autocmd!
-  autocmd FileType *                    set foldcolumn=2
-  autocmd BufNewFile *                  silent! 0r  ~/.vim.local/templates/%:e.tpl
-  autocmd BufEnter *                    silent! lcd %:p:h
-  autocmd BufWritePre *                 call StripTrailingWhitespace()
-  autocmd BufWritePost *                call SaveView()
-  autocmd BufRead *                     call LoadView()
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "HTML"
-augroup HTML
-  autocmd!
-  autocmd BufNewFile,BufRead *.htm      set filetype=html
-  autocmd BufNewFile,BufRead *.html     set filetype=html
-  autocmd Filetype html                 call EnableCloseTag()
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "XML/XSL"
-augroup XMLXSL
-  autocmd!
-  autocmd Filetype xml                  call EnableCloseTag()
-  autocmd Filetype xsl                  call EnableCloseTag()
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Shell Script"
-augroup ShellScript
-  autocmd!
-  autocmd BufNewFile,BufRead *.sh       set filetype=sh
-  autocmd BufWritePost *.sh             call MakeFileExecutable()
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Smarty Template Engine"
-augroup Smarty
-  autocmd!
-  autocmd BufNewFile,BufRead *.tpl      set filetype=html
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Drupal CMS Framework"
-augroup DrupalCMS
-  autocmd!
-  autocmd BufNewFile,BufRead *.module   set filetype=php
-  autocmd BufNewFile,BufRead *.install  set filetype=php
-  autocmd BufNewFile,BufRead *.test     set filetype=php
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "PHP"
-augroup PHP
-  autocmd!
-  autocmd BufNewFile,BufRead *.php      set filetype=php
-  autocmd FileType php                  let php_minlines=500
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Vim Script"
-augroup VimScript
-  autocmd!
-  autocmd BufNewFile,BufRead .vim       set filetype=vim
+" "Global"
+augroup Global
+  au!
+  au FileType *											set foldcolumn=2
+  au BufNewFile *                  	silent! 0r  ~/.vim.local/templates/%:e.tpl
+  au BufEnter *                    	silent! lcd %:p:h
+  au BufWritePre *                 	call StripTrailingWhitespace()
+  au BufWritePost *                	call SaveView()
+  au BufRead *                     	call LoadView()
+  au BufRead *											normal zz
+  au WinEnter *                    	setl cursorline
+  au WinLeave *                    	setl nocursorline
+  au WinEnter *                    	setl cursorcolumn
+  au WinLeave *                    	setl nocursorcolumn
+  au WinEnter,BufEnter *						call HelpEnvironment()
+  au WinEnter,BufEnter *						call HelpJumpForward()
+  au WinEnter,BufEnter *						call HelpJumpBack()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1472,8 +1357,139 @@ augroup END
 
 " "Apache Config"
 augroup ApacheConfig
-  autocmd!
-  autocmd BufNewFile,BufRead /*apache*  set filetype=apache
+  au!
+  au BufNewFile,BufRead /*apache*		setf=apache
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "CSS"
+augroup CSS
+	au!
+  au FileType css										setl omnifunc=csscomplete#CompleteCSS
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Javascript"
+augroup JavaScript
+  au!
+  au FileType javascript     				setl omnifunc=javascriptcomplete#CompleteJS
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Ruby"
+augroup Ruby
+  au!
+  au FileType ruby           				setl omnifunc=rubycomplete#Complete
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Python"
+augroup Python
+  au!
+  au FileType python         				setl omnifunc=pythoncomplete#Complete
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "C"
+augroup C
+  au!
+  au FileType c              				setl omnifunc=ccomplete#Complete
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Perl"
+augroup Perl
+  au!
+  au FileType perl		       				setl omnifunc=syntaxcomplete#Complete
+augroup END
+"-----------------------------------------------------------------------------
+
+
+" "HTML"
+augroup HTML
+  au!
+  au BufNewFile,BufRead *.htm				setf=html
+  au BufNewFile,BufRead *.html			setf=html
+  au FileType html         					setl omnifunc=htmlcomplete#CompleteTags
+  au Filetype html                	call EnableCloseTag()
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "XML/XSL"
+augroup XMLXSL
+  au!
+  autocmd BufNewFile,BufRead *.xml	setf xml
+  autocmd BufNewFile,BufRead *.xsl	setf xml
+  autocmd BufNewFile,BufRead *.rss	setf xml
+  autocmd BufNewFile,BufRead *.atom	setf xml
+  au FileType xml										setl omnifunc=xmlcomplete#CompleteTags
+  au Filetype xml										call EnableCloseTag()
+  au Filetype xsl										call EnableCloseTag()
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Shell Script"
+augroup ShellScript
+  au!
+  au BufNewFile,BufRead *.sh				setf=sh
+  au BufWritePost *.sh							call MakeFileExecutable()
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Smarty Template Engine"
+augroup Smarty
+  au!
+  au BufNewFile,BufRead *.tpl				setf=html
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Drupal CMS Framework"
+augroup DrupalCMS
+  au!
+  au BufNewFile,BufRead *.module		setf=php
+  au BufNewFile,BufRead *.install		setf=php
+  au BufNewFile,BufRead *.test			setf=php
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "PHP"
+augroup PHP
+  au!
+  au BufNewFile,BufRead *.php				setf=php
+  au FileType php										let php_minlines=500
+  au FileType php            				setl omnifunc=phpcomplete#CompletePHP
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Markdown"
+augroup MarkDown
+	au!
+  au BufNewFile,BufRead *.markdown	setf=markdown
+  au FileType markdown							setl omnifunc=htmlcomplete#CompleteTags
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1481,32 +1497,24 @@ augroup END
 
 " "Plain Text"
 augroup PlainText
-  autocmd!
-autocmd BufNewFile,BufRead *.txt        setlocal tw=80
+  au!
+	au BufNewFile,BufRead *.txt       setf=text
+	au BufNewFile,BufRead *.txt       setl tw=80
 augroup END
 "-----------------------------------------------------------------------------
 
 
 
-" "Help"
-augroup HelpGroup
-  autocmd!
-  autocmd WinEnter,BufEnter * :call HelpEnvironment()
-  autocmd WinEnter,BufEnter * :call HelpJumpForward()
-  autocmd WinEnter,BufEnter * :call HelpJumpBack()
+" "Vim Script"
+augroup VimScript
+  au!
+  au BufNewFile,BufRead *.vim	      setf=vim
+  au BufWritePost {_,.,}vimrc				call Reload()
+  au BufWritePost {_,.,}vimrc.local call Reload()
+  " au bufwritepost molokai-ez.vim    call Reload()
+  au FileType vim										setl omnifunc=syntaxcomplete#Complete
 augroup END
-"-------------------------------------------------------------------------------
-
-
-
-" "Vimez Dev"
-augroup VimezDev
-  autocmd!
-  autocmd bufwritepost  vimrc,.vimrc,_vimrc,vimrc.local     call Reload()
-  autocmd bufwritepost  initrc,initrc.local                 call Reload()
-  autocmd bufwritepost  molokai-ez.vim                      call Reload()
-augroup END
-"-------------------------------------------------------------------------------
+"-----------------------------------------------------------------------------
 
 
 
@@ -1549,16 +1557,32 @@ endfunction
 
 
 
+" "Toggle Auto Completion"
+function! ToggleAutoComplete()
+  if g:neocomplcache_disable_auto_complete == 1
+    let g:neocomplcache_disable_auto_complete = 0
+    NeoComplCacheEnable
+    echo "Auto Completion: On"
+  else
+    let g:neocomplcache_disable_auto_complete = 1
+    NeoComplCacheDisable
+    echo "Auto Completion: Off"
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
 " "Toggle Print Margin"
 function! TogglePrintMargin()
-  if g:ccToggle == 0
+  if g:MarginState == 0
     set colorcolumn=0
     redraw!
-    let g:ccToggle=1
+    let g:MarginState=1
   else
     set colorcolumn=+1
     redraw!
-    let g:ccToggle=0
+    let g:MarginState=0
   endif
 endfunction
 "-------------------------------------------------------------------------------
@@ -1574,6 +1598,62 @@ function! Msg(msg)
   redraw
   echo a:msg
   let &ruler=x | let &showcmd=y
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Toggle Number Type"
+function! g:ToggleNumberType()
+  if(&relativenumber==1)
+    set number
+    let g:numbertype=0
+    echo "Number Type: Normal"
+  else
+    set relativenumber
+    let g:numbertype=1
+    echo "Number Type: Relative"
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Toggle Numbers"
+function! g:ToggleNumbers()
+  if(g:numbertype==1)
+    call g:ToggleRelativeNumbers()
+  else
+  	call g:ToggleNormalNumbers()
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Toggle Normal Numbers"
+function! g:ToggleNormalNumbers()
+  if(&number==1)
+    setlocal nonumber
+  else
+    setlocal number
+  endif
+  let OnOrOff=&number
+  call ToggleOnOff("Line Numbers", OnOrOff)
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Toggle Relative Numbers"
+function! g:ToggleRelativeNumbers()
+  if(&relativenumber==1)
+    setlocal norelativenumber
+  else
+    setlocal relativenumber
+  endif
+  let OnOrOff=&relativenumber
+  call ToggleOnOff("Relative Line Numbers", OnOrOff)
 endfunction
 "-------------------------------------------------------------------------------
 
