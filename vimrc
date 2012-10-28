@@ -372,16 +372,6 @@ nnoremap <silent><Leader>uc :BUNDO<CR>
 
 
 
-" "Write on Focus Lost" Write all buffers to file upon leaving buffer
-" (gvim only).
-augroup FocusLost
-  au! FocusLost
-  au FocusLost * silent! wa
-augroup END
-"-------------------------------------------------------------------------------
-
-
-
 " "Buffer Navigation (Wild Menu)" Tab through buffers, similar to
 " tabbing through open programs via Alt-Tab on most common desktop
 " environments.
@@ -1050,46 +1040,17 @@ vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 nnoremap ,<Tab> i<Tab><Esc>
 
-" Mappings to toggle soft tab.
-nnoremap <Leader>tab :call Tab()<CR>
-nnoremap <silent><Leader>tt
+nnoremap <Leader>st :call TabSize()<CR>
+
+" Toggle soft tab.
+nnoremap <silent><Leader>tst
       \ :setlocal expandtab!<CR><Bar>
       \ :let OnOrOff=&expandtab<CR><Bar>
       \ :call ToggleOnOff("Soft Tabs", OnOrOff)<CR>
 
 " Define a Tab command that calls a function that prompts for a tab size and
 " applies it uniformally to softtabstop, tabstop, and shiftwidth.
-command! -nargs=* Tab call Tab()
-function! Tab()
-  let l:tabstop = 1 * input('Tab Size: ')
-  if l:tabstop > 0
-    let &l:sts = l:tabstop
-    let &l:ts = l:tabstop
-    let &l:sw = l:tabstop
-  endif
-  call TabSummary()
-endfunction
-
-" Message a summary of current tab settings.
-function! TabSummary()
-    echo ' Current tab settings: '
-    echo ' tabstop='.&l:ts
-    echo ' shiftwidth='.&l:sw
-    echo ' softtabstop='.&l:sts
-    if &l:et
-      echo ' expandtab'
-    else
-      echo ' noexpandtab'
-    endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Common Symbols"
-" inoremap uu _
-" inoremap hh =>
-" inoremap aa @
+command! -nargs=* Tab call TabSize()
 "-------------------------------------------------------------------------------
 
 
@@ -1143,8 +1104,7 @@ inoremap <C-l> <Right>
 
 
 " "Hyper h|j|k|l"
-" Consistent use of h|j|k|l with Shift to hyper traverse
-" the buffer uiverse!
+" Consistent use of h|j|k|l with Shift to hyper traverse the buffer universe!
 nnoremap <S-h> ^
 nnoremap <S-j> <C-d>
 nnoremap <S-k> <C-u>
@@ -1172,7 +1132,7 @@ set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set wrapscan            " Set the search scan to wrap around the file
 
-" Clear search highlight
+" Clear search highlight.
 nnoremap <silent>,, :nohlsearch<CR>
 "-------------------------------------------------------------------------------
 
@@ -1364,42 +1324,6 @@ augroup END
 
 
 
-" "CSS"
-augroup CSS
-	au!
-  au FileType css										setl omnifunc=csscomplete#CompleteCSS
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Javascript"
-augroup JavaScript
-  au!
-  au FileType javascript     				setl omnifunc=javascriptcomplete#CompleteJS
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Ruby"
-augroup Ruby
-  au!
-  au FileType ruby           				setl omnifunc=rubycomplete#Complete
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Python"
-augroup Python
-  au!
-  au FileType python         				setl omnifunc=pythoncomplete#Complete
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
 " "C"
 augroup C
   au!
@@ -1409,12 +1333,24 @@ augroup END
 
 
 
-" "Perl"
-augroup Perl
-  au!
-  au FileType perl		       				setl omnifunc=syntaxcomplete#Complete
+" "CSS"
+augroup CSS
+	au!
+  au FileType css										setl omnifunc=csscomplete#CompleteCSS
 augroup END
 "-----------------------------------------------------------------------------
+
+
+
+" "Drupal CMS Framework"
+augroup DrupalCMS
+  au!
+  au BufNewFile,BufRead *.module		setf=php
+  au BufNewFile,BufRead *.install		setf=php
+  au BufNewFile,BufRead *.test			setf=php
+augroup END
+"-----------------------------------------------------------------------------
+
 
 
 " "HTML"
@@ -1429,16 +1365,68 @@ augroup END
 
 
 
-" "XML/XSL"
-augroup XMLXSL
+" "Javascript"
+augroup JavaScript
   au!
-  autocmd BufNewFile,BufRead *.xml	setf xml
-  autocmd BufNewFile,BufRead *.xsl	setf xml
-  autocmd BufNewFile,BufRead *.rss	setf xml
-  autocmd BufNewFile,BufRead *.atom	setf xml
-  au FileType xml										setl omnifunc=xmlcomplete#CompleteTags
-  au Filetype xml										call EnableCloseTag()
-  au Filetype xsl										call EnableCloseTag()
+  au FileType javascript     				setl omnifunc=javascriptcomplete#CompleteJS
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Markdown"
+augroup MarkDown
+	au!
+  au BufNewFile,BufRead *.markdown	setf=markdown
+  au FileType markdown							setl omnifunc=htmlcomplete#CompleteTags
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Perl"
+augroup Perl
+  au!
+  au FileType perl		       				setl omnifunc=syntaxcomplete#Complete
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "PHP"
+augroup PHP
+  au!
+  au BufNewFile,BufRead *.php				setf=php
+  au FileType php										let php_minlines=500
+  au FileType php            				setl omnifunc=phpcomplete#CompletePHP
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Plain Text"
+augroup PlainText
+  au!
+	au BufNewFile,BufRead *.txt       setf=text
+	au BufNewFile,BufRead *.txt       setl tw=80
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Python"
+augroup Python
+  au!
+  au FileType python         				setl omnifunc=pythoncomplete#Complete
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Ruby"
+augroup Ruby
+  au!
+  au FileType ruby           				setl omnifunc=rubycomplete#Complete
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1463,48 +1451,6 @@ augroup END
 
 
 
-" "Drupal CMS Framework"
-augroup DrupalCMS
-  au!
-  au BufNewFile,BufRead *.module		setf=php
-  au BufNewFile,BufRead *.install		setf=php
-  au BufNewFile,BufRead *.test			setf=php
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "PHP"
-augroup PHP
-  au!
-  au BufNewFile,BufRead *.php				setf=php
-  au FileType php										let php_minlines=500
-  au FileType php            				setl omnifunc=phpcomplete#CompletePHP
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Markdown"
-augroup MarkDown
-	au!
-  au BufNewFile,BufRead *.markdown	setf=markdown
-  au FileType markdown							setl omnifunc=htmlcomplete#CompleteTags
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Plain Text"
-augroup PlainText
-  au!
-	au BufNewFile,BufRead *.txt       setf=text
-	au BufNewFile,BufRead *.txt       setl tw=80
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
 " "Vim Script"
 augroup VimScript
   au!
@@ -1513,6 +1459,21 @@ augroup VimScript
   au BufWritePost {_,.,}vimrc.local call Reload()
   " au bufwritepost molokai-ez.vim    call Reload()
   au FileType vim										setl omnifunc=syntaxcomplete#Complete
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "XML/XSL"
+augroup XMLXSL
+  au!
+  au BufNewFile,BufRead *.xml				setf xml
+  au BufNewFile,BufRead *.xsl				setf xml
+  au BufNewFile,BufRead *.rss				setf xml
+  au BufNewFile,BufRead *.atom			setf xml
+  au FileType xml										setl omnifunc=xmlcomplete#CompleteTags
+  au Filetype xml										call EnableCloseTag()
+  au Filetype xsl										call EnableCloseTag()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1568,6 +1529,36 @@ function! ToggleAutoComplete()
     NeoComplCacheDisable
     echo "Auto Completion: Off"
   endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Tab Size"
+function! TabSize()
+  let l:tabstop = 1 * input('Tab Size: ')
+  if l:tabstop > 0
+    let &l:sts = l:tabstop
+    let &l:ts = l:tabstop
+    let &l:sw = l:tabstop
+  endif
+  call TabSummary()
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Tab Summary Report"
+function! TabSummary()
+    echo ' Current tab settings: '
+    echo ' tabstop='.&l:ts
+    echo ' shiftwidth='.&l:sw
+    echo ' softtabstop='.&l:sts
+    if &l:et
+      echo ' expandtab'
+    else
+      echo ' noexpandtab'
+    endif
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1899,6 +1890,9 @@ endif
 " TODO: map function keys to... Vundle commands to update and install
 " TODO: session info in powerline
 " TODO: consolidate tmp files in vim.local dir to tmp folder
+" TODO: figure how to map y to yank current word
+" TODO: refactor neocomplcache
+" TODO: refactor NeoSnippets
 
 " XXX
 
