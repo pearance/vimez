@@ -776,20 +776,20 @@ set showcmd                       " Show (partial) command in states line.
 set laststatus=2                  " Keep status lines visible at all times.
 set cmdheight=2                   " Number of lines to use for the command-line.
 
-let g:Powerline_cache_enabled = 0
-let g:Powerline_symbols = 'compatible'
-let g:Powerline_stl_path_style = 'filename'
 let g:Powerline_theme = 'default'
 let g:Powerline_colorscheme = 'default'
-let g:Powerline_mode_n  = 'Normal'
-let g:Powerline_mode_i  = 'Insert'
-let g:Powerline_mode_R  = 'Replace'
-let g:Powerline_mode_v  = 'Visual'
-let g:Powerline_mode_V  = 'Visual Line'
-let g:Powerline_mode_cv = 'Visual Block'
-let g:Powerline_mode_s  = 'Select'
-let g:Powerline_mode_S  = 'Select Line'
-let g:Powerline_mode_cs = 'Select Block'
+let g:Powerline_cache_enabled = 1
+let g:Powerline_symbols = 'compatible'
+let g:Powerline_stl_path_style = 'filename'
+let g:Powerline_mode_n  = 'NORMAL'
+let g:Powerline_mode_i  = 'INSERT'
+let g:Powerline_mode_R  = 'REPLACe'
+let g:Powerline_mode_v  = 'VISUAL'
+let g:Powerline_mode_V  = 'VISUAL LINE'
+let g:Powerline_mode_cv = 'VISUAL BLOCK'
+let g:Powerline_mode_s  = 'SELECT'
+let g:Powerline_mode_S  = 'SELECT LINE'
+let g:Powerline_mode_cs = 'SELECT BLOCK'
 let g:Powerline_symbols_override = {
     \ 'BRANCH': [0x2213],
     \ }
