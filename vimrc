@@ -717,7 +717,7 @@ set shortmess+=I " Don't give the intro message when starting Vim |:intro|.
 
 
 
-" "Hidden Characters"
+" "Formating Characters"
 " This controls visibility of non-printable characters that denote certain
 " formatting information. Such as eol, tabs, trailing space, etc.
 set nolist
@@ -726,10 +726,10 @@ set listchars+=tab:▸-
 set listchars+=trail:.
 set listchars+=extends:>
 set listchars+=precedes:<
-nnoremap <silent><Leader>th
+nnoremap <silent><Leader>tf
       \ :setlocal list!<CR><Bar>
       \ :let OnOrOff=&list<CR><Bar>
-      \ :call ToggleOnOff("Hidden Characters", OnOrOff)<CR>
+      \ :call ToggleOnOff("Formating Characters", OnOrOff)<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -781,9 +781,17 @@ let g:Powerline_symbols = 'compatible'
 let g:Powerline_stl_path_style = 'filename'
 let g:Powerline_theme = 'default'
 let g:Powerline_colorscheme = 'default'
+let g:Powerline_mode_n  = 'Normal'
+let g:Powerline_mode_i  = 'Insert'
+let g:Powerline_mode_R  = 'Replace'
+let g:Powerline_mode_v  = 'Visual'
+let g:Powerline_mode_V  = 'Visual Line'
+let g:Powerline_mode_cv = 'Visual Block'
+let g:Powerline_mode_s  = 'Select'
+let g:Powerline_mode_S  = 'Select Line'
+let g:Powerline_mode_cs = 'Select Block'
 let g:Powerline_symbols_override = {
     \ 'BRANCH': [0x2213],
-    \ 'LINE': 'LN',
     \ }
 call Pl#Theme#InsertSegment('ws_marker', 'after', 'lineinfo')
 " call Pl#Theme#RemoveSegment('rvm')
@@ -1035,11 +1043,11 @@ command! -nargs=* Tab call TabSize()
 " ******************************************************************************
 
 " "Escape" A more efficient alternative to the escape key.
-inoremap jj <Esc>
-inoremap JJ <Esc>
-cnoremap jj <C-c>
-cnoremap JJ <C-c>
-vnoremap ,, <Esc>
+inoremap ,, <Esc>
+inoremap << <Esc>
+cnoremap ,, <C-c>
+cnoremap << <C-c>
+vnoremap ,  <Esc>
 "-------------------------------------------------------------------------------
 
 
@@ -1215,6 +1223,7 @@ noremap <silent><C-c><C-h> :wincmd h<CR>:close<CR>
 noremap <silent><C-c><C-k> :wincmd k<CR>:close<CR>
 noremap <silent><C-c><C-l> :wincmd l<CR>:close<CR>
 noremap <silent><C-c><C-w> :close<CR>
+noremap <silent><Leader>cw :close<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1222,8 +1231,8 @@ noremap <silent><C-c><C-w> :close<CR>
 " "Resize Windows"
 nnoremap <Left> <C-w><
 nnoremap <Right> <C-w>>
-nnoremap <Up> <C-w>-
-nnoremap <Down> <C-w>+
+nnoremap <Up> <C-w>+
+nnoremap <Down> <C-w>-
 "-------------------------------------------------------------------------------
 
 
@@ -1851,21 +1860,11 @@ endif
 
 
 " "Todo/s, Fixme/s"
-" TODO: Refactor statusline
-" TODO: Remove remnants of status line
-" TODO: special invisible characters
-" TODO: map ,l next buffer and ,h to previous
 " TODO: map function keys to... Vundle commands to update and install
 " TODO: session info in powerline
-" TODO: consolidate tmp files in vim.local dir to tmp folder
 " TODO: figure how to map y to yank current word
 " TODO: refactor neocomplcache
 " TODO: refactor NeoSnippets
-
-" XXX
-
-" FIXME:
-
 
 " vim:ft=vim:fdm=marker:
 " }}}
