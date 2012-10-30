@@ -27,10 +27,6 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 let g:vundle_default_git_proto = 'git'
-nnoremap <silent><Leader>1 :BundleInstall<CR>
-nnoremap <silent><Leader>2 :BundleInstall!<CR>
-nnoremap <silent><Leader>3 :BundleClean<CR>
-nnoremap <silent><Leader>4 :Bundles<CR>
 Bundle "gmarik/vundle"
 "-------------------------------------------------------------------------------
 
@@ -81,6 +77,13 @@ filetype plugin indent on
 
 
 
+" "Runtimes"
+runtime macros/matchit.vim
+runtime ftplugin/man.vim
+"-------------------------------------------------------------------------------
+
+
+
 
 
 
@@ -92,9 +95,8 @@ filetype plugin indent on
 " GENERAL: "{{{
 " ******************************************************************************
 
-" "Runtimes"
-runtime macros/matchit.vim
-runtime ftplugin/man.vim
+" "Leader Key"
+let mapleader="\<Space>"  " Map personal modifier aka Leader key.
 "-------------------------------------------------------------------------------
 
 
@@ -118,8 +120,11 @@ nnoremap <Leader>syn :call <SID>SynStack()<CR>
 
 
 
-" "Leader Key"
-let mapleader="\<Space>"  " Map personal modifier aka Leader key.
+" "Plugin/Bundle (Vundle)"
+nnoremap <silent><Leader>1 :BundleInstall<CR>
+nnoremap <silent><Leader>2 :BundleInstall!<CR>
+nnoremap <silent><Leader>3 :BundleClean<CR>
+nnoremap <silent><Leader>4 :Bundles<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -526,6 +531,7 @@ set clipboard+=unnamedplus  " Use system clipboard for yanks.
 
 nnoremap Y  "+y$
 nnoremap yy "+Y
+nmap y  viw"+y
 vnoremap y  "+y
 vnoremap Y  "+Y
 
@@ -1131,7 +1137,6 @@ let g:showmarks_textupper = "]"
 nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
 nnoremap <silent><Leader>dm  :ShowMarksClearMark<CR>
 nnoremap <silent><Leader>dam :ShowMarksClearAll<CR>
-nnoremap <silent><Leader>mm  :ShowMarksPlaceMark<CR>
 "-------------------------------------------------------------------------------
 
 
