@@ -59,7 +59,7 @@ Bundle "kien/ctrlp.vim"
 Bundle "benmills/vimux"
 Bundle "duff/vim-bufonly"
 Bundle "vim-scripts/bufkill.vim"
-Bundle "vim-scripts/ShowMarks7"
+Bundle "vimez/vim-showmarks"
 Bundle "tpope/vim-unimpaired"
 Bundle "tpope/vim-rvm"
 Bundle "xolox/vim-session"
@@ -121,10 +121,8 @@ nnoremap <Leader>syn :call <SID>SynStack()<CR>
 
 
 " "Plugin/Bundle (Vundle)"
-nnoremap <silent><Leader>1 :BundleInstall<CR>
-nnoremap <silent><Leader>2 :BundleInstall!<CR>
-nnoremap <silent><Leader>3 :BundleClean<CR>
-nnoremap <silent><Leader>4 :Bundles<CR>
+nmap <Leader>1 :<C-u>Bundle<C-z>
+" nnoremap <silent><Leader>1 :BundleInstall<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1134,9 +1132,9 @@ vnoremap <C-f> :call FindReplace()<CR>
 let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 let g:showmarks_textlower = ")"
 let g:showmarks_textupper = "]"
-nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
 nnoremap <silent><Leader>dm  :ShowMarksClearMark<CR>
 nnoremap <silent><Leader>dam :ShowMarksClearAll<CR>
+nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
 "-------------------------------------------------------------------------------
 
 
