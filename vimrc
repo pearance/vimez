@@ -23,17 +23,21 @@ filetype off
 
 
 
-" "Plugin Manager (Vundle)"
+" "Plugin/Bundle Manager (Vundle)"
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 let g:vundle_default_git_proto = 'git'
+nnoremap <silent><Leader>1 :BundleInstall<CR>
+nnoremap <silent><Leader>2 :BundleInstall!<CR>
+nnoremap <silent><Leader>3 :BundleClean<CR>
+nnoremap <silent><Leader>4 :Bundles<CR>
 Bundle "gmarik/vundle"
 "-------------------------------------------------------------------------------
 
 
 
 " "Plugin Bundles"
-Bundle "vimez/themes"
+Bundle "vimez/vim-themes"
 Bundle "vim-scripts/CSApprox"
 Bundle "vim-scripts/ScrollColors"
 Bundle "lilydjwg/colorizer"
@@ -43,7 +47,7 @@ Bundle "hail2u/vim-css3-syntax"
 Bundle "pangloss/vim-javascript"
 Bundle "groenewege/vim-less"
 Bundle "plasticboy/vim-markdown"
-Bundle "vimez/tmux"
+Bundle "vimez/vim-tmux"
 Bundle "vim-scripts/YankRing.vim"
 Bundle "tpope/vim-surround"
 Bundle "Shougo/neocomplcache"
@@ -54,12 +58,12 @@ Bundle "mattn/zencoding-vim"
 Bundle "docunext/closetag.vim"
 Bundle "tpope/vim-repeat"
 Bundle "Raimondi/delimitMate"
-Bundle "Lokaltog/vim-powerline"
+Bundle "vimez/vim-powerline"
 Bundle "kien/ctrlp.vim"
 Bundle "benmills/vimux"
 Bundle "duff/vim-bufonly"
 Bundle "vim-scripts/bufkill.vim"
-Bundle "vimez/showmarks"
+Bundle "vim-scripts/ShowMarks7"
 Bundle "tpope/vim-unimpaired"
 Bundle "tpope/vim-rvm"
 Bundle "xolox/vim-session"
@@ -522,8 +526,8 @@ set clipboard+=unnamedplus  " Use system clipboard for yanks.
 
 nnoremap Y  "+y$
 nnoremap yy "+Y
-vnoremap Y  "+Y
 vnoremap y  "+y
+vnoremap Y  "+Y
 
 " Yank from current cursor position to left or right end respectively.
 nnoremap yh v0y
@@ -1860,7 +1864,6 @@ endif
 
 
 " "Todo/s, Fixme/s"
-" TODO: map function keys to... Vundle commands to update and install
 " TODO: session info in powerline
 " TODO: figure how to map y to yank current word
 " TODO: refactor neocomplcache
