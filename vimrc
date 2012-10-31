@@ -53,7 +53,6 @@ Bundle "sjl/gundo.vim"
 Bundle "mattn/zencoding-vim"
 Bundle "docunext/closetag.vim"
 Bundle "tpope/vim-repeat"
-Bundle "Raimondi/delimitMate"
 Bundle "vimez/vim-powerline"
 Bundle "kien/ctrlp.vim"
 Bundle "benmills/vimux"
@@ -67,6 +66,7 @@ Bundle "scrooloose/nerdtree"
 Bundle "vim-scripts/Rename2"
 Bundle "godlygeek/tabular"
 Bundle "ervandew/screen"
+Bundle "vim-scripts/Auto-Pairs"
 "-------------------------------------------------------------------------------
 
 
@@ -95,14 +95,14 @@ runtime ftplugin/man.vim
 " GENERAL: "{{{
 " ******************************************************************************
 
-" "Leader Key"
-let mapleader="\<Space>"  " Map personal modifier aka Leader key.
+" "Help"
+nnoremap <silent><F1> "zyw:exe "h ".@z.""<CR>
 "-------------------------------------------------------------------------------
 
 
 
-" "Help"
-nnoremap <silent><F1> "zyw:exe "h ".@z.""<CR>
+" "Leader Key"
+let mapleader="\<Space>"  " Map personal modifier aka Leader key.
 "-------------------------------------------------------------------------------
 
 
@@ -120,9 +120,8 @@ nnoremap <Leader>syn :call <SID>SynStack()<CR>
 
 
 
-" "Plugin/Bundle (Vundle)"
+" "Bundle Wildmenu (Vundle)"
 nmap <Leader>1 :<C-u>Bundle<C-z>
-" nnoremap <silent><Leader>1 :BundleInstall<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -919,8 +918,8 @@ let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_enable_caching_message = 1
 let g:neocomplcache_disable_select_mode_mappings = 1
-let g:neocomplcache_enable_auto_select = 0
-let g:neocomplcache_enable_auto_delimiter = 0
+let g:neocomplcache_enable_auto_select = 1
+" let g:neocomplcache_enable_auto_delimiter = 1
 let g:neocomplcache_snippets_complete_disable_runtime_snippets = 1
 let g:neocomplcache_snippets_dir = '~/.vim/snippets'
 if !exists('g:neocomplcache_filetype_include_lists')
@@ -939,16 +938,16 @@ map <Leader>ta :call ToggleAutoComplete()<CR>
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
 " Configure Neocomplcache Mappings
-inoremap <expr><C-z> neocomplcache#undo_completion()
-inoremap <expr><BS>  neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><CR>  neocomplcache#smart_close_popup()."\<CR>"
+" inoremap <expr><C-z> neocomplcache#undo_completion()
+" inoremap <expr><BS>  neocomplcache#smart_close_popup()."\<C-h>"
+" inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+" inoremap <expr><CR>  neocomplcache#smart_close_popup()."\<CR>"
 nnoremap <Leader>es  :NeoComplCacheEditSnippets<CR>
 "-------------------------------------------------------------------------------
 
@@ -967,7 +966,10 @@ endif
 
 
 
-" "Auto Close (DelimitMate)"
+
+" "Auto Pairing (Auto-Pairs)"
+let g:AutoPairsShortcutFastWrap = '<C-e>'
+inoremap <buffer><silent><BS> <C-R>=AutoPairsDelete()<CR>'
 "-------------------------------------------------------------------------------
 
 
@@ -1868,7 +1870,6 @@ endif
 
 " "Todo/s, Fixme/s"
 " TODO: session info in powerline
-" TODO: figure how to map y to yank current word
 " TODO: refactor neocomplcache
 " TODO: refactor NeoSnippets
 
