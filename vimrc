@@ -292,14 +292,19 @@ nnoremap <Leader>rf :Rename<Space>
 
 
 " "Browse Files (NERDTree)"
-let NERDTreeChDirMode=2
-let NERDTreeMapOpenSplit='h'
-let NERDTreeMapPreviewSplit='gh'
-let NERDTreeMapOpenVSplit='v'
-let NERDTreeMapPreviewVSplit='gv'
-let NERDTreeDirArrows=1
-let NERDTreeBookmarksFile=expand("~/.vim.local/tmp/NERDTreeBookmarks")
-nnoremap <silent><Leader>,, :NERDTreeToggle .<CR>
+let NERDTreeBookmarksFile = expand("~/.vim.local/tmp/NERDTreeBookmarks")
+let NERDTreeChDirMode = 2
+let NERDTreeMapOpenSplit = 'h'
+let NERDTreeMapPreviewSplit = 'gh'
+let NERDTreeMapOpenVSplit = 'v'
+let NERDTreeMapPreviewVSplit = 'gv'
+let NERDTreeDirArrows = 1
+let NERDTreeQuitOnOpen  =  1
+let NERDTreeShowHidden = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeAutoDeleteBuffer = 1
+nnoremap <silent><Leader>, :NERDTreeFind<CR>
+nnoremap <silent><Leader>,, :NERDTreeToggle<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -969,7 +974,7 @@ endif
 
 " "Auto Pairing (Auto-Pairs)"
 let g:AutoPairsShortcutFastWrap = '<C-e>'
-inoremap <buffer><silent><BS> <C-R>=AutoPairsDelete()<CR>'
+" inoremap <buffer><silent><BS> <C-R>=AutoPairsDelete()<CR>'
 "-------------------------------------------------------------------------------
 
 
@@ -1485,6 +1490,7 @@ if !exists("*Reload")
     exe 'CSApprox'
     " Reapply Powerline color scheme
     call Pl#Load()
+    nohlsearch
     call Msg('Vim Configuration Written & Reloaded!')
   endfunction
 endif
