@@ -974,7 +974,6 @@ endif
 
 " "Auto Pairing (Auto-Pairs)"
 let g:AutoPairsShortcutFastWrap = '<C-e>'
-" inoremap <buffer><silent><BS> <C-R>=AutoPairsDelete()<CR>'
 "-------------------------------------------------------------------------------
 
 
@@ -1339,6 +1338,16 @@ augroup DrupalCMS
   au BufNewFile,BufRead *.module		setf=php
   au BufNewFile,BufRead *.install		setf=php
   au BufNewFile,BufRead *.test			setf=php
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Git"
+augroup Git
+  au!
+  au BufNewFile,BufRead COMMIT_EDITMSG call feedkeys('ggi', 't')
+  au BufNewFile,BufRead COMMIT_EDITMSG setl spell
 augroup END
 "-----------------------------------------------------------------------------
 
