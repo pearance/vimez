@@ -363,6 +363,7 @@ nnoremap <silent><Leader>wab :wall<CR>:exe ":echo 'All buffers saved to files!'"
 
 " "Close Buffer (BufKill)"
 nnoremap <silent><Leader>cb :BD<CR>
+nnoremap <silent><Leader>cB :BD!<CR>
 "-------------------------------------------------------------------------------
 
 
