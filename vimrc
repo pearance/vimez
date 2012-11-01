@@ -1067,7 +1067,7 @@ inoremap ,, <Esc>
 inoremap << <Esc>
 cnoremap ,, <C-c>
 cnoremap << <C-c>
-vnoremap ,  <Esc>
+vnoremap ,, <Esc>
 "-------------------------------------------------------------------------------
 
 
@@ -1164,32 +1164,33 @@ nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
 
 " "Execute Terminal Commands (Vimux)"
 let g:VimuxOrientation = "h"
+let g:VimuxHeight = "50"
 
 " Prompt for a command to run
-map <Leader>xp :VimuxPromptCommand<CR>
+nnoremap <Leader>xp :VimuxPromptCommand<CR>
 
 " Run last command executed by VimuxRunCommand
-map <Leader>xl :VimuxRunLastCommand<CR>
+nnoremap <Leader>xl :VimuxRunLastCommand<CR>
 
 " Inspect runner pane
-map <Leader>xi :VimuxInspectRunner<CR>
+nnoremap <Leader>xi :VimuxInspectRunner<CR>
 
 " Interrupt any command running in the runner pane
-map <Leader>xs :VimuxInterruptRunner<CR>
+nnoremap <Leader>xs :VimuxInterruptRunner<CR>
 
 " Clear ths tmux history of the runner pane for when
 " you enter tmux scroll mode inside the runner pane.
-map <Leader>xc :VimuxClearRunnerHistory<CR>
-
-" Close all other tmux panes in current window
-map <Leader>xx :VimuxClosePanes<CR>
+nnoremap <Leader>xt :VimuxClearRunnerHistory<CR>
 
 " Close vim tmux runner opened by VimuxRunCommand
-map <Leader>xq :VimuxCloseRunner<CR>
+nnoremap <Leader>xq :VimuxCloseRunner<CR>
 
-map <Leader>xx :call VimuxRunCommand("clear")<CR>
+" Close all other tmux panes in current window
+nnoremap <Leader>xx :VimuxClosePanes<CR>
 
-map <F9> :call VimuxRunCommand("colors")<CR>
+nnoremap <Leader>xc :call VimuxRunCommand("clear")<CR>
+
+nnoremap <F9> :call VimuxRunCommand("colors")<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1218,10 +1219,10 @@ nmap <Leader>tc <Plug>Colorizer
 " ******************************************************************************
 
 " "Focus Windows"
-noremap <silent><C-h> :wincmd h<CR>
-noremap <silent><C-j>	:wincmd j<CR>
-noremap <silent><C-k> :wincmd k<CR>
-noremap <silent><C-l> :wincmd l<CR>
+noremap <silent><C-h> <C-w>h
+noremap <silent><C-j>	<C-w>j
+noremap <silent><C-k> <C-w>k
+noremap <silent><C-l> <C-w>l
 "-------------------------------------------------------------------------------
 
 
@@ -1248,10 +1249,10 @@ noremap <silent><Leader>cw :close<CR>
 
 
 " "Resize Windows"
-nnoremap <Left> <C-w><
+nnoremap <Left>  <C-w><
 nnoremap <Right> <C-w>>
-nnoremap <Up> <C-w>+
-nnoremap <Down> <C-w>-
+nnoremap <Up>    <C-w>+
+nnoremap <Down>  <C-w>-
 "-------------------------------------------------------------------------------
 
 
@@ -1460,10 +1461,12 @@ augroup END
 " "Vim Script"
 augroup VimScript
   au!
-  au BufNewFile,BufRead *.vim	      setf=vim
-  au BufWritePost {_,.,}vimrc				call Reload()
-  au BufWritePost {_,.,}vimrc.local call Reload()
-  " au bufwritepost molokai-ez.vim    call Reload()
+  au BufNewFile,BufRead *.vim				setf=vim
+  au BufWritePost $MYVIMRC					nested so $MYVIMRC
+  au BufWritePost $MYVIMRC.local		nested so $MYVIMRC.local
+  au BufWritePost $MYVIMRC					call Reload()
+  au BufWritePost $MYVIMRC.local		call Reload()
+  au bufwritepost molokai-ez.vim    call Reload()
   au FileType vim										setl omnifunc=syntaxcomplete#Complete
 augroup END
 "-----------------------------------------------------------------------------
@@ -1500,7 +1503,6 @@ augroup END
 if !exists("*Reload")
   function! Reload()
     nohlsearch
-    so $MYVIMRC
     " Reapproximate hex color codes for terminal
     exe 'CSApprox'
     " Reapply Powerline color scheme
