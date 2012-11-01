@@ -67,6 +67,7 @@ Bundle "vim-scripts/Rename2"
 Bundle "godlygeek/tabular"
 Bundle "ervandew/screen"
 Bundle "vim-scripts/Auto-Pairs"
+Bundle "endel/ctrlp-filetype.vim"
 "-------------------------------------------------------------------------------
 
 
@@ -323,6 +324,10 @@ nnoremap <silent><Leader>jj :CtrlPBuffer<CR>
 nnoremap <silent><Leader>kk :CtrlPMRU<CR>
 nnoremap <silent><Leader>ll :CtrlP<CR>
 let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
+
+" Find and set filetypes.
+let g:ctrlp_extensions = ['filetype']
+silent! nnoremap <unique> <silent> <Leader>ff :CtrlPFiletype<CR>
 "-------------------------------------------------------------------------------
 
 
