@@ -316,12 +316,13 @@ let g:ctrlp_open_multiple_files = '1vjr'
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_prompt_mappings = {
-  \ 'PrtExit()':            ['<esc>', '<c-c>', ','],
+  \ 'PrtExit()':            ['<esc>', ','],
   \ 'CreateNewFile()':      ['<c-b>'],
   \ }
 nnoremap <silent><Leader>jj :CtrlPBuffer<CR>
 nnoremap <silent><Leader>kk :CtrlPMRU<CR>
 nnoremap <silent><Leader>ll :CtrlP<CR>
+let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
 "-------------------------------------------------------------------------------
 
 
@@ -1531,6 +1532,23 @@ function! ToggleAutoComplete()
     echo "Auto Completion: Off"
   endif
 endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Ctrl-P Custom Mappings""
+function! MyCtrlPMappings()
+  nnoremap <buffer><silent><C-c> :call <sid>DeleteBuffer()<cr>
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Ctrl-P Delete Buffer"
+function! s:DeleteBuffer()
+  exec "bd" fnamemodify(getline('.')[2:], ':p')
+  exec "norm \<F5>"
+endfunction"
 "-------------------------------------------------------------------------------
 
 
