@@ -122,11 +122,11 @@ nnoremap <Leader>syn :call <SID>SynStack()<CR>
 
 
 " "Bundle Wildmenu (Vundle)"
-nmap <Leader>1 :<C-u>Bundle<C-z>
-nmap <Leader>2 :<C-u>BundleInstall<CR>
-nmap <Leader>3 :<C-u>BundleInstall!<CR>
-nmap <Leader>4 :<C-u>BundleClean<CR>
-nmap <Leader>5 :<C-u>BundleList<CR>
+nmap <Leader>b<Tab> :<C-u>Bundle<C-z>
+nmap <Leader>1 :<C-u>BundleInstall<CR>
+nmap <Leader>2 :<C-u>BundleInstall!<CR>
+nmap <Leader>3 :<C-u>BundleClean<CR>
+nmap <Leader>4 :<C-u>BundleList<CR>
 "-------------------------------------------------------------------------------
 
 
