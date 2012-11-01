@@ -397,7 +397,7 @@ nmap ,l ]b
 "-------------------------------------------------------------------------------
 
 
-" "Sessions (Session.vim)"
+" "Sessions (Vim Session)"
 " Changes the effect of the :mksession command. It is a comma separated list of
 " words.  Each word enables saving and restoring something:
 let g:session_autoload = 'yes'
@@ -432,35 +432,11 @@ set ssop+=unix		     " With Unix end-of-line format (single <NL>), even when
                        " on Windows or DOS
 set ssop+=winpos	     " Position of the whole Vim window
 set ssop+=winsize	     " Window sizes
-"-------------------------------------------------------------------------------
 
-
-
-" "Write Session (Vim-Session)"
 nnoremap <silent><Leader>ws :SaveSession<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Write Session As (Vim-Session)"
-nnoremap <silent><Leader>wsa :call WriteSessionAs()<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Open Session (Vim-Session)"
+nnoremap <silent><Leader>ns :call NewSession()<CR>
 nnoremap <silent><Leader>os :SaveSession<CR><Bar>:OpenSession<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Close Session (Vim-Session)"
 nnoremap <silent><Leader>cs :SaveSession<CR><Bar>:CloseSession<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Delete Session (Vim-Session)"
 nnoremap <silent><Leader>ds :DeleteSession<CR>
 "-------------------------------------------------------------------------------
 
@@ -1568,7 +1544,7 @@ endfunction"
 
 " "Tab Size"
 function! TabSize()
-  let l:tabstop = 1 * input('Tab Size: ')
+  let l:tabstop = 1 * input(' Tab Size: ')
   if l:tabstop > 0
     let &l:sts = l:tabstop
     let &l:ts = l:tabstop
@@ -1705,10 +1681,10 @@ endfunction
 
 
 
-" "Write Session As"
-function! WriteSessionAs()
+" "New Session"
+function! NewSession()
   call inputsave()
-  let SessionName = input('Session Name: ')
+  let SessionName = input(' New Session Name: ')
   exe "SaveSession " . SessionName
 endfunction
 "-------------------------------------------------------------------------------
@@ -1822,7 +1798,7 @@ function! FindReplace()
   let CurrentWord=GetVisual()
   " Get search string.
   call inputsave()
-  let  CurrentString = input("Search for: ", CurrentWord)
+  let  CurrentString = input(" Search for: ", CurrentWord)
   if (empty(CurrentString))
    return
   endif
@@ -1830,14 +1806,14 @@ function! FindReplace()
 
   " Get replace string.
   call inputsave()
-  let  NewString = input("Search for: ".CurrentString."   Replace with: ")
+  let  NewString = input(" Search for: ".CurrentString."   Replace with: ")
   call inputrestore()
 
   " Determine wether or not to search for whole word only.
   redraw!
-  let option = confirm("Search for whole word only? ", "&Yes\n&No", 2)
+  let option = confirm(" Search for whole word only? ", "&Yes\n&No", 2)
   if option == 0
-    echon "Invalid response. Please try again."
+    echon " Invalid response. Please try again."
   elseif option == 1
     " Find exact matches.
     exe "%s/\\<".CurrentString."\\>/".NewString."/gc"
