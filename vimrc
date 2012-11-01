@@ -316,18 +316,20 @@ let g:ctrlp_cache_dir = $HOME.'/.vim.local/tmp/cache/ctrlp'
 let g:ctrlp_open_multiple_files = '1vjr'
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_prompt_mappings = {
   \ 'PrtExit()':            ['<esc>', ','],
   \ 'CreateNewFile()':      ['<c-b>'],
   \ }
-nnoremap <silent><Leader>jj :CtrlPBuffer<CR>
-nnoremap <silent><Leader>kk :CtrlPMRU<CR>
-nnoremap <silent><Leader>ll :CtrlP<CR>
 let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
 
 " Find and set filetypes.
 let g:ctrlp_extensions = ['filetype']
-silent! nnoremap <unique> <silent> <Leader>ff :CtrlPFiletype<CR>
+nnoremap <silent><Leader>ff :CtrlPFiletype<CR>
+nnoremap <silent><Leader>hh :CtrlP<CR>
+nnoremap <silent><Leader>jj :CtrlPBuffer<CR>
+nnoremap <silent><Leader>kk :CtrlPMRU<CR>
+nnoremap <silent><Leader>ll :CtrlP<CR>
 "-------------------------------------------------------------------------------
 
 
