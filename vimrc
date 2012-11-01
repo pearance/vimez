@@ -1163,13 +1163,13 @@ nnoremap <Leader>xs :VimuxInterruptRunner<CR>
 
 " Clear ths tmux history of the runner pane for when
 " you enter tmux scroll mode inside the runner pane.
-nnoremap <Leader>xt :VimuxClearRunnerHistory<CR>
+nnoremap <Leader>xx :VimuxClearRunnerHistory<CR>
 
 " Close vim tmux runner opened by VimuxRunCommand
 nnoremap <Leader>xq :VimuxCloseRunner<CR>
 
 " Close all other tmux panes in current window
-nnoremap <Leader>xx :VimuxClosePanes<CR>
+nnoremap <Leader>xa :VimuxClosePanes<CR>
 
 nnoremap <Leader>xc :call VimuxRunCommand("clear")<CR>
 
@@ -1236,6 +1236,12 @@ nnoremap <Left>  <C-w><
 nnoremap <Right> <C-w>>
 nnoremap <Up>    <C-w>+
 nnoremap <Down>  <C-w>-
+"-------------------------------------------------------------------------------
+
+
+
+" "Expand Window"
+nnoremap <silent><Leader>ew :only<CR>
 "-------------------------------------------------------------------------------
 
 
