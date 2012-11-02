@@ -5,9 +5,9 @@
 "     \_/  |___|_|  |_|_| \_\\____(_)_____\___/ \____/_/   \_\_____|
 "
 "
-" Maintainer:    Me
+" Maintainer:    That would be you! Warning it can be addictive.
 " Description:   The local Vim configuration file. Here is where you get your
-"                overides on.
+"                overrides on.
 "------------------------------------------------------------------------------
 
 
@@ -27,7 +27,7 @@
 
 
 
-" "Edit Vimrc"
+" "Edit Vimrc.local"
 nnoremap <silent><Leader>e1 :e ~/.vim.local/vimrc.local<CR>
 "-------------------------------------------------------------------------------
 
