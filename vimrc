@@ -109,7 +109,6 @@ let mapleader="\<Space>"  " Map personal modifier aka Leader key.
 
 
 " "Color Scheme & Syntax Highlighting"
-set background=dark         " Use a dark background.
 set t_Co=256                " Force terminal to go into 256 color mode.
 set synmaxcol=300           " Prevent long lines from slowing down redraws.
 syntax on		                " Syntax highlighting on.
@@ -580,7 +579,7 @@ nnoremap <silent><Leader>uu :GundoToggle<CR>
 
 
 " "Select All"
-nmap <Leader>a ggVG
+nmap <C-a> ggVG
 "-------------------------------------------------------------------------------
 
 
@@ -629,6 +628,17 @@ nnoremap <silent><Leader>jp k<S-v>xpk:call Join()<CR>
 
 
 
+" "Alignment (Tabularize)"
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
+"-------------------------------------------------------------------------------
+
+
+
 " "Spell Checking"
 " Make sure to update the spelllang to your language. Custom words are tucked
 " away in the .vim/spell folder.
@@ -654,6 +664,7 @@ nmap <silent><Leader>ts
 " "}}}
 " VIEW: "{{{
 " ******************************************************************************
+
 
 " "Title Bar" Set title bar to display current file, path, and server hostname.
 set title
@@ -963,6 +974,7 @@ endif
 
 " "Auto Pairing (Auto-Pairs)"
 let g:AutoPairsShortcutFastWrap = '<C-e>'
+let g:AutoPairsMapBS = 0
 "-------------------------------------------------------------------------------
 
 
@@ -1200,6 +1212,13 @@ nmap <Leader>tc <Plug>Colorizer
 " }}}
 " WINDOW: "{{{
 " ******************************************************************************
+
+" "Window Minimum Dimensions"
+set winminwidth=0
+set winminheight=0
+"-------------------------------------------------------------------------------
+
+
 
 " "Focus Windows"
 noremap <silent><C-h> <C-w>h
@@ -1451,12 +1470,13 @@ augroup END
 augroup VimScript
   au!
   au BufNewFile,BufRead *.vim				setf=vim
-  au BufWritePost $MYVIMRC					nested so $MYVIMRC
-  au BufWritePost $MYVIMRC.local		nested so $MYVIMRC.local
-  au BufWritePost $MYVIMRC					call Reload()
-  au BufWritePost $MYVIMRC.local		call Reload()
-  au bufwritepost molokai-ez.vim    call Reload()
   au FileType vim										setl omnifunc=syntaxcomplete#Complete
+  au BufWritePost {.,_,}vimrc,{.,_,}vimrc.local,molokai-ez.vim
+  			\  nested so $MYVIMRC
+  			\| nohlsearch
+    		\| exe 'CSApprox'
+    		\| call Pl#Load()
+    		\| call Msg('Vim Configuration Written & Reloaded!')
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1491,12 +1511,12 @@ augroup END
 " "Reload Configurations"
 if !exists("*Reload")
   function! Reload()
+  	so $MYVIMRC
     nohlsearch
     " Reapproximate hex color codes for terminal
     exe 'CSApprox'
     " Reapply Powerline color scheme
     call Pl#Load()
-    nohlsearch
     call Msg('Vim Configuration Written & Reloaded!')
   endfunction
 endif
@@ -1896,11 +1916,11 @@ endif
 
 
 
-
 " "Todo/s, Fixme/s"
 " TODO: session info in powerline
 " TODO: refactor neocomplcache
 " TODO: refactor NeoSnippets
+" TODO: Create a clear vimez cache function
 
 " vim:ft=vim:fdm=marker:
 " }}}
