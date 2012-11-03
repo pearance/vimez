@@ -93,7 +93,7 @@ runtime ftplugin/man.vim
 
 
 " }}}
-" GENERAL: "{{{
+" GENERAL: {{{
 " ******************************************************************************
 
 " "Help"
@@ -227,7 +227,7 @@ nnoremap <silent><F5> :call Reload()<CR>
 
 
 
-" "}}}
+" }}}
 " BUFFER: "{{{
 " ******************************************************************************
 
@@ -296,7 +296,7 @@ nnoremap <Leader>rf :Rename<Space>
 
 
 " "Browse Files (NERDTree)"
-let NERDTreeBookmarksFile = expand("~/.vim.local/tmp/NERDTreeBookmarks")
+let NERDTreeBookmarksFile = expand('~/.vim.local/tmp/NERDTreeBookmarks')
 let NERDTreeChDirMode = 2
 let NERDTreeMapOpenSplit = 'h'
 let NERDTreeMapPreviewSplit = 'gh'
@@ -315,7 +315,7 @@ nnoremap <silent><Leader>,, :NERDTreeToggle<CR>
 
 " "Search for Files, Buffers, or MRU (CtrlP)"
 let g:ctrlp_map = '<Leader>ll'
-let g:ctrlp_cache_dir = $HOME.'/.vim.local/tmp/cache/ctrlp'
+let g:ctrlp_cache_dir = '~/.vim.local/tmp/ctrlp'
 let g:ctrlp_open_multiple_files = '1vjr'
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_show_hidden = 1
@@ -459,7 +459,7 @@ set vi+=h	    " Disable 'hlsearch' highlighting when starting
 set vi+=%	    " Buffer list (restored when starting Vim without arguments)
 set vi+=c	    " Convert the text using 'encoding'
 set vi+=s100  " Max amount of kilobytes of any single register.
-set vi+=n~/.vim.local/tmp/viminfo	" Name used for the viminfo file.
+set vi+=n~/.vim.local/tmp/viminfo
 "-------------------------------------------------------------------------------
 
 
@@ -545,10 +545,7 @@ let g:yankring_min_element_length = 3
 let g:yankring_replace_n_pkey = '<C-p>'
 let g:yankring_replace_n_nkey = '<C-n>'
 let g:yankring_history_dir = '~/.vim.local/tmp/'
-let g:yankring_history_file = 'yankring_history'
-
-" Preserve indentation while put (pasting) text from the system clipboard
-" imap <C-v>  <C-O>:set paste<CR><C-O>:set nopaste<CR>
+let g:yankring_history_file = 'yankring_herstory'
 "-------------------------------------------------------------------------------
 
 
@@ -732,12 +729,8 @@ set shortmess+=I " Don't give the intro message when starting Vim |:intro|.
 " "Formating Characters"
 " This controls visibility of non-printable characters that denote certain
 " formatting information. Such as eol, tabs, trailing space, etc.
-set nolist
-set listchars+=eol:¬
-set listchars+=tab:▸-
-set listchars+=trail:.
-set listchars+=extends:>
-set listchars+=precedes:<
+set list
+set listchars=eol:¬,tab:▸\ ,trail:.,extends:>,precedes:<
 nnoremap <silent><Leader>tf
       \ :setlocal list!<CR><Bar>
       \ :let OnOrOff=&list<CR><Bar>
@@ -778,6 +771,15 @@ let g:MarginState = 1
 " "View Options"
 set viewdir=~/.vim.local/tmp/view//,.
 set viewoptions=folds,options,cursor,unix,slash
+"-------------------------------------------------------------------------------
+
+
+
+" "Folds"
+map <leader>f0 :set foldlevel=0<CR>
+map <leader>f1 :set foldlevel=1<CR>
+map <leader>f2 :set foldlevel=2<CR>
+map <leader>f3 :set foldlevel=3<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -892,41 +894,32 @@ set complete+=U		    " Scan the buffers that are not in the buffer list
 set complete-=k		    " Scan the files given with the 'dictionary' option
 set complete+=kspell  " Use the currently active spell checking |spell|
 set complete-=k{dict} " Scan the file {dict}.  Several "k" flags can be given,
-                      " patterns are valid too.  For example:
-                      " 	:set complete=k/usr/dict/*,k~/spanish
-set complete-=s		    " Scan the files given with the 'thesaurus' option
+											" patterns are valid too.  For example:
+											" 	:set complete=k/usr/dict/*,k~/spanish
+set complete-=s				" Scan the files given with the 'thesaurus' option
 set complete-=s{tsr}	" Scan the file {tsr}.  Several "s" flags can be given,
-                      " patterns are valid too.
+											" patterns are valid too.
 set complete-=i		    " Scan current and included files
-set complete-=d		    " Scan current and included files for name or macro
-                	    " |i_CTRL-X_CTRL-D|
-set complete+=]		    " Tag completion
-set complete+=t		    " Same as "]"
+set complete-=d				" Scan current and included files for name or macro
+											" |i_CTRL-X_CTRL-D|
+set complete+=]				" Tag completion
+set complete+=t				" Same as "]"
 
 set infercase					" Match is adjusted depending on the typed text.
 set pumheight=20			" Pop Up Menu height in lines
 
 let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_disable_auto_complete = 0
-let g:neocomplcache_max_list = 50
-let g:neocomplcache_max_keyword_width = 50
+let g:neocomplcache_max_list = 24
 let g:neocomplcache_max_filename_width = 15
-let g:neocomplcache_auto_completion_start_length = 2
-let g:neocomplcache_manual_completion_start_length = 2
-let g:neocomplcache_min_keyword_length = 3
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_enable_ignore_case = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_wildcard = 1
-let g:neocomplcache_enable_quick_match = 1
+let g:neocomplcache_min_keyword_length = 2
+let g:neocomplcache_min_syntax_length = 2
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_enable_caching_message = 1
+let g:neocomplcache_enable_quick_match = 1
 let g:neocomplcache_disable_select_mode_mappings = 1
-let g:neocomplcache_enable_auto_select = 1
-" let g:neocomplcache_enable_auto_delimiter = 1
+let g:neocomplcache_enable_auto_delimiter = 1
 let g:neocomplcache_snippets_complete_disable_runtime_snippets = 1
-let g:neocomplcache_snippets_dir = '~/.vim/snippets'
+let g:neocomplcache_temporary_dir = '~/.vim.local/tmp/neocache'
 if !exists('g:neocomplcache_filetype_include_lists')
   let g:neocomplcache_filetype_include_lists= {}
 endif
@@ -957,6 +950,8 @@ nnoremap <Leader>es  :NeoComplCacheEditSnippets<CR>
 "-------------------------------------------------------------------------------
 
 " "Snippets (NeoSnippets)"
+let g:neocomplcache_snippets_dir = '~/.vim/snippets'
+
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable() ?
   \ "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -1259,8 +1254,9 @@ nnoremap <Down>  <C-w>-
 
 
 
-" "Expand Window"
-nnoremap <silent><Leader>ew :only<CR>
+" "Expand & Restore Window"
+let g:windowmaximized = 0
+map <F12> :call MaxRestoreWindow()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1517,7 +1513,7 @@ if !exists("*Reload")
     exe 'CSApprox'
     " Reapply Powerline color scheme
     call Pl#Load()
-    call Msg('Vim Configuration Written & Reloaded!')
+    call Msg(' Vim Configuration Written & Reloaded!')
   endfunction
 endif
 "-------------------------------------------------------------------------------
@@ -1539,16 +1535,32 @@ endfunction
 " "Toggle Auto Completion"
 function! ToggleAutoComplete()
   if g:neocomplcache_disable_auto_complete == 1
+    echo ' Auto Completion: On'
     let g:neocomplcache_disable_auto_complete = 0
     NeoComplCacheEnable
-    echo "Auto Completion: On"
   else
+    echo ' Auto Completion: Off'
     let g:neocomplcache_disable_auto_complete = 1
     NeoComplCacheDisable
-    echo "Auto Completion: Off"
   endif
 endfunction
 "-------------------------------------------------------------------------------
+
+
+
+" "Toggle Max/Restore Window"
+function! MaxRestoreWindow()
+  if g:windowmaximized == 1
+    echo ' Window Restored'
+    let g:windowmaximized = 0
+    wincmd =
+  else
+    echo ' Window Maximized'
+    let g:windowmaximized = 1
+		wincmd |
+		wincmd _
+  endif
+endfunction
 
 
 
@@ -1632,13 +1644,13 @@ endfunction
 " "Toggle Number Type"
 function! g:ToggleNumberType()
   if(&relativenumber==1)
+    echo 'Number Type: Normal'
     set number
     let g:numbertype=0
-    echo "Number Type: Normal"
   else
+    echo 'Number Type: Relative'
     set relativenumber
     let g:numbertype=1
-    echo "Number Type: Relative"
   endif
 endfunction
 "-------------------------------------------------------------------------------
@@ -1679,7 +1691,7 @@ function! g:ToggleRelativeNumbers()
     setlocal relativenumber
   endif
   let OnOrOff=&relativenumber
-  call ToggleOnOff("Relative Line Numbers", OnOrOff)
+  call ToggleOnOff('Relative Line Numbers', OnOrOff)
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1767,7 +1779,7 @@ endfunction
 
 " "Current Session Status"
 function! CurrentSession()
-  let g:currSession = fnamemodify(v:this_session, ":t:r")
+  let g:currSession = fnamemodify(v:this_session, ':t:r')
   return g:currSession
 endfunction
 "-------------------------------------------------------------------------------
@@ -1778,7 +1790,7 @@ endfunction
 function! MakeFileExecutable()
   exe "silent! !chmod +x %"
   redraw!
-  call Msg("Written as an executable shell script!")
+  call Msg(' Written as an executable shell script!')
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1825,7 +1837,7 @@ function! FindReplace()
   let CurrentWord=GetVisual()
   " Get search string.
   call inputsave()
-  let  CurrentString = input(" Search for: ", CurrentWord)
+  let  CurrentString = input(' Search for: ', CurrentWord)
   if (empty(CurrentString))
    return
   endif
@@ -1833,14 +1845,14 @@ function! FindReplace()
 
   " Get replace string.
   call inputsave()
-  let  NewString = input(" Search for: ".CurrentString."   Replace with: ")
+  let  NewString = input(' Search for: '.CurrentString.'   Replace with: ')
   call inputrestore()
 
   " Determine wether or not to search for whole word only.
   redraw!
-  let option = confirm(" Search for whole word only? ", "&Yes\n&No", 2)
+  let option = confirm(' Search for whole word only? ', '&Yes\n&No', 2)
   if option == 0
-    echon " Invalid response. Please try again."
+    echon ' Invalid response. Please try again.'
   elseif option == 1
     " Find exact matches.
     exe "%s/\\<".CurrentString."\\>/".NewString."/gc"
@@ -1909,7 +1921,7 @@ endfunction
 " ******************************************************************************
 
 " "Load Local Configurations"
-if filereadable(expand("~/.vimrc.local"))
+if filereadable(expand('~/.vimrc.local'))
   so ~/.vimrc.local
 endif
 "-------------------------------------------------------------------------------
