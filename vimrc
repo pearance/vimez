@@ -339,6 +339,7 @@ nnoremap <silent><Leader>ll :CtrlP<CR>
 
 " "New Buffer"
 nnoremap <silent><Leader>nb :enew<CR><Bar>i<Space><BS><Esc>
+nnoremap <silent><C-n> :enew<CR><Bar>i<Space><BS><Esc>
 "-------------------------------------------------------------------------------
 
 
@@ -362,7 +363,7 @@ nnoremap <silent><Leader>wab :wall<CR>:exe ":echo 'All buffers saved to files!'"
 
 " "Close Buffer (BufKill)"
 nnoremap <silent><Leader>cb :BD<CR>
-nnoremap <silent><Leader>cB :BD!<CR>
+nnoremap <silent><Leader>db :BW <CR>
 "-------------------------------------------------------------------------------
 
 
@@ -503,8 +504,6 @@ nnoremap <silent><Leader>wqq :SaveSession<CR>:wqa<CR>
 " Simpler exit strategy, that prompts if there is any unsaved buffers open.
 nnoremap <silent><Leader>Q :qa<CR>
 "-------------------------------------------------------------------------------
-
-
 
 
 
@@ -743,9 +742,9 @@ set shortmess+=I " Don't give the intro message when starting Vim |:intro|.
 set list
 set listchars=eol:\ ,tab:│\ ,trail:\ ,extends:>,precedes:<
 nnoremap <silent><Leader>tf
-      \ :setlocal list!<CR><Bar>
-      \ :let OnOrOff=&list<CR><Bar>
-      \ :call ToggleOnOff("Formating Characters", OnOrOff)<CR>
+		\ :setlocal list!<CR><Bar>
+		\ :let OnOrOff=&list<CR><Bar>
+		\ :call ToggleOnOff("Formating Characters", OnOrOff)<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -765,14 +764,14 @@ set whichwrap+=[        " <Space> Normal and Visual
 set whichwrap+=]        " <BS> Normal and Visual
 
 nnoremap <silent><Leader>tw
-      \ :setlocal wrap!<CR><Bar>
-      \ :let OnOrOff=&wrap<CR><Bar>
-      \ :call ToggleOnOff("Word Wrap", OnOrOff)<CR>
+		\ :setlocal wrap!<CR><Bar>
+		\ :let OnOrOff=&wrap<CR><Bar>
+		\ :call ToggleOnOff("Word Wrap", OnOrOff)<CR>
 "-------------------------------------------------------------------------------
 
 
 
-" "Print Margin"
+" "Rule"
 nnoremap <silent><Leader>tr :call ToggleRule()<CR>
 let g:RuleState = 1
 "------------------------------------------------------------------------------
@@ -986,8 +985,6 @@ let g:AutoPairsMapBS = 0
 
 
 " "Backspace"
-" Restore expected functionality to the Backspace key, while in
-" Normal mode. Such as backspacing the amount of shiftwidth.
 set backspace=indent,eol,start
 nnoremap <BS> i<BS><Right><Esc>
 "-------------------------------------------------------------------------------
@@ -995,8 +992,6 @@ nnoremap <BS> i<BS><Right><Esc>
 
 
 " "Space"
-" A sensible compromise for the ability to add a quick space whilst in
-" Normal mode.
 nnoremap ,<Space> i<Space><Esc>l
 "Add a blank line above cursor position
 nmap - [<Space>
@@ -1007,9 +1002,6 @@ nmap = ]<Space>
 
 
 " "Tab Indentation"
-" Tab to indent one level and Shift-Tab to go back one level, based on tab
-" settings. Acts on a single line while in Normal mode and blocks of text while
-" in Visual mode.
 set noexpandtab         " Expand tabs using spaces instead of a tab char
 set shiftwidth=2        " Amount of shift when in Normal mode
 set tabstop=2           " Number of spaces that a <Tab> in the file counts for.
@@ -1075,6 +1067,18 @@ set nostartofline
 " "Scrolling"
 set scrolloff=5         " Start scrolling x lines before the edge of the window.
 set sidescrolloff=5     " Same as above just for columns instead of lines.
+nmap <silent><C-j> <C-d>
+vmap <silent><C-j> <C-d>
+nmap <silent><C-k> <C-u>
+vmap <silent><C-k> <C-u>
+nnoremap <silent><C-h> ^
+vnoremap <silent><C-h> ^
+nnoremap <silent><C-l> $l
+vnoremap <silent><C-l> $
+map <C-u> kkkkkkkkkkkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzz
+			\kzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzz
+map <C-d> jjjjjjjjjjjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzz
+			\jzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzz
 "-------------------------------------------------------------------------------
 
 
@@ -1088,49 +1092,35 @@ inoremap <C-l> <Right>
 
 
 
-" "Hyper h|j|k|l"
-" Consistent use of h|j|k|l with Shift to hyper traverse the buffer universe!
-nnoremap <silent><Leader>h ^
-nnoremap <silent><Leader>j <C-d>
-nnoremap <silent><Leader>k <C-u>
-nnoremap <silent><Leader>l $l
-vnoremap <silent><Leader>h ^
-vnoremap <silent><Leader>j <C-d>
-vnoremap <silent><Leader>k <C-u>
-vnoremap <silent><Leader>l $
-"-------------------------------------------------------------------------------
-
-
-
-" "Ignore Wrapped Lines"
-" Prevent jumping over wrapped lines & use visual lines.
+" "ignore wrapped lines"
+" prevent jumping over wrapped lines & use visual lines.
 nnoremap j gj
 nnoremap k gk
 "-------------------------------------------------------------------------------
 
 
 
-" "Search"
-set hlsearch            " Hightlight search terms
-set incsearch           " Highlight search terms dynamically and incrementally
-set ignorecase          " Do case insensitive matching
-set smartcase           " Do smart case matching
-set wrapscan            " Set the search scan to wrap around the file
+" "search"
+set hlsearch            " hightlight search terms
+set incsearch           " highlight search terms dynamically and incrementally
+set ignorecase          " do case insensitive matching
+set smartcase           " do smart case matching
+set wrapscan            " set the search scan to wrap around the file
 
-" Clear search highlight.
-nnoremap <silent>,, :nohlsearch<CR>
+" clear search highlight.
+nnoremap <silent>,, :nohlsearch<cr>
 "-------------------------------------------------------------------------------
 
 
 
-" "Find and Replace"
-vnoremap <C-f> :call FindReplace()<CR>
+" "find and replace"
+vnoremap <c-f> :call findreplace()<cr>
 "-------------------------------------------------------------------------------
 
 
 
-" "Marks (ShowMarks)"
-let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+" "marks (showmarks)"
+let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
 let g:showmarks_textlower = ")"
 let g:showmarks_textupper = "]"
 nnoremap <silent><Leader>dm  :ShowMarksClearMark<CR>
@@ -1215,30 +1205,30 @@ set winminheight=0
 
 
 " "Focus Windows"
-noremap <silent><C-h> <C-w>h
-noremap <silent><C-j>	<C-w>j
-noremap <silent><C-k> <C-w>k
-noremap <silent><C-l> <C-w>l
+noremap <silent><Leader>h <C-w>h
+noremap <silent><Leader>j <C-w>j
+noremap <silent><Leader>k <C-w>k
+noremap <silent><Leader>l <C-w>l
 "-------------------------------------------------------------------------------
 
 
 
+
 " "Move Windows"
-noremap <silent><C-m><C-h> <C-w>H
-noremap <silent><C-m><C-j> <C-w>J
-noremap <silent><C-m><C-k> <C-w>K
-noremap <silent><C-m><C-l> <C-w>L
-noremap <silent><C-m><C-x> <C-w>x
+noremap <silent><Leader>mh <C-w>H
+noremap <silent><Leader>mj <C-w>J
+noremap <silent><Leader>mk <C-w>K
+noremap <silent><Leader>ml <C-w>L
+noremap <silent><Leader>mx <C-w>x
 "-------------------------------------------------------------------------------
 
 
 
 " "Close Windows"
-noremap <silent><C-c><C-j> :wincmd j<CR>:close<CR>
-noremap <silent><C-c><C-h> :wincmd h<CR>:close<CR>
-noremap <silent><C-c><C-k> :wincmd k<CR>:close<CR>
-noremap <silent><C-c><C-l> :wincmd l<CR>:close<CR>
-noremap <silent><C-c><C-w> :close<CR>
+noremap <silent><Leader>cj :wincmd j<CR>:close<CR>
+noremap <silent><Leader>ch :wincmd h<CR>:close<CR>
+noremap <silent><Leader>ck :wincmd k<CR>:close<CR>
+noremap <silent><Leader>cl :wincmd l<CR>:close<CR>
 noremap <silent><Leader>cw :close<CR>
 "-------------------------------------------------------------------------------
 
@@ -1262,9 +1252,9 @@ map <F12> :call MaxRestoreWindow()<CR>
 
 " "Split Windows"
 set nosplitbelow
-noremap <silent><Leader>sv :vsplit<CR><Bar><C-w>l
+nnoremap <silent><Leader>sv :vsplit<CR><Bar><C-w>l<Bar>:bnext<CR>
 set splitright
-noremap <silent><Leader>sh :split<CR>
+noremap <silent><Leader>sh :split<CR><Bar>:bnext<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1827,7 +1817,6 @@ function! Join()
   " silent! call repeat#set("\<leader>jn",1:count)
 endfunction
 "-------------------------------------------------------------------------------
-
 
 
 
