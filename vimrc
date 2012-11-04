@@ -392,9 +392,10 @@ nnoremap <silent><Leader>uc :BUNDO<CR>
 
 
 " "Next & Previous Buffer (Unimpaired)"
-nmap ,h [b
-nmap ,l ]b
+nmap gh [b
+nmap gl ]b
 "-------------------------------------------------------------------------------
+
 
 
 " "Sessions (Vim Session)"
@@ -521,13 +522,12 @@ set clipboard+=unnamedplus  " Use system clipboard for yanks.
 
 nnoremap Y  "+y$
 nnoremap yy "+Y
-nmap y  viw"+y
 vnoremap y  "+y
 vnoremap Y  "+Y
 
 " Yank from current cursor position to left or right end respectively.
-nnoremap yh v0y
-nnoremap yl v$y$
+nnoremap yh y0
+nnoremap yl y$
 "-------------------------------------------------------------------------------
 
 
@@ -551,10 +551,21 @@ let g:yankring_history_file = 'yankring_herstory'
 
 
 " "Deleting (Cuting)"
-nnoremap dh v0r<Space>
+nnoremap dh v0d
+nnoremap dH v0di
 nnoremap dl v$hd
+nnoremap dL v$hdi
 nnoremap DD v0r<Space>
 nnoremap CC v0r<Space>R
+
+" Delete contents of a line only
+nnoremap <silent><Leader>dd cc<Esc>
+
+" Simple delete key in insert mode
+inoremap <C-d> <Del>
+
+" Delete contents of several lines only
+vnoremap <silent><Leader>dd 0r<Space>
 "-------------------------------------------------------------------------------
 
 
@@ -730,7 +741,7 @@ set shortmess+=I " Don't give the intro message when starting Vim |:intro|.
 " This controls visibility of non-printable characters that denote certain
 " formatting information. Such as eol, tabs, trailing space, etc.
 set list
-set listchars=eol:\ ,tab:│\ ,trail:·,extends:>,precedes:<
+set listchars=eol:\ ,tab:│\ ,trail:\ ,extends:>,precedes:<
 nnoremap <silent><Leader>tf
       \ :setlocal list!<CR><Bar>
       \ :let OnOrOff=&list<CR><Bar>
@@ -762,8 +773,8 @@ nnoremap <silent><Leader>tw
 
 
 " "Print Margin"
-nnoremap <silent><Leader>tpm :call TogglePrintMargin()<CR>
-let g:MarginState = 1
+nnoremap <silent><Leader>tr :call ToggleRule()<CR>
+let g:RuleState = 1
 "------------------------------------------------------------------------------
 
 
@@ -979,17 +990,6 @@ let g:AutoPairsMapBS = 0
 " Normal mode. Such as backspacing the amount of shiftwidth.
 set backspace=indent,eol,start
 nnoremap <BS> i<BS><Right><Esc>
-"-------------------------------------------------------------------------------
-
-
-
-" "Delete"
-" Simple delete key in insert mode
-inoremap <C-d> <Del>
-" Delete contents of a line only
-nnoremap <silent><Leader>dd cc<Esc>
-" Delete contents of several lines only
-vnoremap <silent><Leader>dd 0r<Space>
 "-------------------------------------------------------------------------------
 
 
@@ -1547,7 +1547,7 @@ endfunction
 
 
 
-" "Toggle Max/Restore Window"
+" "Toggle Maximized/Restore Window"
 function! MaxRestoreWindow()
   if g:windowmaximized == 1
     let g:windowmaximized = 0
@@ -1610,16 +1610,16 @@ endfunction
 
 
 
-" "Toggle Print Margin"
-function! TogglePrintMargin()
-  if g:MarginState == 0
+" "Toggle Rule"
+function! ToggleRule()
+  if g:RuleState == 0
     set colorcolumn=0
     redraw!
-    let g:MarginState=1
+    let g:RuleState=1
   else
     set colorcolumn=+1
     redraw!
-    let g:MarginState=0
+    let g:RuleState=0
   endif
 endfunction
 "-------------------------------------------------------------------------------
@@ -1849,7 +1849,7 @@ function! FindReplace()
 
   " Determine wether or not to search for whole word only.
   redraw!
-  let option = confirm(' Search for whole word only? ', '&Yes\n&No', 2)
+  let option = confirm(' Search for whole word only? ', "&Yes\n&No", 2)
   if option == 0
     echon ' Invalid response. Please try again.'
   elseif option == 1
