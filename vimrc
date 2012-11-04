@@ -1052,8 +1052,8 @@ command! -nargs=* Tab call TabSize()
 " ******************************************************************************
 
 " "Escape" A more efficient alternative to the escape key.
-inoremap ,, <Esc>
-inoremap << <Esc>
+inoremap ,, <Esc>l
+inoremap << <Esc>l
 cnoremap ,, <C-c>
 cnoremap << <C-c>
 vnoremap ,, <Esc>
@@ -1551,13 +1551,13 @@ endfunction
 function! MaxRestoreWindow()
   if g:windowmaximized == 1
     let g:windowmaximized = 0
-    echo ' Windows Restored'
     wincmd =
+    echo ' Windows Restored'
   else
     let g:windowmaximized = 1
-    echo ' Window Maximized'
 		wincmd |
 		wincmd _
+    echo ' Window Maximized'
   endif
 endfunction
 
