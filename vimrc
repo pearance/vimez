@@ -730,7 +730,7 @@ set shortmess+=I " Don't give the intro message when starting Vim |:intro|.
 " This controls visibility of non-printable characters that denote certain
 " formatting information. Such as eol, tabs, trailing space, etc.
 set list
-set listchars=eol:¬,tab:▸\ ,trail:.,extends:>,precedes:<
+set listchars=eol:\ ,tab:│\ ,trail:·,extends:>,precedes:<
 nnoremap <silent><Leader>tf
       \ :setlocal list!<CR><Bar>
       \ :let OnOrOff=&list<CR><Bar>
@@ -853,7 +853,7 @@ set fo+=n  " When formatting text, recognize numbered lists.  This actually uses
            " 	1. the first item
            " 	   wraps
            " 	2. the second item
-set fo+=2  " When formatting text, use the indent of the second line of a paragraph
+set fo-=2  " When formatting text, use the indent of the second line of a paragraph
            " for the rest of the paragraph, instead of the indent of the first
            " line.  This supports paragraphs in which the first line has a
            " different indent than the rest.  Note that 'autoindent' must be set
@@ -1019,7 +1019,6 @@ set shiftround          " Use multiples of shiftwidth when indenting
 set autoindent          " Enable auto indentation
 set copyindent          " Copy the previous indentation on autoindenting
 set preserveindent      " Preserve existing characters for indenting
-set smartindent
 
 " Give the tab key utiltiy in normal & visual modes.
 vnoremap <Tab> >gv
@@ -1297,20 +1296,20 @@ augroup END
 " "Global"
 augroup Global
   au!
-  au FileType *											set foldcolumn=2
-  au BufNewFile *                  	silent! 0r  ~/.vim.local/templates/%:e.tpl
-  au BufEnter *                    	silent! lcd %:p:h
-  au BufWritePre *                 	call StripTrailingWhitespace()
-  au BufWritePost *                	call SaveView()
-  au BufRead *                     	call LoadView()
-  au BufRead *											normal zz
-  au WinEnter *                    	setl cursorline
-  au WinLeave *                    	setl nocursorline
-  au WinEnter *                    	setl cursorcolumn
-  au WinLeave *                    	setl nocursorcolumn
-  au WinEnter,BufEnter *						call HelpEnvironment()
-  au WinEnter,BufEnter *						call HelpJumpForward()
-  au WinEnter,BufEnter *						call HelpJumpBack()
+  au FileType *           set foldcolumn=2
+  au BufNewFile *         silent! 0r  ~/.vim.local/templates/%:e.tpl
+  au BufEnter *           silent! lcd %:p:h
+  au BufWritePre *        call StripTrailingWhitespace()
+  au BufWritePost *       call SaveView()
+  au BufRead *            call LoadView()
+  au BufRead *            normal zz
+  au WinEnter *           setl cursorline
+  au WinLeave *           setl nocursorline
+  au WinEnter *           setl cursorcolumn
+  au WinLeave *           setl nocursorcolumn
+  au WinEnter,BufEnter *  call HelpEnvironment()
+  au WinEnter,BufEnter *  call HelpJumpForward()
+  au WinEnter,BufEnter *  call HelpJumpBack()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1319,7 +1318,7 @@ augroup END
 " "Apache Config"
 augroup ApacheConfig
   au!
-  au BufNewFile,BufRead /*apache*		setf=apache
+  au BufNewFile,BufRead /*apache*  setf=apache
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1328,7 +1327,7 @@ augroup END
 " "C"
 augroup C
   au!
-  au FileType c              				setl omnifunc=ccomplete#Complete
+  au FileType c  setl omnifunc=ccomplete#Complete
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1337,7 +1336,7 @@ augroup END
 " "CSS"
 augroup CSS
 	au!
-  au FileType css										setl omnifunc=csscomplete#CompleteCSS
+  au FileType css  setl omnifunc=csscomplete#CompleteCSS
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1346,9 +1345,9 @@ augroup END
 " "Drupal CMS Framework"
 augroup DrupalCMS
   au!
-  au BufNewFile,BufRead *.module		setf=php
-  au BufNewFile,BufRead *.install		setf=php
-  au BufNewFile,BufRead *.test			setf=php
+  au BufNewFile,BufRead *.module   setf=php
+  au BufNewFile,BufRead *.install  setf=php
+  au BufNewFile,BufRead *.test     setf=php
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1357,8 +1356,8 @@ augroup END
 " "Git"
 augroup Git
   au!
-  au BufNewFile,BufRead COMMIT_EDITMSG call feedkeys('ggi', 't')
-  au BufNewFile,BufRead COMMIT_EDITMSG setl spell
+  au BufNewFile,BufRead COMMIT_EDITMSG  call feedkeys('ggi', 't')
+  au BufNewFile,BufRead COMMIT_EDITMSG  setl spell
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1367,10 +1366,10 @@ augroup END
 " "HTML"
 augroup HTML
   au!
-  au BufNewFile,BufRead *.htm				setf=html
-  au BufNewFile,BufRead *.html			setf=html
-  au FileType html         					setl omnifunc=htmlcomplete#CompleteTags
-  au Filetype html                	call EnableCloseTag()
+  au BufNewFile,BufRead *.htm   setf=html
+  au BufNewFile,BufRead *.html  setf=html
+  au FileType html              setl omnifunc=htmlcomplete#CompleteTags
+  au Filetype html              call EnableCloseTag()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1379,7 +1378,7 @@ augroup END
 " "Javascript"
 augroup JavaScript
   au!
-  au FileType javascript     				setl omnifunc=javascriptcomplete#CompleteJS
+  au FileType javascript  setl omnifunc=javascriptcomplete#CompleteJS
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1388,8 +1387,8 @@ augroup END
 " "Markdown"
 augroup MarkDown
 	au!
-  au BufNewFile,BufRead *.markdown	setf=markdown
-  au FileType markdown							setl omnifunc=htmlcomplete#CompleteTags
+  au BufNewFile,BufRead *.markdown  setf=markdown
+  au FileType markdown              setl omnifunc=htmlcomplete#CompleteTags
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1398,7 +1397,7 @@ augroup END
 " "Perl"
 augroup Perl
   au!
-  au FileType perl		       				setl omnifunc=syntaxcomplete#Complete
+  au FileType perl  setl omnifunc=syntaxcomplete#Complete
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1407,9 +1406,9 @@ augroup END
 " "PHP"
 augroup PHP
   au!
-  au BufNewFile,BufRead *.php				setf=php
-  au FileType php										let php_minlines=500
-  au FileType php            				setl omnifunc=phpcomplete#CompletePHP
+  au BufNewFile,BufRead *.php  setf=php
+  au FileType php	             let php_minlines=500
+  au FileType php              setl omnifunc=phpcomplete#CompletePHP
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1418,8 +1417,8 @@ augroup END
 " "Plain Text"
 augroup PlainText
   au!
-	au BufNewFile,BufRead *.txt       setf=text
-	au BufNewFile,BufRead *.txt       setl tw=80
+	au BufNewFile,BufRead *.txt  setf=text
+	au BufNewFile,BufRead *.txt  setl tw=80
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1428,7 +1427,7 @@ augroup END
 " "Python"
 augroup Python
   au!
-  au FileType python         				setl omnifunc=pythoncomplete#Complete
+  au FileType python  setl omnifunc=pythoncomplete#Complete
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1437,7 +1436,7 @@ augroup END
 " "Ruby"
 augroup Ruby
   au!
-  au FileType ruby           				setl omnifunc=rubycomplete#Complete
+  au FileType ruby  setl omnifunc=rubycomplete#Complete
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1446,8 +1445,8 @@ augroup END
 " "Shell Script"
 augroup ShellScript
   au!
-  au BufNewFile,BufRead *.sh				setf=sh
-  au BufWritePost *.sh							call MakeFileExecutable()
+  au BufNewFile,BufRead *.sh  setf=sh
+  au BufWritePost *.sh        call MakeFileExecutable()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1456,7 +1455,7 @@ augroup END
 " "Smarty Template Engine"
 augroup Smarty
   au!
-  au BufNewFile,BufRead *.tpl				setf=html
+  au BufNewFile,BufRead *.tpl  setf=html
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1464,15 +1463,15 @@ augroup END
 
 " "Vim Script"
 augroup VimScript
-  au!
-  au BufNewFile,BufRead *.vim				setf=vim
-  au FileType vim										setl omnifunc=syntaxcomplete#Complete
-  au BufWritePost {.,_,}vimrc,{.,_,}vimrc.local,molokai-ez.vim
-  			\  nested so $MYVIMRC
-  			\| nohlsearch
-    		\| exe 'CSApprox'
-    		\| call Pl#Load()
-    		\| call Msg('Vim Configuration Written & Reloaded!')
+	au!
+	au BufNewFile,BufRead *.vim	  setf=vim
+	au FileType vim               setl omnifunc=syntaxcomplete#Complete
+	au BufWritePost {.,_,}vimrc,{.,_,}vimrc.local,molokai-ez.vim
+			\  nested so $MYVIMRC
+			\| nohlsearch
+			\| exe 'CSApprox'
+			\| call Pl#Load()
+			\| call Msg('Vim Configuration Written & Reloaded!')
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1480,14 +1479,14 @@ augroup END
 
 " "XML/XSL"
 augroup XMLXSL
-  au!
-  au BufNewFile,BufRead *.xml				setf xml
-  au BufNewFile,BufRead *.xsl				setf xml
-  au BufNewFile,BufRead *.rss				setf xml
-  au BufNewFile,BufRead *.atom			setf xml
-  au FileType xml										setl omnifunc=xmlcomplete#CompleteTags
-  au Filetype xml										call EnableCloseTag()
-  au Filetype xsl										call EnableCloseTag()
+	au!
+	au BufNewFile,BufRead *.xml   setf xml
+	au BufNewFile,BufRead *.xsl   setf xml
+	au BufNewFile,BufRead *.rss   setf xml
+	au BufNewFile,BufRead *.atom  setf xml
+	au FileType xml               setl omnifunc=xmlcomplete#CompleteTags
+	au Filetype xml               call EnableCloseTag()
+	au Filetype xsl               call EnableCloseTag()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1506,15 +1505,15 @@ augroup END
 
 " "Reload Configurations"
 if !exists("*Reload")
-  function! Reload()
-  	so $MYVIMRC
-    nohlsearch
-    " Reapproximate hex color codes for terminal
-    exe 'CSApprox'
-    " Reapply Powerline color scheme
-    call Pl#Load()
-    call Msg(' Vim Configuration Written & Reloaded!')
-  endfunction
+	function! Reload()
+		so $MYVIMRC
+		nohlsearch
+		" Reapproximate hex color codes for terminal
+		exe 'CSApprox'
+		" Reapply Powerline color scheme
+		call Pl#Load()
+		call Msg(' Vim Configuration Written & Reloaded!')
+	endfunction
 endif
 "-------------------------------------------------------------------------------
 
@@ -1523,8 +1522,8 @@ endif
 " "Toggle On/Off"
 " Prints a message of the current toggled state of various features.
 function! ToggleOnOff(OptionName, OnOrOff)
-  let OptionName = a:OptionName
-  let OnOrOff = a:OnOrOff
+	let OptionName = a:OptionName
+	let OnOrOff = a:OnOrOff
 	let OptionState = strpart("OffOn", 3 * OnOrOff, 3)
 	echo OptionName . ": " . OptionState
 endfunction
@@ -1551,12 +1550,12 @@ endfunction
 " "Toggle Max/Restore Window"
 function! MaxRestoreWindow()
   if g:windowmaximized == 1
-    echo ' Window Restored'
     let g:windowmaximized = 0
+    echo ' Windows Restored'
     wincmd =
   else
-    echo ' Window Maximized'
     let g:windowmaximized = 1
+    echo ' Window Maximized'
 		wincmd |
 		wincmd _
   endif
@@ -1933,6 +1932,7 @@ endif
 " TODO: refactor neocomplcache
 " TODO: refactor NeoSnippets
 " TODO: Create a clear vimez cache function
+" TODO: create functions to toggle cursor column and line.
 
 " vim:ft=vim:fdm=marker:
 " }}}
