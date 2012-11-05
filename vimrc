@@ -132,6 +132,12 @@ nmap <Leader>4 :<C-u>BundleList<CR>
 
 
 
+" "Clear Cache"
+nmap <Leader>\cc :call ClearCache()<CR>
+"-------------------------------------------------------------------------------
+
+
+
 " "Commandline"
 " More convenient entrance to Commandline and Commandline Edit mode from Normal mode.
 nnoremap ; :
@@ -1493,6 +1499,15 @@ endif
 
 
 
+function! ClearCache()
+	silent execute "!~/.vim/.aux/clear.sh &>/dev/null &"
+	redraw!
+	echo " Cache Cleared!"
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
 " "Toggle On/Off"
 " Prints a message of the current toggled state of various features.
 function! ToggleOnOff(OptionName, OnOrOff)
@@ -1902,8 +1917,6 @@ endif
 
 " "Todo/s, Fixme/s"
 " TODO: session info in powerline
-" TODO: refactor neocomplcache
-" TODO: refactor NeoSnippets
 " TODO: Create a clear vimez cache function
 " TODO: create functions to toggle cursor column and line.
 
