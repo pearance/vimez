@@ -1033,7 +1033,7 @@ command! -nargs=* Tab call TabSize()
 " NAVIGATION: "{{{
 " ******************************************************************************
 
-" "Escape" A more efficient alternative to the escape key.
+" "Escape"
 inoremap ,, <Esc>l
 inoremap << <Esc>l
 cnoremap ,, <C-c>
@@ -1044,8 +1044,6 @@ vnoremap ,, <Esc>
 
 
 " "Virtual Edit"
-" Allow the cursor to go where no cursor has gone before. Navigate into lines
-" and columns that are not real.
 set virtualedit+=block
 set virtualedit+=insert
 set virtualedit+=onemore
@@ -1082,34 +1080,34 @@ inoremap <C-l> <Right>
 
 
 
-" "ignore wrapped lines"
-" prevent jumping over wrapped lines & use visual lines.
+" "Ignore Wrapped Lines"
+" Prevent jumping over wrapped lines & use visual lines.
 nnoremap j gj
 nnoremap k gk
 "-------------------------------------------------------------------------------
 
 
 
-" "search"
+" "Search"
 set hlsearch            " hightlight search terms
 set incsearch           " highlight search terms dynamically and incrementally
 set ignorecase          " do case insensitive matching
 set smartcase           " do smart case matching
 set wrapscan            " set the search scan to wrap around the file
 
-" clear search highlight.
-nnoremap <silent>,, :nohlsearch<cr>
+" Clear Search Highlight.
+nnoremap <silent>,, :nohlsearch<CR>
 "-------------------------------------------------------------------------------
 
 
 
-" "find and replace"
-vnoremap <c-f> :call findreplace()<cr>
+" "Find and Replace"
+vnoremap <C-f> :call FindReplace()<CR>
 "-------------------------------------------------------------------------------
 
 
 
-" "marks (showmarks)"
+" "Marks (Showmarks)"
 let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
 let g:showmarks_textlower = ")"
 let g:showmarks_textupper = "]"
@@ -1492,7 +1490,7 @@ if !exists("*Reload")
 		exe 'CSApprox'
 		" Reapply Powerline color scheme
 		call Pl#Load()
-		call Msg(' Vim Configuration Written & Reloaded!')
+		call Msg('Vim Configuration Written & Reloaded!')
 	endfunction
 endif
 "-------------------------------------------------------------------------------
@@ -1502,7 +1500,7 @@ endif
 function! ClearCache()
 	silent execute "!~/.vim/.aux/clear.sh &>/dev/null &"
 	redraw!
-	echo " Cache Cleared!"
+	echo "Cache Cleared!"
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1523,11 +1521,11 @@ endfunction
 " "Toggle Auto Completion"
 function! ToggleAutoComplete()
   if g:neocomplcache_disable_auto_complete == 1
-    echo ' Auto Completion: On'
+    echo 'Auto Completion: On'
     let g:neocomplcache_disable_auto_complete = 0
     NeoComplCacheEnable
   else
-    echo ' Auto Completion: Off'
+    echo 'Auto Completion: Off'
     let g:neocomplcache_disable_auto_complete = 1
     NeoComplCacheDisable
   endif
@@ -1538,23 +1536,23 @@ endfunction
 
 " "Toggle Maximized/Restore Window"
 function! MaxRestoreWindow()
-  if g:windowmaximized == 1
-    let g:windowmaximized = 0
-    wincmd =
-    echo ' Windows Restored'
+	if g:windowmaximized == 1
+		let g:windowmaximized = 0
+		wincmd =
+		echo 'Windows Restored'
   else
-    let g:windowmaximized = 1
+		let g:windowmaximized = 1
 		wincmd |
 		wincmd _
-    echo ' Window Maximized'
-  endif
+		echo 'Window Maximized'
+	endif
 endfunction
 
 
 
 " "Ctrl-P Custom Mappings""
 function! MyCtrlPMappings()
-  nnoremap <buffer><silent><C-c> :call <sid>DeleteBuffer()<cr>
+	nnoremap <buffer><silent><C-c> :call <sid>DeleteBuffer()<cr>
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1562,8 +1560,8 @@ endfunction
 
 " "Ctrl-P Delete Buffer"
 function! s:DeleteBuffer()
-  exec "bd" fnamemodify(getline('.')[2:], ':p')
-  exec "norm \<F5>"
+	exec "bd" fnamemodify(getline('.')[2:], ':p')
+	exec "norm \<F5>"
 endfunction"
 "-------------------------------------------------------------------------------
 
@@ -1571,7 +1569,7 @@ endfunction"
 
 " "Tab Size"
 function! TabSize()
-  let l:tabstop = 1 * input(' Tab Size: ')
+  let l:tabstop = 1 * input('Tab Size: ')
   if l:tabstop > 0
     let &l:sts = l:tabstop
     let &l:ts = l:tabstop
@@ -1585,14 +1583,14 @@ endfunction
 
 " "Tab Summary Report"
 function! TabSummary()
-    echo ' Current tab settings: '
-    echo ' tabstop='.&l:ts
-    echo ' shiftwidth='.&l:sw
-    echo ' softtabstop='.&l:sts
+    echo 'Current tab settings: '
+    echo 'tabstop='.&l:ts
+    echo 'shiftwidth='.&l:sw
+    echo 'softtabstop='.&l:sts
     if &l:et
-      echo ' expandtab'
+      echo 'expandtab'
     else
-      echo ' noexpandtab'
+      echo 'noexpandtab'
     endif
 endfunction
 "-------------------------------------------------------------------------------
@@ -1711,7 +1709,7 @@ endfunction
 " "New Session"
 function! NewSession()
   call inputsave()
-  let SessionName = input(' New Session Name: ')
+  let SessionName = input('New Session Name: ')
   exe "SaveSession " . SessionName
 endfunction
 "-------------------------------------------------------------------------------
@@ -1778,7 +1776,7 @@ endfunction
 function! MakeFileExecutable()
   exe "silent! !chmod +x %"
   redraw!
-  call Msg(' Written as an executable shell script!')
+  call Msg('Written as an executable shell script!')
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1824,7 +1822,7 @@ function! FindReplace()
   let CurrentWord=GetVisual()
   " Get search string.
   call inputsave()
-  let  CurrentString = input(' Search for: ', CurrentWord)
+  let  CurrentString = input('Search for: ', CurrentWord)
   if (empty(CurrentString))
    return
   endif
@@ -1832,14 +1830,14 @@ function! FindReplace()
 
   " Get replace string.
   call inputsave()
-  let  NewString = input(' Search for: '.CurrentString.'   Replace with: ')
+  let  NewString = input('Search for: '.CurrentString.'   Replace with: ')
   call inputrestore()
 
   " Determine wether or not to search for whole word only.
   redraw!
-  let option = confirm(' Search for whole word only? ', "&Yes\n&No", 2)
+  let option = confirm('Search for whole word only? ', "&Yes\n&No", 2)
   if option == 0
-    echon ' Invalid response. Please try again.'
+    echo 'Invalid response. Please try again.'
   elseif option == 1
     " Find exact matches.
     exe "%s/\\<".CurrentString."\\>/".NewString."/gc"
