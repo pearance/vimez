@@ -32,7 +32,7 @@ Bundle "gmarik/vundle"
 
 
 
-" "Plugin Bundles"
+" "Form Bundles"
 Bundle "vimez/vim-themes"
 Bundle "vim-scripts/CSApprox"
 Bundle "vim-scripts/ScrollColors"
@@ -44,16 +44,19 @@ Bundle "pangloss/vim-javascript"
 Bundle "groenewege/vim-less"
 Bundle "plasticboy/vim-markdown"
 Bundle "vimez/vim-tmux"
-Bundle "vim-scripts/YankRing.vim"
-Bundle "tpope/vim-surround"
+
+
+" "Function Bundles"
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/neosnippet"
+Bundle "vimez/vim-powerline"
+Bundle "vim-scripts/YankRing.vim"
+Bundle "tpope/vim-surround"
 Bundle "tomtom/tcomment_vim"
 Bundle "sjl/gundo.vim"
 Bundle "mattn/zencoding-vim"
 Bundle "docunext/closetag.vim"
 Bundle "tpope/vim-repeat"
-Bundle "vimez/vim-powerline"
 Bundle "kien/ctrlp.vim"
 Bundle "benmills/vimux"
 Bundle "duff/vim-bufonly"
@@ -65,7 +68,6 @@ Bundle "xolox/vim-session"
 Bundle "scrooloose/nerdtree"
 Bundle "vim-scripts/Rename2"
 Bundle "godlygeek/tabular"
-Bundle "ervandew/screen"
 Bundle "vim-scripts/Auto-Pairs"
 Bundle "endel/ctrlp-filetype.vim"
 "-------------------------------------------------------------------------------
@@ -315,7 +317,7 @@ nnoremap <silent><Leader>,, :NERDTreeToggle<CR>
 
 " "Search for Files, Buffers, or MRU (CtrlP)"
 let g:ctrlp_map = '<Leader>ll'
-let g:ctrlp_cache_dir = '~/.vim.local/tmp/ctrlp'
+let g:ctrlp_cache_dir = '~/.vim.local/tmp/ctrlp/'
 let g:ctrlp_open_multiple_files = '1vjr'
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_show_hidden = 1
@@ -387,7 +389,7 @@ nnoremap <silent><Leader>cab :exec "1," . bufnr('$') . "bd"<CR>
 
 
 " "Undo Close (BufKill)"
-nnoremap <silent><Leader>uc :BUNDO<CR>
+nnoremap <silent><Leader>ub :BUNDO<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -472,9 +474,9 @@ set writebackup                   " Make a backup before overwriting a file
 
  " List of directories for the backup file
 if has("win32") || has("win64")
-  set backupdir=~/_vim.local/tmp/backups//,.
+  set backupdir=~/_vim.local/tmp/backups//
 else
-  set backupdir=~/.vim.local/tmp/backups//,.
+  set backupdir=~/.vim.local/tmp/backups//
 end
 "-------------------------------------------------------------------------------
 
@@ -486,9 +488,9 @@ end
 " 100th character.
 set updatecount=100
 if has("win32") || has("win64")
-  set directory=~/_vim.local/tmp/swaps//,.
+  set directory=~/_vim.local/tmp/swaps//
 else
-  set directory=~/.vim.local/tmp/swaps//,.
+  set directory=~/.vim.local/tmp/swaps//
 end
 "-------------------------------------------------------------------------------
 
@@ -576,10 +578,11 @@ nnoremap Q gqip
 
 
 
-" "Undo (Gundo)" Persistent undo, along with Gundo to parse the ungo history.
+" "Undo (Gundo)"
+" Persistent undo, along with Gundo to parse the ungo history.
 set undolevels=1000
 set undofile
-set undodir=~/.vim.local/tmp/undos//,.
+set undodir=~/.vim.local/tmp/undos//
 nnoremap <silent><Leader>uu :GundoToggle<CR>
 "-------------------------------------------------------------------------------
 
@@ -591,9 +594,9 @@ nmap <C-a> ggVG
 
 
 
-" "Bulbbling Line (Unimpaired)" Consistent use of [hjkl] with the Shift modifier to move a
-" line of text around. Up/down by one line and left/right by amount of
-" shiftwidth.
+" "Bulbbling Line (Unimpaired)"
+" Consistent use of [hjkl] with the Shift modifier to move a line of text
+" around. Up/down by one line and left/right by amount of shiftwidth.
 nmap <S-h> <<
 nmap <S-j> ]e
 nmap <S-k> [e
@@ -602,9 +605,9 @@ nmap <S-l> >>
 
 
 
-" "Bubbling Block (Unimpaired)" Consistent use of [hjkl] with the Shift modifier to move a
-" block of text around. Up/down by one line and left/right by amount of
-" shiftwidth.
+" "Bubbling Block (Unimpaired)"
+" Consistent use of [hjkl] with the Shift modifier to move a block of text
+" around. Up/down by one line and left/right by amount of shiftwidth.
 vmap <S-h> <gv
 vmap <S-j> ]egv
 vmap <S-k> [egv
@@ -656,7 +659,7 @@ set spellfile=~/.vim.local/dictionaries/en.utf-8.add " Custom spell file
 nmap <silent><Leader>ts
       \ :setl spell!<CR><Bar>
       \ :let OnOrOff=&spell<CR><Bar>
-      \ :call ToggleOnOff("Spell Checker", OnOrOff)<CR>
+      \ :call ToggleOnOff(" Spell Checker", OnOrOff)<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -671,7 +674,6 @@ nmap <silent><Leader>ts
 " "}}}
 " VIEW: "{{{
 " ******************************************************************************
-
 
 " "Title Bar" Set title bar to display current file, path, and server hostname.
 set title
@@ -779,7 +781,7 @@ let g:RuleState = 1
 
 
 " "View Options"
-set viewdir=~/.vim.local/tmp/view//,.
+set viewdir=~/.vim.local/tmp/view//
 set viewoptions=folds,options,cursor,unix,slash
 "-------------------------------------------------------------------------------
 
@@ -920,29 +922,13 @@ set pumheight=20			" Pop Up Menu height in lines
 
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_max_list = 24
-let g:neocomplcache_max_filename_width = 15
 let g:neocomplcache_min_keyword_length = 2
 let g:neocomplcache_min_syntax_length = 2
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_enable_quick_match = 1
-let g:neocomplcache_disable_select_mode_mappings = 1
-let g:neocomplcache_enable_auto_delimiter = 1
-let g:neocomplcache_snippets_complete_disable_runtime_snippets = 1
 let g:neocomplcache_temporary_dir = '~/.vim.local/tmp/neocache'
-if !exists('g:neocomplcache_filetype_include_lists')
-  let g:neocomplcache_filetype_include_lists= {}
-endif
 
-" Configure Dictionaries
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ }
-
-" Toggle Auto Completion
-map <Leader>ta :call ToggleAutoComplete()<CR>
-
-" Enable Custom Omnicompletion
+" Enable custom omnicompletion.
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
@@ -951,29 +937,27 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
-" Configure Neocomplcache Mappings
-" inoremap <expr><C-z> neocomplcache#undo_completion()
-" inoremap <expr><BS>  neocomplcache#smart_close_popup()."\<C-h>"
-" inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-" inoremap <expr><CR>  neocomplcache#smart_close_popup()."\<CR>"
-nnoremap <Leader>es  :NeoComplCacheEditSnippets<CR>
+" Toggle auto completion and additional mappings.
+nnoremap <Leader>ta :call ToggleAutoComplete()<CR>
+inoremap <expr><BS> neocomplcache#smart_close_popup() . "\<BS>"
 "-------------------------------------------------------------------------------
 
+
+
 " "Snippets (NeoSnippets)"
-let g:neocomplcache_snippets_dir = '~/.vim/snippets'
+" let g:neosnippet#disable_runtime_snippets = {'_' : 1,}
+let g:neosnippet#snippets_directory = '~/.vim/bundle/, ~/.vim.local/snippets/'
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable() ?
   \ "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable() ?
-  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"")
+nnoremap <Leader>es  :NeoSnippetEdit\ -vertical<CR>
 
 " Set snips_author.
 if !exists('snips_author')
-  let g:snips_author = 'Your Name Here'
+  let g:snips_author = 'VimEz'
 endif
 "-------------------------------------------------------------------------------
-
 
 
 
