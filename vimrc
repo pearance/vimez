@@ -540,7 +540,7 @@ nnoremap yl y$
 
 
 " "Put (YankRing)"
-set pastetoggle=<F6>        " Preserve indetation when pasting formatted text.
+set pastetoggle=<F2>        " Preserve indetation when pasting formatted text.
 nnoremap P  "+]P
 nnoremap p  "+]p
 nnoremap <silent><Leader>pp :YRShow<CR>
@@ -1915,7 +1915,6 @@ endif
 
 " "Todo/s, Fixme/s"
 " TODO: session info in powerline
-" TODO: Create a clear vimez cache function
 " TODO: create functions to toggle cursor column and line.
 
 " vim:ft=vim:fdm=marker:
