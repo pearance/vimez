@@ -540,7 +540,7 @@ nnoremap yl y$
 
 
 " "Put (YankRing)"
-set pastetoggle=<F2>        " Preserve indetation when pasting formatted text.
+set pastetoggle=<F2>        " Preserve indentation when pasting formatted text.
 nnoremap P  "+]P
 nnoremap p  "+]p
 nnoremap <silent><Leader>pp :YRShow<CR>
@@ -585,7 +585,7 @@ nnoremap Q gqip
 
 
 " "Undo (Gundo)"
-" Persistent undo, along with Gundo to parse the ungo history.
+" Persistent undo, along with Gundo to parse the undo history.
 set undolevels=1000
 set undofile
 set undodir=~/.vim.local/tmp/undos//
@@ -744,11 +744,11 @@ set shortmess+=I " Don't give the intro message when starting Vim |:intro|.
 
 
 
-" "Formating Characters"
+" "Format Characters"
 " This controls visibility of non-printable characters that denote certain
 " formatting information. Such as eol, tabs, trailing space, etc.
 set list
-set listchars=eol:\ ,tab:│\ ,trail:\ ,extends:>,precedes:<
+set listchars=eol:\ ,tab:·\ ,trail:\ ,extends:>,precedes:<
 nnoremap <silent><Leader>tf
 		\ :setlocal list!<CR><Bar>
 		\ :let OnOrOff=&list<CR><Bar>
