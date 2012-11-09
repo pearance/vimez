@@ -49,7 +49,7 @@ Bundle "vimez/vim-tmux"
 " "Function Bundles"
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/neosnippet"
-Bundle "vimez/vim-powerline"
+Bundle "Lokaltog/vim-powerline"
 Bundle "vim-scripts/YankRing.vim"
 Bundle "tpope/vim-surround"
 Bundle "tomtom/tcomment_vim"
@@ -223,7 +223,7 @@ nnoremap <silent><C-g> 2<C-g>
 
 
 " "Reload"
-nnoremap <silent><F5> :call Reload()<CR>
+nnoremap <silent><Leader><F5> :call Reload()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -315,6 +315,7 @@ let NERDTreeQuitOnOpen  =  1
 let NERDTreeShowHidden = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeWinPos = "right"
 nnoremap <silent><Leader>, :NERDTreeFind<CR>
 nnoremap <silent><Leader>,, :NERDTreeToggle<CR>
 "-------------------------------------------------------------------------------
@@ -1039,6 +1040,12 @@ inoremap << <Esc>l
 cnoremap ,, <C-c>
 cnoremap << <C-c>
 vnoremap ,, <Esc>
+"-------------------------------------------------------------------------------
+
+
+
+" "Escape & Save"
+imap <C-s> <Esc>l<C-s>
 "-------------------------------------------------------------------------------
 
 
