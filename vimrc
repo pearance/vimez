@@ -68,7 +68,7 @@ Bundle "xolox/vim-session"
 Bundle "scrooloose/nerdtree"
 Bundle "vim-scripts/Rename2"
 Bundle "godlygeek/tabular"
-Bundle "vim-scripts/Auto-Pairs"
+Bundle "jiangmiao/auto-pairs"
 Bundle "endel/ctrlp-filetype.vim"
 "-------------------------------------------------------------------------------
 
@@ -223,7 +223,7 @@ nnoremap <silent><C-g> 2<C-g>
 
 
 " "Reload"
-nnoremap <silent><Leader><F5> :call Reload()<CR>
+nnoremap <silent><Leader>\r :call Reload()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -601,31 +601,31 @@ nmap <C-a> ggVG
 
 
 
-" "Bulbbling Line (Unimpaired)"
+" "Line Movement (Unimpaired)"
 " Consistent use of [hjkl] with the Shift modifier to move a line of text
 " around. Up/down by one line and left/right by amount of shiftwidth.
-nmap <S-h> <<
+nmap <S-h> <<^
 nmap <S-j> ]e
 nmap <S-k> [e
-nmap <S-l> >>
+nmap <S-l> >>^
 "-------------------------------------------------------------------------------
 
 
 
-" "Bubbling Block (Unimpaired)"
+" "Block Movement (Unimpaired)"
 " Consistent use of [hjkl] with the Shift modifier to move a block of text
 " around. Up/down by one line and left/right by amount of shiftwidth.
-vmap <S-h> <gv
+vmap <S-h> <gv^
 vmap <S-j> ]egv
 vmap <S-k> [egv
-vmap <S-l> >gv
+vmap <S-l> >gv^
 "-------------------------------------------------------------------------------
 
 
 
 " "Break to Next or Previous Line"
-" Restore some familiar behavior to the Enter key, in Normal mode.
-" Break to line below in normal mode
+" Restore some familiar behavior to the Enter key, in Normal mode. Break to line
+" below in normal mode
 nnoremap <CR> i<CR><Esc>
 " Break to line above in normal mode
 nmap <Leader><CR> DO<Esc>p
@@ -633,11 +633,11 @@ nmap <Leader><CR> DO<Esc>p
 
 
 
-" "Join Next or Previous line"
-" Normally Shift-j joins the line below with the
-" current one, but felt it best to maintain [hjkl] as directional arrow keys.
-" So, this functionality is mapped to Leader jn and jp for join next (line
-" below) and join previous (line above) with the current line.
+" "Join Next or Previous Line"
+" Normally Shift-j joins the line below with the current one, but felt it best
+" to maintain [hjkl] as directional arrow keys. So, this functionality is mapped
+" to Leader jn and jp for join next (line below) and join previous (line above)
+" with the current line.
 set nojoinspaces
 nnoremap <silent><Leader>jn :call Join()<CR>
 nnoremap <silent><Leader>jp k<S-v>xpk:call Join()<CR>
@@ -692,7 +692,7 @@ set titlestring=%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
 " "Line Numbers"
 set relativenumber
 let g:numbertype=1
-set numberwidth=3
+set numberwidth=4
 nnoremap <silent><Leader>tnt :call g:ToggleNumberType()<CR>
 nnoremap <silent><Leader>tn :call g:ToggleNumbers()<CR>
 "-------------------------------------------------------------------------------
@@ -958,7 +958,7 @@ let g:neosnippet#snippets_directory = '~/.vim/bundle/, ~/.vim.local/snippets/'
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable() ?
   \ "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-nnoremap <Leader>es  :NeoSnippetEdit\ -vertical<CR>
+nnoremap <Leader>es  :NeoSnippetEdit<CR>
 
 " Set snips_author.
 if !exists('snips_author')
@@ -970,7 +970,7 @@ endif
 
 " "Auto Pairing (Auto-Pairs)"
 let g:AutoPairsShortcutFastWrap = '<C-e>'
-let g:AutoPairsMapBS = 0
+let g:AutoPairsCenterLine = 0
 "-------------------------------------------------------------------------------
 
 
@@ -1923,6 +1923,7 @@ endif
 " "Todo/s, Fixme/s"
 " TODO: session info in powerline
 " TODO: create functions to toggle cursor column and line.
+" TODO: Compile browser reload ahk script to exe.
 
 " vim:ft=vim:fdm=marker:
 " }}}
