@@ -6,7 +6,6 @@
 "
 "
 " Authors:       Fontaine Cook, Various Contributors
-" Maintainers:
 " Description:   The primary Vim configuration file.
 "------------------------------------------------------------------------------
 
@@ -408,6 +407,13 @@ nmap gl ]b
 
 
 
+" "View Options"
+set viewdir=~/.vim.local/tmp/view//
+set viewoptions=folds,cursor,unix,slash
+"-------------------------------------------------------------------------------
+
+
+
 " "Sessions (Vim Session)"
 " Changes the effect of the :mksession command. It is a comma separated list of
 " words.  Each word enables saving and restoring something:
@@ -443,6 +449,7 @@ set ssop+=unix		     " With Unix end-of-line format (single <NL>), even when
                        " on Windows or DOS
 set ssop+=winpos	     " Position of the whole Vim window
 set ssop+=winsize	     " Window sizes
+
 
 nnoremap <silent><Leader>ws :SaveSession<CR>
 nnoremap <silent><Leader>ns :call NewSession()<CR>
@@ -528,10 +535,7 @@ nnoremap <silent><Leader>Q :qa<CR>
 " "Yank (Yankring)"
 set clipboard+=unnamedplus  " Use system clipboard for yanks.
 
-nnoremap Y  "+y$
-nnoremap yy "+Y
-vnoremap y  "+y
-vnoremap Y  "+Y
+nnoremap Y  y$
 
 " Yank from current cursor position to left or right end respectively.
 nnoremap yh y0
@@ -787,13 +791,6 @@ let g:RuleState = 1
 
 
 
-" "View Options"
-set viewdir=~/.vim.local/tmp/view//
-set viewoptions=folds,options,cursor,unix,slash
-"-------------------------------------------------------------------------------
-
-
-
 " "Folds"
 map <leader>f0 :set foldlevel=0<CR>
 map <leader>f1 :set foldlevel=1<CR>
@@ -825,9 +822,11 @@ let g:Powerline_mode_S  = 'SELECT LINE'
 let g:Powerline_mode_cs = 'SELECT BLOCK'
 let g:Powerline_symbols_override = {
     \ 'BRANCH': [0x2213],
+    \ 'LINE':'',
     \ }
 call Pl#Theme#InsertSegment('ws_marker', 'after', 'lineinfo')
-" call Pl#Theme#RemoveSegment('rvm')
+call Pl#Theme#RemoveSegment('rvm:string')
+call Pl#Theme#RemoveSegment('scrollpercent')
 "-------------------------------------------------------------------------------
 
 
@@ -1281,7 +1280,7 @@ augroup END
 " "Global"
 augroup Global
   au!
-  au FileType *           set foldcolumn=2
+  au FileType *           set foldcolumn=4
   au BufNewFile *         silent! 0r  ~/.vim.local/templates/%:e.tpl
   au BufEnter *           silent! lcd %:p:h
   au BufWritePre *        call StripTrailingWhitespace()
