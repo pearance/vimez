@@ -347,7 +347,6 @@ nnoremap <silent><Leader>ll :CtrlP<CR>
 
 " "New Buffer"
 nnoremap <silent><Leader>nb :enew<CR><Bar>i<Space><BS><Esc>
-nnoremap <silent><C-n> :enew<CR><Bar>i<Space><BS><Esc>
 "-------------------------------------------------------------------------------
 
 
@@ -546,16 +545,22 @@ nnoremap yl y$
 
 " "Put (YankRing)"
 set pastetoggle=<F2>        " Preserve indentation when pasting formatted text.
-nnoremap P  "+]P
-nnoremap p  "+]p
+xnoremap <silent> <expr> p <sid>Repl()
+" Adjust indent to current line on put.
+nmap P  ]P
+nmap p  ]p
 nnoremap <silent><Leader>pp :YRShow<CR>
+
+" From http://alturl.com/amimi"
+let s:cpo_save=&cpo
+set cpo&vim
+let &cpo=s:cpo_save
 
 let g:yankring_max_history = 1000
 let g:yankring_dot_repeat_yank = 1
 let g:yankring_window_height = 10
 let g:yankring_min_element_length = 3
-let g:yankring_replace_n_pkey = '<C-p>'
-let g:yankring_replace_n_nkey = '<C-n>'
+let g:yankring_manual_clipboard_check = 1
 let g:yankring_history_dir = '~/.vim.local/tmp/'
 let g:yankring_history_file = 'yankring_herstory'
 "-------------------------------------------------------------------------------
@@ -1067,8 +1072,8 @@ nmap <silent><C-k> <C-u>
 vmap <silent><C-k> <C-u>
 nnoremap <silent><C-h> ^
 vnoremap <silent><C-h> ^
-nnoremap <silent><C-l> $l
-vnoremap <silent><C-l> $
+nnoremap <silent><C-l> $
+vnoremap <silent><C-l> $h
 map <C-u> kkkkkkkkkkkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzz
 			\kzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzz
 map <C-d> jjjjjjjjjjjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzz
@@ -1120,7 +1125,12 @@ let g:showmarks_textupper = "]"
 nnoremap <silent><Leader>dm  :ShowMarksClearMark<CR>
 nnoremap <silent><Leader>dam :ShowMarksClearAll<CR>
 nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
-"-------------------------------------------------------------------------------
+" Needed so highlights in external colorscheme take effect.
+hi ShowMarksHLl     ctermfg=white ctermbg=black
+hi ShowMarksHLu     ctermfg=white ctermbg=black
+hi ShowMarksHLo     ctermfg=white ctermbg=black
+hi ShowMarksHLm     ctermfg=white ctermbg=black
+"------------------------------------------------------------------------------
 
 
 
@@ -1503,10 +1513,35 @@ endif
 
 
 
+" "Clear Cache"
 function! ClearCache()
 	silent execute "!~/.vim/.aux/clear.sh &>/dev/null &"
 	redraw!
 	echo "Cache Cleared!"
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Restore Register"
+function! RestoreRegister()
+  if &clipboard == 'unnamed'
+    let @* = s:restore_reg
+  elseif &clipboard == 'unnamedplus'
+    let @+ = s:restore_reg
+  else
+    let @" = s:restore_reg
+  endif
+  return ''
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Replace"
+function! s:Repl()
+    let s:restore_reg = @"
+    return "p@=RestoreRegister()\<cr>"
 endfunction
 "-------------------------------------------------------------------------------
 
