@@ -797,6 +797,7 @@ let g:RuleState = 1
 
 
 " "Folds"
+map zm zmggGG
 map <leader>f0 :set foldlevel=0<CR>
 map <leader>f1 :set foldlevel=1<CR>
 map <leader>f2 :set foldlevel=2<CR>
