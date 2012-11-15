@@ -1350,7 +1350,6 @@ augroup END
 " "Git"
 augroup Git
   au!
-  au BufNewFile,BufRead COMMIT_EDITMSG  call feedkeys('ggi', 't')
   au BufNewFile,BufRead COMMIT_EDITMSG  setl spell
 augroup END
 "-----------------------------------------------------------------------------
