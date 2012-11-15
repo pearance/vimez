@@ -314,7 +314,7 @@ let NERDTreeQuitOnOpen  =  1
 let NERDTreeShowHidden = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeAutoDeleteBuffer = 1
-let NERDTreeWinPos = "right"
+let NERDTreeWinPos = "left"
 nnoremap <silent><Leader>, :NERDTreeFind<CR>
 nnoremap <silent><Leader>,, :NERDTreeToggle<CR>
 "-------------------------------------------------------------------------------
