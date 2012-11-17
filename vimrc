@@ -43,6 +43,8 @@ Bundle "pangloss/vim-javascript"
 Bundle "groenewege/vim-less"
 Bundle "plasticboy/vim-markdown"
 Bundle "vimez/vim-tmux"
+"-------------------------------------------------------------------------------
+
 
 
 " "Function Bundles"
@@ -92,7 +94,7 @@ runtime ftplugin/man.vim
 " ******************************************************************************
 
 " "Help"
-nnoremap <silent><F1> "zyw:exe "h ".@z.""<CR>
+nnoremap <silent><F1> b"zyw:exe "h ".@z.""<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -218,13 +220,6 @@ nnoremap <silent><C-g> 2<C-g>
 " "Reload"
 nnoremap <silent>\r :call Reload()<CR>
 "-------------------------------------------------------------------------------
-
-
-
-
-
-
-
 
 
 
@@ -522,12 +517,7 @@ nnoremap <silent><Leader>Q :qa<CR>
 
 
 
-
-
-
-
-
-" "}}}
+" }}}
 " EDIT: "{{{
 " ******************************************************************************
 
@@ -680,14 +670,7 @@ nmap <silent><Leader>ts
 
 
 
-
-
-
-
-
-
-
-" "}}}
+" }}}
 " VIEW: "{{{
 " ******************************************************************************
 
@@ -841,14 +824,7 @@ call Pl#Theme#RemoveSegment('scrollpercent')
 
 
 
-
-
-
-
-
-
-
-" "}}}
+" }}}
 " INSERT: "{{{
 " ******************************************************************************
 
@@ -973,6 +949,13 @@ nnoremap <Leader>es  :NeoSnippetEdit<CR>
 if !exists('snips_author')
   let g:snips_author = 'VimEz'
 endif
+
+" imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
+" PopupMap <C-y>   neocomplcache#close_popup()
+" PopupMap <C-e>   neocomplcache#cancel_popup()
+" PopupMap <CR>    neocomplcache#close_popup() . "\<CR>"
+" PopupMap <Tab>   "\<C-n>"
+" PopupMap <S-Tab> "\<C-p>"
 "-------------------------------------------------------------------------------
 
 
@@ -1032,14 +1015,7 @@ command! -nargs=* Tab call TabSize()
 
 
 
-
-
-
-
-
-
-
-"}}}
+" }}}
 " NAVIGATION: "{{{
 " ******************************************************************************
 
@@ -1142,14 +1118,7 @@ nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
 
 
 
-
-
-
-
-
-
-
-"}}}
+" }}}
 " TOOLS: "{{{
 " ******************************************************************************
 
@@ -1198,13 +1167,6 @@ let g:colorizer_nomap = 1
 let g:colorizer_fgcontrast = 1
 nmap <silent><Leader>tc :call ToggleColorHighlights()<CR>
 "-------------------------------------------------------------------------------
-
-
-
-
-
-
-
 
 
 
@@ -1271,13 +1233,6 @@ nnoremap <silent><Leader>sv :vsplit<CR><Bar><C-w>l<Bar>:bnext<CR>
 set splitright
 noremap <silent><Leader>sh :split<CR><Bar>:bnext<CR>
 "-------------------------------------------------------------------------------
-
-
-
-
-
-
-
 
 
 
@@ -1509,10 +1464,7 @@ augroup END
 
 
 
-
-
-
-" "}}}
+" }}}
 " FUNCTIONS: "{{{
 " ******************************************************************************
 
@@ -1650,7 +1602,7 @@ function! MaxRestoreWindow()
 		echo 'Window Maximized'
 	endif
 endfunction
-
+"-------------------------------------------------------------------------------
 
 
 
@@ -1987,14 +1939,7 @@ endfunction
 
 
 
-
-
-
-
-
-
-
-" "}}}
+" }}}
 " WRAP: "{{{
 " ******************************************************************************
 
