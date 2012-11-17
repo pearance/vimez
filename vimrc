@@ -112,7 +112,7 @@ let mapleader="\<Space>"  " Map personal modifier aka Leader key.
 " "Color Scheme & Syntax Highlighting"
 set t_Co=256                " Force terminal to go into 256 color mode.
 set synmaxcol=300           " Prevent long lines from slowing down redraws.
-syntax on		                " Syntax highlighting on.
+syntax on                   " Syntax highlighting on.
 colorscheme molokai-ez      " Default color scheme.
 
 " Show syntax highlighting group for current word.
@@ -132,7 +132,7 @@ nmap <Leader>4 :<C-u>BundleList<CR>
 
 
 " "Clear Cache"
-nmap <Leader>\cc :call ClearCache()<CR>
+nmap <silent>\cc :call ClearCache()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -222,7 +222,7 @@ nnoremap <silent><C-g> 2<C-g>
 
 
 " "Reload"
-nnoremap <silent><Leader>\r :call Reload()<CR>
+nnoremap <silent>\r :call Reload()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -802,6 +802,7 @@ map <leader>f0 :set foldlevel=0<CR>
 map <leader>f1 :set foldlevel=1<CR>
 map <leader>f2 :set foldlevel=2<CR>
 map <leader>f3 :set foldlevel=3<CR>
+set fillchars=vert:\|,fold:·,diff:-
 "-------------------------------------------------------------------------------
 
 
@@ -1126,10 +1127,10 @@ nnoremap <silent><Leader>dm  :ShowMarksClearMark<CR>
 nnoremap <silent><Leader>dam :ShowMarksClearAll<CR>
 nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
 " Needed so highlights in external colorscheme take effect.
-hi ShowMarksHLl     ctermfg=white ctermbg=black
-hi ShowMarksHLu     ctermfg=white ctermbg=black
-hi ShowMarksHLo     ctermfg=white ctermbg=black
-hi ShowMarksHLm     ctermfg=white ctermbg=black
+hi ShowMarksHLl     ctermfg=148 ctermbg=235
+hi ShowMarksHLu     ctermfg=148 ctermbg=235
+hi ShowMarksHLo     ctermfg=148 ctermbg=235
+hi ShowMarksHLm     ctermfg=148 ctermbg=235
 "------------------------------------------------------------------------------
 
 
@@ -1290,7 +1291,7 @@ augroup END
 " "Global"
 augroup Global
   au!
-  au FileType *           set foldcolumn=4
+  au FileType *           set foldcolumn=3
   au BufNewFile *         silent! 0r  ~/.vim.local/templates/%:e.tpl
   au BufEnter *           silent! lcd %:p:h
   au BufWritePre *        call StripTrailingWhitespace()
