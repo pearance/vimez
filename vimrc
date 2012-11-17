@@ -50,6 +50,7 @@ Bundle "Shougo/neocomplcache"
 Bundle "Shougo/neosnippet"
 Bundle "Lokaltog/vim-powerline"
 Bundle "vim-scripts/YankRing.vim"
+Bundle "vim-scripts/SyntaxAttr.vim"
 Bundle "tpope/vim-surround"
 Bundle "tomtom/tcomment_vim"
 Bundle "sjl/gundo.vim"
@@ -86,13 +87,6 @@ runtime ftplugin/man.vim
 
 
 
-
-
-
-
-
-
-
 " }}}
 " GENERAL: {{{
 " ******************************************************************************
@@ -116,7 +110,7 @@ syntax on                   " Syntax highlighting on.
 colorscheme molokai-ez      " Default color scheme.
 
 " Show syntax highlighting group for current word.
-nnoremap <Leader>syn :call <SID>SynStack()<CR>
+nnoremap <Leader>syn :call SyntaxAttr()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -207,7 +201,7 @@ set wildchar=<Tab>
 set wildcharm=<C-z>
 set wildmenu                 " Enable file/command auto-completion
 set wildmode=longest,full    " Auto-complete up to ambiguity
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
+set wildignore+=*e.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 cmap <C-h> <Left>
 cmap <C-l> <Right>
@@ -754,7 +748,7 @@ set shortmess+=I " Don't give the intro message when starting Vim |:intro|.
 
 
 
-" "Format Characters"
+" "Meta Characters"
 " This controls visibility of non-printable characters that denote certain
 " formatting information. Such as eol, tabs, trailing space, etc.
 set list
@@ -762,7 +756,7 @@ set listchars=eol:\ ,tab:·\ ,trail:\ ,extends:>,precedes:<
 nnoremap <silent><Leader>tf
 		\ :setlocal list!<CR><Bar>
 		\ :let OnOrOff=&list<CR><Bar>
-		\ :call ToggleOnOff("Formating Characters", OnOrOff)<CR>
+		\ :call ToggleOnOff("Meta Characters", OnOrOff)<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1127,10 +1121,10 @@ nnoremap <silent><Leader>dm  :ShowMarksClearMark<CR>
 nnoremap <silent><Leader>dam :ShowMarksClearAll<CR>
 nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
 " Needed so highlights in external colorscheme take effect.
-hi ShowMarksHLl     ctermfg=148 ctermbg=235
-hi ShowMarksHLu     ctermfg=148 ctermbg=235
-hi ShowMarksHLo     ctermfg=148 ctermbg=235
-hi ShowMarksHLm     ctermfg=148 ctermbg=235
+" hi ShowMarksHLl     ctermfg=148 ctermbg=235
+" hi ShowMarksHLu     ctermfg=148 ctermbg=235
+" hi ShowMarksHLo     ctermfg=148 ctermbg=235
+" hi ShowMarksHLm     ctermfg=148 ctermbg=235
 "------------------------------------------------------------------------------
 
 
@@ -1185,8 +1179,11 @@ nnoremap <silent><Leader>pwd :pwd<CR>
 
 
 
-" "Hex Color Fill (Colorizer)"
-nmap <Leader>tc <Plug>Colorizer
+" "Color Highlights (Colorizer)"
+let g:ColorizerState = 0
+let g:colorizer_nomap = 1
+let g:colorizer_fgcontrast = 1
+nmap <silent><Leader>tc :call ToggleColorHighlights()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1542,7 +1539,7 @@ endfunction
 " "Replace"
 function! s:Repl()
     let s:restore_reg = @"
-    return "p@=RestoreRegister()\<cr>"
+    return "p@=RestoreRegister()\<CR>"
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1576,6 +1573,24 @@ endfunction
 
 
 
+" "Toggle Color Highlights"
+function! ToggleColorHighlights()
+	if g:ColorizerState == 1
+		echo 'Color Highlights: Off'
+		exe 'ColorClear'
+		setlocal cursorcolumn
+		let g:ColorizerState = 0
+	else
+	echo 'Color Highlights: On'
+		exe 'ColorHighlight'
+		setlocal nocursorcolumn
+		let g:ColorizerState = 1
+	endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
 " "Toggle Maximized/Restore Window"
 function! MaxRestoreWindow()
 	if g:windowmaximized == 1
@@ -1594,7 +1609,7 @@ endfunction
 
 " "Ctrl-P Custom Mappings""
 function! MyCtrlPMappings()
-	nnoremap <buffer><silent><C-c> :call <sid>DeleteBuffer()<cr>
+	nnoremap <buffer><silent><C-c> :call <sid>DeleteBuffer()<CR>
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1732,17 +1747,6 @@ function! StripTrailingWhitespace()
     return
   endif
   %s/\s\+$//e
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Show Syntax Highlight Group"
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1951,6 +1955,7 @@ endfunction
 if filereadable(expand('~/.vimrc.local'))
   so ~/.vimrc.local
 endif
+"set runtimepath=$VIMRUNTIME,~/.vim.local/
 "-------------------------------------------------------------------------------
 
 
