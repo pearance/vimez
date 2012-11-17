@@ -400,6 +400,12 @@ nmap gl ]b
 
 
 
+" "Tabs (Layouts)"
+set showtabline=2 " always show tab bar"
+"-------------------------------------------------------------------------------
+
+
+
 " "View Options"
 set viewdir=~/.vim.local/tmp/view//
 set viewoptions=folds,cursor,unix,slash
@@ -795,8 +801,8 @@ set foldcolumn=3
 set foldlevelstart=0
 set foldnestmax=5
 set fillchars=vert:\|,fold:·,diff:-
-map zm zMggGG
-map zM zm
+nnoremap zm zMggGG
+nnoremap zM zm
 map <leader>f0 :set foldlevel=0<CR>
 map <leader>f1 :set foldlevel=1<CR>
 map <leader>f2 :set foldlevel=2<CR>
