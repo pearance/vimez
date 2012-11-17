@@ -191,7 +191,7 @@ set timeoutlen=500 "TODO: RESEARCH
 
 " "Update Time"
 " How frequent marks, statusbar, swap files, and other are updated.
-set updatetime=1000
+set updatetime=500
 "-------------------------------------------------------------------------------
 
 
@@ -790,13 +790,17 @@ let g:RuleState = 1
 
 
 
-" "Folds"
-map zm zmggGG
+" "Folding"
+set foldcolumn=3
+set foldlevelstart=0
+set foldnestmax=5
+set fillchars=vert:\|,fold:·,diff:-
+map zm zMggGG
+map zM zm
 map <leader>f0 :set foldlevel=0<CR>
 map <leader>f1 :set foldlevel=1<CR>
 map <leader>f2 :set foldlevel=2<CR>
 map <leader>f3 :set foldlevel=3<CR>
-set fillchars=vert:\|,fold:·,diff:-
 "-------------------------------------------------------------------------------
 
 
@@ -1061,6 +1065,7 @@ set nostartofline
 " "Scrolling"
 set scrolloff=5         " Start scrolling x lines before the edge of the window.
 set sidescrolloff=5     " Same as above just for columns instead of lines.
+let g:boostmove=0
 nmap <silent><C-j> <C-d>
 vmap <silent><C-j> <C-d>
 nmap <silent><C-k> <C-u>
@@ -1069,10 +1074,12 @@ nnoremap <silent><C-h> ^
 vnoremap <silent><C-h> ^
 nnoremap <silent><C-l> $
 vnoremap <silent><C-l> $h
-map <C-u> kkkkkkkkkkkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzz
-			\kzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzz
-map <C-d> jjjjjjjjjjjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzz
-			\jzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzz
+map <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+" map <C-u> kzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzz
+" 			\kzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzz
+map <C-d> jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+" map <C-d> zzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzz
+" 			\jzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzz
 "-------------------------------------------------------------------------------
 
 
@@ -1288,20 +1295,32 @@ augroup END
 " "Global"
 augroup Global
   au!
-  au FileType *           set foldcolumn=3
   au BufNewFile *         silent! 0r  ~/.vim.local/templates/%:e.tpl
   au BufEnter *           silent! lcd %:p:h
   au BufWritePre *        call StripTrailingWhitespace()
+  au BufRead *            normal zz
+
+  " Improve folding functionality.
+  au FileType *           set foldcolumn=3
   au BufWritePost *       call SaveView()
   au BufRead *            call LoadView()
-  au BufRead *            normal zz
+
+  " Make cursor highlights follow the cursor.
   au WinEnter *           setl cursorline
   au WinLeave *           setl nocursorline
   au WinEnter *           setl cursorcolumn
   au WinLeave *           setl nocursorcolumn
-  au WinEnter,BufEnter *  call HelpEnvironment()
+
+	" Improve help environment.
+	au WinEnter,BufEnter *  call HelpEnvironment()
   au WinEnter,BufEnter *  call HelpJumpForward()
   au WinEnter,BufEnter *  call HelpJumpBack()
+
+	" Improve scrolling speed.
+	au CursorMoved *        call BoostMoveON()
+	au CursorMovedI *       call BoostMoveON()
+	au CursorHold *         call BoostMoveOFF()
+	au CursorHoldI *        call BoostMoveOFF()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1487,10 +1506,6 @@ augroup END
 
 
 
-
-
-
-
 " "}}}
 " FUNCTIONS: "{{{
 " ******************************************************************************
@@ -1540,6 +1555,31 @@ endfunction
 function! s:Repl()
     let s:restore_reg = @"
     return "p@=RestoreRegister()\<CR>"
+endfunction
+"-------------------------------------------------------------------------------
+
+
+" "Boost Move"
+" From https://gist.github.com/2624765"
+function! BoostMoveON()
+	if (winline() != line('$')) && (line('.') != 1)
+		if (winline() == winheight('.')) || (winline() == 1)
+			let g:boostmove=1
+			setlocal nocursorline
+			setlocal nocursorcolumn
+			setlocal syntax=OFF
+		endif
+	endif
+endfunction
+
+function! BoostMoveOFF()
+	if g:boostmove==1
+		let g:boostmove=0
+		setlocal cursorline
+		setlocal cursorcolumn
+		setlocal syntax=OFF
+		setlocal syntax=ON
+	endif
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1604,6 +1644,7 @@ function! MaxRestoreWindow()
 		echo 'Window Maximized'
 	endif
 endfunction
+
 
 
 
