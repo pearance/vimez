@@ -1059,7 +1059,6 @@ set nostartofline
 " "Scrolling"
 set scrolloff=5         " Start scrolling x lines before the edge of the window.
 set sidescrolloff=5     " Same as above just for columns instead of lines.
-let g:boostmove=0
 nmap <silent><C-j> <C-d>
 vmap <silent><C-j> <C-d>
 nmap <silent><C-k> <C-u>
@@ -1287,12 +1286,6 @@ augroup Global
 	au WinEnter,BufEnter *  call HelpEnvironment()
   au WinEnter,BufEnter *  call HelpJumpForward()
   au WinEnter,BufEnter *  call HelpJumpBack()
-
-	" Improve scrolling speed.
-	au CursorMoved *        call BoostMoveON()
-	au CursorMovedI *       call BoostMoveON()
-	au CursorHold *         call BoostMoveOFF()
-	au CursorHoldI *        call BoostMoveOFF()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1523,30 +1516,6 @@ endfunction
 function! s:Repl()
     let s:restore_reg = @"
     return "p@=RestoreRegister()\<CR>"
-endfunction
-"-------------------------------------------------------------------------------
-
-
-" "Boost Move"
-" From https://gist.github.com/2624765"
-function! BoostMoveON()
-	if (winline() != line('$')) && (line('.') != 1)
-		if (winline() == winheight('.')) || (winline() == 1)
-			let g:boostmove=1
-			setlocal nocursorline
-			setlocal nocursorcolumn
-			setlocal syntax=OFF
-		endif
-	endif
-endfunction
-
-function! BoostMoveOFF()
-	if g:boostmove==1
-		let g:boostmove=0
-		setlocal cursorline
-		setlocal cursorcolumn
-		setlocal syntax=ON
-	endif
 endfunction
 "-------------------------------------------------------------------------------
 
