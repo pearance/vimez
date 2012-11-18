@@ -89,12 +89,13 @@ runtime ftplugin/man.vim
 
 
 
+
 " }}}
 " GENERAL: {{{
 " ******************************************************************************
 
 " "Help"
-nnoremap <silent><F1> b"zyw:exe "h ".@z.""<CR>
+nnoremap <silent><F1> viw"zyw:exe "h ".@z.""<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -119,10 +120,10 @@ nnoremap <Leader>syn :call SyntaxAttr()<CR>
 
 " "Bundle Wildmenu (Vundle)"
 nmap <Leader>b<Tab> :<C-u>Bundle<C-z>
-nmap <Leader>1 :<C-u>BundleInstall<CR>
-nmap <Leader>2 :<C-u>BundleInstall!<CR>
-nmap <Leader>3 :<C-u>BundleClean<CR>
-nmap <Leader>4 :<C-u>BundleList<CR>
+nmap <Leader>b1 :<C-u>BundleInstall<CR>
+nmap <Leader>b2 :<C-u>BundleInstall!<CR>
+nmap <Leader>b3 :<C-u>BundleClean<CR>
+nmap <Leader>b4 :<C-u>BundleList<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -223,6 +224,7 @@ nnoremap <silent>\r :call Reload()<CR>
 
 
 
+
 " }}}
 " BUFFER: "{{{
 " ******************************************************************************
@@ -310,7 +312,7 @@ nnoremap <silent><Leader>,, :NERDTreeToggle<CR>
 
 
 
-" "Search for Files, Buffers, or MRU (CtrlP)"
+" "OmniSearch (CtrlP)"
 let g:ctrlp_map = '<Leader>ll'
 let g:ctrlp_cache_dir = '~/.vim.local/tmp/ctrlp/'
 let g:ctrlp_open_multiple_files = '1vjr'
@@ -388,15 +390,18 @@ nnoremap <silent><Leader>ub :BUNDO<CR>
 
 
 
-" "Next & Previous Buffer (Unimpaired)"
-nmap gh [b
-nmap gl ]b
+" "Buffer Navigation (Unimpaired)"
+nmap <Leader>h [b
+nmap <Leader>l ]b
 "-------------------------------------------------------------------------------
 
 
 
 " "Tabs (Layouts)"
-set showtabline=2 " always show tab bar"
+nnoremap <silent>,h :tabprevious<CR>
+nnoremap <silent>,l :tabnext<CR>
+nnoremap <silent><Leader>nt :tabnew<CR>
+nnoremap <silent><Leader>ct :tabclose<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -514,6 +519,7 @@ nnoremap <silent><Leader>wqq :SaveSession<CR>:wqa<CR>
 " Simpler exit strategy, that prompts if there is any unsaved buffers open.
 nnoremap <silent><Leader>Q :qa<CR>
 "-------------------------------------------------------------------------------
+
 
 
 
@@ -670,7 +676,8 @@ nmap <silent><Leader>ts
 
 
 
-" }}}
+
+"}}}
 " VIEW: "{{{
 " ******************************************************************************
 
@@ -750,7 +757,7 @@ nnoremap <silent><Leader>tf
 
 
 
-" "Wraps"
+" "Wraps""{{{
 set nowrap              " Turn off wrapping of text
 set linebreak           " Wrap at word
 set textwidth=80        " Don't wrap lines by default
@@ -771,25 +778,26 @@ nnoremap <silent><Leader>tw
 "-------------------------------------------------------------------------------
 
 
-
-" "Rule"
+"}}}
+" "Rule""{{{
 nnoremap <silent><Leader>tr :call ToggleRule()<CR>
 let g:RuleState = 1
 "------------------------------------------------------------------------------
 
 
-
+"}}}
 " "Folding"
 set foldcolumn=3
-set foldlevelstart=0
 set foldnestmax=5
 set fillchars=vert:\|,fold:·,diff:-
 nnoremap zm zMggGG
 nnoremap zM zm
-map <leader>f0 :set foldlevel=0<CR>
-map <leader>f1 :set foldlevel=1<CR>
-map <leader>f2 :set foldlevel=2<CR>
-map <leader>f3 :set foldlevel=3<CR>
+map <leader>0 :set foldlevel=0<CR>
+map <leader>1 :set foldlevel=1<CR>
+map <leader>2 :set foldlevel=2<CR>
+map <leader>3 :set foldlevel=3<CR>
+map <leader>4 :set foldlevel=4<CR>
+map <leader>5 :set foldlevel=5<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -824,7 +832,8 @@ call Pl#Theme#RemoveSegment('scrollpercent')
 
 
 
-" }}}
+
+"}}}
 " INSERT: "{{{
 " ******************************************************************************
 
@@ -885,6 +894,7 @@ set fo-=B  " When joining lines, don't insert a space between two multi-byte
            " characters.  Overruled by the 'M' flag.
 set fo+=1  " Don't break a line after a one-letter word.  It's broken before it
            " instead (if possible).
+"-------------------------------------------------------------------------------
 
 
 
@@ -984,7 +994,7 @@ nmap = ]<Space>
 
 
 
-" "Tab Indentation"
+" "Tab Indentation""
 set noexpandtab         " Expand tabs using spaces instead of a tab char
 set shiftwidth=2        " Amount of shift when in Normal mode
 set tabstop=2           " Number of spaces that a <Tab> in the file counts for.
@@ -1015,7 +1025,8 @@ command! -nargs=* Tab call TabSize()
 
 
 
-" }}}
+
+"}}}
 " NAVIGATION: "{{{
 " ******************************************************************************
 
@@ -1056,12 +1067,8 @@ nnoremap <silent><C-h> ^
 vnoremap <silent><C-h> ^
 nnoremap <silent><C-l> $
 vnoremap <silent><C-l> $h
-map <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
-" map <C-u> kzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzz
-" 			\kzzkzzkzzkzzkzzkzzkzzkzzkzzkzzkzz
-map <C-d> jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-" map <C-d> zzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzz
-" 			\jzzjzzjzzjzzjzzjzzjzzjzzjzzjzzjzz
+nmap <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+nmap <C-d> jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
 "-------------------------------------------------------------------------------
 
 
@@ -1090,8 +1097,12 @@ set ignorecase          " do case insensitive matching
 set smartcase           " do smart case matching
 set wrapscan            " set the search scan to wrap around the file
 
-" Clear Search Highlight.
 nnoremap <silent>,, :nohlsearch<CR>
+" Highlight current word, from http://tinyurl.com/c7m7zsf
+nnoremap * :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>
+nnoremap g* :let @/ = expand('<cword>')\|set hlsearch<CR>
+nnoremap # :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>
+nnoremap g# :let @/ = expand('<cword>')\|set hlsearch<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1174,7 +1185,7 @@ nmap <silent><Leader>tc :call ToggleColorHighlights()<CR>
 " WINDOW: "{{{
 " ******************************************************************************
 
-" "Window Minimum Dimensions"
+" "Default Window Settings"
 set winminwidth=0
 set winminheight=0
 "-------------------------------------------------------------------------------
@@ -1182,12 +1193,11 @@ set winminheight=0
 
 
 " "Focus Windows"
-noremap <silent><Leader>h <C-w>h
-noremap <silent><Leader>j <C-w>j
-noremap <silent><Leader>k <C-w>k
-noremap <silent><Leader>l <C-w>l
+noremap gh <C-w>h
+noremap gj <C-w>j
+noremap gk <C-w>k
+noremap gl <C-w>l
 "-------------------------------------------------------------------------------
-
 
 
 
@@ -1261,7 +1271,7 @@ augroup Global
   au BufWritePre *        call StripTrailingWhitespace()
   au BufRead *            normal zz
 
-  " Improve folding functionality.
+  " Improve fold functionality.
   au FileType *           set foldcolumn=3
   au BufWritePost *       call SaveView()
   au BufRead *            call LoadView()
@@ -1535,7 +1545,6 @@ function! BoostMoveOFF()
 		let g:boostmove=0
 		setlocal cursorline
 		setlocal cursorcolumn
-		setlocal syntax=OFF
 		setlocal syntax=ON
 	endif
 endfunction
@@ -1957,5 +1966,5 @@ endif
 " TODO: create functions to toggle cursor column and line.
 " TODO: Compile browser reload ahk script to exe.
 
-" vim:ft=vim:fdm=marker:
-" }}}
+" vim:ft=vim:fdm=manual:
+"}}}
