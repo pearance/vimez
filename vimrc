@@ -31,7 +31,7 @@ Bundle "gmarik/vundle"
 
 
 
-" "Form Bundles"
+" "Frontend Bundles"
 Bundle "vimez/vim-themes"
 Bundle "vim-scripts/CSApprox"
 Bundle "vim-scripts/ScrollColors"
@@ -47,7 +47,7 @@ Bundle "vimez/vim-tmux"
 
 
 
-" "Function Bundles"
+" "Backend Bundles"
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/neosnippet"
 Bundle "Lokaltog/vim-powerline"
@@ -72,6 +72,7 @@ Bundle "vim-scripts/Rename2"
 Bundle "godlygeek/tabular"
 Bundle "jiangmiao/auto-pairs"
 Bundle "endel/ctrlp-filetype.vim"
+Bundle "tpope/vim-git"
 "-------------------------------------------------------------------------------
 
 
@@ -1099,9 +1100,9 @@ set wrapscan            " set the search scan to wrap around the file
 
 nnoremap <silent>,, :nohlsearch<CR>
 " Highlight current word, from http://tinyurl.com/c7m7zsf
-nnoremap * :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>
+nnoremap *  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>
 nnoremap g* :let @/ = expand('<cword>')\|set hlsearch<CR>
-nnoremap # :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>
+nnoremap #  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>
 nnoremap g# :let @/ = expand('<cword>')\|set hlsearch<CR>
 "-------------------------------------------------------------------------------
 
@@ -1338,8 +1339,7 @@ augroup END
 " "Git"
 augroup Git
   au!
-  au BufNewFile,BufRead COMMIT_EDITMSG  call feedkeys('GG0')
-  au BufNewFile,BufRead COMMIT_EDITMSG  setl spell
+  au BufNewFile,BufRead COMMIT_EDITMSG  call feedkeys('gg0')
 augroup END
 "-----------------------------------------------------------------------------
 
