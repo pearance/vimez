@@ -63,7 +63,6 @@ Bundle "kien/ctrlp.vim"
 Bundle "benmills/vimux"
 Bundle "duff/vim-bufonly"
 Bundle "vim-scripts/bufkill.vim"
-Bundle "vimez/vim-showmarks"
 Bundle "tpope/vim-unimpaired"
 Bundle "tpope/vim-rvm"
 Bundle "xolox/vim-session"
@@ -73,6 +72,8 @@ Bundle "godlygeek/tabular"
 Bundle "jiangmiao/auto-pairs"
 Bundle "endel/ctrlp-filetype.vim"
 Bundle "tpope/vim-git"
+"Bundle "vim-scripts/number-marks"
+"Bundle "kshenoy/vim-signature"
 "-------------------------------------------------------------------------------
 
 
@@ -686,7 +687,8 @@ nmap <silent><Leader>ts
 " VIEW: "{{{
 " ******************************************************************************
 
-" "Title Bar" Set title bar to display current file, path, and server hostname.
+" "Title Bar"
+" Detected set paste! Disabled neocomplcache.
 set title
 set titlestring=%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
 "-------------------------------------------------------------------------------
@@ -792,7 +794,7 @@ let g:RuleState = 1
 
 "}}}
 " "Folding"
-set foldcolumn=3
+set foldcolumn=4
 set foldnestmax=5
 set fillchars=vert:\|,fold:·,diff:-
 nnoremap zm zMggGG
@@ -999,7 +1001,7 @@ nmap = ]<Space>
 
 
 
-" "Tab Indentation""
+" "Tab Indentation"
 set noexpandtab         " Expand tabs using spaces instead of a tab char
 set shiftwidth=2        " Amount of shift when in Normal mode
 set tabstop=2           " Number of spaces that a <Tab> in the file counts for.
@@ -1261,8 +1263,8 @@ map <F12> :call MaxRestoreWindow()<CR>
 " "On Start"
 augroup Start
   au!
-  au VimEnter *                    echo
-        \ "  Welcome to VimEz, Happy Coding! :-)"
+  au VimEnter *  echo "Welcome to VimEz, Happy Coding! :-)"
+  " au VimEnter *  bdelete
 augroup END
 "-----------------------------------------------------------------------------
 
