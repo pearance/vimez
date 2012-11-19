@@ -14,15 +14,11 @@
 " BUNDLES: {{{
 " ******************************************************************************
 
-" "Initilization"
+" "Initilization""{{{
 set nocompatible
 filetype on
 filetype off
-"-------------------------------------------------------------------------------
 
-
-
-" "Plugin/Bundle Manager (Vundle)"
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 let g:vundle_default_git_proto = 'git'
@@ -30,8 +26,8 @@ Bundle "gmarik/vundle"
 "-------------------------------------------------------------------------------
 
 
-
-" "Frontend Bundles"
+"}}}
+" "Frontend Bundles""{{{
 Bundle "vimez/vim-themes"
 Bundle "vim-scripts/CSApprox"
 Bundle "vim-scripts/ScrollColors"
@@ -46,8 +42,8 @@ Bundle "vimez/vim-tmux"
 "-------------------------------------------------------------------------------
 
 
-
-" "Backend Bundles"
+"}}}
+" "Backend Bundles""{{{
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/neosnippet"
 Bundle "Lokaltog/vim-powerline"
@@ -77,8 +73,8 @@ Bundle "tpope/vim-git"
 "-------------------------------------------------------------------------------
 
 
-
-" "Detect File Types"
+"}}}
+" "Detect File Types""{{{
 filetype plugin indent on
 "-------------------------------------------------------------------------------
 
@@ -91,7 +87,7 @@ runtime ftplugin/man.vim
 
 
 
-
+"}}}
 " }}}
 " GENERAL: {{{
 " ******************************************************************************
@@ -1264,7 +1260,7 @@ map <F12> :call MaxRestoreWindow()<CR>
 augroup Start
   au!
   au VimEnter *  echo "Welcome to VimEz, Happy Coding! :-)"
-  " au VimEnter *  bdelete
+  au VimEnter *  call DeleteEmptyBuffers()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1490,6 +1486,25 @@ if !exists("*Reload")
 		call Msg('Vim Configuration Written & Reloaded!')
 	endfunction
 endif
+"-------------------------------------------------------------------------------
+
+
+
+" "Delete Empty Buffers"
+" From http://goo.gl/6OBjJ
+function! DeleteEmptyBuffers()
+    let empty = []
+    let [i, n] = [1, bufnr('$')]
+    while i <= n
+        if bufexists(i) && bufname(i) == ''
+            call add(empty, i)
+        endif
+        let i += 1
+    endwhile
+    if len(empty) > 0
+        exe 'bdelete' join(empty, ' ')
+    endif
+endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -1942,5 +1957,5 @@ endif
 " TODO: create functions to toggle cursor column and line.
 " TODO: Compile browser reload ahk script to exe.
 
-" vim:ft=vim:fdm=manual:
+" vim:ft=vim:fdm=marker:
 "}}}
