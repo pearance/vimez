@@ -392,8 +392,10 @@ nnoremap <silent><Leader>ub :BUNDO<CR>
 
 
 " "Buffer Navigation (Unimpaired)"
-nmap <Leader>h [b
-nmap <Leader>l ]b
+nnoremap <C-h> :bprev<CR>
+nnoremap <C-l> :bnext<CR>
+nnoremap <C-j> :vert sbnext<CR>
+nnoremap <C-k> :sbnext<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -532,6 +534,7 @@ nnoremap <silent><Leader>Q :qa<CR>
 set clipboard+=unnamedplus  " Use system clipboard for yanks.
 
 nnoremap Y  y$
+nnoremap <silent><Leader>y yiw
 
 " Yank from current cursor position to left or right end respectively.
 nnoremap yh y0
@@ -542,11 +545,12 @@ nnoremap yl y$
 
 " "Put (YankRing)"
 set pastetoggle=<F2>        " Preserve indentation when pasting formatted text.
-xnoremap <silent> <expr> p <sid>Repl()
+xnoremap <silent><expr> p <sid>Repl()
 " Adjust indent to current line on put.
 nmap P  ]P
 nmap p  ]p
-nnoremap <silent><Leader>pp :YRShow<CR>
+nmap <silent><Leader>p viwp
+nmap <silent><Leader>pp :YRShow<CR>
 
 " From http://alturl.com/amimi"
 let s:cpo_save=&cpo
@@ -1056,17 +1060,17 @@ set nostartofline
 
 
 
-" "Scrolling"
+" "Cursor Movement"
 set scrolloff=5         " Start scrolling x lines before the edge of the window.
 set sidescrolloff=5     " Same as above just for columns instead of lines.
-nmap <silent><C-j> <C-d>
-vmap <silent><C-j> <C-d>
-nmap <silent><C-k> <C-u>
-vmap <silent><C-k> <C-u>
-nnoremap <silent><C-h> ^
-vnoremap <silent><C-h> ^
-nnoremap <silent><C-l> $
-vnoremap <silent><C-l> $h
+nmap <silent><Leader>j j}k
+vmap <silent><Leader>j j}k
+nmap <silent><Leader>k k{j
+vmap <silent><Leader>k k{j
+nnoremap <silent><Leader>h ^
+vnoremap <silent><Leader>h ^
+nnoremap <silent><Leader>l $
+vnoremap <silent><Leader>l $h
 nmap <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 nmap <C-d> jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
 "-------------------------------------------------------------------------------
@@ -1099,10 +1103,10 @@ set wrapscan            " set the search scan to wrap around the file
 
 nnoremap <silent>,, :nohlsearch<CR>
 " Highlight current word, from http://tinyurl.com/c7m7zsf
-nnoremap *  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>
-nnoremap g* :let @/ = expand('<cword>')\|set hlsearch<CR>
-nnoremap #  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>
-nnoremap g# :let @/ = expand('<cword>')\|set hlsearch<CR>
+nnoremap <silent>*  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>
+nnoremap <silent>g* :let @/ = expand('<cword>')\|set hlsearch<CR>
+nnoremap <silent>#  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>
+nnoremap <silent>g# :let @/ = expand('<cword>')\|set hlsearch<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1182,7 +1186,7 @@ nmap <silent><Leader>tc :call ToggleColorHighlights()<CR>
 
 
 " }}}
-" WINDOW: "{{{
+" WINDOWS: "{{{
 " ******************************************************************************
 
 " "Default Window Settings"
@@ -1217,6 +1221,7 @@ noremap <silent><Leader>ch :wincmd h<CR>:close<CR>
 noremap <silent><Leader>ck :wincmd k<CR>:close<CR>
 noremap <silent><Leader>cl :wincmd l<CR>:close<CR>
 noremap <silent><Leader>cw :close<CR>
+noremap <silent><Leader>cow :only<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1230,18 +1235,18 @@ nnoremap <Down>  <C-w>-
 
 
 
-" "Expand & Restore Window"
-let g:windowmaximized = 0
-map <F12> :call MaxRestoreWindow()<CR>
+" "Split Windows"
+nnoremap <silent><Leader>sv :vert sbnext<CR>
+set splitright
+noremap <silent><Leader>sh :sbnext<CR>
+set splitbelow
 "-------------------------------------------------------------------------------
 
 
 
-" "Split Windows"
-set nosplitbelow
-nnoremap <silent><Leader>sv :vsplit<CR><Bar><C-w>l<Bar>:bnext<CR>
-set splitright
-noremap <silent><Leader>sh :split<CR><Bar>:bnext<CR>
+" "Expand & Restore Window"
+let g:windowmaximized = 0
+map <F12> :call MaxRestoreWindow()<CR>
 "-------------------------------------------------------------------------------
 
 
