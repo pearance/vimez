@@ -35,9 +35,9 @@ Bundle "lilydjwg/colorizer"
 Bundle "othree/html5.vim"
 Bundle "hail2u/vim-css-syntax"
 Bundle "hail2u/vim-css3-syntax"
-Bundle "pangloss/vim-javascript"
 Bundle "groenewege/vim-less"
-Bundle "plasticboy/vim-markdown"
+Bundle "pangloss/vim-javascript"
+Bundle "hallison/vim-markdown"
 Bundle "vimez/vim-tmux"
 "-------------------------------------------------------------------------------
 
@@ -52,7 +52,6 @@ Bundle "vim-scripts/SyntaxAttr.vim"
 Bundle "tpope/vim-surround"
 Bundle "tomtom/tcomment_vim"
 Bundle "sjl/gundo.vim"
-Bundle "mattn/zencoding-vim"
 Bundle "docunext/closetag.vim"
 Bundle "tpope/vim-repeat"
 Bundle "kien/ctrlp.vim"
@@ -60,7 +59,6 @@ Bundle "benmills/vimux"
 Bundle "duff/vim-bufonly"
 Bundle "vim-scripts/bufkill.vim"
 Bundle "tpope/vim-unimpaired"
-Bundle "tpope/vim-rvm"
 Bundle "xolox/vim-session"
 Bundle "scrooloose/nerdtree"
 Bundle "vim-scripts/Rename2"
@@ -68,8 +66,7 @@ Bundle "godlygeek/tabular"
 Bundle "jiangmiao/auto-pairs"
 Bundle "endel/ctrlp-filetype.vim"
 Bundle "tpope/vim-git"
-"Bundle "vim-scripts/number-marks"
-"Bundle "kshenoy/vim-signature"
+Bundle "kshenoy/vim-signature"
 "-------------------------------------------------------------------------------
 
 
@@ -388,18 +385,16 @@ nnoremap <silent><Leader>ub :BUNDO<CR>
 
 
 
-" "Buffer Navigation (Unimpaired)"
-nnoremap <C-h> :bprev<CR>
-nnoremap <C-l> :bnext<CR>
-nnoremap <C-j> :vert sbnext<CR>
-nnoremap <C-k> :sbnext<CR>
+" "Buffer Navigation"
+nmap <silent>gh :bprev<CR>
+nmap <silent>gl :bnext<CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Tabs (Layouts)"
-nnoremap <silent>,h :tabprevious<CR>
-nnoremap <silent>,l :tabnext<CR>
+nnoremap <silent><leader>h :tabprevious<CR>
+nnoremap <silent><leader>l :tabnext<CR>
 nnoremap <silent><Leader>nt :tabnew<CR>
 nnoremap <silent><Leader>ct :tabclose<CR>
 "-------------------------------------------------------------------------------
@@ -1061,14 +1056,14 @@ set nostartofline
 " "Cursor Movement"
 set scrolloff=5         " Start scrolling x lines before the edge of the window.
 set sidescrolloff=5     " Same as above just for columns instead of lines.
-nmap <silent><Leader>j j}k
-vmap <silent><Leader>j j}k
-nmap <silent><Leader>k k{j
-vmap <silent><Leader>k k{j
-nnoremap <silent><Leader>h ^
-vnoremap <silent><Leader>h ^
-nnoremap <silent><Leader>l $
-vnoremap <silent><Leader>l $h
+nnoremap <silent>,h ^
+vnoremap <silent>,h ^
+nnoremap <silent>,l $
+vnoremap <silent>,l $h
+nmap <silent>,j j}k
+vmap <silent>,j j}k
+nmap <silent>,k k{j
+vmap <silent>,k k{j
 nmap <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 nmap <C-d> jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
 "-------------------------------------------------------------------------------
@@ -1101,10 +1096,10 @@ set wrapscan            " set the search scan to wrap around the file
 
 nnoremap <silent>,, :nohlsearch<CR>
 " Highlight current word, from http://tinyurl.com/c7m7zsf
-nnoremap <silent>*  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>
-nnoremap <silent>g* :let @/ = expand('<cword>')\|set hlsearch<CR>
-nnoremap <silent>#  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>
-nnoremap <silent>g# :let @/ = expand('<cword>')\|set hlsearch<CR>
+nnoremap <silent>*  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
+nnoremap <silent>g* :let @/ = expand('<cword>')\|set hlsearch<CR>viwb<Esc>
+nnoremap <silent>#  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
+nnoremap <silent>g# :let @/ = expand('<cword>')\|set hlsearch<CR>viwb<Esc>
 "-------------------------------------------------------------------------------
 
 
@@ -1115,18 +1110,15 @@ vnoremap <C-f> :call FindReplace()<CR>
 
 
 
-" "Marks (Showmarks)"
-let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
-let g:showmarks_textlower = ")"
-let g:showmarks_textupper = "]"
-nnoremap <silent><Leader>dm  :ShowMarksClearMark<CR>
-nnoremap <silent><Leader>dam :ShowMarksClearAll<CR>
-nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
-" Needed so highlights in external colorscheme take effect.
-" hi ShowMarksHLl     ctermfg=148 ctermbg=235
-" hi ShowMarksHLu     ctermfg=148 ctermbg=235
-" hi ShowMarksHLo     ctermfg=148 ctermbg=235
-" hi ShowMarksHLm     ctermfg=148 ctermbg=235
+" "Marks (Signature)"
+let g:SignatureDefaultMappings=0
+let g:SignatureLcMarkStr="\m"
+let g:SignatureUcMarkStr="\m"
+let g:SignatureIncludeMarkers=''
+nmap <silent>m, <Plug>SIG_PlaceNextMark
+nmap <silent><Leader>j <Plug>SIG_NextLineByPos<Bar>zz
+nmap <silent><Leader>k <Plug>SIG_PrevLineByPos<<Bar>zz
+nmap <silent><Leader>dam  <Plug>SIG_PurgeMarks
 "------------------------------------------------------------------------------
 
 
@@ -1195,10 +1187,10 @@ set winminheight=0
 
 
 " "Focus Windows"
-noremap gh <C-w>h
-noremap gj <C-w>j
-noremap gk <C-w>k
-noremap gl <C-w>l
+nnoremap <silent><C-h> <C-w>h
+nnoremap <silent><C-j> <C-w>j
+nnoremap <silent><C-k> <C-w>k
+nnoremap <silent><C-l> <C-w>l
 "-------------------------------------------------------------------------------
 
 
@@ -1275,7 +1267,7 @@ augroup Global
   au BufRead *            normal zz
 
   " Improve fold functionality.
-  au FileType *           set foldcolumn=3
+  au FileType *           set foldcolumn=4
   au BufWritePost *       call SaveView()
   au BufRead *            call LoadView()
 
