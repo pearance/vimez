@@ -606,10 +606,10 @@ nmap <C-a> ggVG
 " "Line Movement (Unimpaired)"
 " Consistent use of [hjkl] with the Shift modifier to move a line of text
 " around. Up/down by one line and left/right by amount of shiftwidth.
-nmap <S-h> <<^
-nmap <S-j> ]e
-nmap <S-k> [e
-nmap <S-l> >>^
+nmap H <<^
+nmap J ]e
+nmap K [e
+nmap L >>^
 "-------------------------------------------------------------------------------
 
 
@@ -617,10 +617,10 @@ nmap <S-l> >>^
 " "Block Movement (Unimpaired)"
 " Consistent use of [hjkl] with the Shift modifier to move a block of text
 " around. Up/down by one line and left/right by amount of shiftwidth.
-vmap <S-h> <gv^
-vmap <S-j> ]egv
-vmap <S-k> [egv
-vmap <S-l> >gv^
+vmap H <gv^
+vmap J ]egv
+vmap K [egv
+vmap L >gv^
 "-------------------------------------------------------------------------------
 
 
@@ -1038,12 +1038,6 @@ vnoremap ,, <Esc>
 
 
 
-" "Escape & Save"
-imap <C-s> <Esc>l<C-s>
-"-------------------------------------------------------------------------------
-
-
-
 " "Virtual Edit"
 set virtualedit+=block
 set virtualedit+=insert
@@ -1056,16 +1050,16 @@ set nostartofline
 " "Cursor Movement"
 set scrolloff=5         " Start scrolling x lines before the edge of the window.
 set sidescrolloff=5     " Same as above just for columns instead of lines.
-nnoremap <silent>,h ^
-vnoremap <silent>,h ^
-nnoremap <silent>,l $
-vnoremap <silent>,l $h
-nmap <silent>,j j}k
-vmap <silent>,j j}k
-nmap <silent>,k k{j
-vmap <silent>,k k{j
-nmap <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
-nmap <C-d> jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+nnoremap ,h ^
+vnoremap ,h ^
+nnoremap ,l $
+vnoremap ,l $h
+nmap ,j <C-d>
+vmap ,j <C-d>
+nmap ,k <C-u>
+vmap ,k <C-u>
+nnoremap <C-d> jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+nnoremap <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 "-------------------------------------------------------------------------------
 
 
