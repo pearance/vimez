@@ -67,6 +67,7 @@ Bundle "jiangmiao/auto-pairs"
 Bundle "endel/ctrlp-filetype.vim"
 Bundle "tpope/vim-git"
 Bundle "kshenoy/vim-signature"
+Bundle "tristen/vim-sparkup"
 "-------------------------------------------------------------------------------
 
 
@@ -969,7 +970,7 @@ endif
 
 
 " "Auto Pairing (Auto-Pairs)"
-let g:AutoPairsShortcutFastWrap = '<C-e>'
+let g:AutoPairsShortcutFastWrap = '<C-f>'
 let g:AutoPairsCenterLine = 0
 "-------------------------------------------------------------------------------
 
