@@ -38,7 +38,6 @@ Bundle "hail2u/vim-css3-syntax"
 Bundle "groenewege/vim-less"
 Bundle "pangloss/vim-javascript"
 Bundle "hallison/vim-markdown"
-Bundle "vimez/vim-tmux"
 "-------------------------------------------------------------------------------
 
 
@@ -47,7 +46,8 @@ Bundle "vimez/vim-tmux"
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/neosnippet"
 Bundle "Lokaltog/vim-powerline"
-Bundle "vim-scripts/YankRing.vim"
+Bundle "vimez/vim-tmux"
+Bundle "vimez/vim-yankring"
 Bundle "vim-scripts/SyntaxAttr.vim"
 Bundle "tpope/vim-surround"
 Bundle "tomtom/tcomment_vim"
@@ -68,6 +68,7 @@ Bundle "endel/ctrlp-filetype.vim"
 Bundle "tpope/vim-git"
 Bundle "kshenoy/vim-signature"
 Bundle "tristen/vim-sparkup"
+Bundle "tpope/vim-fugitive"
 "-------------------------------------------------------------------------------
 
 
@@ -309,12 +310,14 @@ nnoremap <silent><Leader>,, :NERDTreeToggle<CR>
 
 
 " "OmniSearch (CtrlP)"
-let g:ctrlp_map = '<Leader>ll'
+let g:ctrlp_map = '<Leader>kk'
 let g:ctrlp_cache_dir = '~/.vim.local/tmp/ctrlp/'
 let g:ctrlp_open_multiple_files = '1vjr'
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_follow_symlinks = 1
+let g:ctrlp_use_caching = 1
+let g:ctrlp_working_path_mode = '0'
 let g:ctrlp_prompt_mappings = {
   \ 'PrtExit()':            ['<esc>', ','],
   \ 'CreateNewFile()':      ['<c-b>'],
@@ -324,10 +327,9 @@ let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
 " Find and set filetypes.
 let g:ctrlp_extensions = ['filetype']
 nnoremap <silent><Leader>ff :CtrlPFiletype<CR>
-nnoremap <silent><Leader>hh :CtrlP<CR>
 nnoremap <silent><Leader>jj :CtrlPBuffer<CR>
-nnoremap <silent><Leader>kk :CtrlPMRU<CR>
-nnoremap <silent><Leader>ll :CtrlP<CR>
+nnoremap <silent><Leader>kk :CtrlP<CR>
+nnoremap <silent><Leader>ll :CtrlPMRU<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -526,29 +528,29 @@ nnoremap <silent><Leader>Q :qa<CR>
 " "Yank (Yankring)"
 set clipboard+=unnamedplus  " Use system clipboard for yanks.
 
-nnoremap Y  y$
-nnoremap <silent><Leader>y yiw
+function! YRRunAfterMaps()
+	nnoremap Y :<C-U>YRYankCount 'y$'<CR>
+	nnoremap yh :<C-U>YRYankCount 'y0'<CR>
+	nnoremap yj :<C-U>YRYankCount 'yG'<CR>
+	nnoremap yk :<C-U>YRYankCount 'ygg'<CR>
+	nnoremap yl :<C-U>YRYankCount 'y$'<CR>
+	nnoremap <Leader>y :<C-U>YRYankCount 'yiw'<CR>
 
-" Yank from current cursor position to left or right end respectively.
-nnoremap yh y0
-nnoremap yl y$
+	" From Steve Losh, Preserve the yank post selection/put.
+	vnoremap p :<c-u>YRPaste 'p', 'v'<cr>gv:YRYankRange 'v'<cr>
+endfunction
 "-------------------------------------------------------------------------------
 
 
 
 " "Put (YankRing)"
 set pastetoggle=<F2>        " Preserve indentation when pasting formatted text.
-xnoremap <silent><expr> p <sid>Repl()
 " Adjust indent to current line on put.
 nmap P  ]P
 nmap p  ]p
 nmap <silent><Leader>p viwp
 nmap <silent><Leader>pp :YRShow<CR>
 
-" From http://alturl.com/amimi"
-let s:cpo_save=&cpo
-set cpo&vim
-let &cpo=s:cpo_save
 
 let g:yankring_max_history = 1000
 let g:yankring_dot_repeat_yank = 1
@@ -557,6 +559,7 @@ let g:yankring_min_element_length = 3
 let g:yankring_manual_clipboard_check = 1
 let g:yankring_history_dir = '~/.vim.local/tmp/'
 let g:yankring_history_file = 'yankring_herstory'
+
 "-------------------------------------------------------------------------------
 
 
@@ -1051,8 +1054,8 @@ set nostartofline
 " "Cursor Movement"
 set scrolloff=5         " Start scrolling x lines before the edge of the window.
 set sidescrolloff=5     " Same as above just for columns instead of lines.
-nnoremap ,h ^
-vnoremap ,h ^
+nnoremap ,h 0
+vnoremap ,h 0
 nnoremap ,l $
 vnoremap ,l $h
 nmap ,j <C-d>
@@ -1257,7 +1260,6 @@ augroup END
 augroup Global
   au!
   au BufNewFile *         silent! 0r  ~/.vim.local/templates/%:e.tpl
-  au BufEnter *           silent! lcd %:p:h
   au BufWritePre *        call StripTrailingWhitespace()
   au BufRead *            normal zz
 
