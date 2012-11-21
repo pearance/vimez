@@ -468,11 +468,11 @@ set vi+=:500  " Number of lines to save from the command line history
 set vi+=@500  " Number of lines to save from the input line history
 set vi+=/500  " Number of lines to save from the search history
 set vi+=r/tmp " Removable media, for which no marks will be stored
-set vi+=!	    " Global variables that start with an uppercase letter and
+set vi+=!     " Global variables that start with an uppercase letter and
               " don't contain lowercase letters
-set vi+=h	    " Disable 'hlsearch' highlighting when starting
-set vi+=%	    " Buffer list (restored when starting Vim without arguments)
-set vi+=c	    " Convert the text using 'encoding'
+set vi+=h     " Disable 'hlsearch' highlighting when starting
+set vi+=%     " Buffer list (restored when starting Vim without arguments)
+set vi+=c     " Convert the text using 'encoding'
 set vi+=s100  " Max amount of kilobytes of any single register.
 set vi+=n~/.vim.local/tmp/viminfo
 "-------------------------------------------------------------------------------
@@ -480,15 +480,12 @@ set vi+=n~/.vim.local/tmp/viminfo
 
 
 " "Backups"
-set backup                        " Keep backup file after overwriting a file
-set writebackup                   " Make a backup before overwriting a file
-
- " List of directories for the backup file
-if has("win32") || has("win64")
-  set backupdir=~/_vim.local/tmp/backups//
-else
-  set backupdir=~/.vim.local/tmp/backups//
-end
+set backup        " Keep backup file after overwriting a file.
+set writebackup   " Make a backup before overwriting a file.
+set backupdir=~/.vim.local/tmp/backups//
+if !isdirectory(expand(&backupdir))
+	call mkdir(expand(&backupdir), "p")
+endif
 "-------------------------------------------------------------------------------
 
 
@@ -498,11 +495,10 @@ end
 " a crash, you have a shot at recovering your file. The swap is updated on every
 " 100th character.
 set updatecount=100
-if has("win32") || has("win64")
-  set directory=~/_vim.local/tmp/swaps//
-else
-  set directory=~/.vim.local/tmp/swaps//
-end
+set directory=~/.vim.local/tmp/swaps//
+if !isdirectory(expand(&directory))
+	call mkdir(expand(&directory), "p")
+endif
 "-------------------------------------------------------------------------------
 
 
@@ -596,6 +592,9 @@ nnoremap Q gqip
 set undolevels=1000
 set undofile
 set undodir=~/.vim.local/tmp/undos//
+if !isdirectory(expand(&undodir))
+	call mkdir(expand(&undodir), "p")
+endif
 nnoremap <silent><Leader>uu :GundoToggle<CR>
 "-------------------------------------------------------------------------------
 
