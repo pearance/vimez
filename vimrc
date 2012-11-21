@@ -1058,6 +1058,9 @@ nnoremap ,h 0
 vnoremap ,h 0
 nnoremap ,l $
 vnoremap ,l $h
+
+noremap <silent><LocalLeader>m :call cursor(0, virtcol('$')/2)<CR>
+
 nmap ,j <C-d>
 vmap ,j <C-d>
 nmap ,k <C-u>
@@ -1325,6 +1328,7 @@ augroup END
 augroup Git
   au!
   au BufNewFile,BufRead COMMIT_EDITMSG  call feedkeys('gg0')
+  au BufNewFile,BufRead COMMIT_EDITMSG  setlocal spell
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1433,12 +1437,12 @@ augroup VimScript
 	au!
 	au BufNewFile,BufRead *.vim	  setf=vim
 	au FileType vim               setl omnifunc=syntaxcomplete#Complete
-	au BufWritePost {.,_,}vimrc,{.,_,}vimrc.local,molokai-ez.vim
+	au BufWritePost *vimrc,*vimrc.local,molokai-ez.vim
 			\  nested so $MYVIMRC
 			\| nohlsearch
 			\| exe 'CSApprox'
 			\| call Pl#Load()
-			\| call Msg('Vim Configuration Written & Reloaded!')
+			\| call Msg('Vim Configuration Reloaded!')
 augroup END
 "-----------------------------------------------------------------------------
 
