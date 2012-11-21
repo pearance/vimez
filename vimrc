@@ -97,8 +97,9 @@ nnoremap <silent><F1> viw"zyw:exe "h ".@z.""<CR>
 
 
 
-" "Leader Key"
-let mapleader="\<Space>"  " Map personal modifier aka Leader key.
+" "Leader Keys"
+let mapleader="\<Space>" " Global mod key.
+let maplocalleader=","   " Local mod key primarily for filetype specific maps.
 "-------------------------------------------------------------------------------
 
 
@@ -303,8 +304,8 @@ let NERDTreeShowHidden = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeWinPos = "left"
-nnoremap <silent><Leader>, :NERDTreeFind<CR>
 nnoremap <silent><Leader>,, :NERDTreeToggle<CR>
+nnoremap <silent><Leader>,,f :NERDTreeFind<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -986,7 +987,7 @@ nnoremap <BS> i<BS><Right><Esc>
 
 
 " "Space"
-nnoremap ,<Space> i<Space><Esc>l
+nnoremap <LocalLeader><Space> i<Space><Esc>l
 "Add a blank line above cursor position
 nmap - [<Space>
 "Add a blank line below cursor position
@@ -1009,7 +1010,7 @@ set preserveindent      " Preserve existing characters for indenting
 " Give the tab key utiltiy in normal & visual modes.
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-nnoremap ,<Tab> i<Tab><Esc>
+nnoremap <LocalLeader><Tab> i<Tab><Esc>
 
 nnoremap <Leader>st :call TabSize()<CR>
 
@@ -1053,17 +1054,17 @@ set nostartofline
 " "Cursor Movement"
 set scrolloff=5         " Start scrolling x lines before the edge of the window.
 set sidescrolloff=5     " Same as above just for columns instead of lines.
-nnoremap ,h 0
-vnoremap ,h 0
-nnoremap ,l $
-vnoremap ,l $h
+nnoremap <LocalLeader>h 0
+vnoremap <LocalLeader>h 0
+nnoremap <LocalLeader>l $
+vnoremap <LocalLeader>l $h
 
 noremap <silent><LocalLeader>m :call cursor(0, virtcol('$')/2)<CR>
 
-nmap ,j <C-d>
-vmap ,j <C-d>
-nmap ,k <C-u>
-vmap ,k <C-u>
+nmap <LocalLeader>j <C-d>
+vmap <LocalLeader>j <C-d>
+nmap <LocalLeader>k <C-u>
+vmap <LocalLeader>k <C-u>
 nnoremap <C-d> jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
 nnoremap <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 "-------------------------------------------------------------------------------
@@ -1094,7 +1095,7 @@ set ignorecase          " do case insensitive matching
 set smartcase           " do smart case matching
 set wrapscan            " set the search scan to wrap around the file
 
-nnoremap <silent>,, :nohlsearch<CR>
+nnoremap <silent><LocalLeader><LocalLeader> :nohlsearch<CR>
 " Highlight current word, from http://tinyurl.com/c7m7zsf
 nnoremap <silent>*  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
 nnoremap <silent>g* :let @/ = expand('<cword>')\|set hlsearch<CR>viwb<Esc>
