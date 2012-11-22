@@ -238,31 +238,24 @@ set shellslash  " Use forward slash for shell file names (Windows)
 
 
 " "Edit (New/Open) File"
-if has("unix")
-  nnoremap <Leader>ef :edit <C-R>=expand("%:p:h") . "/" <CR>
-else
-  nnoremap <Leader>ef :edit <C-R>=expand("%:p:h") . "\\" <CR>
-endif
+" Opens a file or creates a new buffer if the file doesn't exist.
+nnoremap <Leader>ef :edit <C-R>=expand("%:p:h") . "/" <CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Write File"
-if has("unix")
-  nnoremap <Leader>wf :write <C-R>=expand("%:p:h") . "/" <CR>
-else
-  nnoremap <Leader>wf :write <C-R>=expand("%:p:h") . "\\" <CR>
-endif
+" Saves a copy of the current buffer to a new file and continues editing the
+" file in the current buffer.
+nnoremap <Leader>wf :write <C-R>=expand("%:p:h") . "/" <CR>
 "-------------------------------------------------------------------------------
 
 
 
 " "Write File As"
-if has("unix")
-  nnoremap <Leader>wfa :saveas <C-R>=expand("%:p:h") . "/" <CR>
-else
-  nnoremap <Leader>wfa :saveas <C-R>=expand("%:p:h") . "\\" <CR>
-endif
+" Saves current buffer with new filename and continues editing the new file in
+" the buffer.
+nnoremap <Leader>wfa :saveas <C-R>=expand("%:p:h") . "/" <CR>
 "-------------------------------------------------------------------------------
 
 
