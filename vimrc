@@ -515,32 +515,52 @@ nnoremap <silent><Leader>Q :qa<CR>
 " EDIT: "{{{
 " ******************************************************************************
 
-" "Yank (Yankring)"
+" "Yank & Put (Yankring)"
 set clipboard+=unnamedplus  " Use system clipboard for yanks.
+set pastetoggle=<F2>  " Preserve indentation when putting formatted text.
 
 function! YRRunAfterMaps()
-	nnoremap Y :<C-U>YRYankCount 'y$'<CR>
-	nnoremap yh :<C-U>YRYankCount 'y0'<CR>
-	nnoremap yj :<C-U>YRYankCount 'yG'<CR>
-	nnoremap yk :<C-U>YRYankCount 'ygg'<CR>
-	nnoremap yl :<C-U>YRYankCount 'y$'<CR>
-	nnoremap <Leader>y :<C-U>YRYankCount 'yiw'<CR>
+	nnoremap <silent>Y  :<C-u>YRYankCount 'y$'<CR>
+	nnoremap <silent>yh :<C-u>YRYankCount 'y0'<CR>
+	nnoremap <silent>yj :<C-u>YRYankCount 'yG'<CR>
+	nnoremap <silent>yk :<C-u>YRYankCount 'ygg'<CR>
+	nnoremap <silent>yl :<C-u>YRYankCount 'y$'<CR>
 
 	" From Steve Losh, Preserve the yank post selection/put.
-	vnoremap p :<c-u>YRPaste 'p', 'v'<cr>gv:YRYankRange 'v'<cr>
+	vnoremap <silent>p :<C-u>YRPaste 'p', 'v'<CR>gv:YRYankRange 'v'<CR>
+	" Leave the cursor at the end of the put.
+	nnoremap <silent>gp :<C-u>YRYankCount 'gpk$l'<CR>
+	nnoremap <silent>gP :<C-u>YRYankCount 'gPk$l'<CR>
 endfunction
-"-------------------------------------------------------------------------------
+
+" Yank current WORD.
+nnoremap <Leader>y yiwe
+
+" Yank current LINE (characterwise).
+nnoremap <Leader>yy 0y$$l
+
+" Yank current LINE (linewise).
+nnoremap yy yy$l
+
+" Yank current BLOCK.
+nnoremap ,y yip}
 
 
+" Put over current WORD (repeatable).
+nnoremap <Leader>p ciw<C-r>0<Esc>
 
-" "Put (YankRing)"
-set pastetoggle=<F2>        " Preserve indentation when pasting formatted text.
-" Adjust indent to current line on put.
-nmap P  ]P
-nmap p  ]p
-nmap <silent><Leader>p viwp
-nmap <silent><Leader>pp :YRShow<CR>
+" Put over current LINE (repeatable).
+nnoremap <Leader>pp S<C-r>0<Esc>
 
+" Put over current BLOCK (repeatable).
+nnoremap ,p :set paste<CR><Bar>cip<C-r>0<Esc><Bar>:set nopaste<CR>
+
+" Put and respect surrounding indentation.
+nmap p ]p
+nmap P ]P
+
+" Open YankRing browser.
+nnoremap <silent><Leader>rr :YRShow<CR>
 
 let g:yankring_max_history = 1000
 let g:yankring_dot_repeat_yank = 1
@@ -549,7 +569,6 @@ let g:yankring_min_element_length = 3
 let g:yankring_manual_clipboard_check = 1
 let g:yankring_history_dir = '~/.vim.local/tmp/'
 let g:yankring_history_file = 'yankring_herstory'
-
 "-------------------------------------------------------------------------------
 
 
@@ -623,11 +642,10 @@ vmap L >gv^
 
 
 " "Break to Next or Previous Line"
-" Restore some familiar behavior to the Enter key, in Normal mode. Break to line
-" below in normal mode
+" Restore some familiar behavior to the Enter key, in Normal mode.
 nnoremap <CR> i<CR><Esc>
-" Break to line above in normal mode
-nmap <Leader><CR> DO<Esc>p
+" Break to line above in normal mode.
+nnoremap <Leader><CR> DO<Esc>p
 "-------------------------------------------------------------------------------
 
 
@@ -980,11 +998,7 @@ nnoremap <BS> i<BS><Right><Esc>
 
 
 " "Space"
-nnoremap <LocalLeader><Space> i<Space><Esc>l
-"Add a blank line above cursor position
-nmap - [<Space>
-"Add a blank line below cursor position
-nmap = ]<Space>
+nnoremap ,<Space> i<Space><Esc>l
 "-------------------------------------------------------------------------------
 
 
@@ -1003,7 +1017,7 @@ set preserveindent      " Preserve existing characters for indenting
 " Give the tab key utiltiy in normal & visual modes.
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-nnoremap <LocalLeader><Tab> i<Tab><Esc>
+nnoremap ,<Tab> i<Tab><Esc>
 
 nnoremap <Leader>st :call TabSize()<CR>
 
@@ -1047,17 +1061,17 @@ set nostartofline
 " "Cursor Movement"
 set scrolloff=5         " Start scrolling x lines before the edge of the window.
 set sidescrolloff=5     " Same as above just for columns instead of lines.
-nnoremap <LocalLeader>h 0
-vnoremap <LocalLeader>h 0
-nnoremap <LocalLeader>l $
-vnoremap <LocalLeader>l $h
+nnoremap ,h 0
+vnoremap ,h 0
+nnoremap ,l $
+vnoremap ,l $h
 
-noremap <silent><LocalLeader>m :call cursor(0, virtcol('$')/2)<CR>
+noremap <silent>,m :call cursor(0, virtcol('$')/2)<CR>
 
-nmap <LocalLeader>j <C-d>
-vmap <LocalLeader>j <C-d>
-nmap <LocalLeader>k <C-u>
-vmap <LocalLeader>k <C-u>
+nmap ,j <C-d>
+vmap ,j <C-d>
+nmap ,k <C-u>
+vmap ,k <C-u>
 nnoremap <C-d> jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
 nnoremap <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 "-------------------------------------------------------------------------------
@@ -1088,7 +1102,7 @@ set ignorecase          " do case insensitive matching
 set smartcase           " do smart case matching
 set wrapscan            " set the search scan to wrap around the file
 
-nnoremap <silent><LocalLeader><LocalLeader> :nohlsearch<CR>
+nnoremap <silent>,, :nohlsearch<CR>
 " Highlight current word, from http://tinyurl.com/c7m7zsf
 nnoremap <silent>*  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
 nnoremap <silent>g* :let @/ = expand('<cword>')\|set hlsearch<CR>viwb<Esc>
@@ -1435,7 +1449,7 @@ augroup VimScript
 			\| nohlsearch
 			\| exe 'CSApprox'
 			\| call Pl#Load()
-			\| call Msg('Vim Configuration Reloaded!')
+			\| call Msg('Vim Configuration Written & Reloaded!')
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1469,7 +1483,7 @@ if !exists("*Reload")
 		exe 'CSApprox'
 		" Reapply Powerline color scheme
 		call Pl#Load()
-		call Msg('Vim Configuration Written & Reloaded!')
+		call Msg('Vim Configuration Reloaded!')
 	endfunction
 endif
 "-------------------------------------------------------------------------------
@@ -1942,6 +1956,7 @@ endif
 " TODO: session info in powerline
 " TODO: create functions to toggle cursor column and line.
 " TODO: Compile browser reload ahk script to exe.
+" TODO: Remap upper/lowercase u maps to someting safer.
 
 " vim:ft=vim:fdm=marker:
 "}}}
