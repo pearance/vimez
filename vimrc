@@ -202,8 +202,10 @@ set wildchar=<Tab>
 set wildcharm=<C-z>
 set wildmenu                 " Enable file/command auto-completion
 set wildmode=longest,full    " Auto-complete up to ambiguity
-set wildignore+=*e.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
+set wildignore+=.hg,.git,.svn                    " Version control
+set wildignore+=*.jpg,*.gif,*.bmp,*.png,*.jpeg   " Binary images
+set wildignore+=*.DS_Store,Thumbs.db             " Platform files
+
 cmap <C-h> <Left>
 cmap <C-l> <Right>
 "-------------------------------------------------------------------------------
