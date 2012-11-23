@@ -1265,38 +1265,45 @@ map <F12> :call MaxRestoreWindow()<CR>
 " TODO: Migrate to respective ftplugin/filetype.vim files, once this is fleshed
 " out. http://vim.wikia.com/wiki/Keep_your_vimrc_file_clean
 
-" "On Start"
-augroup Start
-  au!
-  au VimEnter *  echo "Welcome to VimEz, Happy Coding! :-)"
-  au VimEnter *  call DeleteEmptyBuffers()
-augroup END
-"-----------------------------------------------------------------------------
+" "Vim (Global)"
+augroup VimGlobal
+	au!
+	" On Start
+	au VimEnter *  echo "Welcome to VimEz, Happy Coding! :-)"
+	au VimEnter *  call DeleteEmptyBuffers()
 
+	" General
+	au BufNewFile,BufRead *.vim   setf=vim
+	au FileType vim               setl omnifunc=syntaxcomplete#Complete
+	au BufWritePost *vimrc,*vimrc.local,molokai-ez.vim
+			\  nested so $MYVIMRC
+			\| nohlsearch
+			\| exe 'CSApprox'
+			\| call Pl#Load()
+			\| call Msg('Vim Configuration Written & Reloaded!')
 
+	au BufNewFile *         silent! 0r  ~/.vim.local/templates/%:e.tpl
+	au BufWritePre *        call StripTrailingWhitespace()
+	au BufRead *            normal zz
 
-" "Global"
-augroup Global
-  au!
-  au BufNewFile *         silent! 0r  ~/.vim.local/templates/%:e.tpl
-  au BufWritePre *        call StripTrailingWhitespace()
-  au BufRead *            normal zz
+	" Tools
+	au FileType nerdtree    setl foldcolumn=0
+	au FileType gundo       setl foldcolumn=0
 
-  " Improve fold functionality.
-  au FileType *           set foldcolumn=4
-  au BufWritePost *       call SaveView()
-  au BufRead *            call LoadView()
+	" Improve fold functionality.
+	au BufWritePost *       call SaveView()
+	au BufRead *            call LoadView()
 
-  " Make cursor highlights follow the cursor.
-  au WinEnter *           setl cursorline
-  au WinLeave *           setl nocursorline
-  au WinEnter *           setl cursorcolumn
-  au WinLeave *           setl nocursorcolumn
+	" Make cursor highlights follow the cursor.
+	au WinEnter *           setl cursorline
+	au WinLeave *           setl nocursorline
+	au WinEnter *           setl cursorcolumn
+	au WinLeave *           setl nocursorcolumn
 
 	" Improve help environment.
 	au WinEnter,BufEnter *  call HelpEnvironment()
-  au WinEnter,BufEnter *  call HelpJumpForward()
-  au WinEnter,BufEnter *  call HelpJumpBack()
+	au WinEnter,BufEnter *  call HelpJumpForward()
+	au WinEnter,BufEnter *  call HelpJumpBack()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1405,7 +1412,6 @@ augroup END
 augroup PlainText
   au!
 	au BufNewFile,BufRead *.txt  setf=text
-	au BufNewFile,BufRead *.txt  setl tw=80
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1443,22 +1449,6 @@ augroup END
 augroup Smarty
   au!
   au BufNewFile,BufRead *.tpl  setf=html
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Vim Script"
-augroup VimScript
-	au!
-	au BufNewFile,BufRead *.vim	  setf=vim
-	au FileType vim               setl omnifunc=syntaxcomplete#Complete
-	au BufWritePost *vimrc,*vimrc.local,molokai-ez.vim
-			\  nested so $MYVIMRC
-			\| nohlsearch
-			\| exe 'CSApprox'
-			\| call Pl#Load()
-			\| call Msg('Vim Configuration Written & Reloaded!')
 augroup END
 "-----------------------------------------------------------------------------
 
