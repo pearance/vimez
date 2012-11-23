@@ -641,11 +641,20 @@ vmap L >gv^
 
 
 
-" "Break to Next or Previous Line"
-" Restore some familiar behavior to the Enter key, in Normal mode.
+" "Breaks and New Lines"
+" Break to line below in NORMAL mode.
 nnoremap <CR> i<CR><Esc>
-" Break to line above in normal mode.
+
+" Break to line above in NORMAL mode.
 nnoremap <Leader><CR> DO<Esc>p
+
+" Create a new line below/above in NORMAL mode.
+nnoremap  \<CR> o<Esc>
+nnoremap \\<CR> O<Esc>
+
+" Create a new line below/above in INSERT mode.
+inoremap  \<CR> <Esc>o
+inoremap \\<CR> <Esc>O
 "-------------------------------------------------------------------------------
 
 
