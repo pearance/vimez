@@ -163,6 +163,7 @@ set fileformats=unix,dos,mac
 set hidden      " Hide buffers when they are abandoned
 set confirm     " Provide user friendly prompt over nasty error messages.
 set autoread    " Automatically re-read a file if modified outside of vim.
+set autowrite   " Automatically write a file if modified.
 set shellslash  " Use forward slash for shell file names (Windows)
 "-------------------------------------------------------------------------------
 
@@ -545,7 +546,8 @@ nnoremap <silent><Leader>uu :GundoToggle<CR>
 
 
 " "Select All"
-nmap <C-a> ggVG
+nnoremap <C-a> ggVG
+nnoremap <Leader>a ggVG
 "-------------------------------------------------------------------------------
 
 
@@ -616,7 +618,6 @@ endif
 " "Spell Checking"
 " Make sure to update the spelllang to your language. Custom words are tucked
 " away in the .vim/spell folder.
-set nospell               " Dynamic spell checking off by default
 set spelllang=en_us       " Default language
 set spellsuggest=5        " How many spelling suggestions to list
 set spellfile=~/.vim.local/dictionaries/en.utf-8.add " Custom spell file
@@ -625,7 +626,6 @@ nmap <silent><Leader>ts
       \ :let OnOrOff=&spell<CR><Bar>
       \ :call ToggleOnOff(" Spell Checker", OnOrOff)<CR>
 "-------------------------------------------------------------------------------
-
 
 
 
@@ -731,7 +731,7 @@ nnoremap <silent><Leader>tf
 
 
 
-" "Wraps""{{{
+" "Wraps"
 set nowrap              " Turn off wrapping of text
 set linebreak           " Wrap at word
 set textwidth=80        " Don't wrap lines by default
@@ -752,17 +752,17 @@ nnoremap <silent><Leader>tw
 "-------------------------------------------------------------------------------
 
 
-"}}}
-" "Rule""{{{
+
+" "Rule"
 nnoremap <silent><Leader>tr :call ToggleRule()<CR>
 let g:RuleState = 1
 "------------------------------------------------------------------------------
 
 
-"}}}
+
 " "Folding"
 set foldcolumn=4
-set foldnestmax=5
+set foldnestmax=3
 set fillchars=vert:\|,fold:·,diff:-
 nnoremap zm zMggGG
 nnoremap zM zm
@@ -770,8 +770,6 @@ map <leader>0 :set foldlevel=0<CR>
 map <leader>1 :set foldlevel=1<CR>
 map <leader>2 :set foldlevel=2<CR>
 map <leader>3 :set foldlevel=3<CR>
-map <leader>4 :set foldlevel=4<CR>
-map <leader>5 :set foldlevel=5<CR>
 "-------------------------------------------------------------------------------
 
 
