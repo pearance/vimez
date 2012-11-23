@@ -91,12 +91,6 @@ runtime ftplugin/man.vim
 " GENERAL: {{{
 " ******************************************************************************
 
-" "Help"
-nnoremap <silent><F1> viw"zyw:exe "h ".@z.""<CR>
-"-------------------------------------------------------------------------------
-
-
-
 " "Leader Keys"
 let mapleader="\<Space>" " Global mod key.
 let maplocalleader=","   " Local mod key primarily for filetype specific maps.
@@ -116,22 +110,6 @@ nnoremap <Leader>syn :call SyntaxAttr()<CR>
 
 
 
-" "Bundle Wildmenu (Vundle)"
-nmap <Leader>b<Tab> :<C-u>Bundle<C-z>
-nmap <Leader>b1 :<C-u>BundleInstall<CR>
-nmap <Leader>b2 :<C-u>BundleInstall!<CR>
-nmap <Leader>b3 :<C-u>BundleClean<CR>
-nmap <Leader>b4 :<C-u>BundleList<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Clear Cache"
-nmap <silent>\cc :call ClearCache()<CR>
-"-------------------------------------------------------------------------------
-
-
-
 " "Commandline"
 " More convenient entrance to Commandline and Commandline Edit mode from Normal mode.
 nnoremap ; :
@@ -144,6 +122,13 @@ nnoremap q; q:
 
 " "History"
 set history=100          " Amount of commands and searches to keep in history.
+"-------------------------------------------------------------------------------
+
+
+
+" "Time Settings"
+set timeoutlen=500 " The max time waited for a mapped key sequence to expire.
+set updatetime=500 " How frequent marks, statusbar, swap files, etc are updated.
 "-------------------------------------------------------------------------------
 
 
@@ -166,62 +151,6 @@ if has("multi_byte")
   endif
 endif
 "-------------------------------------------------------------------------------
-
-
-
-" "Terminal Settings"
-set ttyfast            " Indicates a fast terminal connection.
-"-------------------------------------------------------------------------------
-
-
-
-" "Mode Lines"
-set modelines=5
-"-------------------------------------------------------------------------------
-
-
-
-" "Timeout Length"
-" The time waited for a key code or mapped key sequence to complete.  As you
-" become more fluent with the key mappings you may want toC drop this to 250.
-set timeoutlen=500 "TODO: RESEARCH
-"set notimeout ttimeout ttimeoutlen=200
-"-------------------------------------------------------------------------------
-
-
-
-" "Update Time"
-" How frequent marks, statusbar, swap files, and other are updated.
-set updatetime=500
-"-------------------------------------------------------------------------------
-
-
-
-" "Wildmenu"
-set wildchar=<Tab>
-set wildcharm=<C-z>
-set wildmenu                 " Enable file/command auto-completion
-set wildmode=longest,full    " Auto-complete up to ambiguity
-set wildignore+=.hg,.git,.svn                    " Version control
-set wildignore+=*.jpg,*.gif,*.bmp,*.png,*.jpeg   " Binary images
-set wildignore+=*.DS_Store,Thumbs.db             " Platform files
-
-cmap <C-h> <Left>
-cmap <C-l> <Right>
-"-------------------------------------------------------------------------------
-
-
-
-" "Display Full Path"
-nnoremap <silent><C-g> 2<C-g>
-"-------------------------------------------------------------------------------
-
-
-
-" "Reload"
-nnoremap <silent>\r :call Reload()<CR>
-"-------------------------------------------------------------------------------
-
 
 
 
@@ -729,6 +658,12 @@ set novisualbell        " No blinking on error
 
 
 
+" "File Info"
+nnoremap <silent><C-g> 2<C-g>
+"-------------------------------------------------------------------------------
+
+
+
 " "Cursor Highlights"
 " This helps maintain your bearings by highlighting the current line the cursor
 " is on as well as the current column.
@@ -764,6 +699,21 @@ set shortmess-=W " Don't give "written" or "[w]" when writing a file
 set shortmess-=A " Don't give the "ATTENTION" message when an existing
                  " swap file is found.
 set shortmess+=I " Don't give the intro message when starting Vim |:intro|.
+"-------------------------------------------------------------------------------
+
+
+
+" "Wildmenu"
+set wildchar=<Tab>
+set wildcharm=<C-z>
+set wildmenu                 " Enable file/command auto-completion
+set wildmode=longest,full    " Auto-complete up to ambiguity
+set wildignore+=.hg,.git,.svn                    " Version control
+set wildignore+=*.jpg,*.gif,*.bmp,*.png,*.jpeg   " Binary images
+set wildignore+=*.DS_Store,Thumbs.db             " Platform files
+
+cmap <C-h> <Left>
+cmap <C-l> <Right>
 "-------------------------------------------------------------------------------
 
 
@@ -1145,6 +1095,34 @@ nmap <silent><Leader>dam  <Plug>SIG_PurgeMarks
 " }}}
 " TOOLS: "{{{
 " ******************************************************************************
+
+" "Help"
+nnoremap <silent><F1> viw"zyw:exe "h ".@z.""<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Clear Cache"
+nmap <silent>\cc :call ClearCache()<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Reload"
+nnoremap <silent>\r :call Reload()<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Bundle Wildmenu (Vundle)"
+nmap <Leader>b<Tab> :<C-u>Bundle<C-z>
+nmap <Leader>b1 :<C-u>BundleInstall<CR>
+nmap <Leader>b2 :<C-u>BundleInstall!<CR>
+nmap <Leader>b3 :<C-u>BundleClean<CR>
+nmap <Leader>b4 :<C-u>BundleList<CR>
+"-------------------------------------------------------------------------------
+
+
 
 " "Execute Terminal Commands (Vimux)"
 let g:VimuxOrientation = "h"
