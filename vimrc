@@ -1027,10 +1027,10 @@ vnoremap ,l $h
 
 noremap <silent>,m :call cursor(0, virtcol('$')/2)<CR>
 
-nmap ,j <C-d>
-vmap ,j <C-d>
-nmap ,k <C-u>
-vmap ,k <C-u>
+nmap ,j }
+vmap ,j }
+nmap ,k {
+vmap ,k {
 nnoremap <C-d> jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
 nnoremap <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 "-------------------------------------------------------------------------------
