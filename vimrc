@@ -450,6 +450,7 @@ nnoremap <silent><Leader>Q :qa<CR>
 " "Yank & Put (Yankring)"
 set clipboard+=unnamedplus  " Use system clipboard for yanks.
 set pastetoggle=<F2>  " Preserve indentation when putting formatted text.
+nnoremap <silent><F2> :set invpaste<CR>
 
 function! YRRunAfterMaps()
 	nnoremap <silent>Y  :<C-u>YRYankCount 'y$'<CR>
