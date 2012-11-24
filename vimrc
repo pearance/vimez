@@ -252,7 +252,7 @@ let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
 
 " Find and set filetypes.
 let g:ctrlp_extensions = ['filetype']
-nnoremap <silent><Leader>ff :CtrlPFiletype<CR>
+nnoremap <silent><Leader>;; :CtrlPFiletype<CR>
 nnoremap <silent><Leader>jj :CtrlPBuffer<CR>
 nnoremap <silent><Leader>kk :CtrlP<CR>
 nnoremap <silent><Leader>ll :CtrlPMRU<CR>
@@ -767,9 +767,33 @@ set foldcolumn=4
 set foldnestmax=4
 set foldlevelstart=0
 set fillchars=vert:\|,fold:·,diff:-
+
+" Toggle folding on/off.
 nnoremap <silent><Leader>tf :call ToggleFolds()<CR>
-nnoremap zm zMggGG
-nnoremap zM zm
+
+" Toggle a fold open/closed.
+nnoremap <silent><Leader>f za
+
+" Create a fold from selection.
+vnoremap <silent><Leader>f zfzc
+
+" Create a fold from count.
+nmap <silent><Leader>nf zfzc
+
+" Open a fold.
+nnoremap <silent><Leader>of zo
+
+" Open all folds.
+nnoremap <silent><Leader>oaf zR
+
+" Close a fold.
+nnoremap <silent><Leader>cf zc
+
+" Close all folds.
+nnoremap <silent><Leader>caf zM
+
+" nnoremap zm zMggGG
+" nnoremap zM zm
 nnoremap <leader>0 :set foldlevel=0<CR>
 nnoremap <leader>1 :set foldlevel=1<CR>
 nnoremap <leader>2 :set foldlevel=2<CR>
