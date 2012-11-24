@@ -1083,10 +1083,11 @@ let g:SignatureDefaultMappings=0
 let g:SignatureLcMarkStr="\m"
 let g:SignatureUcMarkStr="\m"
 let g:SignatureIncludeMarkers=''
-nmap <silent>m, <Plug>SIG_PlaceNextMark
-nmap <silent><Leader>j <Plug>SIG_NextLineByPos<Bar>zz
-nmap <silent><Leader>k <Plug>SIG_PrevLineByPos<<Bar>zz
-nmap <silent><Leader>dam  <Plug>SIG_PurgeMarks
+nnoremap <silent>tm :SignatureToggle<CR>
+nnoremap <silent>m, <Plug>SIG_PlaceNextMark
+nnoremap <silent><Leader>j <Plug>SIG_NextLineByPos<Bar>zz
+nnoremap <silent><Leader>k <Plug>SIG_PrevLineByPos<<Bar>zz
+nnoremap <silent><Leader>dam  <Plug>SIG_PurgeMarks
 "------------------------------------------------------------------------------
 
 
