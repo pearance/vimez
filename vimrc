@@ -762,7 +762,8 @@ let g:RuleState = 1
 
 " "Folding"
 set foldcolumn=4
-set foldnestmax=3
+set foldnestmax=4
+set foldlevelstart=0
 set fillchars=vert:\|,fold:·,diff:-
 nnoremap zm zMggGG
 nnoremap zM zm
@@ -1027,10 +1028,10 @@ vnoremap ,l $h
 
 noremap <silent>,m :call cursor(0, virtcol('$')/2)<CR>
 
-nmap ,j }
-vmap ,j }
-nmap ,k {
-vmap ,k {
+nnoremap ,j }
+vnoremap ,j }
+nnoremap ,k {
+vnoremap ,k {
 nnoremap <C-d> jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
 nnoremap <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 "-------------------------------------------------------------------------------
