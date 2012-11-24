@@ -718,15 +718,15 @@ cmap <C-l> <Right>
 
 
 
-" "Meta Characters"
+" "Non-Printable Characters"
 " This controls visibility of non-printable characters that denote certain
 " formatting information. Such as eol, tabs, trailing space, etc.
 set list
 set listchars=eol:\ ,tab:·\ ,trail:\ ,extends:>,precedes:<
-nnoremap <silent><Leader>tf
+nnoremap <silent><Leader>tn
 		\ :setlocal list!<CR><Bar>
 		\ :let OnOrOff=&list<CR><Bar>
-		\ :call ToggleOnOff("Meta Characters", OnOrOff)<CR>
+		\ :call ToggleOnOff("Non-Printable Characters", OnOrOff)<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -756,21 +756,23 @@ nnoremap <silent><Leader>tw
 " "Rule"
 nnoremap <silent><Leader>tr :call ToggleRule()<CR>
 let g:RuleState = 1
-"------------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 
 
 
-" "Folding"
+" "Folds"
+set foldenable
 set foldcolumn=4
 set foldnestmax=4
 set foldlevelstart=0
 set fillchars=vert:\|,fold:·,diff:-
+nnoremap <silent><Leader>tf :call ToggleFolds()<CR>
 nnoremap zm zMggGG
 nnoremap zM zm
-map <leader>0 :set foldlevel=0<CR>
-map <leader>1 :set foldlevel=1<CR>
-map <leader>2 :set foldlevel=2<CR>
-map <leader>3 :set foldlevel=3<CR>
+nnoremap <leader>0 :set foldlevel=0<CR>
+nnoremap <leader>1 :set foldlevel=1<CR>
+nnoremap <leader>2 :set foldlevel=2<CR>
+nnoremap <leader>3 :set foldlevel=3<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1223,9 +1225,9 @@ nnoremap <Down>  <C-w>-
 
 
 " "Split Windows"
-nnoremap <silent><Leader>sv :vert sbnext<CR>
+nnoremap <silent><Leader>sv :vsplit<Bar>bnext<CR>
 set splitright
-noremap <silent><Leader>sh :sbnext<CR>
+noremap <silent><Leader>sh :split<Bar>bnext<CR>
 set splitbelow
 "-------------------------------------------------------------------------------
 
@@ -1282,8 +1284,6 @@ augroup VimGlobal
 
 	" Improve help environment.
 	au WinEnter,BufEnter *  call HelpEnvironment()
-	au WinEnter,BufEnter *  call HelpJumpForward()
-	au WinEnter,BufEnter *  call HelpJumpBack()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1636,12 +1636,12 @@ endfunction
 function! ToggleRule()
   if g:RuleState == 0
     set colorcolumn=0
-    redraw!
     let g:RuleState=1
+    echo "Rule: Off"
   else
     set colorcolumn=+1
-    redraw!
     let g:RuleState=0
+    echo "Rule: On"
   endif
 endfunction
 "-------------------------------------------------------------------------------
@@ -1718,6 +1718,22 @@ endfunction
 
 
 
+" "Toggle Folds"
+function! ToggleFolds()
+  if &foldenable==1
+		set nofoldenable
+		set foldcolumn=0
+  else
+    set foldenable
+    set foldcolumn=4
+  endif
+  let OnOrOff=&foldenable
+  call ToggleOnOff('Folds', OnOrOff)
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
 " "Strip Trailing Whitespace"
 function! StripTrailingWhitespace()
   " Only strip if the b:noStripeWhitespace variable isn't set
@@ -1743,34 +1759,12 @@ endfunction
 " "Set Help Environment"
 function! HelpEnvironment()
   if &filetype == 'help'
-    setlocal nocursorline
-    setlocal nocursorcolumn
-    setlocal norelativenumber
-    setlocal colorcolumn=0
-    setlocal noexpandtab
-  endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Help Jump Forward"
-function! HelpJumpForward()
-  if &filetype == 'help'
+    setlocal relativenumber
+    setlocal foldcolumn=0
     nnoremap <CR> <C-]>
-  else
-    nnoremap <CR> i<CR><Esc>
-  endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Help Jump Back"
-function! HelpJumpBack()
-  if &filetype == 'help'
     nnoremap <BS> <C-T>
   else
+    nnoremap <CR> i<CR><Esc>
     nnoremap <BS> i<BS><Right><Esc>
   endif
 endfunction
