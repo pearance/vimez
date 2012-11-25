@@ -1242,8 +1242,17 @@ noremap <silent><C-c><C-j> :wincmd j<CR>:close<CR>
 noremap <silent><C-c><C-h> :wincmd h<CR>:close<CR>
 noremap <silent><C-c><C-k> :wincmd k<CR>:close<CR>
 noremap <silent><C-c><C-l> :wincmd l<CR>:close<CR>
-noremap <silent><Leader>cw :close<CR>
-noremap <silent><Leader>cow :only<CR>
+noremap <silent><C-c><C-w> :close<CR>
+noremap <silent><C-c><C-o><C-w> :only<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Split Windows"
+nnoremap <silent><C-s><C-v> :vsplit<Bar>bnext<CR>
+set splitright
+noremap <silent><C-s><C-h> :split<Bar>bnext<CR>
+set splitbelow
 "-------------------------------------------------------------------------------
 
 
@@ -1257,18 +1266,9 @@ nnoremap <Down>  <C-w>-
 
 
 
-" "Split Windows"
-nnoremap <silent><Leader>sv :vsplit<Bar>bnext<CR>
-set splitright
-noremap <silent><Leader>sh :split<Bar>bnext<CR>
-set splitbelow
-"-------------------------------------------------------------------------------
-
-
-
 " "Expand & Restore Window"
 let g:windowmaximized = 0
-map <C-m><C-m> :call MaxRestoreWindow()<CR>
+map <F11> :call MaxRestoreWindow()<CR>
 "-------------------------------------------------------------------------------
 
 
