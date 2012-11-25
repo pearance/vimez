@@ -768,7 +768,7 @@ set foldcolumn=4
 set foldnestmax=4
 set foldlevelstart=0
 set fillchars=vert:\ ,fold:·,diff:·
-set foldtext=CustomFoldText()
+set foldtext=VerboseFolds()
 
 " Toggle folding on/off.
 nnoremap <silent><Leader>tf :call ToggleFolds()<CR>
@@ -1953,8 +1953,8 @@ endfunction
 
 
 
-" "Custom Fold Text"
-function! CustomFoldText() "
+" "Terse Fold Text"
+function! TerseFolds() "
     let line = getline(v:foldstart)
 
     let nucolwidth = &fdc + &number * &numberwidth
@@ -1969,8 +1969,12 @@ function! CustomFoldText() "
     let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
     return line . '···}}'.'}' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction
+"-------------------------------------------------------------------------------
 
-function! XCustomFoldText()
+
+
+" "Terse Fold Text"
+function! VerboseFolds()
   " clear fold from fillchars to set it up the way we want later
   let &l:fillchars = substitute(&l:fillchars,',\?fold:.','','gi')
   let l:numwidth = (v:version < 701 ? 8 : &numberwidth)
