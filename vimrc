@@ -1072,10 +1072,6 @@ vnoremap <Leader>l $h
 
 noremap <silent>,m :call cursor(0, virtcol('$')/2)<CR>
 
-" nnoremap ,j }
-" vnoremap ,j }
-" nnoremap ,k {
-" vnoremap ,k {
 nnoremap <C-d> jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
 nnoremap <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 "-------------------------------------------------------------------------------
@@ -1108,6 +1104,8 @@ set wrapscan            " set the search scan to wrap around the file
 
 nnoremap <silent>,, :nohlsearch<CR>
 " Highlight current word, from http://tinyurl.com/c7m7zsf
+nnoremap n *zvzz
+nnoremap N #zvzz
 nnoremap <silent>*  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
 nnoremap <silent>g* :let @/ = expand('<cword>')\|set hlsearch<CR>viwb<Esc>
 nnoremap <silent>#  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
