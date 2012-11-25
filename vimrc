@@ -11,7 +11,7 @@
 
 
 
-" BUNDLES: {{{
+" BUNDLES:"{{{
 " ******************************************************************************
 
 " "Initilization""{{{
@@ -87,8 +87,8 @@ runtime ftplugin/man.vim
 
 
 "}}}
-" }}}
-" GENERAL: {{{
+"}}}
+" GENERAL:"{{{
 " ******************************************************************************
 
 " "Leader Keys"
@@ -154,7 +154,7 @@ endif
 
 
 
-" }}}
+"}}}
 " BUFFER: "{{{
 " ******************************************************************************
 
@@ -443,7 +443,7 @@ nnoremap <silent><Leader>Q :qa<CR>
 
 
 
-" }}}
+"}}}
 " EDIT: "{{{
 " ******************************************************************************
 
@@ -1127,7 +1127,7 @@ nmap <silent><Leader>dam  <Plug>SIG_PurgeMarks
 
 
 
-" }}}
+"}}}
 " TOOLS: "{{{
 " ******************************************************************************
 
@@ -1207,7 +1207,7 @@ nmap <silent><Leader>tc :call ToggleColorHighlights()<CR>
 
 
 
-" }}}
+"}}}
 " WINDOWS: "{{{
 " ******************************************************************************
 
@@ -1228,20 +1228,20 @@ nnoremap <silent><C-l> <C-w>l
 
 
 " "Move Windows"
-noremap <silent><Leader>mh <C-w>H
-noremap <silent><Leader>mj <C-w>J
-noremap <silent><Leader>mk <C-w>K
-noremap <silent><Leader>ml <C-w>L
-noremap <silent><Leader>mx <C-w>x
+noremap <silent><C-m><C-h> <C-w>H
+noremap <silent><C-m><C-j> <C-w>J
+noremap <silent><C-m><C-k> <C-w>K
+noremap <silent><C-m><C-l> <C-w>L
+noremap <silent><C-m><C-x> <C-w>x
 "-------------------------------------------------------------------------------
 
 
 
 " "Close Windows"
-noremap <silent><Leader>cj :wincmd j<CR>:close<CR>
-noremap <silent><Leader>ch :wincmd h<CR>:close<CR>
-noremap <silent><Leader>ck :wincmd k<CR>:close<CR>
-noremap <silent><Leader>cl :wincmd l<CR>:close<CR>
+noremap <silent><C-c><C-j> :wincmd j<CR>:close<CR>
+noremap <silent><C-c><C-h> :wincmd h<CR>:close<CR>
+noremap <silent><C-c><C-k> :wincmd k<CR>:close<CR>
+noremap <silent><C-c><C-l> :wincmd l<CR>:close<CR>
 noremap <silent><Leader>cw :close<CR>
 noremap <silent><Leader>cow :only<CR>
 "-------------------------------------------------------------------------------
@@ -1268,12 +1268,12 @@ set splitbelow
 
 " "Expand & Restore Window"
 let g:windowmaximized = 0
-map <F12> :call MaxRestoreWindow()<CR>
+map <C-m><C-m> :call MaxRestoreWindow()<CR>
 "-------------------------------------------------------------------------------
 
 
 
-" }}}
+"}}}
 " AUTOMATION: "{{{
 " ******************************************************************************
 
@@ -1394,7 +1394,6 @@ augroup END
 " "Markdown"
 augroup MarkDown
 	au!
-  au BufNewFile,BufRead *.markdown  setf=markdown
   au FileType markdown              setl omnifunc=htmlcomplete#CompleteTags
 augroup END
 "-----------------------------------------------------------------------------
@@ -1482,7 +1481,7 @@ augroup END
 
 
 
-" }}}
+"}}}
 " FUNCTIONS: "{{{
 " ******************************************************************************
 
@@ -1945,7 +1944,7 @@ endfunction
 
 
 
-" }}}
+"}}}
 " WRAP: "{{{
 " ******************************************************************************
 
