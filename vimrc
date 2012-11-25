@@ -37,7 +37,7 @@ Bundle "hail2u/vim-css-syntax"
 Bundle "hail2u/vim-css3-syntax"
 Bundle "groenewege/vim-less"
 Bundle "pangloss/vim-javascript"
-Bundle "hallison/vim-markdown"
+Bundle "tpope/vim-markdown"
 "-------------------------------------------------------------------------------
 
 
@@ -322,8 +322,8 @@ nmap <silent>gl :bnext<CR>
 
 
 " "Tabs (Layouts)"
-nnoremap <silent><leader>h :tabprevious<CR>
-nnoremap <silent><leader>l :tabnext<CR>
+nnoremap <silent><leader><Right> :tabprevious<CR>
+nnoremap <silent><leader><Left> :tabnext<CR>
 nnoremap <silent><Leader>nt :tabnew<CR>
 nnoremap <silent><Leader>ct :tabclose<CR>
 "-------------------------------------------------------------------------------
@@ -772,32 +772,40 @@ set fillchars=vert:\|,fold:·,diff:-
 nnoremap <silent><Leader>tf :call ToggleFolds()<CR>
 
 " Toggle a fold open/closed.
-nnoremap <silent><Leader>f za
+nnoremap <Leader>f za
 
-" Create a fold from selection.
-vnoremap <silent><Leader>f zfzc
+" Delete a fold.
+nnoremap <Leader>df zd
 
-" Create a fold from count.
-nmap <silent><Leader>nf zfzc
-
-" Open a fold.
-nnoremap <silent><Leader>of zo
-
-" Open all folds.
-nnoremap <silent><Leader>oaf zR
+" Delete all folda.
+nnoremap <Leader>daf zE
 
 " Close a fold.
-nnoremap <silent><Leader>cf zc
+nnoremap ,h zc
 
 " Close all folds.
-nnoremap <silent><Leader>caf zM
+nnoremap ,H zMgg``
 
-" nnoremap zm zMggGG
-" nnoremap zM zm
-nnoremap <leader>0 :set foldlevel=0<CR>
-nnoremap <leader>1 :set foldlevel=1<CR>
-nnoremap <leader>2 :set foldlevel=2<CR>
-nnoremap <leader>3 :set foldlevel=3<CR>
+" Create a fold from selection.
+vnoremap ,h zfzc
+
+nnoremap ,j zj
+
+nnoremap ,k zk
+
+" Open a fold.
+nnoremap ,l zo
+
+" Open all folds.
+vnoremap ,l zfzc
+
+" Open all folds.
+nnoremap ,L zR
+
+nnoremap <leader>f0 :set foldlevel=0<CR>
+nnoremap <leader>f1 :set foldlevel=1<CR>
+nnoremap <leader>f2 :set foldlevel=2<CR>
+nnoremap <leader>f3 :set foldlevel=3<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1048,17 +1056,17 @@ set nostartofline
 " "Cursor Movement"
 set scrolloff=5         " Start scrolling x lines before the edge of the window.
 set sidescrolloff=5     " Same as above just for columns instead of lines.
-nnoremap ,h 0
-vnoremap ,h 0
-nnoremap ,l $
-vnoremap ,l $h
+nnoremap <Leader>h 0
+vnoremap <Leader>h 0
+nnoremap <Leader>l $
+vnoremap <Leader>l $h
 
 noremap <silent>,m :call cursor(0, virtcol('$')/2)<CR>
 
-nnoremap ,j }
-vnoremap ,j }
-nnoremap ,k {
-vnoremap ,k {
+" nnoremap ,j }
+" vnoremap ,j }
+" nnoremap ,k {
+" vnoremap ,k {
 nnoremap <C-d> jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
 nnoremap <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 "-------------------------------------------------------------------------------
@@ -1110,11 +1118,11 @@ let g:SignatureDefaultMappings=0
 let g:SignatureLcMarkStr="\m"
 let g:SignatureUcMarkStr="\m"
 let g:SignatureIncludeMarkers=''
-nnoremap <silent>tm :SignatureToggle<CR>
-nnoremap <silent>m, <Plug>SIG_PlaceNextMark
-nnoremap <silent><Leader>j <Plug>SIG_NextLineByPos<Bar>zz
-nnoremap <silent><Leader>k <Plug>SIG_PrevLineByPos<<Bar>zz
-nnoremap <silent><Leader>dam  <Plug>SIG_PurgeMarks
+nmap <silent>tm :SignatureToggle<CR>
+nmap <silent>m, <Plug>SIG_PlaceNextMark
+nmap <silent><Leader>j <Plug>SIG_NextLineByPos<Bar>zz
+nmap <silent><Leader>k <Plug>SIG_PrevLineByPos<<Bar>zz
+nmap <silent><Leader>dam  <Plug>SIG_PurgeMarks
 "------------------------------------------------------------------------------
 
 
