@@ -767,7 +767,8 @@ set foldenable
 set foldcolumn=4
 set foldnestmax=4
 set foldlevelstart=0
-set fillchars=vert:\|,fold:·,diff:-
+set fillchars=vert:\ ,fold:·,diff:·
+set foldtext=CustomFoldText()
 
 " Toggle folding on/off.
 nnoremap <silent><Leader>tf :call ToggleFolds()<CR>
@@ -1940,6 +1941,56 @@ function! GetVisual() range
   let escaped_selection = EscapeString(selection)
 
   return escaped_selection
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Custom Fold Text"
+function! CustomFoldText() "
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+    return line . '···}}'.'}' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+endfunction
+
+function! XCustomFoldText()
+  " clear fold from fillchars to set it up the way we want later
+  let &l:fillchars = substitute(&l:fillchars,',\?fold:.','','gi')
+  let l:numwidth = (v:version < 701 ? 8 : &numberwidth)
+  if &fdm=='diff'
+    let l:linetext=''
+    let l:foldtext='---------- '.(v:foldend-v:foldstart+1).' lines the same ----------'
+    let l:align = winwidth(0)-&foldcolumn-(&nu ? Max(strlen(line('$'))+1, l:numwidth) : 0)
+    let l:align = (l:align / 2) + (strlen(l:foldtext)/2)
+    " note trailing space on next line
+    setlocal fillchars+=fold:\
+  elseif !exists('b:foldpat') || b:foldpat==0
+    let l:foldtext = '}'.'}} '.(v:foldend-v:foldstart).' lines folded'.v:folddashes.'|'
+    let l:endofline = (&textwidth>0 ? &textwidth : 80)
+    let l:linetext = strpart(' '. getline(v:foldstart),0,l:endofline-strlen(l:foldtext))
+    let l:align = l:endofline-strlen(l:linetext)
+    setlocal fillchars+=fold:\ ,
+  elseif b:foldpat==1
+    let l:align = winwidth(0)-&foldcolumn-(&nu ? Max(strlen(line('$'))+1, l:numwidth) : 0)
+    let l:foldtext = ' '.v:folddashes
+    let l:linetext = substitute(getline(v:foldstart),'\s\+$','','')
+    let l:linetext .= ' ---'.(v:foldend-v:foldstart-1).' lines--- '
+    let l:linetext .= substitute(getline(v:foldend),'^\s\+','','')
+    let l:linetext = strpart(l:linetext,0,l:align-strlen(l:foldtext))
+    let l:align -= strlen(l:linetext)
+    setlocal fillchars+=fold:-
+  endif
+  return printf('%s%*s', l:linetext, l:align, l:foldtext)
 endfunction
 "-------------------------------------------------------------------------------
 
