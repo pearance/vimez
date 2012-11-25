@@ -785,20 +785,27 @@ nnoremap <Leader>daf zE
 " Close a fold.
 nnoremap ,h zc
 
-" Close all folds.
-nnoremap ,H zMgg``
-
-" Create a fold from selection.
+" Create a fold.
 vnoremap ,h zfzc
 
-nnoremap ,j zj
+" Close all folds.
+nnoremap ,H zMgg``zz
 
-nnoremap ,k zk
+" Close other folds.
+nnoremap <Leader><Leader> zMzvzz
+
+" Jump to next fold.
+nnoremap ,j zjzz
+vnoremap ,j zjzz
+
+" Jump to previous fold.
+nnoremap ,k zkzz
+vnoremap ,k zkzz
 
 " Open a fold.
 nnoremap ,l zo
 
-" Open all folds.
+" Create a fold.
 vnoremap ,l zfzc
 
 " Open all folds.
