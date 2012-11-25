@@ -1156,6 +1156,12 @@ nnoremap <silent>\r :call Reload()<CR>
 
 
 
+" "Change Directory"
+nmap <Leader>cd :cd %:p:h<cr>
+"-------------------------------------------------------------------------------
+
+
+
 " "Bundle Wildmenu (Vundle)"
 nmap <Leader>b<Tab> :<C-u>Bundle<C-z>
 nmap <Leader>b1 :<C-u>BundleInstall<CR>
