@@ -70,6 +70,7 @@ Bundle "tpope/vim-git"
 Bundle "kshenoy/vim-signature"
 Bundle "tristen/vim-sparkup"
 Bundle "tpope/vim-fugitive"
+Bundle "gregsexton/gitv"
 "-------------------------------------------------------------------------------
 
 
@@ -1335,9 +1336,7 @@ augroup VimGlobal
 	" Tools
 	au FileType nerdtree    setl foldcolumn=0
 	au FileType gundo       setl foldcolumn=0
-	au FileType vundle      setl foldcolumn=0
-	au FileType vundle      vertical resize 50
-	au FileType vundle      nmap ,, <Leader>cbb
+	au FileType vundle      call VundleEnvironment()
 
 	" Improve fold functionality.
 	au BufWritePost *       call SaveView()
@@ -1832,6 +1831,20 @@ function! HelpEnvironment()
   else
     nnoremap <CR> i<CR><Esc>
     nnoremap <BS> i<BS><Right><Esc>
+  endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Set Vundle Environment"
+function! VundleEnvironment()
+  if &filetype == 'vundle'
+		nnoremap <silent>,,  :bd<CR>
+	  setlocal foldcolumn=0
+	  vertical resize 50
+  else
+    nnoremap ,,  <Esc>
   endif
 endfunction
 "-------------------------------------------------------------------------------
