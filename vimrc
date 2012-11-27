@@ -71,7 +71,6 @@ Bundle "kshenoy/vim-signature"
 Bundle "tristen/vim-sparkup"
 Bundle "tpope/vim-fugitive"
 Bundle "gregsexton/gitv"
-Bundle "vim-scripts/Smart-Tabs"
 "-------------------------------------------------------------------------------
 
 
@@ -307,6 +306,12 @@ nnoremap <silent><Leader>cob :BufOnly<CR>
 
 " "Close All Buffers"
 nnoremap <silent><Leader>cab :exec "1," . bufnr('$') . "bd"<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Undo Close (BufKill)"
+nnoremap <silent><Leader>ub :BUNDO<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -911,8 +916,8 @@ set wrapscan            " set the search scan to wrap around the file
 
 nnoremap <silent>,, :nohlsearch<CR>
 " Highlight current word, from http://tinyurl.com/c7m7zsf
-nnoremap n *zvzz
-nnoremap N #zvzz
+nnoremap <silent>n nzvzz
+nnoremap <silent>N Nzvzz
 nnoremap <silent>*  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
 nnoremap <silent>g* :let @/ = expand('<cword>')\|set hlsearch<CR>viwb<Esc>
 nnoremap <silent>#  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
