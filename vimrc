@@ -910,8 +910,8 @@ set wrapscan            " set the search scan to wrap around the file
 
 nnoremap <silent>,, :nohlsearch<CR>
 " Highlight current word, from http://tinyurl.com/c7m7zsf
-nnoremap n *zvzz
-nnoremap N #zvzz
+nnoremap n nzvzz
+nnoremap N Nzvzz
 nnoremap <silent>*  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
 nnoremap <silent>g* :let @/ = expand('<cword>')\|set hlsearch<CR>viwb<Esc>
 nnoremap <silent>#  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
@@ -1791,7 +1791,7 @@ function! FoldText()
 endfunction
 "-------------------------------------------------------------------------------
 
-function s:Kwbd(kwbdStage)
+function! s:Kwbd(kwbdStage)
   if(a:kwbdStage == 1)
     if(!buflisted(winbufnr(0)))
       bd!
