@@ -1336,6 +1336,8 @@ augroup VimGlobal
 	au FileType nerdtree    setl foldcolumn=0
 	au FileType gundo       setl foldcolumn=0
 	au FileType vundle      setl foldcolumn=0
+	au FileType vundle      vertical resize 50
+	au FileType vundle      nmap ,, <Leader>cbb
 
 	" Improve fold functionality.
 	au BufWritePost *       call SaveView()
@@ -1426,7 +1428,7 @@ augroup END
 " "Markdown"
 augroup MarkDown
 	au!
-  au FileType markdown              setl omnifunc=htmlcomplete#CompleteTags
+  au FileType markdown  setl omnifunc=htmlcomplete#CompleteTags
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1984,7 +1986,7 @@ function! CustomFoldText() "
   let windowwidth = winwidth(0) - nucolwidth - 3
   let foldedlinecount = v:foldend - v:foldstart
 
-  let line = substitute(line, '/\*\|\*/\|"{{{\d\=', '', 'g')
+  let line = substitute(line, '/\*\|\*/\|"{{'.'{\d\=', '', 'g')
 
   let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
   let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
