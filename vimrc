@@ -286,7 +286,8 @@ nnoremap <silent><Leader>wab :wall<CR>:exe ":echo 'All buffers saved to files!'"
 
 
 
-" "Close Buffer (BufKill)"
+" "Close Buffer"
+command! Kwbd call s:Kwbd(1)
 nnoremap <silent><Leader>cb :<C-u>Kwbd<CR>
 "-------------------------------------------------------------------------------
 
@@ -2036,7 +2037,6 @@ function! s:Kwbd(kwbdStage)
   endif
 endfunction
 
-command! Kwbd call s:Kwbd(1)
 
 
 
