@@ -139,18 +139,18 @@ set updatetime=500 " How frequent marks, statusbar, swap files, etc are updated.
 " Default to UTF-8 character encoding unless the terminal doesn't support it. In
 " which case use Latin1 character encoding instead.
 if has("multi_byte")
-  set encoding=utf-8
-  scriptencoding utf-8
-  if $TERM == "linux" || $TERM_PROGRAM == "GLterm"
-    set termencoding=latin1
-  endif
-  if $TERM == "xterm" || $TERM == "xterm-color" || $TERM == "screen256-color"
-    let propv = system
-    \ ("xprop -id $WINDOWID -f WM_LOCALE_NAME 8s ' $0' -notype WM_LOCALE_NAME")
-    if propv !~ "WM_LOCALE_NAME .*UTF.*8"
-      set termencoding=latin1
-    endif
-  endif
+	set encoding=utf-8
+	scriptencoding utf-8
+	if $TERM == "linux" || $TERM_PROGRAM == "GLterm"
+		set termencoding=latin1
+	endif
+	if $TERM == "xterm" || $TERM == "xterm-color" || $TERM == "screen256-color"
+		let propv = system
+		\ ("xprop -id $WINDOWID -f WM_LOCALE_NAME 8s ' $0' -notype WM_LOCALE_NAME")
+		if propv !~ "WM_LOCALE_NAME .*UTF.*8"
+			set termencoding=latin1
+		endif
+	endif
 endif
 "-------------------------------------------------------------------------------
 
@@ -247,9 +247,9 @@ let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_use_caching = 1
 let g:ctrlp_working_path_mode = '0'
 let g:ctrlp_prompt_mappings = {
-  \ 'PrtExit()':            ['<esc>', ','],
-  \ 'CreateNewFile()':      ['<c-b>'],
-  \ }
+	\ 'PrtExit()':            ['<esc>', ','],
+	\ 'CreateNewFile()':      ['<c-b>'],
+	\ }
 let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
 
 " Find and set filetypes.
@@ -345,27 +345,27 @@ set ssop+=blank        " Blank	empty windows
 set ssop+=buffers	     " Hidden and unloaded buffers, not just those in windows
 set ssop+=curdir	     " The current directory
 set ssop+=folds	       " Manually created folds, opened/closed folds and local
-                       " fold options
+											 " fold options
 set ssop+=globals	     " Global variables that start with an uppercase letter
-                       " and contain at least one lowercase letter.  Only
-                       " String and Number types are stored.
+											 " and contain at least one lowercase letter.  Only
+											 " String and Number types are stored.
 set ssop+=help		     " Restore help windows.
 set ssop+=localoptions " Options and mappings local to a window or buffer (not
-                       " global values for local options)
+											 " global values for local options)
 set ssop+=options	     " All options and mappings (also global values for local
-                       " options)
+											 " options)
 set ssop+=resize	     " Size of the Vim window: 'lines' and 'columns'
 set ssop-=sesdir	     " The directory in which the session file is located
-                       " will become the current directory (useful with
-                       " projects accessed over a network from different
-                       " systems)
+											 " will become the current directory (useful with
+											 " projects accessed over a network from different
+											 " systems)
 set ssop+=slash	       " Backslashes in file names replaced with forward
-                       " slashes
+											 " slashes
 set ssop+=tabpages	   " All tab pages; without this only the current tab page
-                       " is restored, so that you can make a session for each
-                       " tab page separately
+											 " is restored, so that you can make a session for each
+											 " tab page separately
 set ssop+=unix		     " With Unix end-of-line format (single <NL>), even when
-                       " on Windows or DOS
+											 " on Windows or DOS
 set ssop+=winpos	     " Position of the whole Vim window
 set ssop+=winsize	     " Window sizes
 
@@ -391,7 +391,7 @@ set vi+=@500  " Number of lines to save from the input line history
 set vi+=/500  " Number of lines to save from the search history
 set vi+=r/tmp " Removable media, for which no marks will be stored
 set vi+=!     " Global variables that start with an uppercase letter and
-              " don't contain lowercase letters
+							" don't contain lowercase letters
 set vi+=h     " Disable 'hlsearch' highlighting when starting
 set vi+=%     " Buffer list (restored when starting Vim without arguments)
 set vi+=c     " Convert the text using 'encoding'
@@ -603,10 +603,10 @@ nnoremap <silent><Leader>jp k<S-v>xpk:call Join()<CR>
 
 " "Alignment (Tabularize)"
 if exists(":Tabularize")
-  nmap <Leader>a= :Tabularize /=<CR>
-  vmap <Leader>a= :Tabularize /=<CR>
-  nmap <Leader>a: :Tabularize /:\zs<CR>
-  vmap <Leader>a: :Tabularize /:\zs<CR>
+	nmap <Leader>a= :Tabularize /=<CR>
+	vmap <Leader>a= :Tabularize /=<CR>
+	nmap <Leader>a: :Tabularize /:\zs<CR>
+	vmap <Leader>a: :Tabularize /:\zs<CR>
 endif
 "-------------------------------------------------------------------------------
 
@@ -619,9 +619,9 @@ set spelllang=en_us       " Default language
 set spellsuggest=5        " How many spelling suggestions to list
 set spellfile=~/.vim.local/dictionaries/en.utf-8.add " Custom spell file
 nmap <silent><Leader>ts
-      \ :setl spell!<CR><Bar>
-      \ :let OnOrOff=&spell<CR><Bar>
-      \ :call ToggleOnOff(" Spell Checker", OnOrOff)<CR>
+			\ :setl spell!<CR><Bar>
+			\ :let OnOrOff=&spell<CR><Bar>
+			\ :call ToggleOnOff(" Spell Checker", OnOrOff)<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -678,23 +678,23 @@ set shortmess+=m " Use "[+]" instead of "[Modified]"
 set shortmess+=n " Use "[New]" instead of "[New File]"
 set shortmess+=r " Use "[RO]" instead of "[readonly]"
 set shortmess-=w " Use "[w]" instead of "written" for file write message
-                 " and "[a]" instead of "appended" for ':w >> file' command
+								 " and "[a]" instead of "appended" for ':w >> file' command
 set shortmess+=x " Use "[dos]" instead of "[dos format]", "[unix]" instead
-                 " of "[unix format]" and "[mac]" instead of "[mac format]".
+								 " of "[unix format]" and "[mac]" instead of "[mac format]".
 set shortmess-=a " All of the above abbreviations
 set shortmess+=o " Overwrite message for writing a file with subsequent message
-                 " for reading a file (useful for ":wn" or when 'autowrite' on)
+								 " for reading a file (useful for ":wn" or when 'autowrite' on)
 set shortmess+=O " Message for reading a file overwrites any previous message.
-                 " Also for quickfix message (e.g., ":cn").
+								 " Also for quickfix message (e.g., ":cn").
 set shortmess-=s " Don't give "search hit BOTTOM, continuing at TOP" or "search
-                 " hit TOP, continuing at BOTTOM" messages
+								 " hit TOP, continuing at BOTTOM" messages
 set shortmess+=t " Truncate file message at the start if it is too long to fit
-                 " on the command-line, "<" will appear in the left most column.
+								 " on the command-line, "<" will appear in the left most column.
 set shortmess+=T " Truncate other messages in the middle if they are too long to
-                 " fit on the command line.  "..." will appear in the middle.
+								 " fit on the command line.  "..." will appear in the middle.
 set shortmess-=W " Don't give "written" or "[w]" when writing a file
 set shortmess-=A " Don't give the "ATTENTION" message when an existing
-                 " swap file is found.
+								 " swap file is found.
 set shortmess+=I " Don't give the intro message when starting Vim |:intro|.
 "-------------------------------------------------------------------------------
 
@@ -835,9 +835,9 @@ let g:Powerline_mode_s  = 'SELECT'
 let g:Powerline_mode_S  = 'SELECT LINE'
 let g:Powerline_mode_cs = 'SELECT BLOCK'
 let g:Powerline_symbols_override = {
-    \ 'BRANCH': [0x2213],
-    \ 'LINE':'',
-    \ }
+		\ 'BRANCH': [0x2213],
+		\ 'LINE':'',
+		\ }
 call Pl#Theme#RemoveSegment('rvm:string')
 call Pl#Theme#RemoveSegment('scrollpercent')
 "-------------------------------------------------------------------------------
@@ -853,59 +853,59 @@ call Pl#Theme#RemoveSegment('scrollpercent')
 set formatoptions=
 set fo-=t  " Auto-wrap text using textwidth
 set fo+=c  " Auto-wrap comments using textwidth, inserting the current comment
-           " Leader automatically.
+					 " Leader automatically.
 set fo+=r  " Automatically insert the current comment Leader after hitting
-           " <Enter> in Insert mode.
+					 " <Enter> in Insert mode.
 set fo-=o  " Automatically insert the current comment Leader after hitting 'o' or
-           " 'O' in Normal mode.
+					 " 'O' in Normal mode.
 set fo+=q  " Allow formatting of comments with 'gq'.
-           " Note that formatting will not change blank lines or lines containing
-           " only the comment Leader.  A new paragraph starts after such a line,
-           " or when the comment Leader changes.
+					 " Note that formatting will not change blank lines or lines containing
+					 " only the comment Leader.  A new paragraph starts after such a line,
+					 " or when the comment Leader changes.
 set fo-=w  " Trailing white space indicates a paragraph continues in the next line.
-           " A line that ends in a non-white character ends a paragraph.
+					 " A line that ends in a non-white character ends a paragraph.
 set fo-=a  " Automatic formatting of paragraphs.  Every time text is inserted or
-           " deleted the paragraph will be reformatted.  See |auto-format|.
-           " When the 'c' flag is present this only happens for recognized
-           " comments.
+					 " deleted the paragraph will be reformatted.  See |auto-format|.
+					 " When the 'c' flag is present this only happens for recognized
+					 " comments.
 set fo+=n  " When formatting text, recognize numbered lists.  This actually uses
-           " the 'formatlistpat' option, thus any kind of list can be used.  The
-           " indent of the text after the number is used for the next line.  The
-           " default is to find a number, optionally followed by '.', ':', ')',
-           " ']' or '}'.  Note that 'autoindent' must be set too.  Doesn't work
-           " well together with "2".
-           " Example: >
-           " 	1. the first item
-           " 	   wraps
-           " 	2. the second item
+					 " the 'formatlistpat' option, thus any kind of list can be used.  The
+					 " indent of the text after the number is used for the next line.  The
+					 " default is to find a number, optionally followed by '.', ':', ')',
+					 " ']' or '}'.  Note that 'autoindent' must be set too.  Doesn't work
+					 " well together with "2".
+					 " Example: >
+					 " 	1. the first item
+					 " 	   wraps
+					 " 	2. the second item
 set fo-=2  " When formatting text, use the indent of the second line of a paragraph
-           " for the rest of the paragraph, instead of the indent of the first
-           " line.  This supports paragraphs in which the first line has a
-           " different indent than the rest.  Note that 'autoindent' must be set
-           " too.  Example: >
-           " 		first line of a paragraph
-           " 	second line of the same paragraph
-           " 	third line.
+					 " for the rest of the paragraph, instead of the indent of the first
+					 " line.  This supports paragraphs in which the first line has a
+					 " different indent than the rest.  Note that 'autoindent' must be set
+					 " too.  Example: >
+					 " 		first line of a paragraph
+					 " 	second line of the same paragraph
+					 " 	third line.
 set fo-=v  " Vi-compatible auto-wrapping in insert mode: Only break a line at a
-           " blank that you have entered during the current insert command.  (Note:
-           " this is not 100% Vi compatible.  Vi has some 'unexpected features' or
-           " bugs in this area.  It uses the screen column instead of the line
-           " column.)
+					 " blank that you have entered during the current insert command.  (Note:
+					 " this is not 100% Vi compatible.  Vi has some 'unexpected features' or
+					 " bugs in this area.  It uses the screen column instead of the line
+					 " column.)
 set fo-=b  " Like 'v', but only auto-wrap if you enter a blank at or before
-           " the wrap margin.  If the line was longer than 'textwidth' when you
-           " started the insert, or you do not enter a blank in the insert before
-           " reaching 'textwidth', Vim does not perform auto-wrapping.
+					 " the wrap margin.  If the line was longer than 'textwidth' when you
+					 " started the insert, or you do not enter a blank in the insert before
+					 " reaching 'textwidth', Vim does not perform auto-wrapping.
 set fo-=l  " Long lines are not broken in insert mode: When a line was longer than
-           " 'textwidth' when the insert command started, Vim does not
-           " automatically format it.
+					 " 'textwidth' when the insert command started, Vim does not
+					 " automatically format it.
 set fo-=m  " Also break at a multi-byte character above 255.  This is useful for
-           " Asian text where every character is a word on its own.
+					 " Asian text where every character is a word on its own.
 set fo-=M  " When joining lines, don't insert a space before or after a multi-byte
-           " character.  Overrules the 'B' flag.
+					 " character.  Overrules the 'B' flag.
 set fo-=B  " When joining lines, don't insert a space between two multi-byte
-           " characters.  Overruled by the 'M' flag.
+					 " characters.  Overruled by the 'M' flag.
 set fo+=1  " Don't break a line after a one-letter word.  It's broken before it
-           " instead (if possible).
+					 " instead (if possible).
 "-------------------------------------------------------------------------------
 
 
@@ -944,7 +944,7 @@ let g:neocomplcache_temporary_dir = '~/.vim.local/tmp/neocache'
 
 " Enable custom omnicompletion.
 if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
+	let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
@@ -964,12 +964,12 @@ let g:neosnippet#snippets_directory = '~/.vim/bundle/, ~/.vim.local/snippets/'
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable() ?
-  \ "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+	\ "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 nnoremap <Leader>es  :NeoSnippetEdit<CR>
 
 " Set snips_author.
 if !exists('snips_author')
-  let g:snips_author = 'VimEz'
+	let g:snips_author = 'VimEz'
 endif
 
 " imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
@@ -1022,9 +1022,9 @@ nnoremap <Leader>st :call TabSize()<CR>
 
 " Toggle soft tab.
 nnoremap <silent><Leader>tst
-      \ :setlocal expandtab!<CR><Bar>
-      \ :let OnOrOff=&expandtab<CR><Bar>
-      \ :call ToggleOnOff("Soft Tabs", OnOrOff)<CR>
+			\ :setlocal expandtab!<CR><Bar>
+			\ :let OnOrOff=&expandtab<CR><Bar>
+			\ :call ToggleOnOff("Soft Tabs", OnOrOff)<CR>
 
 " Define a Tab command that calls a function that prompts for a tab size and
 " applies it uniformally to softtabstop, tabstop, and shiftwidth.
@@ -1333,8 +1333,8 @@ augroup END
 
 " "Apache Config"
 augroup ApacheConfig
-  au!
-  au BufNewFile,BufRead /*apache*  setf=apache
+	au!
+	au BufNewFile,BufRead /*apache*  setf=apache
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1342,8 +1342,8 @@ augroup END
 
 " "C"
 augroup C
-  au!
-  au FileType c  setl omnifunc=ccomplete#Complete
+	au!
+	au FileType c  setl omnifunc=ccomplete#Complete
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1352,7 +1352,7 @@ augroup END
 " "CSS"
 augroup CSS
 	au!
-  au FileType css  setl omnifunc=csscomplete#CompleteCSS
+	au FileType css  setl omnifunc=csscomplete#CompleteCSS
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1360,10 +1360,10 @@ augroup END
 
 " "Drupal CMS Framework"
 augroup DrupalCMS
-  au!
-  au BufNewFile,BufRead *.module   setf=php
-  au BufNewFile,BufRead *.install  setf=php
-  au BufNewFile,BufRead *.test     setf=php
+	au!
+	au BufNewFile,BufRead *.module   setf=php
+	au BufNewFile,BufRead *.install  setf=php
+	au BufNewFile,BufRead *.test     setf=php
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1371,9 +1371,9 @@ augroup END
 
 " "Git"
 augroup Git
-  au!
-  au BufNewFile,BufRead COMMIT_EDITMSG  call feedkeys('gg0')
-  au BufNewFile,BufRead COMMIT_EDITMSG  setlocal spell
+	au!
+	au BufNewFile,BufRead COMMIT_EDITMSG  call feedkeys('gg0')
+	au BufNewFile,BufRead COMMIT_EDITMSG  setlocal spell
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1381,11 +1381,11 @@ augroup END
 
 " "HTML"
 augroup HTML
-  au!
-  au BufNewFile,BufRead *.htm   setf=html
-  au BufNewFile,BufRead *.html  setf=html
-  au FileType html              setl omnifunc=htmlcomplete#CompleteTags
-  au Filetype html              call EnableCloseTag()
+	au!
+	au BufNewFile,BufRead *.htm   setf=html
+	au BufNewFile,BufRead *.html  setf=html
+	au FileType html              setl omnifunc=htmlcomplete#CompleteTags
+	au Filetype html              call EnableCloseTag()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1393,8 +1393,8 @@ augroup END
 
 " "Javascript"
 augroup JavaScript
-  au!
-  au FileType javascript  setl omnifunc=javascriptcomplete#CompleteJS
+	au!
+	au FileType javascript  setl omnifunc=javascriptcomplete#CompleteJS
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1403,7 +1403,7 @@ augroup END
 " "Markdown"
 augroup MarkDown
 	au!
-  au FileType markdown  setl omnifunc=htmlcomplete#CompleteTags
+	au FileType markdown  setl omnifunc=htmlcomplete#CompleteTags
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1411,8 +1411,8 @@ augroup END
 
 " "Perl"
 augroup Perl
-  au!
-  au FileType perl  setl omnifunc=syntaxcomplete#Complete
+	au!
+	au FileType perl  setl omnifunc=syntaxcomplete#Complete
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1420,10 +1420,10 @@ augroup END
 
 " "PHP"
 augroup PHP
-  au!
-  au BufNewFile,BufRead *.php  setf=php
-  au FileType php	             let php_minlines=500
-  au FileType php              setl omnifunc=phpcomplete#CompletePHP
+	au!
+	au BufNewFile,BufRead *.php  setf=php
+	au FileType php	             let php_minlines=500
+	au FileType php              setl omnifunc=phpcomplete#CompletePHP
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1431,7 +1431,7 @@ augroup END
 
 " "Plain Text"
 augroup PlainText
-  au!
+	au!
 	au BufNewFile,BufRead *.txt  setf=text
 augroup END
 "-----------------------------------------------------------------------------
@@ -1440,8 +1440,8 @@ augroup END
 
 " "Python"
 augroup Python
-  au!
-  au FileType python  setl omnifunc=pythoncomplete#Complete
+	au!
+	au FileType python  setl omnifunc=pythoncomplete#Complete
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1449,8 +1449,8 @@ augroup END
 
 " "Ruby"
 augroup Ruby
-  au!
-  au FileType ruby  setl omnifunc=rubycomplete#Complete
+	au!
+	au FileType ruby  setl omnifunc=rubycomplete#Complete
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1458,9 +1458,9 @@ augroup END
 
 " "Shell Script"
 augroup ShellScript
-  au!
-  au BufNewFile,BufRead *.sh  setf=sh
-  au BufWritePost *.sh        call MakeFileExecutable()
+	au!
+	au BufNewFile,BufRead *.sh  setf=sh
+	au BufWritePost *.sh        call MakeFileExecutable()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1468,8 +1468,8 @@ augroup END
 
 " "Smarty Template Engine"
 augroup Smarty
-  au!
-  au BufNewFile,BufRead *.tpl  setf=html
+	au!
+	au BufNewFile,BufRead *.tpl  setf=html
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1513,17 +1513,17 @@ endif
 " "Delete Empty Buffers"
 " From http://goo.gl/6OBjJ
 function! DeleteEmptyBuffers()
-  let empty = []
-  let [i, n] = [1, bufnr('$')]
-  while i <= n
-    if bufexists(i) && bufname(i) == ''
-      call add(empty, i)
-    endif
-    let i += 1
-  endwhile
-  if len(empty) > 0
-    exe 'bdelete' join(empty, ' ')
-  endif
+	let empty = []
+	let [i, n] = [1, bufnr('$')]
+	while i <= n
+		if bufexists(i) && bufname(i) == ''
+			call add(empty, i)
+		endif
+		let i += 1
+	endwhile
+	if len(empty) > 0
+		exe 'bdelete' join(empty, ' ')
+	endif
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1541,14 +1541,14 @@ endfunction
 
 " "Restore Register"
 function! RestoreRegister()
-  if &clipboard == 'unnamed'
-    let @* = s:restore_reg
-  elseif &clipboard == 'unnamedplus'
-    let @+ = s:restore_reg
-  else
-    let @" = s:restore_reg
-  endif
-  return ''
+	if &clipboard == 'unnamed'
+		let @* = s:restore_reg
+	elseif &clipboard == 'unnamedplus'
+		let @+ = s:restore_reg
+	else
+		let @" = s:restore_reg
+	endif
+	return ''
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1556,8 +1556,8 @@ endfunction
 
 " "Replace"
 function! s:Repl()
-    let s:restore_reg = @"
-    return "p@=RestoreRegister()\<CR>"
+		let s:restore_reg = @"
+		return "p@=RestoreRegister()\<CR>"
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1577,15 +1577,15 @@ endfunction
 
 " "Toggle Auto Completion"
 function! ToggleAutoComplete()
-  if g:neocomplcache_disable_auto_complete == 1
-    echo 'Auto Completion: On'
-    let g:neocomplcache_disable_auto_complete = 0
-    NeoComplCacheEnable
-  else
-    echo 'Auto Completion: Off'
-    let g:neocomplcache_disable_auto_complete = 1
-    NeoComplCacheDisable
-  endif
+	if g:neocomplcache_disable_auto_complete == 1
+		echo 'Auto Completion: On'
+		let g:neocomplcache_disable_auto_complete = 0
+		NeoComplCacheEnable
+	else
+		echo 'Auto Completion: Off'
+		let g:neocomplcache_disable_auto_complete = 1
+		NeoComplCacheDisable
+	endif
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1615,7 +1615,7 @@ function! MaxRestoreWindow()
 		let g:windowmaximized = 0
 		wincmd =
 		echo 'Windows Restored'
-  else
+	else
 		let g:windowmaximized = 1
 		wincmd |
 		wincmd _
@@ -1645,13 +1645,13 @@ endfunction"
 
 " "Tab Size"
 function! TabSize()
-  let l:tabstop = 1 * input('Tab Size: ')
-  if l:tabstop > 0
-    let &l:sts = l:tabstop
-    let &l:ts = l:tabstop
-    let &l:sw = l:tabstop
-  endif
-  call TabSummary()
+	let l:tabstop = 1 * input('Tab Size: ')
+	if l:tabstop > 0
+		let &l:sts = l:tabstop
+		let &l:ts = l:tabstop
+		let &l:sw = l:tabstop
+	endif
+	call TabSummary()
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1659,15 +1659,15 @@ endfunction
 
 " "Tab Summary Report"
 function! TabSummary()
-    echo 'Current tab settings: '
-    echo 'tabstop='.&l:ts
-    echo 'shiftwidth='.&l:sw
-    echo 'softtabstop='.&l:sts
-    if &l:et
-      echo 'expandtab'
-    else
-      echo 'noexpandtab'
-    endif
+		echo 'Current tab settings: '
+		echo 'tabstop='.&l:ts
+		echo 'shiftwidth='.&l:sw
+		echo 'softtabstop='.&l:sts
+		if &l:et
+			echo 'expandtab'
+		else
+			echo 'noexpandtab'
+		endif
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1675,15 +1675,15 @@ endfunction
 
 " "Toggle Rule"
 function! ToggleRule()
-  if g:RuleState == 0
-    set colorcolumn=0
-    let g:RuleState=1
-    echo "Rule: Off"
-  else
-    set colorcolumn=+1
-    let g:RuleState=0
-    echo "Rule: On"
-  endif
+	if g:RuleState == 0
+		set colorcolumn=0
+		let g:RuleState=1
+		echo "Rule: Off"
+	else
+		set colorcolumn=+1
+		let g:RuleState=0
+		echo "Rule: On"
+	endif
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1693,11 +1693,11 @@ endfunction
 " Prints [long] message up to (&columns-1) length without the 'Press Enter'
 " prompt.
 function! Msg(msg)
-  let x=&ruler | let y=&showcmd
-  set noruler noshowcmd
-  redraw
-  echo a:msg
-  let &ruler=x | let &showcmd=y
+	let x=&ruler | let y=&showcmd
+	set noruler noshowcmd
+	redraw
+	echo a:msg
+	let &ruler=x | let &showcmd=y
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1705,15 +1705,15 @@ endfunction
 
 " "Toggle Number Type"
 function! g:ToggleNumberType()
-  if(&relativenumber==1)
-    echo 'Number Type: Normal'
-    set number
-    let g:numbertype=0
-  else
-    echo 'Number Type: Relative'
-    set relativenumber
-    let g:numbertype=1
-  endif
+	if(&relativenumber==1)
+		echo 'Number Type: Normal'
+		set number
+		let g:numbertype=0
+	else
+		echo 'Number Type: Relative'
+		set relativenumber
+		let g:numbertype=1
+	endif
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1721,11 +1721,11 @@ endfunction
 
 " "Toggle Numbers"
 function! g:ToggleNumbers()
-  if(g:numbertype==1)
-    call g:ToggleRelativeNumbers()
-  else
-  	call g:ToggleNormalNumbers()
-  endif
+	if(g:numbertype==1)
+		call g:ToggleRelativeNumbers()
+	else
+		call g:ToggleNormalNumbers()
+	endif
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1733,13 +1733,13 @@ endfunction
 
 " "Toggle Normal Numbers"
 function! g:ToggleNormalNumbers()
-  if(&number==1)
-    setlocal nonumber
-  else
-    setlocal number
-  endif
-  let OnOrOff=&number
-  call ToggleOnOff("Line Numbers", OnOrOff)
+	if(&number==1)
+		setlocal nonumber
+	else
+		setlocal number
+	endif
+	let OnOrOff=&number
+	call ToggleOnOff("Line Numbers", OnOrOff)
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1747,13 +1747,13 @@ endfunction
 
 " "Toggle Relative Numbers"
 function! g:ToggleRelativeNumbers()
-  if(&relativenumber==1)
-    setlocal norelativenumber
-  else
-    setlocal relativenumber
-  endif
-  let OnOrOff=&relativenumber
-  call ToggleOnOff('Relative Line Numbers', OnOrOff)
+	if(&relativenumber==1)
+		setlocal norelativenumber
+	else
+		setlocal relativenumber
+	endif
+	let OnOrOff=&relativenumber
+	call ToggleOnOff('Relative Line Numbers', OnOrOff)
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1761,15 +1761,15 @@ endfunction
 
 " "Toggle Folds"
 function! ToggleFolds()
-  if &foldenable==1
+	if &foldenable==1
 		set nofoldenable
 		set foldcolumn=0
-  else
-    set foldenable
-    set foldcolumn=4
-  endif
-  let OnOrOff=&foldenable
-  call ToggleOnOff('Folds', OnOrOff)
+	else
+		set foldenable
+		set foldcolumn=4
+	endif
+	let OnOrOff=&foldenable
+	call ToggleOnOff('Folds', OnOrOff)
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1777,11 +1777,11 @@ endfunction
 
 " "Strip Trailing Whitespace"
 function! StripTrailingWhitespace()
-  " Only strip if the b:noStripeWhitespace variable isn't set
-  if exists('b:noStripWhitespace')
-    return
-  endif
-  %s/\s\+$//e
+	" Only strip if the b:noStripeWhitespace variable isn't set
+	if exists('b:noStripWhitespace')
+		return
+	endif
+	%s/\s\+$//e
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1789,9 +1789,9 @@ endfunction
 
 " "New Session"
 function! NewSession()
-  call inputsave()
-  let SessionName = input('New Session Name: ')
-  exe "SaveSession " . SessionName
+	call inputsave()
+	let SessionName = input('New Session Name: ')
+	exe "SaveSession " . SessionName
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1799,15 +1799,15 @@ endfunction
 
 " "Set Help Environment"
 function! HelpEnvironment()
-  if &filetype == 'help'
-    setlocal relativenumber
-    setlocal foldcolumn=0
-    nnoremap <CR> <C-]>
-    nnoremap <BS> <C-T>
-  else
-    nnoremap <CR> i<CR><Esc>
-    nnoremap <BS> i<BS><Right><Esc>
-  endif
+	if &filetype == 'help'
+		setlocal relativenumber
+		setlocal foldcolumn=0
+		nnoremap <CR> <C-]>
+		nnoremap <BS> <C-T>
+	else
+		nnoremap <CR> i<CR><Esc>
+		nnoremap <BS> i<BS><Right><Esc>
+	endif
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1815,13 +1815,13 @@ endfunction
 
 " "Set Vundle Environment"
 function! VundleEnvironment()
-  if &filetype == 'vundle'
+	if &filetype == 'vundle'
 		nnoremap <silent>,,  :bd<CR>
-	  setlocal foldcolumn=0
-	  vertical resize 50
-  else
-    nnoremap ,,  <Esc>
-  endif
+		setlocal foldcolumn=0
+		vertical resize 50
+	else
+		nnoremap ,,  <Esc>
+	endif
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1830,7 +1830,7 @@ endfunction
 " "Enable Close Tag"
 " Close open tags automatically upon entering </
 function! EnableCloseTag()
-    so ~/.vim/bundle/closetag.vim/plugin/closetag.vim
+		so ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1838,8 +1838,8 @@ endfunction
 
 " "Current Session Status"
 function! CurrentSession()
-  let g:currSession = fnamemodify(v:this_session, ':t:r')
-  return g:currSession
+	let g:currSession = fnamemodify(v:this_session, ':t:r')
+	return g:currSession
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1847,9 +1847,9 @@ endfunction
 
 " "Make File Executable"
 function! MakeFileExecutable()
-  exe "silent! !chmod +x %"
-  redraw!
-  call Msg('Written as an executable shell script!')
+	exe "silent! !chmod +x %"
+	redraw!
+	call Msg('Written as an executable shell script!')
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1857,9 +1857,9 @@ endfunction
 
 " "Save Buffer View"
 function! SaveView()
-  if expand('%') != '' && &buftype !~ 'nofile'
-    silent! mkview
-  endif
+	if expand('%') != '' && &buftype !~ 'nofile'
+		silent! mkview
+	endif
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1867,9 +1867,9 @@ endfunction
 
 " "Load Buffer View"
 function! LoadView()
-  if expand('%') != '' && &buftype !~ 'nofile'
-      silent! loadview
-  endif
+	if expand('%') != '' && &buftype !~ 'nofile'
+			silent! loadview
+	endif
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1877,14 +1877,14 @@ endfunction
 
 " "Join"
 function! Join()
-  normal! $
-  normal! l
-  let l = line(".")
-  let c = col(".")
-  join
-  call cursor(l, c)
-  " TODO: make work w/repeat.vim
-  " silent! call repeat#set("\<leader>jn",1:count)
+	normal! $
+	normal! l
+	let l = line(".")
+	let c = col(".")
+	join
+	call cursor(l, c)
+	" TODO: make work w/repeat.vim
+	" silent! call repeat#set("\<leader>jn",1:count)
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1892,32 +1892,32 @@ endfunction
 
 " "Find and Replace"
 function! FindReplace()
-  let CurrentWord=GetVisual()
-  " Get search string.
-  call inputsave()
-  let  CurrentString = input('Search for: ', CurrentWord)
-  if (empty(CurrentString))
-   return
-  endif
-  call inputrestore()
+	let CurrentWord=GetVisual()
+	" Get search string.
+	call inputsave()
+	let  CurrentString = input('Search for: ', CurrentWord)
+	if (empty(CurrentString))
+	 return
+	endif
+	call inputrestore()
 
-  " Get replace string.
-  call inputsave()
-  let  NewString = input('Search for: '.CurrentString.'   Replace with: ')
-  call inputrestore()
+	" Get replace string.
+	call inputsave()
+	let  NewString = input('Search for: '.CurrentString.'   Replace with: ')
+	call inputrestore()
 
-  " Determine wether or not to search for whole word only.
-  redraw!
-  let option = confirm('Search for whole word only? ', "&Yes\n&No", 2)
-  if option == 0
-    echo 'Invalid response. Please try again.'
-  elseif option == 1
-    " Find exact matches.
-    exe "%s/\\<".CurrentString."\\>/".NewString."/gc"
-  elseif option == 2
-    " Find any matches.
-    exe "%s/".CurrentString."/".NewString."/gc"
-  endif
+	" Determine wether or not to search for whole word only.
+	redraw!
+	let option = confirm('Search for whole word only? ', "&Yes\n&No", 2)
+	if option == 0
+		echo 'Invalid response. Please try again.'
+	elseif option == 1
+		" Find exact matches.
+		exe "%s/\\<".CurrentString."\\>/".NewString."/gc"
+	elseif option == 2
+		" Find any matches.
+		exe "%s/".CurrentString."/".NewString."/gc"
+	endif
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1928,12 +1928,12 @@ endfunction
 " copying strings from the file to the search tool Based on this
 " - http://peterodding.com/code/vim/profile/autoload/xolox/escape.vim
 function! EscapeString (string)
-  let string=a:string
-  " Escape regex characters
-  let string = escape(string, '^$.*\/~[]')
-  " Escape the line endings
-  let string = substitute(string, '\n', '\\n', 'g')
-  return string
+	let string=a:string
+	" Escape regex characters
+	let string = escape(string, '^$.*\/~[]')
+	" Escape the line endings
+	let string = substitute(string, '\n', '\\n', 'g')
+	return string
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1944,24 +1944,24 @@ endfunction
 " visual block through a string escape function above. Based on
 " - http://stackoverflow.com/questions/676600/vim-replace-selected-text/677918#677918
 function! GetVisual() range
-  " Save the current register and clipboard
-  let reg_save = getreg('"')
-  let regtype_save = getregtype('"')
-  let cb_save = &clipboard
-  set clipboard&
+	" Save the current register and clipboard
+	let reg_save = getreg('"')
+	let regtype_save = getregtype('"')
+	let cb_save = &clipboard
+	set clipboard&
 
-  " Put the current visual selection in the " register
-  normal! ""gvy
-  let selection = getreg('"')
+	" Put the current visual selection in the " register
+	normal! ""gvy
+	let selection = getreg('"')
 
-  " Put the saved registers and clipboards back
-  call setreg('"', reg_save, regtype_save)
-  let &clipboard = cb_save
+	" Put the saved registers and clipboards back
+	call setreg('"', reg_save, regtype_save)
+	let &clipboard = cb_save
 
-  "Escape any special characters in the selection
-  let escaped_selection = EscapeString(selection)
+	"Escape any special characters in the selection
+	let escaped_selection = EscapeString(selection)
 
-  return escaped_selection
+	return escaped_selection
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1969,71 +1969,71 @@ endfunction
 
 " "Fold Text"
 function! FoldText()
-  let linecount = v:foldend-v:foldstart
-  let line_count_string = ' '.linecount.' lines - |'
-  let line = getline(v:foldstart)
-  let line = substitute(line, '/\*\|\*/\|"{{'.'{\d\=', ' ', 'g')
-  let line = strpart(line, 0, windowwidth - len(line_count_string))
-  let fillcharcount = &textwidth - len(line) - len(line_count_string)
-  return line . repeat("·",fillcharcount) . line_count_string
+	let linecount = v:foldend-v:foldstart
+	let line_count_string = ' '.linecount.' lines - |'
+	let line = getline(v:foldstart)
+	let line = substitute(line, '/\*\|\*/\|"{{'.'{\d\=', ' ', 'g')
+	let line = strpart(line, 0, windowwidth - len(line_count_string))
+	let fillcharcount = &textwidth - len(line) - len(line_count_string)
+	return line . repeat("·",fillcharcount) . line_count_string
 endfunction
 "-------------------------------------------------------------------------------
 
 function! s:Kwbd(kwbdStage)
-  if(a:kwbdStage == 1)
-    if(!buflisted(winbufnr(0)))
-      bd!
-      return
-    endif
-    let s:kwbdBufNum = bufnr("%")
-    let s:kwbdWinNum = winnr()
-    windo call s:Kwbd(2)
-    execute s:kwbdWinNum . 'wincmd w'
-    let s:buflistedLeft = 0
-    let s:bufFinalJump = 0
-    let l:nBufs = bufnr("$")
-    let l:i = 1
-    while(l:i <= l:nBufs)
-      if(l:i != s:kwbdBufNum)
-        if(buflisted(l:i))
-          let s:buflistedLeft = s:buflistedLeft + 1
-        else
-          if(bufexists(l:i) && !strlen(bufname(l:i)) && !s:bufFinalJump)
-            let s:bufFinalJump = l:i
-          endif
-        endif
-      endif
-      let l:i = l:i + 1
-    endwhile
-    if(!s:buflistedLeft)
-      if(s:bufFinalJump)
-        windo if(buflisted(winbufnr(0))) | execute "b! " . s:bufFinalJump | endif
-      else
-        enew
-        let l:newBuf = bufnr("%")
-        windo if(buflisted(winbufnr(0))) | execute "b! " . l:newBuf | endif
-      endif
-      execute s:kwbdWinNum . 'wincmd w'
-    endif
-    if(buflisted(s:kwbdBufNum) || s:kwbdBufNum == bufnr("%"))
-      execute "bd! " . s:kwbdBufNum
-    endif
-    if(!s:buflistedLeft)
-      set buflisted
-      set bufhidden=delete
-      set buftype=
-      setlocal noswapfile
-    endif
-  else
-    if(bufnr("%") == s:kwbdBufNum)
-      let prevbufvar = bufnr("#")
-      if(prevbufvar > 0 && buflisted(prevbufvar) && prevbufvar != s:kwbdBufNum)
-        b #
-      else
-        bn
-      endif
-    endif
-  endif
+	if(a:kwbdStage == 1)
+		if(!buflisted(winbufnr(0)))
+			bd!
+			return
+		endif
+		let s:kwbdBufNum = bufnr("%")
+		let s:kwbdWinNum = winnr()
+		windo call s:Kwbd(2)
+		execute s:kwbdWinNum . 'wincmd w'
+		let s:buflistedLeft = 0
+		let s:bufFinalJump = 0
+		let l:nBufs = bufnr("$")
+		let l:i = 1
+		while(l:i <= l:nBufs)
+			if(l:i != s:kwbdBufNum)
+				if(buflisted(l:i))
+					let s:buflistedLeft = s:buflistedLeft + 1
+				else
+					if(bufexists(l:i) && !strlen(bufname(l:i)) && !s:bufFinalJump)
+						let s:bufFinalJump = l:i
+					endif
+				endif
+			endif
+			let l:i = l:i + 1
+		endwhile
+		if(!s:buflistedLeft)
+			if(s:bufFinalJump)
+				windo if(buflisted(winbufnr(0))) | execute "b! " . s:bufFinalJump | endif
+			else
+				enew
+				let l:newBuf = bufnr("%")
+				windo if(buflisted(winbufnr(0))) | execute "b! " . l:newBuf | endif
+			endif
+			execute s:kwbdWinNum . 'wincmd w'
+		endif
+		if(buflisted(s:kwbdBufNum) || s:kwbdBufNum == bufnr("%"))
+			execute "bd! " . s:kwbdBufNum
+		endif
+		if(!s:buflistedLeft)
+			set buflisted
+			set bufhidden=delete
+			set buftype=
+			setlocal noswapfile
+		endif
+	else
+		if(bufnr("%") == s:kwbdBufNum)
+			let prevbufvar = bufnr("#")
+			if(prevbufvar > 0 && buflisted(prevbufvar) && prevbufvar != s:kwbdBufNum)
+				b #
+			else
+				bn
+			endif
+		endif
+	endif
 endfunction
 
 
@@ -2045,7 +2045,7 @@ endfunction
 
 " "Load Local Configurations"
 if filereadable(expand('~/.vimrc.local'))
-  so ~/.vimrc.local
+	so ~/.vimrc.local
 endif
 "set runtimepath=$VIMRUNTIME,~/.vim.local/
 "-------------------------------------------------------------------------------
