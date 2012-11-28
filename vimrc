@@ -58,7 +58,6 @@ Bundle "tpope/vim-repeat"
 Bundle "kien/ctrlp.vim"
 Bundle "benmills/vimux"
 Bundle "duff/vim-bufonly"
-Bundle "vim-scripts/bufkill.vim"
 Bundle "tpope/vim-unimpaired"
 Bundle "xolox/vim-session"
 Bundle "scrooloose/nerdtree"
@@ -1514,17 +1513,17 @@ endif
 " "Delete Empty Buffers"
 " From http://goo.gl/6OBjJ
 function! DeleteEmptyBuffers()
-    let empty = []
-    let [i, n] = [1, bufnr('$')]
-    while i <= n
-        if bufexists(i) && bufname(i) == ''
-            call add(empty, i)
-        endif
-        let i += 1
-    endwhile
-    if len(empty) > 0
-        exe 'bdelete' join(empty, ' ')
+  let empty = []
+  let [i, n] = [1, bufnr('$')]
+  while i <= n
+    if bufexists(i) && bufname(i) == ''
+      call add(empty, i)
     endif
+    let i += 1
+  endwhile
+  if len(empty) > 0
+    exe 'bdelete' join(empty, ' ')
+  endif
 endfunction
 "-------------------------------------------------------------------------------
 
