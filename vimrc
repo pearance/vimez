@@ -231,8 +231,8 @@ let NERDTreeShowHidden = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeWinPos = "left"
-nnoremap <silent><Leader>,, :NERDTreeToggle<CR>
-nnoremap <silent><Leader>,,f :NERDTreeFind<CR>
+nnoremap <silent><Leader>bb :NERDTreeToggle<CR>
+nnoremap <silent><Leader>bbf :NERDTreeFind<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -765,6 +765,8 @@ set foldlevelstart=0
 set foldtext=FoldText()
 set fillchars=vert:\ ,diff:·
 
+nnoremap <expr> x ((foldclosed('.')==-1)?('x'):('zx'))
+
 " Toggle folding on/off.
 nnoremap <silent><Leader>tf :call ToggleFolds()<CR>
 
@@ -787,7 +789,7 @@ vnoremap ,h zfzc
 nnoremap ,H zMgg``zz
 
 " Close other folds.
-nnoremap <Leader><Leader> zMzvzz
+nnoremap <Leader><Leader> zxzz
 
 " Jump to next fold.
 nnoremap ,j zjzz
@@ -1166,6 +1168,20 @@ nmap <Leader>b4 :<C-u>BundleList<CR>
 
 
 
+" "Git Client (Fugitive)"
+nnoremap <Leader>gd  :Gdiff<CR>
+nnoremap <Leader>gs  :Gstatus<CR>
+nnoremap <Leader>gw  :Gwrite<CR>
+nnoremap <Leader>ga  :Gadd<CR>
+nnoremap <Leader>gb  :Gblame<CR>
+nnoremap <Leader>gco :Gcheckout<CR>
+nnoremap <Leader>gcm :Gcommit<CR>
+nnoremap <Leader>gm  :Gmove<CR>
+nnoremap <Leader>gr  :Gremove<CR>
+"-------------------------------------------------------------------------------
+
+
+
 " "Execute Terminal Commands (Vimux)"
 let g:VimuxOrientation = "h"
 let g:VimuxHeight = "50"
@@ -1309,11 +1325,6 @@ augroup VimGlobal
 	au BufWritePre *        call StripTrailingWhitespace()
 	au BufRead *            normal zz
 
-	" Tools
-	au FileType nerdtree    setl foldcolumn=0
-	au FileType gundo       setl foldcolumn=0
-	au FileType vundle      call VundleEnvironment()
-
 	" Improve fold functionality.
 	au BufWritePost *       call SaveView()
 	au BufRead *            call LoadView()
@@ -1324,8 +1335,11 @@ augroup VimGlobal
 	au WinEnter *           setl cursorcolumn
 	au WinLeave *           setl nocursorcolumn
 
-	" Improve help environment.
+	" Improve popup tool environments.
 	au WinEnter,BufEnter *  call HelpEnvironment()
+	au WinEnter,BufEnter *  call VundleEnvironment()
+	au WinEnter,BufEnter *  call NERDTreeEnvironment()
+	au WinEnter,BufEnter *  call GundoEnvironment()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1349,10 +1363,11 @@ augroup END
 
 
 
-" "CSS"
+" "CSS/SCSS"
 augroup CSS
 	au!
-	au FileType css  setl omnifunc=csscomplete#CompleteCSS
+	au FileType css,scss  setl omnifunc=csscomplete#CompleteCSS
+	au Filetype css,scss  setl equalprg=csstidy\ -\ --silent=true
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1372,8 +1387,9 @@ augroup END
 " "Git"
 augroup Git
 	au!
+	au WinEnter,BufEnter *  call GitEnvironment()
 	au BufNewFile,BufRead COMMIT_EDITMSG  call feedkeys('gg0')
-	au BufNewFile,BufRead COMMIT_EDITMSG  setlocal spell
+	au BufNewFile,BufRead COMMIT_EDITMSG  setl spell
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1813,14 +1829,55 @@ endfunction
 
 
 
+" "Set NERDTree Environment"
+function! NERDTreeEnvironment()
+	if &filetype == 'nerdtree'
+		setlocal foldcolumn=5
+		setlocal nohlsearch
+		nmap ,, :NERDTreeClose<CR>
+	else
+		setlocal hlsearch
+		nnoremap ,, :nohlsearch<CR>
+	endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Set Gundo Environment"
+function! GundoEnvironment()
+	if &filetype == 'gundo'
+		setlocal foldcolumn=0
+	else
+	endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
 " "Set Vundle Environment"
 function! VundleEnvironment()
 	if &filetype == 'vundle'
 		nnoremap <silent>,,  :bd<CR>
 		setlocal foldcolumn=0
+		setlocal nohlsearch
 		vertical resize 50
 	else
-		nnoremap ,,  <Esc>
+		nnoremap <silent>,, :nohlsearch<CR>
+	endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Set Git Environment"
+function! GitEnvironment()
+	if &filetype == 'gitcommit'
+		setlocal foldcolumn=0
+		setlocal nohlsearch
+		nnoremap <silent>,,  :pclose<CR>
+	else
+		nnoremap <silent>,, :nohlsearch<CR>
 	endif
 endfunction
 "-------------------------------------------------------------------------------
