@@ -70,7 +70,7 @@ Bundle "kshenoy/vim-signature"
 Bundle "tristen/vim-sparkup"
 Bundle "tpope/vim-fugitive"
 Bundle "gregsexton/gitv"
-Bundle "vim-scripts/Smart-Tabs"
+Bundle "vim-scripts/IndentTab"
 "-------------------------------------------------------------------------------
 
 
