@@ -231,8 +231,7 @@ let NERDTreeShowHidden = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeWinPos = "left"
-nnoremap <silent><Leader>bb :NERDTreeToggle<CR>
-nnoremap <silent><Leader>bbf :NERDTreeFind<CR>
+nnoremap <silent><Leader>bb :NERDTreeFind<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1342,10 +1341,10 @@ augroup VimGlobal
 	au WinLeave *           setl nocursorcolumn
 
 	" Improve popup tool environments.
-	au WinEnter,BufEnter *  call HelpEnvironment()
-	au WinEnter,BufEnter *  call VundleEnvironment()
-	au WinEnter,BufEnter *  call NERDTreeEnvironment()
-	au WinEnter,BufEnter *  call GundoEnvironment()
+	au FileType help			  call HelpEnvironment()
+	au FileType nerdtree    call NERDTreeEnvironment()
+	au FileType vundle      call VundleEnvironment()
+	au FileType gundo       call GundoEnvironment()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1826,9 +1825,11 @@ function! HelpEnvironment()
 		setlocal foldcolumn=0
 		nnoremap <CR> <C-]>
 		nnoremap <BS> <C-T>
+		nnoremap <silent>,,  :bd<CR>
 	else
 		nnoremap <CR> i<CR><Esc>
 		nnoremap <BS> i<BS><Right><Esc>
+		nnoremap <silent>,, :nohlsearch<CR>
 	endif
 endfunction
 "-------------------------------------------------------------------------------
@@ -1838,11 +1839,11 @@ endfunction
 " "Set NERDTree Environment"
 function! NERDTreeEnvironment()
 	if &filetype == 'nerdtree'
-		setlocal foldcolumn=5
-		setlocal nohlsearch
+		setlocal foldcolumn=0
+		set hlsearch!
 		nmap ,, :NERDTreeClose<CR>
 	else
-		setlocal hlsearch
+		exe set hlsearch<CR>
 		nnoremap ,, :nohlsearch<CR>
 	endif
 endfunction
