@@ -1004,7 +1004,7 @@ nnoremap ,<Space> i<Space><Esc>l
 
 
 
-" "Tab Indentation"
+" "Tab Indentation (IndentTab)"
 set noexpandtab         " Expand tabs using spaces instead of a tab char
 set shiftwidth=2        " Amount of shift when in Normal mode
 set tabstop=2           " Number of spaces that a <Tab> in the file counts for.
@@ -1015,10 +1015,13 @@ set autoindent          " Enable auto indentation
 set copyindent          " Copy the previous indentation on autoindenting
 set preserveindent      " Preserve existing characters for indenting
 
-" Give the tab key utiltiy in normal & visual modes.
+let g:IndentTab = 1
+let g:IndentTab_scopes = 'indent,commentprefix,comment,string'
+
+	" Give the tab key utiltiy in normal & visual modes.
+nnoremap ,<Tab> i<Tab><Esc>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-nnoremap ,<Tab> i<Tab><Esc>
 
 nnoremap <Leader>st :call TabSize()<CR>
 
