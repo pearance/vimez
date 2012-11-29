@@ -2027,12 +2027,13 @@ endfunction
 " "Fold Text"
 function! FoldText()
 	let linecount = v:foldend-v:foldstart
-	let line_count_string = ' '.linecount.' lines - |'
+	let line_count_string = ' '.linecount.' lines-|'
 	let line = getline(v:foldstart)
 	let line = substitute(line, '/\*\|\*/\|"{{'.'{\d\=', ' ', 'g')
 	let line = strpart(line, 0, windowwidth - len(line_count_string))
-	let fillcharcount = &textwidth - len(line) - len(line_count_string)
-	return line . repeat("·",fillcharcount) . line_count_string
+	let fillcharcount = &textwidth - len(line) - len(line_count_string) +0
+	return line . repeat("-",fillcharcount) . line_count_string
+	"<·>"
 endfunction
 "-------------------------------------------------------------------------------
 
