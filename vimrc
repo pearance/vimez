@@ -1,3 +1,4 @@
+" vim:ft=vim:fdm=marker:
 " __     _____ __  __ ____   ____
 " \ \   / /_ _|  \/  |  _ \ / ___|
 "  \ \ / / | || |\/| | |_) | |
@@ -58,7 +59,7 @@ Bundle "tpope/vim-repeat"
 Bundle "kien/ctrlp.vim"
 Bundle "benmills/vimux"
 Bundle "duff/vim-bufonly"
-Bundle "tpope/vim-unimpaired"
+Bundle "vim-scripts/LineJuggler"
 Bundle "xolox/vim-session"
 Bundle "scrooloose/nerdtree"
 Bundle "vim-scripts/Rename2"
@@ -536,7 +537,9 @@ set undodir=~/.vim.local/tmp/undos//
 if !isdirectory(expand(&undodir))
 	call mkdir(expand(&undodir), "p")
 endif
-nnoremap <silent><Leader>uu :GundoToggle<CR>
+let g:gundo_help=1
+let g:gundo_preview_bottom=1
+nnoremap <silent><Leader>uu :silent! GundoToggle<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -548,13 +551,13 @@ nnoremap <Leader>a ggVG
 
 
 
-" "Line Movement (Unimpaired)"
+" "Line/Fold Movement"
 " Consistent use of [hjkl] with the Shift modifier to move a line of text
 " around. Up/down by one line and left/right by amount of shiftwidth.
-nmap H <<^
-nmap J ]e
-nmap K [e
-nmap L >>^
+nnoremap H <<^
+nnoremap L >>^
+nnoremap <silent>J :call MoveLineOrFoldDown()<CR>
+nnoremap <silent>K :call MoveLineOrFoldUp()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1105,8 +1108,9 @@ set wrapscan            " set the search scan to wrap around the file
 
 nnoremap <silent>,, :nohlsearch<CR>
 " Highlight current word, from http://tinyurl.com/c7m7zsf
-nnoremap n nzvzz
-nnoremap N Nzvzz
+nnoremap n nzxzz
+nnoremap N Nzxzz
+
 nnoremap <silent>*  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
 nnoremap <silent>g* :let @/ = expand('<cword>')\|set hlsearch<CR>viwb<Esc>
 nnoremap <silent>#  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
@@ -1277,9 +1281,9 @@ noremap <silent><C-c><C-o><C-w> :only<CR>
 
 
 " "Split Windows"
-nnoremap <silent><C-s><C-v> :vsplit<Bar>bnext<CR>
+nnoremap <silent><C-s><C-v> :vsplit\|bnext<CR>
 set splitright
-noremap <silent><C-s><C-h> :split<Bar>bnext<CR>
+noremap <silent><C-s><C-h> :split\|bnext<CR>
 set splitbelow
 "-------------------------------------------------------------------------------
 
@@ -1311,8 +1315,8 @@ map <F11> :call MaxRestoreWindow()<CR>
 
 " "Vim (Global)"
 augroup VimGlobal
-	au!
 	" On Start
+	au!
 	au VimEnter *  echo "Welcome to VimEz, Happy Coding! :-)"
 	au VimEnter *  call DeleteEmptyBuffers()
 
@@ -1341,7 +1345,7 @@ augroup VimGlobal
 	au WinLeave *           setl nocursorcolumn
 
 	" Improve popup tool environments.
-	au FileType help			  call HelpEnvironment()
+	au WinEnter,BufEnter *  call HelpEnvironment()
 	au FileType nerdtree    call NERDTreeEnvironment()
 	au FileType vundle      call VundleEnvironment()
 	au FileType gundo       call GundoEnvironment()
@@ -1781,17 +1785,17 @@ endfunction
 
 
 " "Toggle Folds"
-function! ToggleFolds()
-	if &foldenable==1
-		set nofoldenable
-		set foldcolumn=0
-	else
-		set foldenable
-		set foldcolumn=4
-	endif
-	let OnOrOff=&foldenable
-	call ToggleOnOff('Folds', OnOrOff)
-endfunction
+" function! ToggleFolds()
+" 	if &foldenable==1
+" 		set nofoldenable
+" 		set foldcolumn=0
+" 	else
+" 		set foldenable
+" 		set foldcolumn=4
+" 	endif
+" 	let OnOrOff=&foldenable
+" 	call ToggleOnOff('Folds', OnOrOff)
+" endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -1821,11 +1825,10 @@ endfunction
 " "Set Help Environment"
 function! HelpEnvironment()
 	if &filetype == 'help'
-		setlocal relativenumber
-		setlocal foldcolumn=0
-		nnoremap <CR> <C-]>
-		nnoremap <BS> <C-T>
-		nnoremap <silent>,,  :bd<CR>
+		setl relativenumber
+		nnoremap <silent><buffer><CR> <C-]>
+		nnoremap <silent><buffer><BS> <C-T>
+		nnoremap <silent><buffer>,, :bw<CR>
 	else
 		nnoremap <CR> i<CR><Esc>
 		nnoremap <BS> i<BS><Right><Esc>
@@ -1838,14 +1841,8 @@ endfunction
 
 " "Set NERDTree Environment"
 function! NERDTreeEnvironment()
-	if &filetype == 'nerdtree'
-		setlocal foldcolumn=0
-		set hlsearch!
-		nmap ,, :NERDTreeClose<CR>
-	else
-		exe set hlsearch<CR>
-		nnoremap ,, :nohlsearch<CR>
-	endif
+		setl foldcolumn=0
+		nnoremap <silent><buffer>,, :NERDTreeClose<CR>
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1853,10 +1850,8 @@ endfunction
 
 " "Set Gundo Environment"
 function! GundoEnvironment()
-	if &filetype == 'gundo'
 		setlocal foldcolumn=0
-	else
-	endif
+		nnoremap <silent><buffer>,, :silent! bw __Gundo__ __Gundo_Preview__<CR>
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1864,14 +1859,9 @@ endfunction
 
 " "Set Vundle Environment"
 function! VundleEnvironment()
-	if &filetype == 'vundle'
-		nnoremap <silent>,,  :bd<CR>
 		setlocal foldcolumn=0
-		setlocal nohlsearch
 		vertical resize 50
-	else
-		nnoremap <silent>,, :nohlsearch<CR>
-	endif
+		nnoremap <silent><buffer>,, :bd<CR>
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1879,10 +1869,9 @@ endfunction
 
 " "Set Git Environment"
 function! GitEnvironment()
-	if &filetype == 'gitcommit'
+	if &filetype == "gitcommit"
 		setlocal foldcolumn=0
-		setlocal nohlsearch
-		nnoremap <silent>,,  :pclose<CR>
+		nnoremap <silent><buffer>,, :pclose<CR>
 	else
 		nnoremap <silent>,, :nohlsearch<CR>
 	endif
@@ -2131,6 +2120,25 @@ endfunction
 
 
 
+" "Line/Fold Movement"
+function! MoveLineOrFoldUp()
+	if winline() != 1
+		normal ddkP
+	else
+		normal k
+	endif
+endfunction
+
+function! MoveLineOrFoldDown()
+	if winline() != line($)
+		normal ddp
+	else
+		normal j
+	endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
 
 "}}}
 " WRAP:"{{{
@@ -2151,5 +2159,4 @@ endif
 " TODO: Compile browser reload ahk script to exe.
 " TODO: Remap upper/lowercase u maps to someting safer.
 
-" vim:ft=vim:fdm=marker:
 "}}}
