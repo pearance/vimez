@@ -1001,6 +1001,8 @@ nnoremap <BS> i<BS><Right><Esc>
 
 " "Space"
 nnoremap ,<Space> i<Space><Esc>l
+nnoremap [<Space> O<Esc>j
+nnoremap ]<Space> o<Esc>k
 "-------------------------------------------------------------------------------
 
 
@@ -2157,5 +2159,6 @@ endif
 " TODO: create functions to toggle cursor column and line.
 " TODO: Compile browser reload ahk script to exe.
 " TODO: Remap upper/lowercase u maps to someting safer.
+" TODO: Configure NeoSnippets
 
 "}}}
