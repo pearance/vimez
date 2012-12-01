@@ -1108,10 +1108,12 @@ set smartcase           " do smart case matching
 set wrapscan            " set the search scan to wrap around the file
 
 nnoremap <silent>,, :nohlsearch<CR>
-" Highlight current word, from http://tinyurl.com/c7m7zsf
 nnoremap n nzxzz
 nnoremap N Nzxzz
+nnoremap / /\v
+vnoremap / /\v
 
+" Highlight current word, from http://tinyurl.com/c7m7zsf
 nnoremap <silent>*  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
 nnoremap <silent>g* :let @/ = expand('<cword>')\|set hlsearch<CR>viwb<Esc>
 nnoremap <silent>#  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
