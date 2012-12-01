@@ -1179,15 +1179,14 @@ nmap <Leader>b4 :<C-u>BundleList<CR>
 
 
 " "Git Client (Fugitive)"
-nnoremap <Leader>gd  :Gdiff<CR>
-nnoremap <Leader>gs  :Gstatus<CR>
-nnoremap <Leader>gw  :Gwrite<CR>
-nnoremap <Leader>ga  :Gadd<CR>
-nnoremap <Leader>gb  :Gblame<CR>
-nnoremap <Leader>gco :Gcheckout<CR>
-nnoremap <Leader>gcm :Gcommit<CR>
-nnoremap <Leader>gm  :Gmove<CR>
-nnoremap <Leader>gr  :Gremove<CR>
+nnoremap <silent><Leader>gd  :Gdiff<CR>
+nnoremap <silent><Leader>gs  :Gstatus<CR>
+nnoremap <silent><Leader>gw  :Gwrite<CR>
+nnoremap <silent><Leader>gb  :Gblame<CR>
+nnoremap <silent><Leader>gco :Gcheckout<CR>
+nnoremap <silent><Leader>gcm :Gcommit<CR>
+nnoremap <silent><Leader>gm  :Gmove<CR>
+nnoremap <silent><Leader>gr  :Gremove<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -2160,5 +2159,10 @@ endif
 " TODO: Compile browser reload ahk script to exe.
 " TODO: Remap upper/lowercase u maps to someting safer.
 " TODO: Configure NeoSnippets
+" TODO: Fix scroll in YankRing
+" TODO: Color of popup menu
+" TODO: Visual Bubble
+" TODO: Git mappings silent
+"
 
 "}}}
