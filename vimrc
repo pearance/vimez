@@ -494,7 +494,7 @@ nnoremap <silent><Leader>rr :YRShow<CR>
 
 let g:yankring_max_history = 1000
 let g:yankring_dot_repeat_yank = 1
-let g:yankring_window_height = 10
+let g:yankring_window_height = 7
 let g:yankring_min_element_length = 3
 let g:yankring_manual_clipboard_check = 1
 let g:yankring_history_dir = '~/.vim.local/tmp/'
@@ -1400,7 +1400,7 @@ augroup END
 " "Git"
 augroup Git
 	au!
-	au WinEnter,BufEnter *  call GitEnvironment()
+	au Filetype gitcommit call GitEnvironment()
 	au BufNewFile,BufRead COMMIT_EDITMSG  call feedkeys('gg0')
 	au BufNewFile,BufRead COMMIT_EDITMSG  setl spell
 augroup END
@@ -1846,7 +1846,7 @@ endfunction
 " "Set NERDTree Environment"
 function! NERDTreeEnvironment()
 		setl foldcolumn=0
-		nnoremap <silent><buffer>,, :NERDTreeClose<CR>
+		nnoremap <silent><buffer>,, :bw<CR>
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1854,7 +1854,7 @@ endfunction
 
 " "Set Gundo Environment"
 function! GundoEnvironment()
-		setlocal foldcolumn=0
+		setl foldcolumn=0
 		nnoremap <silent><buffer>,, :silent! bw __Gundo__ __Gundo_Preview__<CR>
 endfunction
 "-------------------------------------------------------------------------------
@@ -1863,9 +1863,9 @@ endfunction
 
 " "Set Vundle Environment"
 function! VundleEnvironment()
-		setlocal foldcolumn=0
-		vertical resize 50
-		nnoremap <silent><buffer>,, :bd<CR>
+		setl foldcolumn=0
+		vert resize 50
+		nnoremap <silent><buffer>,, :bw<CR>
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1873,12 +1873,8 @@ endfunction
 
 " "Set Git Environment"
 function! GitEnvironment()
-	if &filetype == "gitcommit"
-		setlocal foldcolumn=0
-		nnoremap <silent><buffer>,, :pclose<CR>
-	else
-		nnoremap <silent>,, :nohlsearch<CR>
-	endif
+		setl foldcolumn=0
+		nnoremap <silent><buffer>,, :bw<CR>
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -2163,7 +2159,4 @@ endif
 " TODO: Compile browser reload ahk script to exe.
 " TODO: Remap upper/lowercase u maps to someting safer.
 " TODO: Configure NeoSnippets
-" TODO: Fix scroll in YankRing
-" TODO: Color of popup menu
-" TODO: Visual Bubble
 "}}}
