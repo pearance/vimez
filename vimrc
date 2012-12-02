@@ -1030,8 +1030,8 @@ set autoindent          " Enable auto indentation
 set copyindent          " Copy the previous indentation on autoindenting
 set preserveindent      " Preserve existing characters for indenting
 
-let g:IndentTab = 1
-let g:IndentTab_scopes = 'indent,commentprefix,comment,string'
+let g:IndentTab =  1
+let g:IndentTab_scopes = 'indent,commentprefix,string'
 
 	" Give the tab key utiltiy in normal & visual modes.
 nnoremap ,<Tab> i<Tab><Esc>
@@ -1125,11 +1125,9 @@ nnoremap N Nzxzz
 nnoremap / /\v
 vnoremap / /\v
 
-" Highlight current word, from http://tinyurl.com/c7m7zsf
-nnoremap <silent>*  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
-nnoremap <silent>g* :let @/ = expand('<cword>')\|set hlsearch<CR>viwb<Esc>
-nnoremap <silent>#  :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<CR>viwb<Esc>
-nnoremap <silent>g# :let @/ = expand('<cword>')\|set hlsearch<CR>viwb<Esc>
+" Highlight current word and maintain cursor position.
+nnoremap * *<C-o>
+nnoremap # #<C-o>
 "-------------------------------------------------------------------------------
 
 
@@ -1347,6 +1345,7 @@ augroup VimGlobal
 	au BufNewFile *         silent! 0r  ~/.vim.local/templates/%:e.tpl
 	au BufWritePre *        call StripTrailingWhitespace()
 	au BufRead *            normal zz
+	au VimResized *         wincmd =
 
 	" Improve fold functionality.
 	au BufWritePost *       call SaveView()
@@ -2183,4 +2182,5 @@ endif
 " TODO: create functions to toggle cursor column and line.
 " TODO: Compile browser reload ahk script to exe.
 " TODO: Configure NeoSnippets
+" TODO: Add quit w q a mappings
 "}}}
