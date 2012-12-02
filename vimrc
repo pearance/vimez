@@ -864,7 +864,7 @@ call Pl#Theme#RemoveSegment('scrollpercent')
 " INSERT:"{{{
 " ******************************************************************************
 
-" "Format Options"
+" "## Format Options""{{{
 set formatoptions=
 set fo-=t  " Auto-wrap text using textwidth
 set fo+=c  " Auto-wrap comments using textwidth, inserting the current comment
@@ -924,8 +924,8 @@ set fo+=1  " Don't break a line after a one-letter word.  It's broken before it
 "-------------------------------------------------------------------------------
 
 
-
-" "Autocompletion (Omnicompletion/NeoComplCache)"
+"}}}
+" "## Autocompletion (Omnicompletion/NeoComplCache)""{{{
 " Native Autocompletion Settings
 set complete+=.		    " Scan the current buffer ('wrapscan' is ignored)
 set complete+=w		    " Scan buffers from other windows
@@ -972,8 +972,8 @@ inoremap <expr><BS> neocomplcache#smart_close_popup() . "\<BS>"
 "-------------------------------------------------------------------------------
 
 
-
-" "Snippets (NeoSnippets)"
+"}}}
+" "## Snippets (NeoSnippets)""{{{
 " let g:neosnippet#disable_runtime_snippets = {'_' : 1,}
 let g:neosnippet#snippets_directory = '~/.vim/bundle/, ~/.vim.local/snippets/'
 
@@ -996,28 +996,28 @@ endif
 "-------------------------------------------------------------------------------
 
 
-
-" "Auto Pairing (Auto-Pairs)"
+"}}}
+" "## Auto Pairing (Auto-Pairs)""{{{
 let g:AutoPairsShortcutFastWrap = '<C-f>'
 let g:AutoPairsCenterLine = 0
 "-------------------------------------------------------------------------------
 
 
-
-" "Backspace"
+"}}}
+" "## Backspace""{{{
 set backspace=indent,eol,start
 nnoremap <BS> i<BS><Right><Esc>
 "-------------------------------------------------------------------------------
 
 
-
-" "Space"
+"}}}
+" "## Space""{{{
 nnoremap ,<Space> i<Space><Esc>l
 "-------------------------------------------------------------------------------
 
 
-
-" "Tab Indentation (IndentTab)"
+"}}}
+" "## Tab Indentation (IndentTab)""{{{
 set noexpandtab         " Expand tabs using spaces instead of a tab char
 set shiftwidth=2        " Amount of shift when in Normal mode
 set tabstop=2           " Number of spaces that a <Tab> in the file counts for.
@@ -1053,6 +1053,7 @@ command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q
 "-------------------------------------------------------------------------------
 
 
+"}}}
 
 "}}}
 " NAVIGATION:"{{{
@@ -1252,6 +1253,25 @@ let g:ColorizerState = 0
 let g:colorizer_nomap = 1
 let g:colorizer_fgcontrast = 1
 nmap <silent><Leader>tc :call ToggleColorHighlights()<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Highlight Words of Interest"
+nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
+nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
+nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
+nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
+nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
+nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
+
+" Highlights
+hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
+hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
+hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
+hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
+hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
+hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 "-------------------------------------------------------------------------------
 
 
@@ -2173,6 +2193,21 @@ function! TwiddleCase(str)
     let result = toupper(a:str)
   endif
   return result
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Highlight Words"
+" From S.Losh - https://github.com/sjl/dotfiles/blob/master/vim/vimrc
+function! HiInterestingWord(n)
+  normal! mz
+  normal! "zyiw
+  let mid = 86750 + a:n
+  silent! call matchdelete(mid)
+  let pat = '\V\<' . escape(@z, '\') . '\>'
+  call matchadd("InterestingWord" . a:n, pat, 1, mid)
+  normal! `z
 endfunction
 "-------------------------------------------------------------------------------
 
