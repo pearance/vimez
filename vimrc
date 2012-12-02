@@ -15,6 +15,7 @@
 " BUNDLES:"{{{
 " ******************************************************************************
 
+" "Frontend Bundles""{{{
 " "Initilization""{{{
 set nocompatible
 filetype on
@@ -28,7 +29,6 @@ Bundle "gmarik/vundle"
 
 
 "}}}
-" "Frontend Bundles""{{{
 Bundle "vimez/vim-themes"
 Bundle "vim-scripts/CSApprox"
 Bundle "vim-scripts/ScrollColors"
@@ -802,7 +802,7 @@ vnoremap ,h zfzc
 nnoremap ,H zMgg``zz
 
 " Close other folds.
-nnoremap <Leader><Leader> zxzz
+nnoremap ,K zxzz
 
 " Jump to next fold.
 nnoremap ,j zjzz
@@ -1013,8 +1013,6 @@ nnoremap <BS> i<BS><Right><Esc>
 
 " "Space"
 nnoremap ,<Space> i<Space><Esc>l
-nnoremap [<Space> O<Esc>j
-nnoremap ]<Space> o<Esc>k
 "-------------------------------------------------------------------------------
 
 
@@ -1087,11 +1085,29 @@ vnoremap <Leader>h 0
 nnoremap <Leader>l $
 vnoremap <Leader>l $h
 
-noremap <silent>,m :call cursor(0, virtcol('$')/2)<CR>
+" Jumps to prev/next edit points
+nnoremap g; g;zz
+nnoremap g, g,zz
+
+nnoremap <silent><Leader>m :call cursor(0, virtcol('$')/2)<CR>
 
 nnoremap <C-d> jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
 nnoremap <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 "-------------------------------------------------------------------------------
+
+
+
+" "Marks (Signature)"
+let g:SignatureDefaultMappings=0
+let g:SignatureLcMarkStr="\m"
+let g:SignatureUcMarkStr="\m"
+let g:SignatureIncludeMarkers=''
+nmap <silent>tm :SignatureToggle<CR>
+nmap <silent>m, <Plug>SIG_PlaceNextMark
+nmap <silent><Leader>j <Plug>SIG_NextLineByPos<Bar>zz
+nmap <silent><Leader>k <Plug>SIG_PrevLineByPos<<Bar>zz
+nmap <silent><Leader>dam  <Plug>SIG_PurgeMarks
+"------------------------------------------------------------------------------
 
 
 
@@ -1119,11 +1135,14 @@ set ignorecase          " do case insensitive matching
 set smartcase           " do smart case matching
 set wrapscan            " set the search scan to wrap around the file
 
-nnoremap <silent><Leader>,, :nohlsearch<CR>
+nnoremap <silent>,, :nohlsearch<CR>
 nnoremap n nzxzz
 nnoremap N Nzxzz
 nnoremap / /\v
 vnoremap / /\v
+
+" Bring up last search in a quickfix window.
+nnoremap <silent><Leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
 " Highlight current word and maintain cursor position.
 nnoremap * *<C-o>
@@ -1135,20 +1154,6 @@ nnoremap # #<C-o>
 " "Find and Replace"
 vnoremap <C-f> :call FindReplace()<CR>
 "-------------------------------------------------------------------------------
-
-
-
-" "Marks (Signature)"
-let g:SignatureDefaultMappings=0
-let g:SignatureLcMarkStr="\m"
-let g:SignatureUcMarkStr="\m"
-let g:SignatureIncludeMarkers=''
-nmap <silent>tm :SignatureToggle<CR>
-nmap <silent>m, <Plug>SIG_PlaceNextMark
-nmap <silent><Leader>j <Plug>SIG_NextLineByPos<Bar>zz
-nmap <silent><Leader>k <Plug>SIG_PrevLineByPos<<Bar>zz
-nmap <silent><Leader>dam  <Plug>SIG_PurgeMarks
-"------------------------------------------------------------------------------
 
 
 
@@ -1319,7 +1324,7 @@ map <F11> :call MaxRestoreWindow()<CR>
 
 
 "}}}
-" AUTOMATION:"{{{
+".AUTOMATION:"{{{
 " ******************************************************************************
 
 " TODO: Migrate to respective ftplugin/filetype.vim files, once this is fleshed
@@ -1362,6 +1367,7 @@ augroup VimGlobal
 	au FileType nerdtree    call NERDTreeEnvironment()
 	au FileType vundle      call VundleEnvironment()
 	au FileType gundo       call GundoEnvironment()
+	au FileType qf          call QuickFixEnvironment()
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1841,7 +1847,6 @@ function! HelpEnvironment()
 		setl relativenumber
 		nnoremap <silent><buffer><CR> <C-]>
 		nnoremap <silent><buffer><BS> <C-T>
-		nnoremap <silent><buffer>,, :bw<CR>
 	else
 		nnoremap <CR> i<CR><Esc>
 		nnoremap <BS> i<BS><Right><Esc>
@@ -1864,6 +1869,15 @@ endfunction
 function! GundoEnvironment()
 		setl foldcolumn=0
 		nnoremap <silent><buffer>,, :silent! bw __Gundo__ __Gundo_Preview__<CR>
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Set QuickFix Environment"
+function! QuickFixEnvironment()
+		" setl foldcolumn=0
+		nnoremap <silent><buffer>,, :bw<CR>
 endfunction
 "-------------------------------------------------------------------------------
 
