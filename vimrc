@@ -604,6 +604,16 @@ nnoremap <silent><Leader>jp k<S-v>xpk:call Join()<CR>
 
 
 
+" "Convert Case"
+" Convert case with the tilde key not the u/U keys to avoid very nasty accidents
+" when attempting to undo while in Visual mode.
+vmap u <Esc>u
+vmap U <Esc>U
+vnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
+"-------------------------------------------------------------------------------
+
+
+
 " "Alignment (Tabularize)"
 if exists(":Tabularize")
 	nmap <Leader>a= :Tabularize /=<CR>
@@ -2135,6 +2145,21 @@ function! MoveLineOrFoldDown()
 	else
 		normal j
 	endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Toggle Case"
+function! TwiddleCase(str)
+  if a:str ==# toupper(a:str)
+    let result = tolower(a:str)
+  elseif a:str ==# tolower(a:str)
+    let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
+  else
+    let result = toupper(a:str)
+  endif
+  return result
 endfunction
 "-------------------------------------------------------------------------------
 
