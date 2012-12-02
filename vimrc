@@ -1119,7 +1119,7 @@ set ignorecase          " do case insensitive matching
 set smartcase           " do smart case matching
 set wrapscan            " set the search scan to wrap around the file
 
-nnoremap <silent>,, :nohlsearch<CR>
+nnoremap <silent><Leader>,, :nohlsearch<CR>
 nnoremap n nzxzz
 nnoremap N Nzxzz
 nnoremap / /\v
@@ -1410,7 +1410,7 @@ augroup END
 " "Git"
 augroup Git
 	au!
-	au Filetype gitcommit call GitEnvironment()
+	au Filetype git,gitcommit call GitEnvironment()
 	au BufNewFile,BufRead COMMIT_EDITMSG  call feedkeys('gg0')
 	au BufNewFile,BufRead COMMIT_EDITMSG  setl spell
 augroup END
@@ -1846,7 +1846,6 @@ function! HelpEnvironment()
 	else
 		nnoremap <CR> i<CR><Esc>
 		nnoremap <BS> i<BS><Right><Esc>
-		nnoremap <silent>,, :nohlsearch<CR>
 	endif
 endfunction
 "-------------------------------------------------------------------------------
@@ -1884,6 +1883,7 @@ endfunction
 " "Set Git Environment"
 function! GitEnvironment()
 		setl foldcolumn=0
+		setl foldlevel=99
 		nnoremap <silent><buffer>,, :bw<CR>
 endfunction
 "-------------------------------------------------------------------------------
@@ -2182,6 +2182,5 @@ endif
 " TODO: session info in powerline
 " TODO: create functions to toggle cursor column and line.
 " TODO: Compile browser reload ahk script to exe.
-" TODO: Remap upper/lowercase u maps to someting safer.
 " TODO: Configure NeoSnippets
 "}}}
