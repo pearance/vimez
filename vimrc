@@ -71,6 +71,7 @@ Bundle "tristen/vim-sparkup"
 Bundle "tpope/vim-fugitive"
 Bundle "gregsexton/gitv"
 Bundle "vim-scripts/IndentTab"
+Bundle "tpope/vim-unimpaired"
 "-------------------------------------------------------------------------------
 
 
@@ -425,6 +426,7 @@ endif
 
 
 " "Write and Quit"
+nnoremap <silent><Leader>wq :wq<CR>
 nnoremap <silent><Leader>wqq :SaveSession<CR>:wqa<CR>
 "-------------------------------------------------------------------------------
 
@@ -454,7 +456,7 @@ function! YRRunAfterMaps()
 	nnoremap <silent>yk :<C-u>YRYankCount 'ygg'<CR>
 	nnoremap <silent>yl :<C-u>YRYankCount 'y$'<CR>
 
-	" From Steve Losh, Preserve the yank post selection/put.
+	" Preserve the yank post selection/put.
 	vnoremap <silent>p :<C-u>YRPaste 'p', 'v'<CR>gv:YRYankRange 'v'<CR>
 	" Leave the cursor at the end of the put.
 	nnoremap <silent>gp :<C-u>YRYankCount 'gpk$l'<CR>
@@ -561,13 +563,13 @@ nnoremap <silent>K :call MoveLineOrFoldUp()<CR>
 
 
 
-" "Block Movement (Unimpaired)"
+" "Block Movement"
 " Consistent use of [hjkl] with the Shift modifier to move a block of text
 " around. Up/down by one line and left/right by amount of shiftwidth.
-vmap H <gv^
+vnoremap H <gv^
 vmap J ]egv
 vmap K [egv
-vmap L >gv^
+vnoremap L >gv^
 "-------------------------------------------------------------------------------
 
 
@@ -1787,17 +1789,17 @@ endfunction
 
 
 " "Toggle Folds"
-" function! ToggleFolds()
-" 	if &foldenable==1
-" 		set nofoldenable
-" 		set foldcolumn=0
-" 	else
-" 		set foldenable
-" 		set foldcolumn=4
-" 	endif
-" 	let OnOrOff=&foldenable
-" 	call ToggleOnOff('Folds', OnOrOff)
-" endfunction
+function! ToggleFolds()
+	if &foldenable==1
+		set nofoldenable
+		set foldcolumn=0
+	else
+		set foldenable
+		set foldcolumn=4
+	endif
+	let OnOrOff=&foldenable
+	call ToggleOnOff('Folds', OnOrOff)
+endfunction
 "-------------------------------------------------------------------------------
 
 
@@ -2164,7 +2166,4 @@ endif
 " TODO: Fix scroll in YankRing
 " TODO: Color of popup menu
 " TODO: Visual Bubble
-" TODO: Git mappings silent
-"
-
 "}}}
