@@ -15,7 +15,6 @@
 " BUNDLES:"{{{
 " ******************************************************************************
 
-" "Frontend Bundles""{{{
 " "Initilization""{{{
 set nocompatible
 filetype on
@@ -29,6 +28,7 @@ Bundle "gmarik/vundle"
 
 
 "}}}
+" "Frontend Bundles""{{{
 Bundle "vimez/vim-themes"
 Bundle "vim-scripts/CSApprox"
 Bundle "vim-scripts/ScrollColors"
@@ -90,6 +90,7 @@ runtime ftplugin/man.vim
 
 
 "}}}
+
 "}}}
 " GENERAL:"{{{
 " ******************************************************************************
@@ -333,7 +334,7 @@ set viewoptions=folds,cursor,unix,slash
 
 
 
-" "Sessions (Vim Session)"
+" "## Sessions (Vim Session)""{{{
 " Changes the effect of the :mksession command. It is a comma separated list of
 " words.  Each word enables saving and restoring something:
 let g:session_autoload = 'yes'
@@ -378,8 +379,8 @@ nnoremap <silent><Leader>ds :DeleteSession<CR>
 "-------------------------------------------------------------------------------
 
 
-
-" "Vim Info"
+"}}}
+" "## Vim Info""{{{
 " A memory dump to remember information from the last session. The viminfo file
 " is read upon startup and written when exiting Vim.
 set viminfo=
@@ -400,7 +401,7 @@ set vi+=n~/.vim.local/tmp/viminfo
 "-------------------------------------------------------------------------------
 
 
-
+"}}}
 " "Backups"
 set backup        " Keep backup file after overwriting a file.
 set writebackup   " Make a backup before overwriting a file.
@@ -433,7 +434,12 @@ nnoremap <silent><Leader>wqq :SaveSession<CR>:wqa<CR>
 
 
 " "Quit"
-" Simpler exit strategy, that prompts if there is any unsaved buffers open.
+nnoremap <silent><Leader>q  :q<CR>
+nnoremap <silent><Leader>qq :q!<CR>
+
+nnoremap <silent><Leader>qa  :qa<CR>
+nnoremap <silent><Leader>qaa :qa!<CR>
+
 nnoremap <silent><Leader>Q :qa<CR>
 "-------------------------------------------------------------------------------
 
@@ -600,16 +606,6 @@ inoremap \\<CR> <Esc>O
 set nojoinspaces
 nnoremap <silent><Leader>jn :call Join()<CR>
 nnoremap <silent><Leader>jp k<S-v>xpk:call Join()<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Convert Case"
-" Convert case with the tilde key not the u/U keys to avoid very nasty accidents
-" when attempting to undo while in Visual mode.
-vmap u <Esc>u
-vmap U <Esc>U
-vnoremap ~ ygv"=TwiddleCase(@")<CR>Pgv
 "-------------------------------------------------------------------------------
 
 
@@ -1265,18 +1261,18 @@ nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
 nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
 nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
 
-" Highlights
-hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
-hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
-hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
-hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
-hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
-hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
+" Highlight Colors
+hi def InterestingWord1 guifg=#000000 guibg=#ffa724
+hi def InterestingWord2 guifg=#000000 guibg=#aeee00
+hi def InterestingWord3 guifg=#000000 guibg=#8cffba
+hi def InterestingWord4 guifg=#000000 guibg=#b88853
+hi def InterestingWord5 guifg=#000000 guibg=#ff9eb8
+hi def InterestingWord6 guifg=#000000 guibg=#ff2c4b
 "-------------------------------------------------------------------------------
 
 
 
-"}}}
+" "}}}
 " WINDOWS:"{{{
 " ******************************************************************************
 
@@ -1344,7 +1340,7 @@ map <F11> :call MaxRestoreWindow()<CR>
 
 
 "}}}
-".AUTOMATION:"{{{
+" AUTOMATION:"{{{
 " ******************************************************************************
 
 " TODO: Migrate to respective ftplugin/filetype.vim files, once this is fleshed
@@ -2178,21 +2174,6 @@ function! MoveLineOrFoldDown()
 	else
 		normal j
 	endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Toggle Case"
-function! TwiddleCase(str)
-  if a:str ==# toupper(a:str)
-    let result = tolower(a:str)
-  elseif a:str ==# tolower(a:str)
-    let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
-  else
-    let result = toupper(a:str)
-  endif
-  return result
 endfunction
 "-------------------------------------------------------------------------------
 
