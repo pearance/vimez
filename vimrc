@@ -594,6 +594,15 @@ nnoremap <silent><Leader>jp k<S-v>xpk:call Join()<CR>
 
 
 
+" "Case Manipulation"
+" To avoid nasty accidents when attempting to undo while in Visual mode.
+vnoremap u <Esc>u
+vnoremap gu u
+vnoremap gU U
+"-------------------------------------------------------------------------------
+
+
+
 " "Alignment (Tabularize)"
 if exists(":Tabularize")
 	nmap <Leader>a= :Tabularize /=<CR>
