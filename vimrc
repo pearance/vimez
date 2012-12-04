@@ -159,68 +159,65 @@ endif
 
 
 "}}}
-" BUFFER:"{{{
+" FILE:"{{{
 " ******************************************************************************
 
-" "General File/Buffer Settings"
+" "## General Settings""{{{
 set fileformats=unix,dos,mac
-set hidden      " Hide buffers when they are abandoned
-set confirm     " Provide user friendly prompt over nasty error messages.
-set autoread    " Automatically re-read a file if modified outside of vim.
-set autowrite   " Automatically write a file if modified.
-set shellslash  " Use forward slash for shell file names (Windows)
+set hidden         " Hide buffers when they are abandoned
+set confirm        " Provide user friendly prompt over nasty error messages.
+set autoread       " Automatically re-read a file if modified outside of vim.
+set autowrite      " Automatically write a file on certain operations.
+set shellslash     " Use forward slash for shell file names (Windows)
+set winminwidth=0
+set winminheight=0
+
+" Backups.
+set backup       " Keep backup file after overwriting a file.
+set writebackup  " Make a backup before overwriting a file.
+set backupdir=~/.vim.local/tmp/backups//
+if !isdirectory(expand(&backupdir))
+	call mkdir(expand(&backupdir), "p")
+endif
+
+" Swap files.
+set updatecount=100
+set directory=~/.vim.local/tmp/swaps//
+if !isdirectory(expand(&directory))
+	call mkdir(expand(&directory), "p")
+endif
+
+" Views.
+set viewdir=~/.vim.local/tmp/view//
+set viewoptions=folds,cursor,unix,slash
+
+" Vim Info.
+" A memory dump to remember information from the last session. The viminfo file
+" is read upon startup and written when exiting Vim.
+set viminfo=
+set vi+='1000 " Amount of files to save marks
+set vi+=f1    " Store global marks A-Z and 0-9
+set vi+=<500  " How many registers are saved
+set vi+=:500  " Number of lines to save from the command line history
+set vi+=@500  " Number of lines to save from the input line history
+set vi+=/500  " Number of lines to save from the search history
+set vi+=r/tmp " Removable media, for which no marks will be stored
+set vi+=!     " Global variables that start with an uppercase letter and
+							" don't contain lowercase letters
+set vi+=h     " Disable 'hlsearch' highlighting when starting
+set vi+=%     " Buffer list (restored when starting Vim without arguments)
+set vi+=c     " Convert the text using 'encoding'
+set vi+=s100  " Max amount of kilobytes of any single register.
+set vi+=n~/.vim.local/tmp/viminfo
 "-------------------------------------------------------------------------------
 
 
 
-" "Edit (New/Open) File"
-" Opens a file or creates a new buffer if the file doesn't exist.
-nnoremap <Leader>ef :edit <C-R>=expand("%:p:h") . "/" <CR>
-"-------------------------------------------------------------------------------
+"}}}
+" "## Buffer Manipulation""{{{
 
-
-
-" "Write File"
-" Saves a copy of the current buffer to a new file and continues editing the
-" file in the current buffer.
-nnoremap <Leader>wf :write <C-R>=expand("%:p:h") . "/" <CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Write File As"
-" Saves current buffer with new filename and continues editing the new file in
-" the buffer.
-nnoremap <Leader>wfa :saveas <C-R>=expand("%:p:h") . "/" <CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Goto File Horizontal"
-nnoremap gfh :wincmd f<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Goto File Vertical"
-nnoremap gfv :vertical wincmd f<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Write File! as Root"
-cmap w!! w !sudo tee % >/dev/null
-"-------------------------------------------------------------------------------
-
-
-
-" "Rename File (Rename2)"
-nnoremap <Leader>rf :Rename<Space>
-"-------------------------------------------------------------------------------
-
-
-
-" "Browse Files (NERDTree)"
+" "### Create/Find/Open""{{{
+" Open files via browser (NERDTree)
 let NERDTreeBookmarksFile = expand('~/.vim.local/tmp/NERDTreeBookmarks')
 let NERDTreeChDirMode = 2
 let NERDTreeMapOpenSplit = 'h'
@@ -234,12 +231,9 @@ let NERDTreeMinimalUI = 1
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeWinPos = "left"
 nnoremap <silent><Leader>bb :NERDTreeFind<CR>
-"-------------------------------------------------------------------------------
 
-
-
-" "OmniSearch (CtrlP)"
-let g:ctrlp_map = '<Leader>kk'
+" Open files via search (CtrlP)"
+let g:ctrlp_map = '<Leader>gg'
 let g:ctrlp_cache_dir = '~/.vim.local/tmp/ctrlp/'
 let g:ctrlp_open_multiple_files = '1vjr'
 let g:ctrlp_open_new_file = 'r'
@@ -249,76 +243,138 @@ let g:ctrlp_use_caching = 1
 let g:ctrlp_working_path_mode = '0'
 let g:ctrlp_prompt_mappings = {
 	\ 'PrtExit()':            ['<esc>', ','],
-	\ 'CreateNewFile()':      ['<c-b>'],
 	\ }
 let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
-
-" Find and set filetypes.
 let g:ctrlp_extensions = ['filetype']
-nnoremap <silent><Leader>;; :CtrlPFiletype<CR>
+
+nnoremap <silent><Leader>gg :CtrlPMixed<CR>
+nnoremap <silent><Leader>ff :CtrlP<CR>
 nnoremap <silent><Leader>jj :CtrlPBuffer<CR>
-nnoremap <silent><Leader>kk :CtrlP<CR>
-nnoremap <silent><Leader>ll :CtrlPMRU<CR>
+nnoremap <silent><Leader>kk :CtrlPMRU<CR>
+nnoremap <silent><Leader>ll :CtrlPFiletype<CR>
+
+" Open files via paths in buffers.
+nnoremap gfh :wincmd f<CR>
+nnoremap gfv :vertical wincmd f<CR>
 "-------------------------------------------------------------------------------
 
 
 
-" "New Buffer"
-nnoremap <silent><Leader>nb :enew<CR><Bar>i<Space><BS><Esc>
-"-------------------------------------------------------------------------------
-
-
-
-" "Write Buffer"
+"}}}
+" "### Write/Close/Quit""{{{
+" Write the current buffer.
 nnoremap <silent><Leader>w :write<CR>
-nnoremap <silent><Leader>wb :update<CR>
-inoremap <silent> <C-s> <Esc>:update<CR>
-nnoremap <silent> <C-s> :update<CR>
-vnoremap <silent> <C-s> :update<CR>
-"-------------------------------------------------------------------------------
 
+" Write a copy of the current buffer as...  and continue editing original buffer.
+nnoremap <Leader>wcb :write <C-R>=expand("%:p:h") . "/" <CR>
 
+" Edit new copy of the current buffer.
+nnoremap <Leader>ecb :saveas <C-R>=expand("%:p:h") . "/" <CR>
 
-" "Write All Buffers"
-" Write all modified buffers. Buffers without a filename will not be saved.
-nnoremap <silent><Leader>wab :wall<CR>:exe ":echo 'All buffers saved to files!'"<CR>
-"-------------------------------------------------------------------------------
+" Write the current buffer and quit the window.
+nnoremap <silent><Leader>wq :wq<CR>
 
+" Write and quit all buffers and windows; exiting Vim.
+nnoremap <silent><Leader>wqa :SaveSession<CR>:wqa<CR>
+nnoremap <silent><Leader>Q   :SaveSession<CR>:wqa<CR>
 
+" Write all buffers.
+nnoremap <silent><Leader>wa :wall<CR>:exe ":echo 'All buffers written!'"<CR>
 
-" "Close Buffer"
-command! Kwbd call s:Kwbd(1)
+" Write current buffer as root.
+cmap w!! w !sudo tee % >/dev/null
+
+" Rename current buffer (Rename2).
+nnoremap <Leader>rb :Rename<Space>
+
+" Close the current buffer.
 nnoremap <silent><Leader>cb :<C-u>Kwbd<CR>
-"-------------------------------------------------------------------------------
 
+" Close the current buffer and quit the window.
+nnoremap <silent><Leader>cbq :bdelete<CR>
+nnoremap <silent><Leader>cbb :bdelete<CR>
 
+" Close all buffers.
+nnoremap <silent><Leader>cab :exec "1," . bufnr('$') . "bd"<CR>
 
-" "Close Buffer & Window"
-nnoremap <silent><Leader>cbb :bd<CR>
-"-------------------------------------------------------------------------------
+" Close all inactive buffers.
+nnoremap <silent><Leader>cib :silent! call CloseInactiveBuffers()<CR>
+	\ :exe ":echo 'All inactive buffers closed'"<CR>
 
+" Close all unlisted buffers.
+nnoremap <silent><Leader>cub :silent! call CloseUnlistedBuffers()<CR>
+	\ :exe ":echo 'All unlisted buffers closed'"<CR>
 
+" Quit a window without writting the current buffer.
+nnoremap <silent><Leader>q  :q<CR>
 
-" "Close Other Buffers (BufOnly)"
+" Quit all windows without writting any buffers.
+nnoremap <silent><Leader>qa  :SaveSession<CR>:qa<CR>
+
+" Close other buffers (BufOnly)
 nnoremap <silent><Leader>cob :BufOnly<CR>
 "-------------------------------------------------------------------------------
 
 
 
-" "Close All Buffers"
-nnoremap <silent><Leader>cab :exec "1," . bufnr('$') . "bd"<CR>
+"}}}
+" "### Buffer Navigation""{{{
+" List all buffers.
+nnoremap <Leader>ls :ls!<CR>
+
+" Flip through buffer list.
+nnoremap <silent>gh :bprev<CR>
+nnoremap <silent>gl :bnext<CR>
 "-------------------------------------------------------------------------------
 
 
 
-" "Buffer Navigation"
-nmap <silent>gh :bprev<CR>
-nmap <silent>gl :bnext<CR>
+"}}}
+
+"}}}
+" "## Window Manipulation""{{{
+" Focus.
+nnoremap <silent><C-h> <C-w>h
+nnoremap <silent><C-j> <C-w>j
+nnoremap <silent><C-k> <C-w>k
+nnoremap <silent><C-l> <C-w>l
+
+" Move.
+noremap <silent><C-m><C-h> <C-w>H
+noremap <silent><C-m><C-j> <C-w>J
+noremap <silent><C-m><C-k> <C-w>K
+noremap <silent><C-m><C-l> <C-w>L
+noremap <silent><C-m><C-x> <C-w>x
+
+" Close.
+noremap <silent><C-c><C-j> :wincmd j<CR>:close<CR>
+noremap <silent><C-c><C-h> :wincmd h<CR>:close<CR>
+noremap <silent><C-c><C-k> :wincmd k<CR>:close<CR>
+noremap <silent><C-c><C-l> :wincmd l<CR>:close<CR>
+noremap <silent><C-c><C-w> :close<CR>
+noremap <silent><C-c><C-o><C-w> :only<CR>
+
+" Split.
+nnoremap <silent><C-s><C-v> :vsplit\|bnext<CR>
+noremap <silent><C-s><C-h> :split\|bnext<CR>
+set splitright
+set splitbelow
+
+" Resize.
+nnoremap <Left>  <C-w><
+nnoremap <Right> <C-w>>
+nnoremap <Up>    <C-w>+
+nnoremap <Up>    <C-w>+
+nnoremap <Down>  <C-w>-
+
+" Maximize and restore window.
+let g:windowmaximized = 0
+map <F11> :call MaxRestoreWindow()<CR>
 "-------------------------------------------------------------------------------
 
 
-
-" "Tabs (Layouts)"
+"}}}
+" "## Tab Manipulation""{{{
 nnoremap <silent><leader><Right> :tabprevious<CR>
 nnoremap <silent><leader><Left> :tabnext<CR>
 nnoremap <silent><Leader>nt :tabnew<CR>
@@ -326,15 +382,8 @@ nnoremap <silent><Leader>ct :tabclose<CR>
 "-------------------------------------------------------------------------------
 
 
-
-" "View Options"
-set viewdir=~/.vim.local/tmp/view//
-set viewoptions=folds,cursor,unix,slash
-"-------------------------------------------------------------------------------
-
-
-
-" "## Sessions (Vim Session)""{{{
+"}}}
+" "## Session Manipulation""{{{
 " Changes the effect of the :mksession command. It is a comma separated list of
 " words.  Each word enables saving and restoring something:
 let g:session_autoload = 'yes'
@@ -380,71 +429,6 @@ nnoremap <silent><Leader>ds :DeleteSession<CR>
 
 
 "}}}
-" "## Vim Info""{{{
-" A memory dump to remember information from the last session. The viminfo file
-" is read upon startup and written when exiting Vim.
-set viminfo=
-set vi+='1000 " Amount of files to save marks
-set vi+=f1    " Store global marks A-Z and 0-9
-set vi+=<500  " How many registers are saved
-set vi+=:500  " Number of lines to save from the command line history
-set vi+=@500  " Number of lines to save from the input line history
-set vi+=/500  " Number of lines to save from the search history
-set vi+=r/tmp " Removable media, for which no marks will be stored
-set vi+=!     " Global variables that start with an uppercase letter and
-							" don't contain lowercase letters
-set vi+=h     " Disable 'hlsearch' highlighting when starting
-set vi+=%     " Buffer list (restored when starting Vim without arguments)
-set vi+=c     " Convert the text using 'encoding'
-set vi+=s100  " Max amount of kilobytes of any single register.
-set vi+=n~/.vim.local/tmp/viminfo
-"-------------------------------------------------------------------------------
-
-
-"}}}
-" "Backups"
-set backup        " Keep backup file after overwriting a file.
-set writebackup   " Make a backup before overwriting a file.
-set backupdir=~/.vim.local/tmp/backups//
-if !isdirectory(expand(&backupdir))
-	call mkdir(expand(&backupdir), "p")
-endif
-"-------------------------------------------------------------------------------
-
-
-
-" "Swap Files"
-" This creates a binary version of each file as a backup in the event there is
-" a crash, you have a shot at recovering your file. The swap is updated on every
-" 100th character.
-set updatecount=100
-set directory=~/.vim.local/tmp/swaps//
-if !isdirectory(expand(&directory))
-	call mkdir(expand(&directory), "p")
-endif
-"-------------------------------------------------------------------------------
-
-
-
-" "Write and Quit"
-nnoremap <silent><Leader>wq :wq<CR>
-nnoremap <silent><Leader>wqq :SaveSession<CR>:wqa<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Quit"
-nnoremap <silent><Leader>q  :q<CR>
-nnoremap <silent><Leader>qq :q!<CR>
-
-nnoremap <silent><Leader>qa  :qa<CR>
-nnoremap <silent><Leader>qaa :qa!<CR>
-
-nnoremap <silent><Leader>Q :qa<CR>
-"-------------------------------------------------------------------------------
-
-
-
 
 "}}}
 " EDIT:"{{{
@@ -778,9 +762,6 @@ nnoremap <expr> x ((foldclosed('.')==-1)?('x'):('zx'))
 
 " Toggle folding on/off.
 nnoremap <silent><Leader>tf :call ToggleFolds()<CR>
-
-" Toggle a fold open/closed.
-nnoremap <Leader>f za
 
 " Delete a fold.
 nnoremap <Leader>df zd
@@ -1273,73 +1254,6 @@ hi def InterestingWord6 guifg=#000000 guibg=#ff2c4b
 
 
 " "}}}
-" WINDOWS:"{{{
-" ******************************************************************************
-
-" "Default Window Settings"
-set winminwidth=0
-set winminheight=0
-"-------------------------------------------------------------------------------
-
-
-
-" "Focus Windows"
-nnoremap <silent><C-h> <C-w>h
-nnoremap <silent><C-j> <C-w>j
-nnoremap <silent><C-k> <C-w>k
-nnoremap <silent><C-l> <C-w>l
-"-------------------------------------------------------------------------------
-
-
-
-" "Move Windows"
-noremap <silent><C-m><C-h> <C-w>H
-noremap <silent><C-m><C-j> <C-w>J
-noremap <silent><C-m><C-k> <C-w>K
-noremap <silent><C-m><C-l> <C-w>L
-noremap <silent><C-m><C-x> <C-w>x
-"-------------------------------------------------------------------------------
-
-
-
-" "Close Windows"
-noremap <silent><C-c><C-j> :wincmd j<CR>:close<CR>
-noremap <silent><C-c><C-h> :wincmd h<CR>:close<CR>
-noremap <silent><C-c><C-k> :wincmd k<CR>:close<CR>
-noremap <silent><C-c><C-l> :wincmd l<CR>:close<CR>
-noremap <silent><C-c><C-w> :close<CR>
-noremap <silent><C-c><C-o><C-w> :only<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Split Windows"
-nnoremap <silent><C-s><C-v> :vsplit\|bnext<CR>
-set splitright
-noremap <silent><C-s><C-h> :split\|bnext<CR>
-set splitbelow
-"-------------------------------------------------------------------------------
-
-
-
-" "Resize Windows"
-nnoremap <Left>  <C-w><
-nnoremap <Right> <C-w>>
-nnoremap <Up>    <C-w>+
-nnoremap <Up>    <C-w>+
-nnoremap <Down>  <C-w>-
-"-------------------------------------------------------------------------------
-
-
-
-" "Expand & Restore Window"
-let g:windowmaximized = 0
-map <F11> :call MaxRestoreWindow()<CR>
-"-------------------------------------------------------------------------------
-
-
-
-"}}}
 " AUTOMATION:"{{{
 " ******************************************************************************
 
@@ -1369,8 +1283,8 @@ augroup VimGlobal
 	au VimResized *         wincmd =
 
 	" Improve fold functionality.
-	au BufWritePost *       call SaveView()
-	au BufRead *            call LoadView()
+	au BufWritePost *       silent! call SaveView()
+	au BufRead *            silent! call LoadView()
 
 	" Make cursor highlights follow the cursor.
 	au WinEnter *           setl cursorline
@@ -2099,6 +2013,7 @@ endfunction
 
 
 " "Close Buffer Keep Window"
+command! Kwbd call s:Kwbd(1)
 function! s:Kwbd(kwbdStage)
 	if(a:kwbdStage == 1)
 		if(!buflisted(winbufnr(0)))
@@ -2189,6 +2104,55 @@ function! HiInterestingWord(n)
   let pat = '\V\<' . escape(@z, '\') . '\>'
   call matchadd("InterestingWord" . a:n, pat, 1, mid)
   normal! `z
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Close Unlisted Buffers"
+function! CloseUnlistedBuffers()
+    let tpbl=[]
+    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+        silent execute 'bwipeout' buf
+    endfor
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Close Inactive Buffers"
+function! CloseInactiveBuffers()
+  " list of *all* buffer numbers
+  let l:buffers = range(1, bufnr('$'))
+
+  " what tab page are we in?
+  let l:currentTab = tabpagenr()
+  try
+    " go through all tab pages
+    let l:tab = 0
+    while l:tab < tabpagenr('$')
+      let l:tab += 1
+
+      " go through all windows
+      let l:win = 0
+      while l:win < winnr('$')
+        let l:win += 1
+        " whatever buffer is in this window in this tab, remove it from
+        " l:buffers list
+        let l:thisbuf = winbufnr(l:win)
+        call remove(l:buffers, index(l:buffers, l:thisbuf))
+      endwhile
+    endwhile
+
+    " if there are any buffers left, delete them
+    if len(l:buffers)
+      execute 'bwipeout' join(l:buffers)
+    endif
+  finally
+    " go back to our original tab page
+    execute 'tabnext' l:currentTab
+  endtry
 endfunction
 "-------------------------------------------------------------------------------
 
