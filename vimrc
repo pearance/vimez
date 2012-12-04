@@ -66,7 +66,7 @@ Bundle "godlygeek/tabular"
 Bundle "jiangmiao/auto-pairs"
 Bundle "endel/ctrlp-filetype.vim"
 Bundle "tpope/vim-git"
-Bundle "kshenoy/vim-signature"
+Bundle "vimez/vim-showmarks"
 Bundle "tristen/vim-sparkup"
 Bundle "tpope/vim-fugitive"
 Bundle "gregsexton/gitv"
@@ -307,6 +307,7 @@ nnoremap <silent><Leader>cub :silent! call CloseUnlistedBuffers()<CR>
 
 " Quit a window without writting the current buffer.
 nnoremap <silent><Leader>q  :q<CR>
+nnoremap <silent><Leader>qq :q<CR>
 
 " Quit all windows without writting any buffers.
 nnoremap <silent><Leader>qa  :SaveSession<CR>:qa<CR>
@@ -418,7 +419,6 @@ set ssop+=unix		     " With Unix end-of-line format (single <NL>), even when
 											 " on Windows or DOS
 set ssop+=winpos	     " Position of the whole Vim window
 set ssop+=winsize	     " Window sizes
-
 
 nnoremap <silent><Leader>ws :SaveSession<CR>
 nnoremap <silent><Leader>ns :call NewSession()<CR>
