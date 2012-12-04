@@ -1134,6 +1134,10 @@ nnoremap <silent><Leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 " Highlight current word and maintain cursor position.
 nnoremap * *<C-o>
 nnoremap # #<C-o>
+
+" Highlight current visual selection.
+vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
+vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
 "-------------------------------------------------------------------------------
 
 
@@ -2162,6 +2166,16 @@ function! CloseInactiveBuffers()
     " go back to our original tab page
     execute 'tabnext' l:currentTab
   endtry
+endfunction
+"-------------------------------------------------------------------------------
+
+
+" "Highlight Visual"
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  let @@ = temp
 endfunction
 "-------------------------------------------------------------------------------
 
