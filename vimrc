@@ -19,7 +19,12 @@
 set nocompatible
 filetype on
 filetype off
+"-------------------------------------------------------------------------------
 
+
+
+"}}}
+" "Vim Management (Vundle)""{{{
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 let g:vundle_default_git_proto = 'git'
@@ -759,7 +764,7 @@ let g:RuleState = 1
 
 
 
-" "Folds"
+" "Folds""{{{
 set foldenable
 set foldcolumn=4
 set foldnestmax=4
@@ -773,10 +778,10 @@ nnoremap <expr> x ((foldclosed('.')==-1)?('x'):('zx'))
 nnoremap <silent><Leader>tf :call ToggleFolds()<CR>
 
 " Delete a fold.
-nnoremap <Leader>df zd
+nnoremap ,df zd
 
 " Delete all folda.
-nnoremap <Leader>daf zE
+nnoremap ,daf zE
 
 " Close a fold.
 nnoremap ,h zc
@@ -807,15 +812,17 @@ vnoremap ,l zfzc
 " Open all folds.
 nnoremap ,L zR
 
-nnoremap <leader>f0 :set foldlevel=0<CR>
-nnoremap <leader>f1 :set foldlevel=1<CR>
-nnoremap <leader>f2 :set foldlevel=2<CR>
-nnoremap <leader>f3 :set foldlevel=3<CR>
+nnoremap ,f0 :set foldlevel=0<CR>
+nnoremap ,f1 :set foldlevel=1<CR>
+nnoremap ,f2 :set foldlevel=2<CR>
+nnoremap ,f3 :set foldlevel=3<CR>
+nnoremap ,f4 :set foldlevel=4<CR>
+nnoremap ,f5 :set foldlevel=5<CR>
 "-------------------------------------------------------------------------------
 
 
-
-" "Status Line (Powerline)"
+"}}}
+" "Status Line (Powerline)""{{{
 set noshowmode                    " Message on status line to show current mode.
 set showcmd                       " Show (partial) command in states line.
 set laststatus=2                  " Keep status lines visible at all times.
@@ -845,7 +852,7 @@ call Pl#Theme#RemoveSegment('scrollpercent')
 
 
 
-
+"}}}
 "}}}
 " INSERT:"{{{
 " ******************************************************************************
@@ -1158,14 +1165,8 @@ nnoremap <silent><F1> viw"zyw:exe "h ".@z.""<CR>
 
 
 
-" "Clear Cache"
-nmap <silent>\cc :call ClearCache()<CR>
-"-------------------------------------------------------------------------------
-
-
-
 " "Reload"
-nnoremap <silent>\r :call Reload()<CR>
+nnoremap <silent>,R :call Reload()<CR>
 "-------------------------------------------------------------------------------
 
 
