@@ -15,7 +15,7 @@
 " BUNDLES:"{{{
 " ******************************************************************************
 
-" "Initilization""{{{
+" "## Pre Initilization""{{{
 set nocompatible
 filetype on
 filetype off
@@ -24,16 +24,25 @@ filetype off
 
 
 "}}}
-" "Vim Management (Vundle)""{{{
+" "## Vim Management""{{{
+" Plugin (Vundle)"
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 let g:vundle_default_git_proto = 'git'
 Bundle "gmarik/vundle"
+
+nnoremap <silent><Leader>b<Tab> :Bundle<C-z>
+nnoremap <silent><Leader>iv :BundleInstall<CR>
+nnoremap <silent><Leader>uv :BundleInstall!<CR>
+nnoremap <silent><Leader>cv :BundleClean<CR>
+nnoremap <silent><Leader>lv :BundleList<CR>
+nnoremap <silent><Leader>ev :e ~/.vim.local/vimrc.local<CR>
 "-------------------------------------------------------------------------------
 
 
+
 "}}}
-" "Frontend Bundles""{{{
+" "## Frontend Bundles""{{{
 Bundle "vimez/vim-themes"
 Bundle "vim-scripts/CSApprox"
 Bundle "vim-scripts/ScrollColors"
@@ -49,7 +58,7 @@ Bundle "nelstrom/vim-markdown-folding"
 
 
 "}}}
-" "Backend Bundles""{{{
+" "## Backend Bundles""{{{
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/neosnippet"
 Bundle "Lokaltog/vim-powerline"
@@ -81,15 +90,8 @@ Bundle "tpope/vim-unimpaired"
 
 
 "}}}
-" "Detect File Types""{{{
+" "## Post Initilization""{{{
 filetype plugin indent on
-"-------------------------------------------------------------------------------
-
-
-
-" "Runtimes"
-runtime macros/matchit.vim
-runtime ftplugin/man.vim
 "-------------------------------------------------------------------------------
 
 
@@ -99,6 +101,14 @@ runtime ftplugin/man.vim
 "}}}
 " GENERAL:"{{{
 " ******************************************************************************
+
+" "Native Scripts"
+"set runtimepath=$VIMRUNTIME,~/.vim.local/
+runtime macros/matchit.vim
+runtime ftplugin/man.vim
+"-------------------------------------------------------------------------------
+
+
 
 " "Leader Keys"
 let mapleader="\<Space>" " Global mod key.
@@ -219,7 +229,7 @@ set vi+=n~/.vim.local/tmp/viminfo
 
 
 "}}}
-" "## Buffer Manipulation""{{{
+" "## Buffer Management""{{{
 
 " "### Create/Find/Open""{{{
 " Open files via browser (NERDTree)
@@ -238,7 +248,7 @@ let NERDTreeWinPos = "left"
 nnoremap <silent><Leader>bb :NERDTreeFind<CR>
 
 " Open files via search (CtrlP)"
-let g:ctrlp_map = '<Leader>gg'
+let g:ctrlp_map = '<Leader>ff'
 let g:ctrlp_cache_dir = '~/.vim.local/tmp/ctrlp/'
 let g:ctrlp_open_multiple_files = '1vjr'
 let g:ctrlp_open_new_file = 'r'
@@ -312,6 +322,7 @@ nnoremap <silent><Leader>cub :silent! call CloseUnlistedBuffers()<CR>
 
 " Quit a window without writting the current buffer.
 nnoremap <silent><Leader>qq :q<CR>
+vnoremap <silent><Leader>qq <Esc>:q<CR>
 
 " Quit all windows without writting any buffers.
 nnoremap <silent><Leader>qa  :SaveSession<CR>:qa<CR>
@@ -337,7 +348,7 @@ nnoremap <silent>gl :bnext<CR>
 "}}}
 
 "}}}
-" "## Window Manipulation""{{{
+" "## Window Management""{{{
 " Focus.
 nnoremap <silent><C-h> <C-w>h
 nnoremap <silent><C-j> <C-w>j
@@ -379,7 +390,7 @@ map <F11> :call MaxRestoreWindow()<CR>
 
 
 "}}}
-" "## Tab Manipulation""{{{
+" "## Tab Management""{{{
 nnoremap <silent><leader><Right> :tabprevious<CR>
 nnoremap <silent><leader><Left> :tabnext<CR>
 nnoremap <silent><Leader>nt :tabnew<CR>
@@ -388,7 +399,7 @@ nnoremap <silent><Leader>ct :tabclose<CR>
 
 
 "}}}
-" "## Session Manipulation""{{{
+" "## Session Management""{{{
 " Changes the effect of the :mksession command. It is a comma separated list of
 " words.  Each word enables saving and restoring something:
 let g:session_autoload = 'yes'
@@ -1078,6 +1089,9 @@ vnoremap <Leader>h 0
 nnoremap <Leader>l $
 vnoremap <Leader>l $h
 
+nnoremap <Leader>j ]`
+nnoremap <Leader>k [`
+
 " Jumps to prev/next edit points
 nnoremap g; g;zz
 nnoremap g, g,zz
@@ -1090,17 +1104,16 @@ nnoremap <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 
 
 
-" "Marks (Signature)"
-let g:SignatureDefaultMappings=0
-let g:SignatureLcMarkStr="\m"
-let g:SignatureUcMarkStr="\m"
-let g:SignatureIncludeMarkers=''
-nmap <silent>tm :SignatureToggle<CR>
-nmap <silent>m, <Plug>SIG_PlaceNextMark
-nmap <silent><Leader>j <Plug>SIG_NextLineByPos<Bar>zz
-nmap <silent><Leader>k <Plug>SIG_PrevLineByPos<<Bar>zz
-nmap <silent><Leader>dam  <Plug>SIG_PurgeMarks
-"------------------------------------------------------------------------------
+" "Marks (Showmarks)"
+let g:showmarks_enable=1
+let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+let g:showmarks_textlower = " "
+let g:showmarks_textupper = " "
+nnoremap <silent><Leader>dm  :ShowMarksClearMark<CR>
+nnoremap <silent><Leader>dam :ShowMarksClearAll<CR>
+nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
+nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
+"-------------------------------------------------------------------------------"
 
 
 
@@ -1129,8 +1142,8 @@ set smartcase           " do smart case matching
 set wrapscan            " set the search scan to wrap around the file
 
 nnoremap <silent>,, :nohlsearch<CR>
-nnoremap n nzxzz
-nnoremap N Nzxzz
+nnoremap <silent>n nzxzz
+nnoremap <silent>N Nzxzz
 nnoremap / /\v
 vnoremap / /\v
 
@@ -1172,16 +1185,6 @@ nnoremap <silent>,R :call Reload()<CR>
 
 " "Change Directory"
 nmap <Leader>cd :cd %:p:h<cr>
-"-------------------------------------------------------------------------------
-
-
-
-" "Bundle Wildmenu (Vundle)"
-nmap <Leader>b<Tab> :<C-u>Bundle<C-z>
-nmap <Leader>b1 :<C-u>BundleInstall<CR>
-nmap <Leader>b2 :<C-u>BundleInstall!<CR>
-nmap <Leader>b3 :<C-u>BundleClean<CR>
-nmap <Leader>b4 :<C-u>BundleList<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -2189,7 +2192,6 @@ endfunction
 if filereadable(expand('~/.vimrc.local'))
 	so ~/.vimrc.local
 endif
-"set runtimepath=$VIMRUNTIME,~/.vim.local/
 "-------------------------------------------------------------------------------
 
 
