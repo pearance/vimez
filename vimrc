@@ -258,6 +258,7 @@ let g:ctrlp_use_caching = 1
 let g:ctrlp_working_path_mode = '0'
 let g:ctrlp_prompt_mappings = {
 	\ 'PrtExit()':            ['<esc>', ','],
+  \ 'CreateNewFile()':      ['<c-c>'],
 	\ }
 let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
 let g:ctrlp_extensions = ['filetype']
@@ -1112,8 +1113,7 @@ let g:showmarks_textupper = " "
 nnoremap <silent><Leader>dm  :ShowMarksClearMark<CR>
 nnoremap <silent><Leader>dam :ShowMarksClearAll<CR>
 nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
-nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
-"-------------------------------------------------------------------------------"
+"------------------------------------------------------------------------------"
 
 
 
