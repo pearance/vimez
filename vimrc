@@ -307,6 +307,7 @@ vnoremap <silent><Leader>qq <Esc>:q<CR>
 
 " Quit all windows without writting any buffers.
 nnoremap <silent><Leader>qa  :SaveSession<CR>:qa<CR>
+vnoremap <silent><Leader>qa  :SaveSession<CR>:qa<CR>
 
 " Close other buffers (BufOnly)
 nnoremap <silent><Leader>cob :BufOnly<CR>
@@ -644,6 +645,8 @@ set titlestring=%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
 " is on as well as the current column.
 set cursorline          " Enable cursor line highlight
 set nocursorcolumn      " Enable cursor column highlight
+let g:cursorcolumnstate=0
+nnoremap <silent><Leader>tcc :call ToggleCursorColumn()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -753,7 +756,7 @@ nnoremap <silent><Leader>tw
 
 " "Rule"
 nnoremap <silent><Leader>tr :call ToggleRule()<CR>
-let g:RuleState = 1
+let g:rulestate = 1
 "-------------------------------------------------------------------------------
 
 
@@ -1240,7 +1243,7 @@ nnoremap <silent><Leader>pwd :pwd<CR>
 let g:ColorizerState = 0
 let g:colorizer_nomap = 1
 let g:colorizer_fgcontrast = 1
-nmap <silent><Leader>tc :call ToggleColorHighlights()<CR>
+nmap <silent><Leader>tch :call ToggleColorHighlights()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1299,10 +1302,8 @@ augroup VimGlobal
 	au BufRead *            silent! call LoadView()
 
 	" Make cursor highlights follow the cursor.
-	au WinEnter *           setl cursorline
-	au WinLeave *           setl nocursorline
-	" au WinEnter *           setl cursorcolumn
-	" au WinLeave *           setl nocursorcolumn
+	au WinEnter *           call WinEnterRoutine()
+	au WinLeave *           call WinLeaveRoutine()
 
 	" Improve popup tool environments.
 	au WinEnter,BufEnter *  call HelpEnvironment()
@@ -1542,8 +1543,30 @@ endfunction
 
 " "Replace"
 function! s:Repl()
-		let s:restore_reg = @"
-		return "p@=RestoreRegister()\<CR>"
+	let s:restore_reg = @"
+	return "p@=RestoreRegister()\<CR>"
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "WinEnter Routine"
+function! WinEnterRoutine()
+	setl cursorline
+	if g:cursorcolumnstate == 1
+		setl cursorcolumn
+	else
+		setl nocursorcolumn
+	endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "WinLeave Routine"
+function! WinLeaveRoutine()
+	setl nocursorline
+	setl nocursorcolumn
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1577,18 +1600,32 @@ endfunction
 
 
 
+" "Toggle Cursor Column"
+function! ToggleCursorColumn()
+	if g:cursorcolumnstate == 0
+		let g:cursorcolumnstate = 1
+		setl cursorcolumn
+		echo 'Cursor Column: On'
+	else
+		let g:cursorcolumnstate = 0
+		setl nocursorcolumn
+		echo 'Cursor Column: Off'
+	endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
 " "Toggle Color Highlights"
 function! ToggleColorHighlights()
 	if g:ColorizerState == 1
-		echo 'Color Highlights: Off'
 		exe 'ColorClear'
-		setlocal cursorcolumn
 		let g:ColorizerState = 0
+		echo 'Color Highlights: Off'
 	else
-	echo 'Color Highlights: On'
 		exe 'ColorHighlight'
-		setlocal nocursorcolumn
 		let g:ColorizerState = 1
+		echo 'Color Highlights: On'
 	endif
 endfunction
 "-------------------------------------------------------------------------------
@@ -1661,13 +1698,13 @@ endfunction
 
 " "Toggle Rule"
 function! ToggleRule()
-	if g:RuleState == 0
+	if g:rulestate == 0
 		set colorcolumn=0
-		let g:RuleState=1
+		let g:rulestate=1
 		echo "Rule: Off"
 	else
 		set colorcolumn=+1
-		let g:RuleState=0
+		let g:rulestate=0
 		echo "Rule: On"
 	endif
 endfunction
