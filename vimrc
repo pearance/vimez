@@ -15,80 +15,16 @@
 " BOOTSTRAP:"{{{
 " ******************************************************************************
 
-" "## Pre Initilization""{{{
-
-" "### Vi Compatibility""{{{
+" "## Vim Setup""{{{
+" Plugin (Vundle)"
 set nocompatible
 filetype on
 filetype off
-"-------------------------------------------------------------------------------
 
-
-"}}}
-" "### Color Scheme""{{{
-set t_Co=256                " Force terminal to go into 256 color mode.
-set synmaxcol=300           " Prevent long lines from slowing down redraws.
-syntax on                   " Syntax highlighting on.
-colorscheme molokai-ez      " Default color scheme.
-
-" Show syntax highlighting group for current word.
-nnoremap <Leader>syn :call SyntaxAttr()<CR>
-"-------------------------------------------------------------------------------
-
-
-"}}}
-" "### Native Scripts""{{{
-"set runtimepath=$VIMRUNTIME,~/.vim.local/
-runtime macros/matchit.vim
-runtime ftplugin/man.vim
-"-------------------------------------------------------------------------------
-
-
-"}}}
-" "### Leader Keys""{{{
-let mapleader="\<Space>" " Global mod key.
-let maplocalleader="\\"  " Local mod key primarily for filetype specific maps.
-"-------------------------------------------------------------------------------
-
-
-"}}}
-" "### Encoding""{{{
-" Default to UTF-8 character encoding unless the terminal doesn't support it. In
-" which case use Latin1 character encoding instead.
-if has("multi_byte")
-	set encoding=utf-8
-	scriptencoding utf-8
-	if $TERM == "linux" || $TERM_PROGRAM == "GLterm"
-		set termencoding=latin1
-	endif
-	if $TERM == "xterm" || $TERM == "xterm-color" || $TERM == "screen256-color"
-		let propv = system
-		\ ("xprop -id $WINDOWID -f WM_LOCALE_NAME 8s ' $0' -notype WM_LOCALE_NAME")
-		if propv !~ "WM_LOCALE_NAME .*UTF.*8"
-			set termencoding=latin1
-		endif
-	endif
-endif
-"-------------------------------------------------------------------------------
-
-
-
-"}}}
-
-"}}}
-" "## Bundle Management""{{{
-" Plugin (Vundle)"
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 let g:vundle_default_git_proto = 'git'
 Bundle "gmarik/vundle"
-
-nmap <silent><Leader>b<Tab> :Bundle<C-z>
-nmap <silent><Leader>iv :BundleInstall<CR>
-nmap <silent><Leader>uv :BundleInstall!<CR>
-nmap <silent><Leader>cv :BundleClean<CR>
-nmap <silent><Leader>lv :BundleList<CR>
-nmap <silent><Leader>ev :e ~/.vim.local/vimrc.local<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -136,17 +72,15 @@ Bundle "vimez/vim-showmarks"
 Bundle "tristen/vim-sparkup"
 Bundle "tpope/vim-fugitive"
 Bundle "gregsexton/gitv"
-Bundle "vim-scripts/IndentTab"
 Bundle "tpope/vim-unimpaired"
 "-------------------------------------------------------------------------------
 
 
 "}}}
-" "## Post Initilization""{{{
+" "## General Settings""{{{
 
 " "### Filetype Features""{{{
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 "-------------------------------------------------------------------------------
 
 
@@ -161,6 +95,58 @@ nnoremap q; q:
 
 
 "}}}
+" "### Color Scheme""{{{
+set t_Co=256                " Force terminal to go into 256 color mode.
+set synmaxcol=300           " Prevent long lines from slowing down redraws.
+syntax on                   " Syntax highlighting on.
+colorscheme molokai-ez      " Default color scheme.
+
+" Show syntax highlighting group for current word.
+nnoremap <Leader>syn :call SyntaxAttr()<CR>
+"-------------------------------------------------------------------------------
+
+
+"}}}
+" "### Native Scripts""{{{
+"set runtimepath=$VIMRUNTIME,~/.vim.local/
+runtime macros/matchit.vim
+runtime ftplugin/man.vim
+"-------------------------------------------------------------------------------
+
+
+"}}}
+" "### Time Settings"
+set timeoutlen=500
+set updatetime=1000
+" "### Leader Keys""{{{
+let mapleader="\<Space>" " Global mod key.
+let maplocalleader="\\"  " Local mod key primarily for filetype specific maps.
+"-------------------------------------------------------------------------------
+
+
+"}}}
+" "### Encoding""{{{
+" Default to UTF-8 character encoding unless the terminal doesn't support it. In
+" which case use Latin1 character encoding instead.
+if has("multi_byte")
+	set encoding=utf-8
+	scriptencoding utf-8
+	if $TERM == "linux" || $TERM_PROGRAM == "GLterm"
+		set termencoding=latin1
+	endif
+	if $TERM == "xterm" || $TERM == "xterm-color" || $TERM == "screen256-color"
+		let propv = system
+		\ ("xprop -id $WINDOWID -f WM_LOCALE_NAME 8s ' $0' -notype WM_LOCALE_NAME")
+		if propv !~ "WM_LOCALE_NAME .*UTF.*8"
+			set termencoding=latin1
+		endif
+	endif
+endif
+"-------------------------------------------------------------------------------
+
+
+
+"}}}
 
 "}}}
 
@@ -168,7 +154,7 @@ nnoremap q; q:
 " FILE:"{{{
 " ******************************************************************************
 
-" "## General Settings""{{{
+" "## General File Settings""{{{
 set fileformats=unix,dos,mac
 set hidden         " Hide buffers when they are abandoned
 set confirm        " Provide user friendly prompt over nasty error messages.
@@ -279,7 +265,7 @@ nnoremap <Leader>wcb :write <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <Leader>ecb :saveas <C-R>=expand("%:p:h") . "/" <CR>
 
 " Write the current buffer and quit the window.
-nnoremap <silent><Leader>wq :wq<CR>
+nnoremap <silent><Leader>wqq :wq<CR>
 
 " Write and quit all buffers and windows; exiting Vim.
 nnoremap <silent><Leader>wqa :SaveSession<CR>:wqa<CR>
@@ -316,8 +302,8 @@ nnoremap <silent><Leader>cub :silent! call CloseUnlistedBuffers()<CR>
 \ :echo 'All unlisted buffers closed'<CR>
 
 " Quit a window without writting the current buffer.
-nnoremap <silent><Leader>q :q<CR>
-vnoremap <silent><Leader>q <Esc>:q<CR>
+nnoremap <silent><Leader>qq :q<CR>
+vnoremap <silent><Leader>qq <Esc>:q<CR>
 
 " Quit all windows without writting any buffers.
 nnoremap <silent><Leader>qa  :SaveSession<CR>:qa<CR>
@@ -1032,9 +1018,6 @@ set autoindent          " Enable auto indentation
 set copyindent          " Copy the previous indentation on autoindenting
 set preserveindent      " Preserve existing characters for indenting
 
-let g:IndentTab =  1
-let g:IndentTab_scopes = 'indent,commentprefix,string'
-
 	" Give the tab key utiltiy in normal & visual modes.
 nnoremap ,<Tab> i<Tab><Esc>
 vnoremap <Tab> >gv
@@ -1173,6 +1156,17 @@ vnoremap <C-f> :call FindReplace()<CR>
 
 " "Help"
 nnoremap <silent><F1> viw"zyw:exe "h ".@z.""<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Vim Management"
+nmap <silent><Leader>b<Tab> :Bundle<C-z>
+nmap <silent><Leader>iv :BundleInstall<CR>
+nmap <silent><Leader>uv :BundleInstall!<CR>
+nmap <silent><Leader>cv :BundleClean<CR>
+nmap <silent><Leader>lv :BundleList<CR>
+nmap <silent><Leader>ev :e ~/.vim.local/vimrc.local<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -2228,4 +2222,5 @@ endif
 " TODO: Compile browser reload ahk script to exe.
 " TODO: Configure NeoSnippets
 " TODO: Add quit w q a mappings
+" TODO: Create mapping git log and git push
 "}}}
