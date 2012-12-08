@@ -192,14 +192,14 @@ set backup       " Keep backup file after overwriting a file.
 set writebackup  " Make a backup before overwriting a file.
 set backupdir=~/.vim.local/tmp/backups//
 if !isdirectory(expand(&backupdir))
-	call mkdir(expand(&backupdir), "p")
+call mkdir(expand(&backupdir), "p")
 endif
 
 " Swap files.
 set updatecount=100
 set directory=~/.vim.local/tmp/swaps//
 if !isdirectory(expand(&directory))
-	call mkdir(expand(&directory), "p")
+call mkdir(expand(&directory), "p")
 endif
 
 " Views.
@@ -218,7 +218,7 @@ set vi+=@500  " Number of lines to save from the input line history
 set vi+=/500  " Number of lines to save from the search history
 set vi+=r/tmp " Removable media, for which no marks will be stored
 set vi+=!     " Global variables that start with an uppercase letter and
-							" don't contain lowercase letters
+						" don't contain lowercase letters
 set vi+=h     " Disable 'hlsearch' highlighting when starting
 set vi+=%     " Buffer list (restored when starting Vim without arguments)
 set vi+=c     " Convert the text using 'encoding'
@@ -257,9 +257,9 @@ let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_use_caching = 1
 let g:ctrlp_working_path_mode = '0'
 let g:ctrlp_prompt_mappings = {
-	\ 'PrtExit()':            ['<esc>', ','],
-  \ 'CreateNewFile()':      ['<c-c>'],
-	\ }
+\ 'PrtExit()':            ['<esc>', ','],
+\ 'CreateNewFile()':      ['<c-c>'],
+\ }
 let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
 let g:ctrlp_extensions = ['filetype']
 
@@ -288,14 +288,14 @@ nnoremap <Leader>wcb :write <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <Leader>ecb :saveas <C-R>=expand("%:p:h") . "/" <CR>
 
 " Write the current buffer and quit the window.
-nnoremap <silent><Leader>wqq :wq<CR>
+nnoremap <silent><Leader>wq :wq<CR>
 
 " Write and quit all buffers and windows; exiting Vim.
 nnoremap <silent><Leader>wqa :SaveSession<CR>:wqa<CR>
 nnoremap <silent><Leader>Q   :SaveSession<CR>:wqa<CR>
 
 " Write all buffers.
-nnoremap <silent><Leader>wa :wall<CR>:exe ":echo 'All buffers written!'"<CR>
+nnoremap <silent><Leader>wa :wall<CR>:echo 'All buffers written'<CR>
 
 " Write current buffer as root.
 cmap w!! w !sudo tee % >/dev/null
@@ -306,24 +306,27 @@ nnoremap <Leader>rb :Rename<Space>
 " Close the current buffer.
 nnoremap <silent><Leader>cb :<C-u>Kwbd<CR>
 
+" Delete the current buffer.
+nnoremap <silent><Leader>db :<C-u>bw<CR>
+
 " Close the current buffer and quit the window.
-nnoremap <silent><Leader>cbq :bdelete<CR>
 nnoremap <silent><Leader>cbb :bdelete<CR>
 
 " Close all buffers.
 nnoremap <silent><Leader>cab :exec "1," . bufnr('$') . "bd"<CR>
+\ :echo 'All buffers closed'<CR>
 
 " Close all inactive buffers.
 nnoremap <silent><Leader>cib :silent! call CloseInactiveBuffers()<CR>
-	\ :exe ":echo 'All inactive buffers closed'"<CR>
+\ :echo 'All inactive buffers closed'<CR>
 
 " Close all unlisted buffers.
 nnoremap <silent><Leader>cub :silent! call CloseUnlistedBuffers()<CR>
-	\ :exe ":echo 'All unlisted buffers closed'"<CR>
+\ :echo 'All unlisted buffers closed'<CR>
 
 " Quit a window without writting the current buffer.
-nnoremap <silent><Leader>qq :q<CR>
-vnoremap <silent><Leader>qq <Esc>:q<CR>
+nnoremap <silent><Leader>q :q<CR>
+vnoremap <silent><Leader>q <Esc>:q<CR>
 
 " Quit all windows without writting any buffers.
 nnoremap <silent><Leader>qa  :SaveSession<CR>:qa<CR>
@@ -412,27 +415,27 @@ set ssop+=blank        " Blank	empty windows
 set ssop+=buffers	     " Hidden and unloaded buffers, not just those in windows
 set ssop+=curdir	     " The current directory
 set ssop+=folds	       " Manually created folds, opened/closed folds and local
-											 " fold options
+                       " fold options
 set ssop+=globals	     " Global variables that start with an uppercase letter
-											 " and contain at least one lowercase letter.  Only
-											 " String and Number types are stored.
+                       " and contain at least one lowercase letter.  Only
+                       " String and Number types are stored.
 set ssop+=help		     " Restore help windows.
 set ssop+=localoptions " Options and mappings local to a window or buffer (not
-											 " global values for local options)
+                       " global values for local options)
 set ssop+=options	     " All options and mappings (also global values for local
-											 " options)
+                       " options)
 set ssop+=resize	     " Size of the Vim window: 'lines' and 'columns'
 set ssop-=sesdir	     " The directory in which the session file is located
-											 " will become the current directory (useful with
-											 " projects accessed over a network from different
-											 " systems)
+                       " will become the current directory (useful with
+                       " projects accessed over a network from different
+                       " systems)
 set ssop+=slash	       " Backslashes in file names replaced with forward
-											 " slashes
+                       " slashes
 set ssop+=tabpages	   " All tab pages; without this only the current tab page
-											 " is restored, so that you can make a session for each
-											 " tab page separately
+                       " is restored, so that you can make a session for each
+                       " tab page separately
 set ssop+=unix		     " With Unix end-of-line format (single <NL>), even when
-											 " on Windows or DOS
+                       " on Windows or DOS
 set ssop+=winpos	     " Position of the whole Vim window
 set ssop+=winsize	     " Window sizes
 
@@ -464,9 +467,12 @@ function! YRRunAfterMaps()
 
 	" Preserve the yank post selection/put.
 	vnoremap <silent>p :<C-u>YRPaste 'p', 'v'<CR>gv:YRYankRange 'v'<CR>
+" Put and respect surrounding indentation.
+	nmap <silent>p :<C-u>YRYankCount ']p'<CR>
+	nmap <silent>P :<C-u>YRYankCount ']P'<CR>
 	" Leave the cursor at the end of the put.
-	nnoremap <silent>gp :<C-u>YRYankCount 'gpk$l'<CR>
-	nnoremap <silent>gP :<C-u>YRYankCount 'gPk$l'<CR>
+	nnoremap <silent>gp :<C-u>YRYankCount 'pV`]l'<CR>
+	nnoremap <silent>gP :<C-u>YRYankCount 'PV`]l'<CR>
 endfunction
 
 " Yank current WORD.
@@ -490,10 +496,6 @@ nnoremap <Leader>pp S<C-r>0<Esc>
 
 " Put over current BLOCK (repeatable).
 nnoremap ,p :set paste<CR><Bar>cip<C-r>0<Esc><Bar>:set nopaste<CR>
-
-" Put and respect surrounding indentation.
-nmap p ]p
-nmap P ]P
 
 " Open YankRing browser.
 nnoremap <silent><Leader>rr :YRShow<CR>
@@ -656,6 +658,15 @@ set titlestring=%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
 
 
 
+" "Cursor Highlights"
+" This helps maintain your bearings by highlighting the current line the cursor
+" is on as well as the current column.
+set cursorline          " Enable cursor line highlight
+set nocursorcolumn      " Enable cursor column highlight
+"-------------------------------------------------------------------------------
+
+
+
 " "Line Numbers"
 set relativenumber
 let g:numbertype=1
@@ -675,15 +686,6 @@ set novisualbell        " No blinking on error
 
 " "File Info"
 nnoremap <silent><C-g> 2<C-g>
-"-------------------------------------------------------------------------------
-
-
-
-" "Cursor Highlights"
-" This helps maintain your bearings by highlighting the current line the cursor
-" is on as well as the current column.
-set cursorline          " Enable cursor line highlight
-set cursorcolumn        " Enable cursor column highlight
 "-------------------------------------------------------------------------------
 
 
@@ -833,11 +835,12 @@ nnoremap ,f5 :set foldlevel=5<CR>
 
 
 "}}}
-" "Status Line (Powerline)""{{{
+" "Status Line""{{{
+" Plugin (Powerline)
 set noshowmode                    " Message on status line to show current mode.
 set showcmd                       " Show (partial) command in states line.
 set laststatus=2                  " Keep status lines visible at all times.
-set cmdheight=2                   " Number of lines to use for the command-line.
+set cmdheight=1                   " Number of lines to use for the command-line.
 
 let g:Powerline_theme = 'default'
 let g:Powerline_colorscheme = 'default'
@@ -854,7 +857,7 @@ let g:Powerline_mode_s  = 'SELECT'
 let g:Powerline_mode_S  = 'SELECT LINE'
 let g:Powerline_mode_cs = 'SELECT BLOCK'
 let g:Powerline_symbols_override = {
-		\ 'BRANCH': [0x2213],
+		\ 'BRANCH': [0x02AE],
 		\ 'LINE':'',
 		\ }
 call Pl#Theme#RemoveSegment('rvm:string')
@@ -1001,9 +1004,11 @@ endif
 
 
 "}}}
-" "## Auto Pairing (Auto-Pairs)""{{{
+" "## Auto Pairing""{{{
+" Plugin (Auto-Pairs)
 let g:AutoPairsShortcutFastWrap = '<C-f>'
 let g:AutoPairsCenterLine = 0
+let g:AutoPairsMapBS = 0
 "-------------------------------------------------------------------------------
 
 
@@ -1191,6 +1196,7 @@ nmap <Leader>cd :cd %:p:h<cr>
 
 " "Git Client (Fugitive)"
 nnoremap <silent><Leader>gd  :Gdiff<CR>
+nnoremap <silent><Leader>gdd :call CloseDiff()<CR>
 nnoremap <silent><Leader>gs  :Gstatus<CR>
 nnoremap <silent><Leader>gw  :Gwrite<CR>
 nnoremap <silent><Leader>gb  :Gblame<CR>
@@ -1280,8 +1286,9 @@ hi def InterestingWord6 guifg=#000000 guibg=#ff2c4b
 augroup VimGlobal
 	" On Start
 	au!
-	au VimEnter *  echo "Welcome to VimEz, Happy Coding! :-)"
 	au VimEnter *  call DeleteEmptyBuffers()
+	au VimEnter *  call CloseUnlistedBuffers()
+	au VimEnter *  echo "Welcome to VimEz, Happy Coding! :-)"
 
 	" General
 	au BufNewFile,BufRead *.vim   setf=vim
@@ -1305,8 +1312,8 @@ augroup VimGlobal
 	" Make cursor highlights follow the cursor.
 	au WinEnter *           setl cursorline
 	au WinLeave *           setl nocursorline
-	au WinEnter *           setl cursorcolumn
-	au WinLeave *           setl nocursorcolumn
+	" au WinEnter *           setl cursorcolumn
+	" au WinLeave *           setl nocursorcolumn
 
 	" Improve popup tool environments.
 	au WinEnter,BufEnter *  call HelpEnvironment()
@@ -2179,6 +2186,30 @@ function! s:VSetSearch()
   norm! gvy
   let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
   let @@ = temp
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Close Diff"
+function! CloseDiff()
+  if (&diff == 0 || getbufvar('#', '&diff') == 0)
+        \ && (bufname('%') !~ '^fugitive:' && bufname('#') !~ '^fugitive:')
+    echom "Not in diff view."
+    return
+  endif
+
+  " close current buffer if alternate is not fugitive but current one is
+  if bufname('#') !~ '^fugitive:' && bufname('%') =~ '^fugitive:'
+    if bufwinnr("#") == -1
+      b #
+      bd #
+    else
+      bd
+    endif
+  else
+    bd #
+  endif
 endfunction
 "-------------------------------------------------------------------------------
 
