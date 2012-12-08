@@ -12,31 +12,83 @@
 
 
 
-" BUNDLES:"{{{
+" BOOTSTRAP:"{{{
 " ******************************************************************************
 
 " "## Pre Initilization""{{{
+
+" "### Vi Compatibility""{{{
 set nocompatible
 filetype on
 filetype off
 "-------------------------------------------------------------------------------
 
 
+"}}}
+" "### Color Scheme""{{{
+set t_Co=256                " Force terminal to go into 256 color mode.
+set synmaxcol=300           " Prevent long lines from slowing down redraws.
+syntax on                   " Syntax highlighting on.
+colorscheme molokai-ez      " Default color scheme.
+
+" Show syntax highlighting group for current word.
+nnoremap <Leader>syn :call SyntaxAttr()<CR>
+"-------------------------------------------------------------------------------
+
 
 "}}}
-" "## Vim Management""{{{
+" "### Native Scripts""{{{
+"set runtimepath=$VIMRUNTIME,~/.vim.local/
+runtime macros/matchit.vim
+runtime ftplugin/man.vim
+"-------------------------------------------------------------------------------
+
+
+"}}}
+" "### Leader Keys""{{{
+let mapleader="\<Space>" " Global mod key.
+let maplocalleader="\\"  " Local mod key primarily for filetype specific maps.
+"-------------------------------------------------------------------------------
+
+
+"}}}
+" "### Encoding""{{{
+" Default to UTF-8 character encoding unless the terminal doesn't support it. In
+" which case use Latin1 character encoding instead.
+if has("multi_byte")
+	set encoding=utf-8
+	scriptencoding utf-8
+	if $TERM == "linux" || $TERM_PROGRAM == "GLterm"
+		set termencoding=latin1
+	endif
+	if $TERM == "xterm" || $TERM == "xterm-color" || $TERM == "screen256-color"
+		let propv = system
+		\ ("xprop -id $WINDOWID -f WM_LOCALE_NAME 8s ' $0' -notype WM_LOCALE_NAME")
+		if propv !~ "WM_LOCALE_NAME .*UTF.*8"
+			set termencoding=latin1
+		endif
+	endif
+endif
+"-------------------------------------------------------------------------------
+
+
+
+"}}}
+
+"}}}
+" "## Bundle Management""{{{
 " Plugin (Vundle)"
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 let g:vundle_default_git_proto = 'git'
 Bundle "gmarik/vundle"
 
-nnoremap <silent><Leader>b<Tab> :Bundle<C-z>
-nnoremap <silent><Leader>iv :BundleInstall<CR>
-nnoremap <silent><Leader>uv :BundleInstall!<CR>
-nnoremap <silent><Leader>cv :BundleClean<CR>
-nnoremap <silent><Leader>lv :BundleList<CR>
-nnoremap <silent><Leader>ev :e ~/.vim.local/vimrc.local<CR>
+nmap <silent><Leader>b<Tab> :Bundle<C-z>
+nmap <silent><Leader>iv :BundleInstall<CR>
+nmap <silent><Leader>uv :BundleInstall!<CR>
+nmap <silent><Leader>cv :BundleClean<CR>
+nmap <silent><Leader>lv :BundleList<CR>
+nmap <silent><Leader>ev :e ~/.vim.local/vimrc.local<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -91,45 +143,15 @@ Bundle "tpope/vim-unimpaired"
 
 "}}}
 " "## Post Initilization""{{{
-filetype plugin indent on
-"-------------------------------------------------------------------------------
 
+" "### Filetype Features""{{{
+filetype plugin on
+filetype indent on
+"-------------------------------------------------------------------------------
 
 
 "}}}
-
-"}}}
-" GENERAL:"{{{
-" ******************************************************************************
-
-" "Native Scripts"
-"set runtimepath=$VIMRUNTIME,~/.vim.local/
-runtime macros/matchit.vim
-runtime ftplugin/man.vim
-"-------------------------------------------------------------------------------
-
-
-
-" "Leader Keys"
-let mapleader="\<Space>" " Global mod key.
-let maplocalleader="\\"  " Local mod key primarily for filetype specific maps.
-"-------------------------------------------------------------------------------
-
-
-
-" "Color Scheme & Syntax Highlighting"
-set t_Co=256                " Force terminal to go into 256 color mode.
-set synmaxcol=300           " Prevent long lines from slowing down redraws.
-syntax on                   " Syntax highlighting on.
-colorscheme molokai-ez      " Default color scheme.
-
-" Show syntax highlighting group for current word.
-nnoremap <Leader>syn :call SyntaxAttr()<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Commandline"
+" "### Commandline""{{{
 " More convenient entrance to Commandline and Commandline Edit mode from Normal mode.
 nnoremap ; :
 vnoremap ; :
@@ -138,40 +160,9 @@ nnoremap q; q:
 "-------------------------------------------------------------------------------
 
 
+"}}}
 
-" "History"
-set history=100          " Amount of commands and searches to keep in history.
-"-------------------------------------------------------------------------------
-
-
-
-" "Time Settings"
-set timeoutlen=500 " The max time waited for a mapped key sequence to expire.
-set updatetime=500 " How frequent marks, statusbar, swap files, etc are updated.
-"-------------------------------------------------------------------------------
-
-
-
-" "Character Encoding"
-" Default to UTF-8 character encoding unless the terminal doesn't support it. In
-" which case use Latin1 character encoding instead.
-if has("multi_byte")
-	set encoding=utf-8
-	scriptencoding utf-8
-	if $TERM == "linux" || $TERM_PROGRAM == "GLterm"
-		set termencoding=latin1
-	endif
-	if $TERM == "xterm" || $TERM == "xterm-color" || $TERM == "screen256-color"
-		let propv = system
-		\ ("xprop -id $WINDOWID -f WM_LOCALE_NAME 8s ' $0' -notype WM_LOCALE_NAME")
-		if propv !~ "WM_LOCALE_NAME .*UTF.*8"
-			set termencoding=latin1
-		endif
-	endif
-endif
-"-------------------------------------------------------------------------------
-
-
+"}}}
 
 "}}}
 " FILE:"{{{
@@ -231,7 +222,7 @@ set vi+=n~/.vim.local/tmp/viminfo
 "}}}
 " "## Buffer Management""{{{
 
-" "### Create/Find/Open""{{{
+" "### Create/Find/Open"{{{
 " Open files via browser (NERDTree)
 let NERDTreeBookmarksFile = expand('~/.vim.local/tmp/NERDTreeBookmarks')
 let NERDTreeChDirMode = 2
@@ -245,7 +236,7 @@ let NERDTreeShowHidden = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeWinPos = "left"
-nnoremap <silent><Leader>bb :NERDTreeFind<CR>
+nnoremap <silent><Leader>bb :NERDTreeToggle<CR>
 
 " Open files via search (CtrlP)"
 let g:ctrlp_map = '<Leader>ff'
@@ -453,7 +444,8 @@ nnoremap <silent><Leader>ds :DeleteSession<CR>
 " EDIT:"{{{
 " ******************************************************************************
 
-" "Yank & Put (Yankring)"
+" "## Yank/Delete/Put""{{{
+" Plugin (Yankring)
 set clipboard+=unnamedplus  " Use system clipboard for yanks.
 set pastetoggle=<F12>  " Preserve indentation when putting formatted text.
 nnoremap <silent><F12> :set invpaste<CR>
@@ -467,7 +459,7 @@ function! YRRunAfterMaps()
 
 	" Preserve the yank post selection/put.
 	vnoremap <silent>p :<C-u>YRPaste 'p', 'v'<CR>gv:YRYankRange 'v'<CR>
-" Put and respect surrounding indentation.
+	" Put and respect surrounding indentation.
 	nmap <silent>p :<C-u>YRYankCount ']p'<CR>
 	nmap <silent>P :<C-u>YRYankCount ']P'<CR>
 	" Leave the cursor at the end of the put.
@@ -507,17 +499,16 @@ let g:yankring_min_element_length = 3
 let g:yankring_manual_clipboard_check = 1
 let g:yankring_history_dir = '~/.vim.local/tmp/'
 let g:yankring_history_file = 'yankring_herstory'
-"-------------------------------------------------------------------------------
 
-
-
-" "Deleting (Cuting)"
+" Delete from the cursor to the left.
 nnoremap dh v0d
 nnoremap dH v0di
+nnoremap CC v0r<Space>R
+
+" Delete from the cursor to the right.
 nnoremap dl v$hd
 nnoremap dL v$hdi
 nnoremap DD v0r<Space>
-nnoremap CC v0r<Space>R
 
 " Delete contents of a line only
 nnoremap <silent><Leader>dd cc<Esc>
@@ -531,14 +522,16 @@ vnoremap <silent><Leader>dd 0r<Space>
 
 
 
-" "Paragraph Formatting"
+"}}}
+" "## Paragraph Formatting""{{{
 vnoremap Q gq
 nnoremap Q gqip
 "-------------------------------------------------------------------------------
 
 
-
-" "Undo (Gundo)"
+"}}}
+" "## Undo""{{{
+" Plugin (Gundo)
 " Persistent undo, along with Gundo to parse the undo history.
 set undolevels=1000
 set undofile
@@ -552,15 +545,15 @@ nnoremap <silent><Leader>uu :silent! GundoToggle<CR>
 "-------------------------------------------------------------------------------
 
 
-
-" "Select All"
+"}}}
+" "## Select All""{{{
 nnoremap <C-a> ggVG
 nnoremap <Leader>a ggVG
 "-------------------------------------------------------------------------------
 
 
-
-" "Line/Fold Movement"
+"}}}
+" "## Line/Fold Movement""{{{
 " Consistent use of [hjkl] with the Shift modifier to move a line of text
 " around. Up/down by one line and left/right by amount of shiftwidth.
 nnoremap H <<^
@@ -570,8 +563,8 @@ nnoremap <silent>K :call MoveLineOrFoldUp()<CR>
 "-------------------------------------------------------------------------------
 
 
-
-" "Block Movement"
+"}}}
+" "## Block Movement""{{{
 " Consistent use of [hjkl] with the Shift modifier to move a block of text
 " around. Up/down by one line and left/right by amount of shiftwidth.
 vnoremap H <gv^
@@ -581,8 +574,8 @@ vnoremap L >gv^
 "-------------------------------------------------------------------------------
 
 
-
-" "Breaks and New Lines"
+"}}}
+" "## Breaks and New Lines""{{{
 " Break to line below in NORMAL mode.
 nnoremap <CR> i<CR><Esc>
 
@@ -599,8 +592,8 @@ inoremap \\<CR> <Esc>O
 "-------------------------------------------------------------------------------
 
 
-
-" "Join Next or Previous Line"
+"}}}
+" "## Join Next/Previous Line""{{{
 " Normally Shift-j joins the line below with the current one, but felt it best
 " to maintain [hjkl] as directional arrow keys. So, this functionality is mapped
 " to Leader jn and jp for join next (line below) and join previous (line above)
@@ -611,8 +604,8 @@ nnoremap <silent><Leader>jp k<S-v>xpk:call Join()<CR>
 "-------------------------------------------------------------------------------
 
 
-
-" "Case Manipulation"
+"}}}
+" "## Case Manipulation""{{{
 " To avoid nasty accidents when attempting to undo while in Visual mode.
 vnoremap u <Esc>u
 vnoremap gu u
@@ -620,8 +613,9 @@ vnoremap gU U
 "-------------------------------------------------------------------------------
 
 
-
-" "Alignment (Tabularize)"
+"}}}
+" "## Alignment""{{{
+" Plugin (Tabularize)"
 if exists(":Tabularize")
 	nmap <Leader>a= :Tabularize /=<CR>
 	vmap <Leader>a= :Tabularize /=<CR>
@@ -631,8 +625,8 @@ endif
 "-------------------------------------------------------------------------------
 
 
-
-" "Spell Checking"
+"}}}
+" "## Spell Checking""{{{
 " Make sure to update the spelllang to your language. Custom words are tucked
 " away in the .vim/spell folder.
 set spelllang=en_us       " Default language
@@ -645,6 +639,7 @@ nmap <silent><Leader>ts
 "-------------------------------------------------------------------------------
 
 
+"}}}
 
 "}}}
 " VIEW:"{{{
@@ -698,23 +693,23 @@ set shortmess+=m " Use "[+]" instead of "[Modified]"
 set shortmess+=n " Use "[New]" instead of "[New File]"
 set shortmess+=r " Use "[RO]" instead of "[readonly]"
 set shortmess-=w " Use "[w]" instead of "written" for file write message
-								 " and "[a]" instead of "appended" for ':w >> file' command
+                 " and "[a]" instead of "appended" for ':w >> file' command
 set shortmess+=x " Use "[dos]" instead of "[dos format]", "[unix]" instead
-								 " of "[unix format]" and "[mac]" instead of "[mac format]".
+                 " of "[unix format]" and "[mac]" instead of "[mac format]".
 set shortmess-=a " All of the above abbreviations
 set shortmess+=o " Overwrite message for writing a file with subsequent message
-								 " for reading a file (useful for ":wn" or when 'autowrite' on)
+                 " for reading a file (useful for ":wn" or when 'autowrite' on)
 set shortmess+=O " Message for reading a file overwrites any previous message.
-								 " Also for quickfix message (e.g., ":cn").
+                 " Also for quickfix message (e.g., ":cn").
 set shortmess-=s " Don't give "search hit BOTTOM, continuing at TOP" or "search
-								 " hit TOP, continuing at BOTTOM" messages
+                 " hit TOP, continuing at BOTTOM" messages
 set shortmess+=t " Truncate file message at the start if it is too long to fit
-								 " on the command-line, "<" will appear in the left most column.
+                 " on the command-line, "<" will appear in the left most column.
 set shortmess+=T " Truncate other messages in the middle if they are too long to
-								 " fit on the command line.  "..." will appear in the middle.
+                 " fit on the command line.  "..." will appear in the middle.
 set shortmess-=W " Don't give "written" or "[w]" when writing a file
 set shortmess-=A " Don't give the "ATTENTION" message when an existing
-								 " swap file is found.
+                 " swap file is found.
 set shortmess+=I " Don't give the intro message when starting Vim |:intro|.
 "-------------------------------------------------------------------------------
 
@@ -1811,8 +1806,8 @@ endfunction
 
 " "Set NERDTree Environment"
 function! NERDTreeEnvironment()
-		setl foldcolumn=0
-		nnoremap <silent><buffer>,, :bw<CR>
+	setl foldcolumn=0
+	nnoremap <silent><buffer>,, :NERDTreeToggle<CR>
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1820,8 +1815,8 @@ endfunction
 
 " "Set Gundo Environment"
 function! GundoEnvironment()
-		setl foldcolumn=0
-		nnoremap <silent><buffer>,, :silent! bw __Gundo__ __Gundo_Preview__<CR>
+	setl foldcolumn=0
+	nnoremap <silent><buffer>,, :silent! bw __Gundo__ __Gundo_Preview__<CR>
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1829,8 +1824,8 @@ endfunction
 
 " "Set QuickFix Environment"
 function! QuickFixEnvironment()
-		" setl foldcolumn=0
-		nnoremap <silent><buffer>,, :bw<CR>
+	setl foldcolumn=0
+	nnoremap <silent><buffer>,, :pclose<CR>
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1838,9 +1833,9 @@ endfunction
 
 " "Set Vundle Environment"
 function! VundleEnvironment()
-		setl foldcolumn=0
-		vert resize 50
-		nnoremap <silent><buffer>,, :bw<CR>
+	setl foldcolumn=0
+	vert resize 50
+	nnoremap <silent><buffer>,, :bw<CR>
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1848,9 +1843,9 @@ endfunction
 
 " "Set Git Environment"
 function! GitEnvironment()
-		setl foldcolumn=0
-		setl foldlevel=99
-		nnoremap <silent><buffer>,, :bw<CR>
+	setl foldcolumn=0
+	setl foldlevel=99
+	nnoremap <silent><buffer>,, :bw<CR>
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -1859,7 +1854,7 @@ endfunction
 " "Enable Close Tag"
 " Close open tags automatically upon entering </
 function! EnableCloseTag()
-		so ~/.vim/bundle/closetag.vim/plugin/closetag.vim
+	so ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 endfunction
 "-------------------------------------------------------------------------------
 
