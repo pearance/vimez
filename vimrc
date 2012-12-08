@@ -192,14 +192,14 @@ set backup       " Keep backup file after overwriting a file.
 set writebackup  " Make a backup before overwriting a file.
 set backupdir=~/.vim.local/tmp/backups//
 if !isdirectory(expand(&backupdir))
-call mkdir(expand(&backupdir), "p")
+	call mkdir(expand(&backupdir), "p")
 endif
 
 " Swap files.
 set updatecount=100
 set directory=~/.vim.local/tmp/swaps//
 if !isdirectory(expand(&directory))
-call mkdir(expand(&directory), "p")
+	call mkdir(expand(&directory), "p")
 endif
 
 " Views.
@@ -218,7 +218,7 @@ set vi+=@500  " Number of lines to save from the input line history
 set vi+=/500  " Number of lines to save from the search history
 set vi+=r/tmp " Removable media, for which no marks will be stored
 set vi+=!     " Global variables that start with an uppercase letter and
-						" don't contain lowercase letters
+              " don't contain lowercase letters
 set vi+=h     " Disable 'hlsearch' highlighting when starting
 set vi+=%     " Buffer list (restored when starting Vim without arguments)
 set vi+=c     " Convert the text using 'encoding'
