@@ -10,8 +10,6 @@
 " Description:   The primary Vim configuration file.
 "-------------------------------------------------------------------------------
 
-
-
 " BOOTSTRAP:"{{{
 " ******************************************************************************
 
@@ -95,18 +93,6 @@ nnoremap q; q:
 
 
 "}}}
-" "### Color Scheme""{{{
-set t_Co=256                " Force terminal to go into 256 color mode.
-set synmaxcol=300           " Prevent long lines from slowing down redraws.
-syntax on                   " Syntax highlighting on.
-colorscheme molokai-ez      " Default color scheme.
-
-" Show syntax highlighting group for current word.
-nnoremap <Leader>syn :call SyntaxAttr()<CR>
-"-------------------------------------------------------------------------------
-
-
-"}}}
 " "### Native Scripts""{{{
 "set runtimepath=$VIMRUNTIME,~/.vim.local/
 runtime macros/matchit.vim
@@ -115,9 +101,13 @@ runtime ftplugin/man.vim
 
 
 "}}}
-" "### Time Settings"
+" "### Time Settings""{{{
 set timeoutlen=500
 set updatetime=1000
+"-------------------------------------------------------------------------------
+
+
+"}}}
 " "### Leader Keys""{{{
 let mapleader="\<Space>" " Global mod key.
 let maplocalleader="\\"  " Local mod key primarily for filetype specific maps.
@@ -144,6 +134,18 @@ if has("multi_byte")
 endif
 "-------------------------------------------------------------------------------
 
+
+
+"}}}
+" "### Color Scheme""{{{
+set t_Co=256                " Force terminal to go into 256 color mode.
+set synmaxcol=300           " Prevent long lines from slowing down redraws.
+syntax on                   " Syntax highlighting on.
+colorscheme molokai-ez      " Default color scheme.
+
+" Show syntax highlighting group for current word.
+nnoremap <Leader>syn :call SyntaxAttr()<CR>
+"-------------------------------------------------------------------------------
 
 
 "}}}
@@ -824,7 +826,7 @@ nnoremap ,f5 :set foldlevel=5<CR>
 set noshowmode                    " Message on status line to show current mode.
 set showcmd                       " Show (partial) command in states line.
 set laststatus=2                  " Keep status lines visible at all times.
-set cmdheight=1                   " Number of lines to use for the command-line.
+set cmdheight=2                   " Number of lines to use for the command-line.
 
 let g:Powerline_theme = 'default'
 let g:Powerline_colorscheme = 'default'
