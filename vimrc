@@ -237,7 +237,7 @@ let g:ctrlp_use_caching = 1
 let g:ctrlp_working_path_mode = '0'
 let g:ctrlp_prompt_mappings = {
 \ 'PrtExit()':            ['<esc>', ','],
-\ 'CreateNewFile()':      ['<c-c>'],
+\ 'CreateNewFile()':      ['<c-b>'],
 \ }
 let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
 let g:ctrlp_extensions = ['filetype']
@@ -1280,8 +1280,6 @@ hi def InterestingWord6 guifg=#000000 guibg=#ff2c4b
 augroup VimGlobal
 	" On Start
 	au!
-	au VimEnter *  call DeleteEmptyBuffers()
-	au VimEnter *  call CloseUnlistedBuffers()
 	au VimEnter *  echo "Welcome to VimEz, Happy Coding! :-)"
 
 	" General
@@ -1340,7 +1338,19 @@ augroup END
 augroup CSS
 	au!
 	au FileType css,scss  setl omnifunc=csscomplete#CompleteCSS
-	au Filetype css,scss  setl equalprg=csstidy\ -\ --silent=true
+	au FileType css,scss  setl foldtext=CssFoldText()
+	au FileType css,scss  setl foldmethod=marker
+	au FileType css,scss  setl foldmarker={,}
+	au FileType css,scss  setl fillchars=fold:\ ,diff:·
+
+	au FileType css,scss  setl equalprg=csstidy\ -
+	\\ --silent=true
+	\\ --template=$HOME/.vim.local/templates/csstidy.tpl
+	\\ --sort_properties=true
+	\\ --preserve_css=true
+	\\ --merge_selectors=0
+	\\ --compress_font-weight=false
+	\\ --compress_colors=false
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -2028,6 +2038,22 @@ function! FoldText()
 	let fillcharcount = &textwidth - len(line) - len(line_count_string) +0
 	return line . repeat("-",fillcharcount) . line_count_string
 	"<·>"
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "CSS Fold Text"
+" From Michael Wilber
+" https://github.com/vim-scripts/CSS-one-line--multi-line-folding
+function! CssFoldText()
+    let line = getline(v:foldstart)
+    let nnum = nextnonblank(v:foldstart + 1)
+    while nnum < v:foldend+1
+        let line = line . " " . substitute(getline(nnum), "^ *", "", "g")
+        let nnum = nnum + 1
+    endwhile
+    return line
 endfunction
 "-------------------------------------------------------------------------------
 
