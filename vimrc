@@ -1,4 +1,4 @@
-" vim:ft=vim:fdm=marker:
+" vim:set ft=vim: setl fdm=marker:
 " __     _____ __  __ ____   ____
 " \ \   / /_ _|  \/  |  _ \ / ___|
 "  \ \ / / | || |\/| | |_) | |
@@ -1101,6 +1101,9 @@ let g:showmarks_textupper = " "
 nnoremap <silent><Leader>dm  :ShowMarksClearMark<CR>
 nnoremap <silent><Leader>dam :ShowMarksClearAll<CR>
 nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
+" Backtick is more useful than single quote in normal mode.
+nnoremap ` '
+nnoremap ' `
 "------------------------------------------------------------------------------"
 
 
@@ -1343,9 +1346,9 @@ augroup CSS
 	au FileType css,scss  setl equalprg=csstidy\ -
 	\\ --silent=true
 	\\ --template=$HOME/.vim.local/templates/csstidy.tpl
-	\\ --sort_properties=true
 	\\ --preserve_css=true
 	\\ --merge_selectors=0
+	\\ --sort_properties=false
 	\\ --compress_font-weight=false
 	\\ --compress_colors=false
 	\\ --sort_selectors=false
@@ -1988,7 +1991,7 @@ endfunction
 " Escape String
 " Escape special characters in a string for exact matching. This is useful to
 " copying strings from the file to the search tool Based on this
-" - http://peterodding.com/code/vim/profile/autoload/xolox/escape.vim
+" http://peterodding.com/code/vim/profile/autoload/xolox/escape.vim
 function! EscapeString (string)
 	let string=a:string
 	" Escape regex characters
@@ -2031,7 +2034,7 @@ function! FoldText()
 	let linecount = v:foldend-v:foldstart
 	let line_count_string = ' '.linecount.' lines-|'
 	let line = getline(v:foldstart)
-	let line = substitute(line, '/\*\|\*/\|"{{'.'{\d\=', ' ', 'g')
+	let line = substitute(line, '{'.'{{\|/\*{{'.'{\|/\*\|\*/\|"{{'.'{', ' ', 'g')
 	let line = strpart(line, 0, windowwidth - len(line_count_string))
 	let fillcharcount = &textwidth - len(line) - len(line_count_string) +0
 	return line . repeat("-",fillcharcount) . line_count_string
@@ -2045,13 +2048,13 @@ endfunction
 " From Michael Wilber
 " https://github.com/vim-scripts/CSS-one-line--multi-line-folding
 function! CssFoldText()
-    let line = getline(v:foldstart)
-    let nnum = nextnonblank(v:foldstart + 1)
-    while nnum < v:foldend+1
-        let line = line . " " . substitute(getline(nnum), "^ *", "", "g")
-        let nnum = nnum + 1
-    endwhile
-    return line
+  let line = getline(v:foldstart)
+  let nnum = nextnonblank(v:foldstart + 1)
+  while nnum < v:foldend+1
+    let line = line . " " . substitute(getline(nnum), "^ *", "", "g")
+    let nnum = nnum + 1
+  endwhile
+  return line
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -2176,13 +2179,13 @@ function! ToggleCSSFold()
 		setl foldtext=CssFoldText()
 		setl foldmethod=marker
 		setl foldmarker={,}
-		echo 'set'
+		echo 'CSS Fold: On'
 	else
 		let g:cssfoldstate = 0
     setl foldtext=FoldText()
 		setl foldmarker={{{,}}}
 		setl foldmethod=marker
-		echo 'unset'
+		echo 'CSS Fold: Off'
 	endif
 endfunction
 "-------------------------------------------------------------------------------
@@ -2218,38 +2221,39 @@ endfunction
 
 " "Close Inactive Buffers"
 function! CloseInactiveBuffers()
-  " list of *all* buffer numbers
+  "List of *all* buffer numbers
   let l:buffers = range(1, bufnr('$'))
 
-  " what tab page are we in?
+  "What tab page are we in?
   let l:currentTab = tabpagenr()
   try
-    " go through all tab pages
+    "Go through all tab pages
     let l:tab = 0
     while l:tab < tabpagenr('$')
       let l:tab += 1
 
-      " go through all windows
+      "Go through all windows
       let l:win = 0
       while l:win < winnr('$')
         let l:win += 1
-        " whatever buffer is in this window in this tab, remove it from
-        " l:buffers list
+        "Whatever buffer is in this window in this tab, remove it from
+        "l:buffers list
         let l:thisbuf = winbufnr(l:win)
         call remove(l:buffers, index(l:buffers, l:thisbuf))
       endwhile
     endwhile
 
-    " if there are any buffers left, delete them
+    "If there are any buffers left, delete them
     if len(l:buffers)
       execute 'bwipeout' join(l:buffers)
     endif
   finally
-    " go back to our original tab page
+    "Go back to our original tab page
     execute 'tabnext' l:currentTab
   endtry
 endfunction
 "-------------------------------------------------------------------------------
+
 
 
 " "Highlight Visual"
