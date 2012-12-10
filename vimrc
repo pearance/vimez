@@ -1201,6 +1201,8 @@ nnoremap <silent><Leader>gco :Gcheckout<CR>
 nnoremap <silent><Leader>gcm :Gcommit<CR>
 nnoremap <silent><Leader>gm  :Gmove<CR>
 nnoremap <silent><Leader>gr  :Gremove<CR>
+nnoremap <silent><Leader>gv  :Gitv<CR>
+nnoremap <silent><Leader>gp  :Git push<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -2308,6 +2310,4 @@ endif
 " TODO: create functions to toggle cursor column and line.
 " TODO: Compile browser reload ahk script to exe.
 " TODO: Configure NeoSnippets
-" TODO: Add quit w q a mappings
-" TODO: Create mapping git log and git push
 "}}}
