@@ -769,7 +769,7 @@ set foldcolumn=4
 set foldnestmax=4
 set foldlevelstart=0
 set foldtext=FoldText()
-set fillchars=vert:\ ,diff:·
+set fillchars=fold:\ ,vert:\ ,diff:·
 
 nnoremap <expr> x ((foldclosed('.')==-1)?('x'):('zx'))
 
@@ -1338,11 +1338,8 @@ augroup END
 augroup CSS
 	au!
 	au FileType css,scss  setl omnifunc=csscomplete#CompleteCSS
-	au FileType css,scss  setl foldtext=CssFoldText()
-	au FileType css,scss  setl foldmethod=marker
-	au FileType css,scss  setl foldmarker={,}
-	au FileType css,scss  setl fillchars=fold:\ ,diff:·
-
+	au FileType css,scss  let g:cssfoldstate = 0
+	au FileType css,scss  nmap <silent><buffer><LocalLeader>tf :call ToggleCSSFold()<CR>
 	au FileType css,scss  setl equalprg=csstidy\ -
 	\\ --silent=true
 	\\ --template=$HOME/.vim.local/templates/csstidy.tpl
@@ -1351,6 +1348,7 @@ augroup CSS
 	\\ --merge_selectors=0
 	\\ --compress_font-weight=false
 	\\ --compress_colors=false
+	\\ --sort_selectors=false
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -2165,6 +2163,26 @@ function! MoveLineOrFoldDown()
 		normal ddp
 	else
 		normal j
+	endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Toggle CSS Fold"
+function! ToggleCSSFold()
+	if g:cssfoldstate == 0
+		let g:cssfoldstate = 1
+		setl foldtext=CssFoldText()
+		setl foldmethod=marker
+		setl foldmarker={,}
+		echo 'set'
+	else
+		let g:cssfoldstate = 0
+    setl foldtext=FoldText()
+		setl foldmarker={{{,}}}
+		setl foldmethod=marker
+		echo 'unset'
 	endif
 endfunction
 "-------------------------------------------------------------------------------
