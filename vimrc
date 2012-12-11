@@ -289,6 +289,9 @@ nnoremap <silent><Leader>cb :<C-u>Kwbd<CR>
 " Delete the current buffer.
 nnoremap <silent><Leader>db :<C-u>bw<CR>
 
+" Delete the current buffer and file.
+nnoremap <Leader>DDF :call DeleteFile()<CR>
+
 " Close the current buffer and quit the window.
 nnoremap <silent><Leader>cbb :bdelete<CR>
 
@@ -1552,6 +1555,21 @@ function! RestoreRegister()
 		let @" = s:restore_reg
 	endif
 	return ''
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Delete File"
+function! DeleteFile()
+  let l:delprompt = input('Are you sure? ')
+  if l:delprompt == "y" || "Y"
+    :echo delete(@%)
+    :BD
+  else
+    redraw!
+    return
+  endif
 endfunction
 "-------------------------------------------------------------------------------
 
