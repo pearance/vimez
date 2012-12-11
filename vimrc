@@ -39,6 +39,7 @@ Bundle "hail2u/vim-css3-syntax"
 Bundle "groenewege/vim-less"
 Bundle "pangloss/vim-javascript"
 Bundle "tpope/vim-markdown"
+Bundle "tpope/vim-haml"
 Bundle "nelstrom/vim-markdown-folding"
 "-------------------------------------------------------------------------------
 
