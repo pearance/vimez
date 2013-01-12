@@ -770,8 +770,8 @@ let g:rulestate = 1
 
 " "Folds""{{{
 set foldenable
-set foldcolumn=4
-set foldnestmax=4
+set foldcolumn=5
+set foldnestmax=5
 set foldlevelstart=0
 set foldtext=FoldText()
 set fillchars=fold:\ ,vert:\ ,diff:·
@@ -1585,7 +1585,7 @@ function! DeleteFile()
   let l:delprompt = input('Are you sure? ')
   if l:delprompt == "y" || "Y"
     :echo delete(@%)
-    :BD
+    :Kwbd
   else
     redraw!
     return
@@ -1844,7 +1844,7 @@ function! ToggleFolds()
 		set foldcolumn=0
 	else
 		set foldenable
-		set foldcolumn=4
+		set foldcolumn=5
 	endif
 	let OnOrOff=&foldenable
 	call ToggleOnOff('Folds', OnOrOff)
