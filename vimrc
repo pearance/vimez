@@ -25,8 +25,6 @@ let g:vundle_default_git_proto = 'git'
 Bundle "gmarik/vundle"
 "-------------------------------------------------------------------------------
 
-
-
 "}}}
 " "## Frontend Bundles""{{{
 Bundle "vimez/vim-themes"
@@ -42,7 +40,6 @@ Bundle "tpope/vim-markdown"
 Bundle "tpope/vim-haml"
 Bundle "nelstrom/vim-markdown-folding"
 "-------------------------------------------------------------------------------
-
 
 "}}}
 " "## Backend Bundles""{{{
@@ -74,14 +71,12 @@ Bundle "gregsexton/gitv"
 Bundle "tpope/vim-unimpaired"
 "-------------------------------------------------------------------------------
 
-
 "}}}
 " "## General Settings""{{{
 
 " "### Filetype Features""{{{
 filetype plugin indent on
 "-------------------------------------------------------------------------------
-
 
 "}}}
 " "### Commandline""{{{
@@ -92,7 +87,6 @@ nnoremap ;; ;
 nnoremap q; q:
 "-------------------------------------------------------------------------------
 
-
 "}}}
 " "### Native Scripts""{{{
 "set runtimepath=$VIMRUNTIME,~/.vim.local/
@@ -100,20 +94,17 @@ runtime macros/matchit.vim
 runtime ftplugin/man.vim
 "-------------------------------------------------------------------------------
 
-
 "}}}
 " "### Time Settings""{{{
 set timeoutlen=500
 set updatetime=1000
 "-------------------------------------------------------------------------------
 
-
 "}}}
 " "### Leader Keys""{{{
 let mapleader="\<Space>" " Global mod key.
 let maplocalleader="\\"  " Local mod key primarily for filetype specific maps.
 "-------------------------------------------------------------------------------
-
 
 "}}}
 " "### Encoding""{{{
@@ -135,8 +126,6 @@ if has("multi_byte")
 endif
 "-------------------------------------------------------------------------------
 
-
-
 "}}}
 " "### Color Scheme""{{{
 set t_Co=256                " Force terminal to go into 256 color mode.
@@ -147,7 +136,6 @@ colorscheme molokai-ez      " Default color scheme.
 " Show syntax highlighting group for current word.
 nnoremap <Leader>syn :call SyntaxAttr()<CR>
 "-------------------------------------------------------------------------------
-
 
 "}}}
 
@@ -206,8 +194,6 @@ set vi+=s100  " Max amount of kilobytes of any single register.
 set vi+=n~/.vim.local/tmp/viminfo
 "-------------------------------------------------------------------------------
 
-
-
 "}}}
 " "## Buffer Management""{{{
 
@@ -253,8 +239,6 @@ nnoremap <silent><Leader>ll :CtrlPFiletype<CR>
 nnoremap gfh :wincmd f<CR>
 nnoremap gfv :vertical wincmd f<CR>
 "-------------------------------------------------------------------------------
-
-
 
 "}}}
 " "### Write/Close/Quit""{{{
@@ -319,8 +303,6 @@ vnoremap <silent><Leader>qa  :SaveSession<CR>:qa<CR>
 nnoremap <silent><Leader>cob :BufOnly<CR>
 "-------------------------------------------------------------------------------
 
-
-
 "}}}
 " "### Buffer Navigation""{{{
 " List all buffers.
@@ -330,8 +312,6 @@ nnoremap <Leader>ls :ls!<CR>
 nnoremap <silent>gh :bprev<CR>
 nnoremap <silent>gl :bnext<CR>
 "-------------------------------------------------------------------------------
-
-
 
 "}}}
 
@@ -360,7 +340,7 @@ noremap <silent><C-c><C-o><C-w> :only<CR>
 
 " Split.
 nnoremap <silent><C-s><C-v> :vsplit\|bnext<CR>
-noremap <silent><C-s><C-h> :split\|bnext<CR>
+nnoremap <silent><C-s><C-h> :split\|bnext<CR>
 set splitright
 set splitbelow
 
@@ -376,7 +356,6 @@ let g:windowmaximized = 0
 map <silent><F11> :call MaxRestoreWindow()<CR>
 "-------------------------------------------------------------------------------
 
-
 "}}}
 " "## Tab Management""{{{
 nnoremap <silent><leader><Right> :tabprevious<CR>
@@ -384,7 +363,6 @@ nnoremap <silent><leader><Left> :tabnext<CR>
 nnoremap <silent><Leader>nt :tabnew<CR>
 nnoremap <silent><Leader>ct :tabclose<CR>
 "-------------------------------------------------------------------------------
-
 
 "}}}
 " "## Session Management""{{{
@@ -400,7 +378,7 @@ set ssop+=buffers	     " Hidden and unloaded buffers, not just those in windows
 set ssop+=curdir	     " The current directory
 set ssop+=folds	       " Manually created folds, opened/closed folds and local
                        " fold options
-set ssop+=globals	     " Global variables that start with an uppercase letter
+set ssop-=globals	     " Global variables that start with an uppercase letter
                        " and contain at least one lowercase letter.  Only
                        " String and Number types are stored.
 set ssop+=help		     " Restore help windows.
@@ -431,12 +409,10 @@ nnoremap <silent><Leader>ds :DeleteSession<CR>
 nnoremap <silent><Leader>vs :ViewSession<CR>
 "-------------------------------------------------------------------------------
 
-
 "}}}
 
 "}}}
 " EDIT:"{{{
-" ******************************************************************************
 
 " "## Yank/Delete/Put""{{{
 " Plugin (Yankring)
@@ -512,8 +488,6 @@ inoremap <C-d> <Del>
 
 " Delete contents of several lines only
 vnoremap <silent><Leader>dd 0r<Space>
-"-------------------------------------------------------------------------------
-
 
 " Delete into a black hole (Cut).
 nnoremap ,dd "_dd
@@ -524,7 +498,6 @@ nnoremap ,dd "_dd
 vnoremap Q gq
 nnoremap Q gqip
 "-------------------------------------------------------------------------------
-
 
 "}}}
 " "## Undo""{{{
@@ -541,13 +514,11 @@ let g:gundo_preview_bottom=1
 nnoremap <silent><Leader>uu :silent! GundoToggle<CR>
 "-------------------------------------------------------------------------------
 
-
 "}}}
 " "## Select All""{{{
 nnoremap <C-a> ggVG
 nnoremap <Leader>a ggVG
 "-------------------------------------------------------------------------------
-
 
 "}}}
 " "## Line/Fold Movement""{{{
@@ -559,7 +530,6 @@ nnoremap <silent>J :call MoveLineOrFoldDown()<CR>
 nnoremap <silent>K :call MoveLineOrFoldUp()<CR>
 "-------------------------------------------------------------------------------
 
-
 "}}}
 " "## Block Movement""{{{
 " Consistent use of [hjkl] with the Shift modifier to move a block of text
@@ -569,7 +539,6 @@ vmap J ]egv
 vmap K [egv
 vnoremap L >gv^
 "-------------------------------------------------------------------------------
-
 
 "}}}
 " "## Breaks and New Lines""{{{
@@ -588,7 +557,6 @@ inoremap  \<CR> <Esc>o
 inoremap \\<CR> <Esc>O
 "-------------------------------------------------------------------------------
 
-
 "}}}
 " "## Join Next/Previous Line""{{{
 " Normally Shift-j joins the line below with the current one, but felt it best
@@ -600,7 +568,6 @@ nnoremap <silent><Leader>jn :call Join()<CR>
 nnoremap <silent><Leader>jp k<S-v>xpk:call Join()<CR>
 "-------------------------------------------------------------------------------
 
-
 "}}}
 " "## Case Manipulation""{{{
 " To avoid nasty accidents when attempting to undo while in Visual mode.
@@ -608,7 +575,6 @@ vnoremap u <Esc>u
 vnoremap gu u
 vnoremap gU U
 "-------------------------------------------------------------------------------
-
 
 "}}}
 " "## Alignment""{{{
@@ -620,7 +586,6 @@ if exists(":Tabularize")
 	vmap <Leader>a: :Tabularize /:\zs<CR>
 endif
 "-------------------------------------------------------------------------------
-
 
 "}}}
 " "## Spell Checking""{{{
@@ -634,7 +599,6 @@ nmap <silent><Leader>ts
 			\ :let OnOrOff=&spell<CR><Bar>
 			\ :call ToggleOnOff(" Spell Checker", OnOrOff)<CR>
 "-------------------------------------------------------------------------------
-
 
 "}}}
 
