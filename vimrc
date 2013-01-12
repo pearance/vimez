@@ -252,7 +252,7 @@ nnoremap <Leader>wcb :write <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <Leader>ecb :saveas <C-R>=expand("%:p:h") . "/" <CR>
 
 " Write the current buffer and quit the window.
-nnoremap <silent><Leader>wqq :wq<CR>
+nnoremap <silent><Leader>wq :wq<CR>
 
 " Write and quit all buffers and windows; exiting Vim.
 nnoremap <silent><Leader>wqa :SaveSession<CR>:wqa<CR>
@@ -292,8 +292,8 @@ nnoremap <silent><Leader>cub :silent! call CloseUnlistedBuffers()<CR>
 \ :echo 'All unlisted buffers closed'<CR>
 
 " Quit a window without writting the current buffer.
-nnoremap <silent><Leader>qq :q<CR>
-vnoremap <silent><Leader>qq <Esc>:q<CR>
+nnoremap <silent><Leader>q :q<CR>
+vnoremap <silent><Leader>q <Esc>:q<CR>
 
 " Quit all windows without writting any buffers.
 nnoremap <silent><Leader>qa  :SaveSession<CR>:qa<CR>
