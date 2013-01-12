@@ -1208,8 +1208,9 @@ nmap <Leader>cd :cd %:p:h<cr>
 
 " "Git Client (Fugitive)"
 nnoremap <silent><Leader>gd  :Gdiff<CR>
+nnoremap <silent><Leader>gds :!clear<CR>:Git diff --staged<CR>
 nnoremap <silent><Leader>gdd :call CloseDiff()<CR>
-nnoremap <silent><Leader>gs  :Gstatus<CR>
+nnoremap <silent><Leader>gs  :Gstatus<CR>G<C-p>
 nnoremap <silent><Leader>gw  :Gwrite<CR>
 nnoremap <silent><Leader>ge  :Gedit :0<CR>
 nnoremap <silent><Leader>gb  :Gblame<CR>
@@ -1360,16 +1361,22 @@ augroup CSS
 	au!
 	au FileType css,scss  setl omnifunc=csscomplete#CompleteCSS
 	au FileType css,scss  let g:cssfoldstate = 0
-	au FileType css,scss  nmap <silent><buffer><LocalLeader>tf :call ToggleCSSFold()<CR>
-	au FileType css,scss  setl equalprg=csstidy\ -
-	\\ --silent=true
-	\\ --template=$HOME/.vim.local/templates/csstidy.tpl
-	\\ --preserve_css=true
-	\\ --merge_selectors=0
-	\\ --sort_properties=false
-	\\ --compress_font-weight=false
-	\\ --compress_colors=false
-	\\ --sort_selectors=false
+
+	au FileType css,scss  nmap <silent><buffer>
+		\	<LocalLeader>tf :call ToggleCSSFold()<CR>
+
+	au FileType scss      nmap <silent><buffer>
+		\ <LocalLeader>= :silent! w<CR>\|:!sass-convert -i --indent t %<CR>\|:e<CR>
+
+	au FileType css  setl equalprg=csstidy\ -
+		\\ --silent=true
+		\\ --template=$HOME/.vim.local/templates/csstidy.tpl
+		\\ --preserve_css=true
+		\\ --merge_selectors=0
+		\\ --sort_properties=true
+		\\ --compress_font-weight=false
+		\\ --compress_colors=false
+		\\ --sort_selectors=false
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1683,6 +1690,7 @@ function! MaxRestoreWindow()
 	if g:windowmaximized == 1
 		let g:windowmaximized = 0
 		wincmd =
+		redraw!
 		echo 'Windows Restored'
 	else
 		let g:windowmaximized = 1
@@ -2303,7 +2311,7 @@ endfunction
 
 " "Close Diff"
 function! CloseDiff()
-  if (&diff == 0 || getbufvar('#', '&diff') == 0)
+	  if (&diff == 0 || getbufvar('#', '&diff') == 0)
         \ && (bufname('%') !~ '^fugitive:' && bufname('#') !~ '^fugitive:')
     echom "Not in diff view."
     return
