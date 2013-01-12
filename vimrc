@@ -1873,7 +1873,8 @@ endfunction
 " "Set NERDTree Environment"
 function! NERDTreeEnvironment()
 	setl foldcolumn=0
-	nnoremap <silent><buffer>,, :NERDTreeToggle<CR>
+	nnoremap <silent><buffer>,, :NERDTreeClose<CR>
+	nnoremap <silent><buffer><Leader>bb :NERDTreeClose<CR>
 endfunction
 "-------------------------------------------------------------------------------
 
