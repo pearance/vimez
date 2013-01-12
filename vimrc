@@ -776,7 +776,8 @@ set foldlevelstart=0
 set foldtext=FoldText()
 set fillchars=fold:\ ,vert:\ ,diff:·
 
-nnoremap <expr> x ((foldclosed('.')==-1)?('x'):('zx'))
+nnoremap <expr> x ((foldclosed('.')==-1)?('x'):(''))
+nnoremap <expr> . ((foldclosed('.')==-1)?('.'):(''))
 
 " Toggle folding on/off.
 nnoremap <silent><Leader>tf :call ToggleFolds()<CR>
