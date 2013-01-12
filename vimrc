@@ -1051,6 +1051,16 @@ command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q
 
 
 "}}}
+" "## Comments""{{{
+nmap gcl <C-_>r
+nmap gcb <C-_>b
+vmap gcb <C-_>b
+nmap gci <C-_>i
+nmap gcp <C-_>p
+"-------------------------------------------------------------------------------
+
+
+"}}}
 
 "}}}
 " NAVIGATION:"{{{
