@@ -1200,13 +1200,14 @@ nnoremap <silent><Leader>gd  :Gdiff<CR>
 nnoremap <silent><Leader>gdd :call CloseDiff()<CR>
 nnoremap <silent><Leader>gs  :Gstatus<CR>
 nnoremap <silent><Leader>gw  :Gwrite<CR>
+nnoremap <silent><Leader>ge  :Gedit :0<CR>
 nnoremap <silent><Leader>gb  :Gblame<CR>
 nnoremap <silent><Leader>gco :Gcheckout<CR>
 nnoremap <silent><Leader>gcm :Gcommit<CR>
 nnoremap <silent><Leader>gm  :Gmove<CR>
 nnoremap <silent><Leader>gr  :Gremove<CR>
 nnoremap <silent><Leader>gv  :Gitv<CR>
-nnoremap <silent><Leader>gp  :Git push<CR>
+nnoremap <silent><Leader>gp  :silent! Git push<CR>\|:redraw!<CR>
 "-------------------------------------------------------------------------------
 
 
