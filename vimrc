@@ -225,7 +225,7 @@ let NERDTreeShowHidden = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeWinPos = "left"
-nnoremap <silent><Leader>bb :NERDTreeToggle<CR>
+nnoremap <silent><Leader>bb :nohlsearch<CR>\|:NERDTreeFind<CR>
 
 " Open files via search (CtrlP)"
 let g:ctrlp_map = '<Leader>ff'
@@ -373,7 +373,7 @@ nnoremap <Down>  <C-w>-
 
 " Maximize and restore window.
 let g:windowmaximized = 0
-map <F11> :call MaxRestoreWindow()<CR>
+map <silent><F11> :call MaxRestoreWindow()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -428,6 +428,7 @@ nnoremap <silent><Leader>ns :call NewSession()<CR>
 nnoremap <silent><Leader>os :SaveSession<CR><Bar>:OpenSession<CR>
 nnoremap <silent><Leader>cs :SaveSession<CR><Bar>:CloseSession<CR>
 nnoremap <silent><Leader>ds :DeleteSession<CR>
+nnoremap <silent><Leader>vs :ViewSession<CR>
 "-------------------------------------------------------------------------------
 
 
