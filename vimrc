@@ -1,4 +1,4 @@
-" vim:set ft=vim: setl fdm=marker:
+" vim:ft=vim:fdm=marker:
 " __     _____ __  __ ____   ____
 " \ \   / /_ _|  \/  |  _ \ / ___|
 "  \ \ / / | || |\/| | |_) | |
