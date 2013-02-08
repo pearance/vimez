@@ -1178,6 +1178,7 @@ nmap <Leader>cd :cd %:p:h<cr>
 nnoremap <silent><Leader>gd  :Gdiff<CR>
 nnoremap <silent><Leader>gds :!clear<CR>:Git diff --staged<CR>
 nnoremap <silent><Leader>gdd :call CloseDiff()<CR>
+nnoremap <silent><Leader>gl  :!clear<CR>:Glog<CR>
 nnoremap <silent><Leader>gs  :Gstatus<CR>G<C-p>
 nnoremap <silent><Leader>gw  :Gwrite<CR>
 nnoremap <silent><Leader>ge  :Gedit :0<CR>
@@ -1262,7 +1263,6 @@ hi def InterestingWord6 guifg=#000000 guibg=#ff2c4b
 " "}}}
 " AUTOMATION:"{{{
 " ******************************************************************************
-
 " TODO: Migrate to respective ftplugin/filetype.vim files, once this is fleshed
 " out. http://vim.wikia.com/wiki/Keep_your_vimrc_file_clean
 
@@ -1273,7 +1273,7 @@ augroup VimGlobal
 	au VimEnter *  echo "Welcome to VimEz, Happy Coding! :-)"
 
 	" General
-	au BufNewFile,BufRead *.vim   setf=vim
+	au BufNewFile,BufRead *.vim   setf vim
 	au FileType vim               setl omnifunc=syntaxcomplete#Complete
 	au BufWritePost *vimrc,*vimrc.local,molokai-ez.vim
 			\  nested so $MYVIMRC
@@ -1309,7 +1309,7 @@ augroup END
 " "Apache Config"
 augroup ApacheConfig
 	au!
-	au BufNewFile,BufRead /*apache*  setf=apache
+	au BufNewFile,BufRead /*apache*  setf apache
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1336,7 +1336,7 @@ augroup CSS
 	au FileType scss      nmap <silent><buffer>
 		\ <LocalLeader>= :silent! w<CR>\|:!sass-convert -i --indent t %<CR>\|:e<CR>
 
-	au FileType css  setl equalprg=csstidy\ -
+	au FileType css,scss  setl equalprg=csstidy\ -
 		\\ --silent=true
 		\\ --template=$HOME/.vim.local/templates/csstidy.tpl
 		\\ --preserve_css=true
@@ -1353,9 +1353,9 @@ augroup END
 " "Drupal CMS Framework"
 augroup DrupalCMS
 	au!
-	au BufNewFile,BufRead *.module   setf=php
-	au BufNewFile,BufRead *.install  setf=php
-	au BufNewFile,BufRead *.test     setf=php
+	au BufNewFile,BufRead *.module   setf php
+	au BufNewFile,BufRead *.install  setf php
+	au BufNewFile,BufRead *.test     setf php
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1367,6 +1367,7 @@ augroup Git
 	au Filetype git,gitcommit call GitEnvironment()
 	au BufNewFile,BufRead COMMIT_EDITMSG  call feedkeys('gg0')
 	au BufNewFile,BufRead COMMIT_EDITMSG  setl spell
+	au BufReadPost fugitive://*  set bufhidden=delete
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1375,8 +1376,8 @@ augroup END
 " "HTML"
 augroup HTML
 	au!
-	au BufNewFile,BufRead *.htm   setf=html
-	au BufNewFile,BufRead *.html  setf=html
+	au BufNewFile,BufRead *.htm   setf html
+	au BufNewFile,BufRead *.html  setf html
 	au FileType html              setl omnifunc=htmlcomplete#CompleteTags
 	au Filetype html              call EnableCloseTag()
 augroup END
@@ -1414,7 +1415,7 @@ augroup END
 " "PHP"
 augroup PHP
 	au!
-	au BufNewFile,BufRead *.php  setf=php
+	au BufNewFile,BufRead *.php  setf php
 	au FileType php	             let php_minlines=500
 	au FileType php              setl omnifunc=phpcomplete#CompletePHP
 augroup END
@@ -1425,7 +1426,7 @@ augroup END
 " "Plain Text"
 augroup PlainText
 	au!
-	au BufNewFile,BufRead *.txt  setf=text
+	au BufNewFile,BufRead *.txt  setf text
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1452,7 +1453,7 @@ augroup END
 " "Shell Script"
 augroup ShellScript
 	au!
-	au BufNewFile,BufRead *.sh  setf=sh
+	au BufNewFile,BufRead *.sh  setf sh
 	au BufWritePost *.sh        call MakeFileExecutable()
 augroup END
 "-----------------------------------------------------------------------------
@@ -1462,7 +1463,7 @@ augroup END
 " "Smarty Template Engine"
 augroup Smarty
 	au!
-	au BufNewFile,BufRead *.tpl  setf=html
+	au BufNewFile,BufRead *.tpl  setf html
 augroup END
 "-----------------------------------------------------------------------------
 
