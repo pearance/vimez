@@ -69,6 +69,8 @@ Bundle "tristen/vim-sparkup"
 Bundle "tpope/vim-fugitive"
 Bundle "gregsexton/gitv"
 Bundle "tpope/vim-unimpaired"
+Bundle "mattn/webapi-vim"
+Bundle "mattn/gist-vim"
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -292,8 +294,8 @@ nnoremap <silent><Leader>cub :silent! call CloseUnlistedBuffers()<CR>
 \ :echo 'All unlisted buffers closed'<CR>
 
 " Quit a window without writting the current buffer.
-nnoremap <silent><Leader>q :q<CR>
-vnoremap <silent><Leader>q <Esc>:q<CR>
+nnoremap <silent><Leader>qq :q<CR>
+vnoremap <silent><Leader>qq <Esc>:q<CR>
 
 " Quit all windows without writting any buffers.
 nnoremap <silent><Leader>qa  :SaveSession<CR>:qa<CR>
@@ -314,7 +316,6 @@ nnoremap <silent>gl :bnext<CR>
 "-------------------------------------------------------------------------------
 
 "}}}
-
 "}}}
 " "## Window Management""{{{
 " Focus.
