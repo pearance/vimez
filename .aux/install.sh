@@ -7,7 +7,7 @@
 #
 # Author:         Fontaine Cook
 # Maintainer:
-#	Description:    VimEz installation script.
+#	Description:    Vimtopia installation script.
 ##------------------------------------------------------------------------------
 
 
@@ -35,9 +35,9 @@ DLY=1
 # TITLE {{{
 clear
 /bin/echo -e $BD$RE$M
-/bin/echo -e "                                         "
-/bin/echo -e "              VimEz Install              "
-/bin/echo -e "                                         "
+/bin/echo -e "                                            "
+/bin/echo -e "              Vimtopia Install              "
+/bin/echo -e "                                            "
 /bin/echo -e $NO
 #------------------------------------------------------------------------------
 
@@ -52,26 +52,25 @@ clear
 
 cd ~
 
-if [ -e ~/tmp/vimez.install.log ]; then
-  /bin/rm ~/tmp/vimez.install.log
+if [ -e /var/log/vimtopia.install.log ]; then
+  /bin/rm /var/log/vimtopia.install.log
 fi
-/bin/mkdir -p ~/tmp
 
-if [ -e ~/backup/vimez/]; then
-  /bin/rm -fr ~/backup/vimez/
+if [ -e ~/backups/vimtopia/]; then
+  /bin/rm -fr ~/backups/vimtopia/
 fi
-/bin/mkdir -p ~/backup/vimez/
+/bin/mkdir -p ~/backups/vimtopia/
 
 if [ -e ~/.vimrc ]; then
-  /bin/mv -f ~/.vimrc backup/vimez/
+  /bin/mv -f ~/.vimrc backup/vimtopia/
 fi
 
 if [ -e ~/.gvimrc ]; then
-  /bin/mv -f ~/.gvimrc backup/vimez/
+  /bin/mv -f ~/.gvimrc backup/vimtopia/
 fi
 
 if [ -e ~/.vim ]; then
-  /bin/mv -f ~/.vim backup/vimez/
+  /bin/mv -f ~/.vim backup/vimtopia/
 fi
 
 #printf "%-0s"
@@ -82,11 +81,11 @@ sleep $DLY
 
 
 # }}}
-# DOWNLOAD VIMEZ {{{
+# DOWNLOAD vimtopia {{{
 
 /bin/echo -e $BD$M
-/bin/echo -en "* Cloning VimEz...                   "
-git clone -u git://github.com/vimez/vimez.git ~/.vim >>~/tmp/vimez.install.log 2>&1
+/bin/echo -en "* Cloning Vimtopia...                   "
+git clone -u git://github.com/vimtopia/vimtopia.git ~/.vim >>/tmp/vimtopia.install.log 2>&1
 #printf "%-19s"
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
@@ -153,8 +152,8 @@ sleep $DLY
 /bin/echo -e $BD$M
 /bin/echo -en "* Installing plugin bundles...       "
 
-git clone http://github.com/vimez/vundle.git ~/.vim/bundle/vundle >>~/tmp/vimez.install.log 2>&1
-vim -u ~/.vim/initrc +BundleInstall "+let g:session_directory = '~/.vim.local/tmp/sessions/'" +q >>~/tmp/vimez.install.log 2>&1
+git clone http://github.com/vimtopia/vundle.git ~/.vim/bundle/vundle >>/tmp/vimtopia.install.log 2>&1
+vim -u ~/.vim/initrc +BundleInstall "+let g:session_directory = '~/.vim.local/tmp/sessions/'" +q >>/tmp/vimtopia.install.log 2>&1
 
 /bin/rm -r ~/.vim/sessions
 
@@ -171,7 +170,7 @@ sleep $DLY
 /bin/echo -e $BD$M
 /bin/echo -en "* Cleaning up...                     "
 
-/bin/rm ~/install.sh >>~/tmp/vimez.install.log 2>&1
+/bin/rm ~/install.sh >>/tmp/vimtopia.install.log 2>&1
 
 #printf "%${COL}s"
 sleep $DLY
