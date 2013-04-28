@@ -62,15 +62,15 @@ fi
 /bin/mkdir -p ~/backups/vimtopia/
 
 if [ -e ~/.vimrc ]; then
-  /bin/mv -f ~/.vimrc backup/vimtopia/
+  /bin/mv -f ~/.vimrc backups/vimtopia/
 fi
 
 if [ -e ~/.gvimrc ]; then
-  /bin/mv -f ~/.gvimrc backup/vimtopia/
+  /bin/mv -f ~/.gvimrc backups/vimtopia/
 fi
 
 if [ -e ~/.vim ]; then
-  /bin/mv -f ~/.vim backup/vimtopia/
+  /bin/mv -f ~/.vim backups/vimtopia/
 fi
 
 #printf "%-0s"
