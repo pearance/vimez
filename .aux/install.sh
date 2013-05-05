@@ -120,11 +120,12 @@ sleep $DLY
 
 
 # }}}
-# DOWNLOAD VUNDLE & INSTALL {{{
+# DOWNLOAD VUNDLE, THEMES, & INSTALL {{{
 /bin/echo -e $BD$M
 /bin/echo -en "* Installing plugin bundles...       "
 
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+git clone https://github.com/vimez/vim-themes.git ~/.vim/bundle/vim-themes
 vim +BundleInstall "+let g:session_directory = '~/.vim.local/tmp/sessions/'" +qall
 
 /bin/rm -r ~/.vim/sessions
