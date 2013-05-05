@@ -10,6 +10,7 @@
 "                overrides on.
 "------------------------------------------------------------------------------
 
+colorscheme molokai-ez
 
 " BUNDLES: "{{{
 " *******************************************************************************
@@ -125,6 +126,8 @@ if has("gui_running")
   " This option defines which set of symbols and dividers you want to use. There
   " are currently three available options: "compatible", "unicode" and "fancy".
   let g:Powerline_symbols = 'unicode'
+	call Pl#Theme#RemoveSegment('rvm:string')
+	call Pl#Theme#RemoveSegment('scrollpercent')
   "-------------------------------------------------------------------------------
 
 
