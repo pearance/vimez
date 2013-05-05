@@ -138,7 +138,7 @@ sleep $DLY
 /bin/echo -en "6 Installing plugin bundles...       "
 
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle >>/tmp/vimez.install.log 2>&1
-vim -U ~/.vim/initrc "+let g:session_directory = '~/.vim.local/tmp/sessions/'" "+let g:session_autosave = 'yes'" +BundleInstall! +qall
+vim -U ~/.vim/initrc "+let g:session_directory = '~/.vim.local/tmp/sessions/'" "+let g:session_autosave = 'yes'" +BundleInstall! +qall >>/tmp/vimez.install.log 2>&1
 /bin/rm -r ~/.vim/sessions
 
 sleep $DLY
@@ -153,7 +153,7 @@ sleep $DLY
 /bin/echo -en "7 Cleaning up...                     "
 
 /bin/rm ~/install.sh >>/tmp/vimez.install.log 2>&1
-/bin/rm ~/yankring_history* >>/tmp/vimez.install.log 2>&1
+/bin/rm f ~/yankring_history_v2.txt >>/tmp/vimez.install.log 2>&1
 
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
