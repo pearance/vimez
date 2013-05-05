@@ -819,8 +819,6 @@ let g:Powerline_symbols_override = {
 		\ 'BRANCH': [0x02AE],
 		\ 'LINE':'',
 		\ }
-call Pl#Theme#RemoveSegment('rvm:string')
-call Pl#Theme#RemoveSegment('scrollpercent')
 "-------------------------------------------------------------------------------
 
 
