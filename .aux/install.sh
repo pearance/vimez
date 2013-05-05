@@ -44,6 +44,9 @@ clear
 /bin/echo -e "              Vimez Install                 "
 /bin/echo -e "                                            "
 /bin/echo -e $NO
+/bin/echo -e $BD$G"Note: step 6 can take up to three minutes"$NO
+/bin/echo -e $BD$G"to complete. Please be patient."$NO
+
 #------------------------------------------------------------------------------
 
 
