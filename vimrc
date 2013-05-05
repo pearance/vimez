@@ -9,14 +9,79 @@
 " Description:   The primary Vim configuration file.
 "-------------------------------------------------------------------------------
 
-" GENERAL:"{{{
-
-" "## Bootstrap:"{{{
+" BOOTSTRAP:"{{{
 " ******************************************************************************
-so ~/.vim/initrc                  " Include dependent plugin bundles.
+" "## Pre Initilization:"{{{
+set nocompatible
+filetype on
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+let g:vundle_default_git_proto = 'git'
+Bundle "gmarik/vundle"
 "-------------------------------------------------------------------------------
 
 "}}}
+" "## Frontend Bundles:"{{{
+Bundle "vimez/vim-themes"
+Bundle "vim-scripts/CSApprox"
+Bundle "vim-scripts/ScrollColors"
+Bundle "lilydjwg/colorizer"
+Bundle "othree/html5.vim"
+Bundle "hail2u/vim-css-syntax"
+Bundle "hail2u/vim-css3-syntax"
+Bundle "groenewege/vim-less"
+Bundle "pangloss/vim-javascript"
+Bundle "tpope/vim-markdown"
+Bundle "tpope/vim-haml"
+Bundle "nelstrom/vim-markdown-folding"
+"-------------------------------------------------------------------------------
+
+"}}}
+" "## Backend Bundles:"{{{
+Bundle "Shougo/neocomplcache"
+Bundle "Shougo/neosnippet"
+Bundle "Lokaltog/vim-powerline"
+Bundle "vimez/vim-tmux"
+Bundle "vimez/vim-yankring"
+Bundle "vim-scripts/SyntaxAttr.vim"
+Bundle "tpope/vim-surround"
+Bundle "tomtom/tcomment_vim"
+Bundle "sjl/gundo.vim"
+Bundle "docunext/closetag.vim"
+Bundle "tpope/vim-repeat"
+Bundle "kien/ctrlp.vim"
+Bundle "benmills/vimux"
+Bundle "duff/vim-bufonly"
+Bundle "xolox/vim-session"
+Bundle "scrooloose/nerdtree"
+Bundle "vim-scripts/Rename2"
+Bundle "godlygeek/tabular"
+Bundle "jiangmiao/auto-pairs"
+Bundle "endel/ctrlp-filetype.vim"
+Bundle "tpope/vim-git"
+Bundle "vimez/vim-showmarks"
+Bundle "tristen/vim-sparkup"
+Bundle "tpope/vim-fugitive"
+Bundle "gregsexton/gitv"
+Bundle "tpope/vim-unimpaired"
+Bundle "mattn/webapi-vim"
+Bundle "mattn/gist-vim"
+"-------------------------------------------------------------------------------
+
+"}}}
+" "## Post Initialization:"{{{
+filetype plugin indent on
+"-------------------------------------------------------------------------------
+
+"}}}
+"-------------------------------------------------------------------------------
+
+"}}}
+" GENERAL:"{{{
+" ******************************************************************************
+
 " "## Commandline""{{{
 " More convenient entrance to Commandline and Commandline Edit mode from Normal mode.
 nnoremap ; :
