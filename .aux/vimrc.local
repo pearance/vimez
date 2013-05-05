@@ -139,4 +139,4 @@ if has("gui_running")
 
 endif
 
-" vim: set ft=vim:
+" vim:ft=vim:fdm=marker:

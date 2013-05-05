@@ -1,87 +1,23 @@
 " vim:ft=vim:fdm=marker:
-" __     _____ __  __ ____   ____
-" \ \   / /_ _|  \/  |  _ \ / ___|
-"  \ \ / / | || |\/| | |_) | |
-"   \ V /  | || |  | |  _ <| |___
-"    \_/  |___|_|  |_|_| \_\\____|
-"
+"         _
+"  __   _(_)_ __ ___  _ __ ___
+"  \ \ / / | '_ ` _ \| '__/ __|
+"   \ V /| | | | | | | | | (__
+"    \_/ |_|_| |_| |_|_|  \___|
 "
 " Authors:       Fontaine Cook, Various Contributors
 " Description:   The primary Vim configuration file.
 "-------------------------------------------------------------------------------
 
-" BOOTSTRAP:"{{{
+" GENERAL:"{{{
+
+" "## Bootstrap:"{{{
 " ******************************************************************************
-
-" "## Vim Setup""{{{
-" Plugin (Vundle)"
-set nocompatible
-filetype on
-filetype off
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-let g:vundle_default_git_proto = 'git'
-Bundle "gmarik/vundle"
+so ~/.vim/initrc                  " Include dependent plugin bundles.
 "-------------------------------------------------------------------------------
 
 "}}}
-" "## Frontend Bundles""{{{
-Bundle "vimez/vim-themes"
-Bundle "vim-scripts/CSApprox"
-Bundle "vim-scripts/ScrollColors"
-Bundle "lilydjwg/colorizer"
-Bundle "othree/html5.vim"
-Bundle "hail2u/vim-css-syntax"
-Bundle "hail2u/vim-css3-syntax"
-Bundle "groenewege/vim-less"
-Bundle "pangloss/vim-javascript"
-Bundle "tpope/vim-markdown"
-Bundle "tpope/vim-haml"
-Bundle "nelstrom/vim-markdown-folding"
-"-------------------------------------------------------------------------------
-
-"}}}
-" "## Backend Bundles""{{{
-Bundle "Shougo/neocomplcache"
-Bundle "Shougo/neosnippet"
-Bundle "Lokaltog/vim-powerline"
-Bundle "vimez/vim-tmux"
-Bundle "vimez/vim-yankring"
-Bundle "vim-scripts/SyntaxAttr.vim"
-Bundle "tpope/vim-surround"
-Bundle "tomtom/tcomment_vim"
-Bundle "sjl/gundo.vim"
-Bundle "docunext/closetag.vim"
-Bundle "tpope/vim-repeat"
-Bundle "kien/ctrlp.vim"
-Bundle "benmills/vimux"
-Bundle "duff/vim-bufonly"
-Bundle "xolox/vim-session"
-Bundle "scrooloose/nerdtree"
-Bundle "vim-scripts/Rename2"
-Bundle "godlygeek/tabular"
-Bundle "jiangmiao/auto-pairs"
-Bundle "endel/ctrlp-filetype.vim"
-Bundle "tpope/vim-git"
-Bundle "vimez/vim-showmarks"
-Bundle "tristen/vim-sparkup"
-Bundle "tpope/vim-fugitive"
-Bundle "gregsexton/gitv"
-Bundle "tpope/vim-unimpaired"
-Bundle "mattn/webapi-vim"
-Bundle "mattn/gist-vim"
-"-------------------------------------------------------------------------------
-
-"}}}
-" "## General Settings""{{{
-
-" "### Filetype Features""{{{
-filetype plugin indent on
-"-------------------------------------------------------------------------------
-
-"}}}
-" "### Commandline""{{{
+" "## Commandline""{{{
 " More convenient entrance to Commandline and Commandline Edit mode from Normal mode.
 nnoremap ; :
 vnoremap ; :
@@ -90,26 +26,26 @@ nnoremap q; q:
 "-------------------------------------------------------------------------------
 
 "}}}
-" "### Native Scripts""{{{
+" "## Native Scripts""{{{
 "set runtimepath=$VIMRUNTIME,~/.vim.local/
 runtime macros/matchit.vim
 runtime ftplugin/man.vim
 "-------------------------------------------------------------------------------
 
 "}}}
-" "### Time Settings""{{{
+" "## Time Settings""{{{
 set timeoutlen=500
 set updatetime=1000
 "-------------------------------------------------------------------------------
 
 "}}}
-" "### Leader Keys""{{{
+" "## Leader Keys""{{{
 let mapleader="\<Space>" " Global mod key.
 let maplocalleader="\\"  " Local mod key primarily for filetype specific maps.
 "-------------------------------------------------------------------------------
 
 "}}}
-" "### Encoding""{{{
+" "## Encoding""{{{
 " Default to UTF-8 character encoding unless the terminal doesn't support it. In
 " which case use Latin1 character encoding instead.
 if has("multi_byte")
@@ -129,7 +65,7 @@ endif
 "-------------------------------------------------------------------------------
 
 "}}}
-" "### Color Scheme""{{{
+" "## Color Scheme""{{{
 set t_Co=256                " Force terminal to go into 256 color mode.
 set synmaxcol=300           " Prevent long lines from slowing down redraws.
 syntax on                   " Syntax highlighting on.
@@ -138,8 +74,6 @@ colorscheme molokai-ez      " Default color scheme.
 " Show syntax highlighting group for current word.
 nnoremap <Leader>syn :call SyntaxAttr()<CR>
 "-------------------------------------------------------------------------------
-
-"}}}
 
 "}}}
 
