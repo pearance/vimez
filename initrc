@@ -10,7 +10,7 @@
 "------------------------------------------------------------------------------
 
 
-" "Pre Initilization""{{{
+" PRE INITILIZATION:"{{{
 set nocompatible
 filetype on
 filetype off
@@ -22,7 +22,7 @@ Bundle "gmarik/vundle"
 "-------------------------------------------------------------------------------
 
 "}}}
-" "Frontend Bundles""{{{
+" FRONTEND BUNDLES:"{{{
 Bundle "vimez/vim-themes"
 Bundle "vim-scripts/CSApprox"
 Bundle "vim-scripts/ScrollColors"
@@ -38,7 +38,7 @@ Bundle "nelstrom/vim-markdown-folding"
 "-------------------------------------------------------------------------------
 
 "}}}
-" "Backend Bundles""{{{
+" BACKEND BUNDLES:"{{{
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/neosnippet"
 Bundle "Lokaltog/vim-powerline"
@@ -70,7 +70,7 @@ Bundle "mattn/gist-vim"
 "-------------------------------------------------------------------------------
 
 "}}}
-" "Post Initialization""{{{
+" POST INITIALIZATION:"{{{
 filetype plugin indent on
 "-------------------------------------------------------------------------------
 
