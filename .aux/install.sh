@@ -44,9 +44,6 @@ clear
 /bin/echo -e "              Vimez Install                 "
 /bin/echo -e "                                            "
 /bin/echo -e $NO
-/bin/echo -e $BD$G"Note: step 6 can take up to three minutes"$NO
-/bin/echo -e $BD$G"to complete. Please be patient."$NO
-
 #------------------------------------------------------------------------------
 
 
@@ -119,29 +116,15 @@ sleep $DLY
 
 
 # }}}
-# LINK TO CONFIGURATION FILES {{{
-/bin/echo -e $BD$M
-/bin/echo -en "5 Linking to configuration files...  "
-
-cd ~
-/bin/ln -s .vim.local/vimrc.local .vimrc.local
-
-sleep $DLY
-/bin/echo -e $BD$G"done"$NO
-#------------------------------------------------------------------------------
-
-
-
-# }}}
 # DOWNLOAD VUNDLE & INSTALL {{{
 /bin/echo -e $BD$M
-/bin/echo -en "6 Installing plugin bundles...       "
+/bin/echo -en "5 Installing plugin bundles...       "
 
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle >>/tmp/vimez.install.log 2>&1
-vim "+let g:session_directory = '~/.vim.local/tmp/sessions/'" +BundleInstall +qall >>/tmp/vimez.install.log 2>&1
-# /bin/rm -r ~/.vim/sessions
 cd ~
 /bin/ln -s .vim/vimrc .vimrc
+vim "+let g:session_directory = '~/.vim.local/tmp/sessions/'" +BundleInstall +qall >>/tmp/vimez.install.log 2>&1
+/bin/ln -s .vim.local/vimrc.local .vimrc.local
 
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
@@ -152,7 +135,7 @@ sleep $DLY
 # }}}
 # WRAP {{{
 /bin/echo -e $BD$M
-/bin/echo -en "7 Cleaning up...                     "
+/bin/echo -en "6 Cleaning up...                     "
 
 /bin/rm ~/install.sh >>/tmp/vimez.install.log 2>&1
 /bin/rm f ~/yankring_history_v2.txt >>/tmp/vimez.install.log 2>&1
@@ -164,7 +147,6 @@ sleep $DLY
 /bin/echo -e "                    Happy vimming!"
 /bin/echo
 /bin/echo
-/bin/echo -e "You can view the install log at /tmp/vimez.install.log"
 #------------------------------------------------------------------------------
 
 
