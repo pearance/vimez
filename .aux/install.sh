@@ -49,28 +49,11 @@ clear
 /bin/echo -e $BD$M
 /bin/echo -en "* Backing up existing Vim install... "
 
-cd ~
+/bin/rm -rf ~/backups/pre-vimez/ && /bin/mkdir -p ~/backups/pre-vimez/
 
-if [ -e /var/log/vimez.install.log ]; then
-  /bin/rm /var/log/vimez.install.log
-fi
-
-if [ -e ~/backups/vimez/ ]; then
-  /bin/rm -fr ~/backups/vimez/
-fi
-/bin/mkdir -p ~/backups/vimez/
-
-if [ -e ~/.vimrc ]; then
-  /bin/mv -f ~/.vimrc backups/vimez/
-fi
-
-if [ -e ~/.gvimrc ]; then
-  /bin/mv -f ~/.gvimrc backups/vimez/
-fi
-
-if [ -e ~/.vim ]; then
-  /bin/mv -f ~/.vim backups/vimez/
-fi
+for i in .vimrc .gvimrc .vim .vim.local
+	do [ -e $i  ] && mv -f --backup=t $i ~/backups/pre-vimez/$i.bak
+done
 
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
@@ -82,7 +65,7 @@ sleep $DLY
 # DOWNLOAD VIMEZ {{{
 /bin/echo -e $BD$M
 /bin/echo -en "* Cloning Vimez...                   "
-git clone -u git://github.com/vimez/vimez.git ~/.vim >>/tmp/vimez.install.log 2>&1
+git clone git://github.com/vimez/vimez.git ~/.vim
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
 #------------------------------------------------------------------------------
@@ -93,6 +76,7 @@ sleep $DLY
 # CREATE LOCAL DIRECTORIES {{{
 /bin/echo -e $BD$M
 /bin/echo -en "* Generating .vim.local structure... "
+mkdir -p ~/.vim.local
 /bin/mkdir -p ~/.vim.local/dictionaries/
 /bin/mkdir -p ~/.vim.local/templates/
 /bin/mkdir -p ~/.vim.local/bundle/
@@ -108,7 +92,7 @@ sleep $DLY
 
 
 # }}}
-# POPULATE LOCAL DIRECTORIES
+# POPULATE LOCAL DIRECTORIES {{{
 /bin/echo -e $BD$M
 /bin/echo -en "* Populating .vim.local structure... "
 touch ~/.vim.local/dictionaries/en.utf-8.add
@@ -126,7 +110,6 @@ sleep $dly
 
 cd ~
 /bin/rm -f .vimrc
-
 /bin/ln -s .vim/vimrc .vimrc
 /bin/ln -s .vim.local/vimrc.local .vimrc.local
 
@@ -141,8 +124,8 @@ sleep $DLY
 /bin/echo -e $BD$M
 /bin/echo -en "* Installing plugin bundles...       "
 
-git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle >>/tmp/vimez.install.log 2>&1
-vim -u +BundleInstall "+let g:session_directory = '~/.vim.local/tmp/sessions/'" +q >>/tmp/vimez.install.log 2>&1
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+vim +BundleInstall "+let g:session_directory = '~/.vim.local/tmp/sessions/'" +qall
 
 /bin/rm -r ~/.vim/sessions
 
@@ -157,7 +140,7 @@ sleep $DLY
 /bin/echo -e $BD$M
 /bin/echo -en "* Cleaning up...                     "
 
-/bin/rm ~/install.sh >>/tmp/vimez.install.log 2>&1
+/bin/rm ~/install.sh
 
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
@@ -166,5 +149,5 @@ sleep $DLY
 /bin/echo -e "                    Happy vimming!"
 #------------------------------------------------------------------------------
 
-#vim:fdm=marker:
 # }}}
+#vim:fdm=marker:
