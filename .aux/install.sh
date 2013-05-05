@@ -123,7 +123,6 @@ sleep $DLY
 
 cd ~
 /bin/rm -f .vimrc
-/bin/ln -s .vim/vimrc .vimrc
 /bin/ln -s .vim.local/vimrc.local .vimrc.local
 
 sleep $DLY
@@ -140,6 +139,7 @@ sleep $DLY
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle >>/tmp/vimez.install.log 2>&1
 vim -U ~/.vim/initrc "+let g:session_directory = '~/.vim.local/tmp/sessions/'" "+let g:session_autosave = 'yes'" +BundleInstall! +qall >>/tmp/vimez.install.log 2>&1
 /bin/rm -r ~/.vim/sessions
+/bin/ln -s .vim/vimrc .vimrc
 
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
