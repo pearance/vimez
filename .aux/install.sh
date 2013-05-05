@@ -119,7 +119,7 @@ sleep $DLY
 /bin/echo -e $BD$M
 /bin/echo -en "* Populating .vim.local structure... "
 touch ~/.vim.local/dictionaries/en.utf-8.add
-/bin/cp -f ~/.vim/.aux/vimrc.local ~/.vim.local/
+/bin/cp  ~/.vim/.aux/vimrc.local ~/.vim.local/vimrc.local
 #printf "%${col}s"
 sleep $dly
 /bin/echo -e $bd$g"done"$no
