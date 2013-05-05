@@ -107,7 +107,7 @@ sleep $DLY
 touch ~/.vim.local/dictionaries/en.utf-8.add
 /bin/cp  ~/.vim/.aux/vimrc.local ~/.vim.local/vimrc.local
 
-sleep $dly
+sleep $DLY
 /bin/echo -e $bd$g"done"$no
 #------------------------------------------------------------------------------
 
@@ -156,6 +156,8 @@ sleep $DLY
 
 /bin/echo -e $BD$C"\nInstallation Complete\n\n"
 /bin/echo -e "                    Happy vimming!"
+/bin/echo
+/bin/echo -e "Install log is at /tmp/vimez.install.log"
 #------------------------------------------------------------------------------
 
 
