@@ -55,7 +55,7 @@ clear
 # BACKUP {{{
 # Backup any remnants of an existing Vim install.
 /bin/echo -e $BD$M
-/bin/echo -en "* Backing up existing Vim install... "
+/bin/echo -en "1 Backing up existing Vim install... "
 
 /bin/rm -rf /tmp/vimez.install.log
 /bin/rm -rf ~/backups/pre-vimez/ &&  /bin/mkdir -p ~/backups/pre-vimez/
@@ -73,7 +73,7 @@ sleep $DLY
 # }}}
 # DOWNLOAD VIMEZ {{{
 /bin/echo -e $BD$M
-/bin/echo -en "* Cloning Vimez...                   "
+/bin/echo -en "2 Cloning Vimez...                   "
 
 git clone git://github.com/vimez/vimez.git ~/.vim >>/tmp/vimez.install.log 2>&1
 sleep $DLY
@@ -85,7 +85,7 @@ sleep $DLY
 # }}}
 # CREATE LOCAL DIRECTORIES {{{
 /bin/echo -e $BD$M
-/bin/echo -en "* Generating .vim.local structure... "
+/bin/echo -en "3 Generating .vim.local structure... "
 
 /bin/mkdir -p ~/.vim.local/dictionaries/
 /bin/mkdir -p ~/.vim.local/templates/
@@ -105,7 +105,7 @@ sleep $DLY
 # }}}
 # POPULATE LOCAL DIRECTORIES {{{
 /bin/echo -e $BD$M
-/bin/echo -en "* Populating .vim.local structure... "
+/bin/echo -en "4 Populating .vim.local structure... "
 
 touch ~/.vim.local/dictionaries/en.utf-8.add
 /bin/cp  ~/.vim/.aux/vimrc.local ~/.vim.local/vimrc.local
@@ -119,7 +119,7 @@ sleep $DLY
 # }}}
 # LINK TO CONFIGURATION FILES {{{
 /bin/echo -e $BD$M
-/bin/echo -en "* Linking to configuration files...  "
+/bin/echo -en "5 Linking to configuration files...  "
 
 cd ~
 /bin/rm -f .vimrc
@@ -135,7 +135,7 @@ sleep $DLY
 # }}}
 # DOWNLOAD VUNDLE & INSTALL {{{
 /bin/echo -e $BD$M
-/bin/echo -en "* Installing plugin bundles...       "
+/bin/echo -en "6 Installing plugin bundles...       "
 
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle >>/tmp/vimez.install.log 2>&1
 vim -u ~/.vim/initrc +BundleInstall "+let g:session_directory = '~/.vim.local/tmp/sessions/'" +qall >>/tmp/vimez.install.log 2>&1
@@ -150,7 +150,7 @@ sleep $DLY
 # }}}
 # WRAP {{{
 /bin/echo -e $BD$M
-/bin/echo -en "* Cleaning up...                     "
+/bin/echo -en "7 Cleaning up...                     "
 
 /bin/rm ~/install.sh >>/tmp/vimez.install.log 2>&1
 
