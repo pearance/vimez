@@ -40,9 +40,9 @@ DLY=1
 # TITLE {{{
 clear
 /bin/echo -e $BD$RE$M
-/bin/echo -e "                                            "
-/bin/echo -e "              Vimez Install                 "
-/bin/echo -e "                                            "
+/bin/echo -e "                                           "
+/bin/echo -e "              Vimez Install                "
+/bin/echo -e "                                           "
 /bin/echo -e $NO
 /bin/echo -e $BD$G"Note: step 5 can take up to three minutes"$NO
 /bin/echo -e $BD$G"to complete. Please be patient."$NO
