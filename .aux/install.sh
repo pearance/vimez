@@ -138,7 +138,7 @@ sleep $DLY
 /bin/echo -en "6 Installing plugin bundles...       "
 
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle >>/tmp/vimez.install.log 2>&1
-vim -u ~/.vim/initrc +BundleInstall "+let g:session_directory = '~/.vim.local/tmp/sessions/'" +qall
+vim -u ~/.vim/initrc +BundleInstall "+let g:session_directory = '~/.vim.local/tmp/sessions/'" "+let g:session_autosave = yes"+qall
 /bin/rm -r ~/.vim/sessions
 
 sleep $DLY
