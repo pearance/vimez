@@ -1926,7 +1926,7 @@ endfunction
 
 " "Make File Executable"
 function! MakeFileExecutable()
-	exe "silent! !chmod +x %"
+	exe "silent! !chmod 774 %"
 	redraw!
 	call Msg('Written as an executable shell script!')
 endfunction

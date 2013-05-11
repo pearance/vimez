@@ -125,9 +125,9 @@ sleep $DLY
 
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle >>/tmp/vimez.install.log 2>&1
 cd ~
-/bin/ln -s .vim/vimrc .vimrc
+/bin/ln -sf .vim/vimrc .vimrc
 vim "+let g:session_directory = '~/.vim.local/tmp/sessions/'" +BundleInstall +qall >>/tmp/vimez.install.log 2>&1
-/bin/ln -s .vim.local/vimrc.local .vimrc.local
+/bin/ln -sf .vim.local/vimrc.local .vimrc.local
 
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
