@@ -68,6 +68,7 @@ Bundle "gregsexton/gitv"
 Bundle "tpope/vim-unimpaired"
 Bundle "mattn/webapi-vim"
 Bundle "mattn/gist-vim"
+Bundle "airblade/vim-gitgutter"
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -1178,7 +1179,6 @@ nmap <Leader>cd :cd %:p:h<cr>
 nnoremap <silent><Leader>gd  :Gdiff<CR>
 nnoremap <silent><Leader>gds :!clear<CR>:Git diff --staged<CR>
 nnoremap <silent><Leader>gdd :call CloseDiff()<CR>
-nnoremap <silent><Leader>gl  :!clear<CR>:Glog<CR>
 nnoremap <silent><Leader>gs  :Gstatus<CR>G<C-p>
 nnoremap <silent><Leader>gw  :Gwrite<CR>
 nnoremap <silent><Leader>ge  :Gedit :0<CR>
@@ -1187,9 +1187,21 @@ nnoremap <silent><Leader>gco :Gcheckout<CR>
 nnoremap <silent><Leader>gcm :Gcommit<CR>
 nnoremap <silent><Leader>gm  :Gmove<CR>
 nnoremap <silent><Leader>gr  :Gremove<CR>
-nnoremap <silent><Leader>gv  :Gitv<CR>
+nnoremap <silent><Leader>gl  :Gitv<CR>
 nnoremap <silent><Leader>gp  :silent! !clear<CR>:Git push<CR>:redraw!<CR>
 "-------------------------------------------------------------------------------
+
+
+
+" "Git Gutter"
+let g:gitgutter_highlight_lines = 1
+let g:gitgutter_eager = 0
+nnoremap <silent><Leader>tgg :GitGutterToggle<CR>
+nnoremap <silent><Leader>tgh :GitGutterLineHighlightsToggle<CR>
+nnoremap <silent><Leader>gj <Plug>GitGutterNextHunk
+nnoremap <silent><Leader>gk <Plug>GitGutterPrevHunk
+"-------------------------------------------------------------------------------
+
 
 
 
@@ -1488,9 +1500,9 @@ augroup END
 " FUNCTIONS:"{{{
 " ******************************************************************************
 
-" "Reload Configurations"
 if !exists("*Reload")
 	function! Reload()
+	" "Reload Configurations"
 		so $MYVIMRC
 		nohlsearch
 		" Reapproximate hex color codes for terminal
