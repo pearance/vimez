@@ -11,6 +11,7 @@
 
 " BOOTSTRAP:"{{{
 " ******************************************************************************
+
 " "## Pre Initilization:"{{{
 set nocompatible
 filetype on
@@ -1196,10 +1197,16 @@ nnoremap <silent><Leader>gp  :silent! !clear<CR>:Git push<CR>:redraw!<CR>
 " "Git Gutter"
 let g:gitgutter_highlight_lines = 1
 let g:gitgutter_eager = 0
+" TODO: add toggle message
 nnoremap <silent><Leader>tgg :GitGutterToggle<CR>
 nnoremap <silent><Leader>tgh :GitGutterLineHighlightsToggle<CR>
 nnoremap <silent><Leader>gj <Plug>GitGutterNextHunk
 nnoremap <silent><Leader>gk <Plug>GitGutterPrevHunk
+
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '*'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_modified_removed = '~'
 "-------------------------------------------------------------------------------
 
 
@@ -1254,12 +1261,12 @@ nmap <silent><Leader>tch :call ToggleColorHighlights()<CR>
 
 
 " "Highlight Words of Interest"
-nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
-nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
-nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
-nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
-nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
-nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
+nnoremap <silent> <leader>1 :call HiInterestingWord(1)<CR>
+nnoremap <silent> <leader>2 :call HiInterestingWord(2)<CR>
+nnoremap <silent> <leader>3 :call HiInterestingWord(3)<CR>
+nnoremap <silent> <leader>4 :call HiInterestingWord(4)<CR>
+nnoremap <silent> <leader>5 :call HiInterestingWord(5)<CR>
+nnoremap <silent> <leader>6 :call HiInterestingWord(6)<CR>
 
 " Highlight Colors
 hi def InterestingWord1 guifg=#000000 guibg=#ffa724
