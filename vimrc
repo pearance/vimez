@@ -370,7 +370,7 @@ nnoremap <silent><Leader>ct :tabclose<CR>
 " "## Session Management""{{{
 " Changes the effect of the :mksession command. It is a comma separated list of
 " words.  Each word enables saving and restoring something:
-let g:session_autoload = 'yes'
+let g:session_autoload = 'no'
 let g:session_autosave = 'yes'
 let g:session_directory = '~/.vim.local/tmp/sessions/'
 
@@ -1195,7 +1195,7 @@ nnoremap <silent><Leader>gp  :silent! !clear<CR>:Git push<CR>:redraw!<CR>
 
 
 " "Git Gutter"
-let g:gitgutter_highlight_lines = 1
+let g:gitgutter_highlight_lines = 0
 let g:gitgutter_eager = 0
 " TODO: add toggle message
 nnoremap <silent><Leader>tgg :GitGutterToggle<CR>
