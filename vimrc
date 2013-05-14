@@ -249,10 +249,10 @@ nnoremap gfv :vertical wincmd f<CR>
 nnoremap <silent><Leader>w :write<CR>
 
 " Write a copy of the current buffer as...  and continue editing original buffer.
-nnoremap <Leader>wcb :write <C-R>=expand("%:p:h") . "/" <CR>
+nnoremap <Leader>wa :write <C-R>=expand("%:p:h") . "/" <CR>
 
 " Edit new copy of the current buffer.
-nnoremap <Leader>ecb :saveas <C-R>=expand("%:p:h") . "/" <CR>
+nnoremap <Leader>ea :saveas <C-R>=expand("%:p:h") . "/" <CR>
 
 " Write the current buffer and quit the window.
 nnoremap <silent><Leader>wq :wq<CR>
