@@ -143,6 +143,11 @@ nnoremap <Leader>syn :call SyntaxAttr()<CR>
 "-------------------------------------------------------------------------------
 
 "}}}
+" "## Modelines""{{{
+set modeline
+set modelines=5
+
+"}}}
 
 "}}}
 " FILE:"{{{
