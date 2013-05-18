@@ -1125,8 +1125,6 @@ set wrapscan            " set the search scan to wrap around the file
 nnoremap <silent>,, :nohlsearch<CR>
 nnoremap <silent>n nzxzz
 nnoremap <silent>N Nzxzz
-nnoremap / /\v
-vnoremap / /\v
 
 " Bring up last search in a quickfix window.
 nnoremap <silent><Leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
