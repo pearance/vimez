@@ -70,6 +70,7 @@ Bundle "tpope/vim-unimpaired"
 Bundle "mattn/webapi-vim"
 Bundle "mattn/gist-vim"
 Bundle "airblade/vim-gitgutter"
+Bundle "paradigm/vim-multicursor"
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -500,6 +501,13 @@ vnoremap <silent><Leader>dd 0r<Space>
 nnoremap ,dd "_dd
 "-------------------------------------------------------------------------------
 
+"}}}
+" "## MultiCursors"{{{
+let g:multicursor_quit = "q"
+nnoremap <silent>,i :<C-u>call MultiCursorPlaceCursor()<CR>
+nnoremap <silent>,I :<C-u>call MultiCursorManual()<CR>
+nnoremap <silent><Leader>,, :<C-u>call MultiCursorRemoveCursors()<CR>
+" xnoremap <silent><Leader>,, :<C-u>call MultiCursorVisual()<CR>
 "}}}
 " "## Paragraph Formatting""{{{
 vnoremap Q gq
