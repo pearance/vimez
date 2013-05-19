@@ -137,7 +137,7 @@ endif
 set t_Co=256                " Force terminal to go into 256 color mode.
 set synmaxcol=300           " Prevent long lines from slowing down redraws.
 syntax on                   " Syntax highlighting on.
-colorscheme default         " Default color scheme.
+colorscheme molokai-ez      " Default color scheme.
 
 " Show syntax highlighting group for current word.
 nnoremap <Leader>syn :call SyntaxAttr()<CR>
