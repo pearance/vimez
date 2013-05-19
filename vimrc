@@ -249,6 +249,10 @@ nnoremap gfh :wincmd f<CR>
 nnoremap gfv :vertical wincmd f<CR>
 "-------------------------------------------------------------------------------
 
+" Reload buffer.
+nnoremap <silent>,re :e<CR>
+"-------------------------------------------------------------------------------
+
 "}}}
 " "### Write/Close/Quit""{{{
 " Write the current buffer.
@@ -1176,7 +1180,7 @@ nmap <silent><Leader>ev :e ~/.vim.local/vimrc.local<CR>
 
 
 " "Reload"
-nnoremap <silent>,R :call Reload()<CR>
+nnoremap <silent><Leader>re :call Reload()<CR>
 "-------------------------------------------------------------------------------
 
 
