@@ -1,5 +1,5 @@
-#vim:fdm=marker:
 #!/bin/bash
+#vim:fdm=marker:
 #        _
 # __   _(_)_ __ ___   ___ ____
 # \ \ / / | '_ ` _ \ / _ \_  /
