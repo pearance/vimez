@@ -90,6 +90,7 @@ sleep $DLY
 /bin/echo -en "3 Generating .vim.local structure... "
 
 /bin/mkdir -p ~/.vim.local/dictionaries/
+/bin/mkdir -p ~/.vim.local/snippets/
 /bin/mkdir -p ~/.vim.local/templates/
 /bin/mkdir -p ~/.vim.local/bundle/
 /bin/mkdir -p ~/.vim.local/tmp/sessions/
