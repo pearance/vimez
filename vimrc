@@ -259,10 +259,10 @@ nnoremap <silent>,re :e<CR>
 nnoremap <silent><Leader>w :write<CR>
 
 " Write a copy of the current buffer as...  and continue editing original buffer.
-nnoremap <Leader>wa :write <C-R>=expand("%:p:h") . "/" <CR>
+nnoremap <Leader>wba :write <C-R>=expand("%:p:h") . "/" <CR>
 
 " Edit new copy of the current buffer.
-nnoremap <Leader>ea :saveas <C-R>=expand("%:p:h") . "/" <CR>
+nnoremap <Leader>eba :saveas <C-R>=expand("%:p:h") . "/" <CR>
 
 " Write the current buffer and quit the window.
 nnoremap <silent><Leader>wq :wq<CR>
