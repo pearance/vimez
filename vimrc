@@ -851,6 +851,10 @@ silent! call Pl#Theme#RemoveSegment('scrollpercent')
 
 " "## Format Options""{{{
 set formatoptions=
+set fo+=a  " Automatic formatting of paragraphs.  Every time text is inserted or
+					 " deleted the paragraph will be reformatted.  See |auto-format|.
+					 " When the 'c' flag is present this only happens for recognized
+					 " comments.
 set fo-=t  " Auto-wrap text using textwidth
 set fo+=c  " Auto-wrap comments using textwidth, inserting the current comment
 					 " Leader automatically.
@@ -864,10 +868,6 @@ set fo+=q  " Allow formatting of comments with 'gq'.
 					 " or when the comment Leader changes.
 set fo-=w  " Trailing white space indicates a paragraph continues in the next line.
 					 " A line that ends in a non-white character ends a paragraph.
-set fo-=a  " Automatic formatting of paragraphs.  Every time text is inserted or
-					 " deleted the paragraph will be reformatted.  See |auto-format|.
-					 " When the 'c' flag is present this only happens for recognized
-					 " comments.
 set fo+=n  " When formatting text, recognize numbered lists.  This actually uses
 					 " the 'formatlistpat' option, thus any kind of list can be used.  The
 					 " indent of the text after the number is used for the next line.  The
@@ -878,7 +878,7 @@ set fo+=n  " When formatting text, recognize numbered lists.  This actually uses
 					 " 	1. the first item
 					 " 	   wraps
 					 " 	2. the second item
-set fo-=2  " When formatting text, use the indent of the second line of a paragraph
+set fo+=2  " When formatting text, use the indent of the second line of a paragraph
 					 " for the rest of the paragraph, instead of the indent of the first
 					 " line.  This supports paragraphs in which the first line has a
 					 " different indent than the rest.  Note that 'autoindent' must be set
