@@ -324,6 +324,9 @@ nnoremap <Leader>ls :ls!<CR>
 " Flip through buffer list.
 nnoremap <silent>gh :bprev<CR>
 nnoremap <silent>gl :bnext<CR>
+
+" Flip back to last buffer.
+nnoremap <Leader><BS> <C-^>
 "-------------------------------------------------------------------------------
 
 "}}}
