@@ -854,7 +854,7 @@ silent! call Pl#Theme#RemoveSegment('scrollpercent')
 
 " "## Format Options""{{{
 set formatoptions=
-set fo+=a  " Automatic formatting of paragraphs.  Every time text is inserted or
+set fo-=a  " Automatic formatting of paragraphs.  Every time text is inserted or
 					 " deleted the paragraph will be reformatted.  See |auto-format|.
 					 " When the 'c' flag is present this only happens for recognized
 					 " comments.
@@ -962,25 +962,23 @@ inoremap <expr><BS> neocomplcache#smart_close_popup() . "\<BS>"
 
 "}}}
 " "## Snippets (NeoSnippets)""{{{
-" let g:neosnippet#disable_runtime_snippets = {'_' : 1,}
+let g:neosnippet#disable_runtime_snippets = {'_' : 1,}
 let g:neosnippet#snippets_directory = '~/.vim/bundle/, ~/.vim.local/snippets/'
 
 " SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable() ?
-	\ "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
 nnoremap <Leader>es  :NeoSnippetEdit<CR>
 
 " Set snips_author.
 if !exists('snips_author')
 	let g:snips_author = 'VimEz'
 endif
-
-" imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
-" PopupMap <C-y>   neocomplcache#close_popup()
-" PopupMap <C-e>   neocomplcache#cancel_popup()
-" PopupMap <CR>    neocomplcache#close_popup() . "\<CR>"
-" PopupMap <Tab>   "\<C-n>"
-" PopupMap <S-Tab> "\<C-p>"
 "-------------------------------------------------------------------------------
 
 
@@ -1456,6 +1454,7 @@ augroup PHP
 	au BufNewFile,BufRead *.php  setf php
 	au FileType php	             let php_minlines=500
 	au FileType php              setl omnifunc=phpcomplete#CompletePHP
+	au Filetype php              call EnableCloseTag()
 augroup END
 "-----------------------------------------------------------------------------
 
