@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# Frontend Bundles
+git clone https://github.com/vimez/vim-showmarks.git
+git clone https://github.com/vimez/vim-themes.git
+git clone https://github.com/vim-scripts/CSApprox.git
+git clone https://github.com/vim-scripts/ScrollColors.git
+git clone https://github.com/lilydjwg/colorizer.git
+git clone https://github.com/othree/html5.vim.git
+git clone https://github.com/hail2u/vim-css-syntax.git
+git clone https://github.com/hail2u/vim-css3-syntax.git
+git clone https://github.com/groenewege/vim-less.git
+git clone https://github.com/pangloss/vim-javascript.git
+git clone https://github.com/tpope/vim-markdown.git
+git clone https://github.com/tpope/vim-haml.git
+git clone https://github.com/nelstrom/vim-markdown-folding.git
+
+
+# Backend Bundles
+git clone https://github.com/Shougo/neocomplcache.git
+git clone https://github.com/Shougo/neosnippet.git
+git clone https://github.com/Lokaltog/vim-powerline.git
+git clone https://github.com/vimez/vim-tmux.git
+git clone https://github.com/vimez/vim-yankring.git
+git clone https://github.com/vim-scripts/SyntaxAttr.vim.git
+git clone https://github.com/tpope/vim-surround.git
+git clone https://github.com/tomtom/tcomment_vim.git
+git clone https://github.com/sjl/gundo.vim.git
+git clone https://github.com/docunext/closetag.vim.git
+git clone https://github.com/tpope/vim-repeat.git
+git clone https://github.com/kien/ctrlp.vim.git
+git clone https://github.com/benmills/vimux.git
+git clone https://github.com/duff/vim-bufonly.git
+git clone https://github.com/xolox/vim-session.git
+git clone https://github.com/xolox/vim-misc.git
+git clone https://github.com/scrooloose/nerdtree.git
+git clone https://github.com/vim-scripts/Rename2.git
+git clone https://github.com/godlygeek/tabular.git
+git clone https://github.com/jiangmiao/auto-pairs.git
+git clone https://github.com/endel/ctrlp-filetype.vim.git
+git clone https://github.com/tpope/vim-git.git
+git clone https://github.com/vimez/vim-showmarks.git
+git clone https://github.com/tristen/vim-sparkup.git
+git clone https://github.com/tpope/vim-fugitive.git
+git clone https://github.com/gregsexton/gitv.git
+git clone https://github.com/tpope/vim-unimpaired.git
+git clone https://github.com/mattn/webapi-vim.git
+git clone https://github.com/mattn/gist-vim.git
+git clone https://github.com/airblade/vim-gitgutter.git
+git clone https://github.com/paradigm/vim-multicursor.git
