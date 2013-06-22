@@ -71,7 +71,7 @@ Bundle "tpope/vim-unimpaired"
 Bundle "mattn/webapi-vim"
 Bundle "mattn/gist-vim"
 Bundle "airblade/vim-gitgutter"
-Bundle "paradigm/vim-multicursor"
+Bundle "terryma/vim-multiple-cursors"
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -154,13 +154,13 @@ set modelines=5
 " FILE:"{{{
 " ******************************************************************************
 
-" "## General File Settings""{{{
+" "## General Settings""{{{
 set fileformats=unix,dos,mac
 set hidden         " Hide buffers when they are abandoned
 set confirm        " Provide user friendly prompt over nasty error messages.
 set autoread       " Automatically re-read a file if modified outside of vim.
 set autowrite      " Automatically write a file on certain operations.
-set shellslash     " Use forward slash for shell file names (Windows)
+set noshellslash   " Use forward slash for shell file names (Windows)
 set winminwidth=0
 set winminheight=0
 
@@ -431,7 +431,7 @@ nnoremap <silent><Leader>vs :ViewSession<CR>
 
 " "## Yank/Delete/Put""{{{
 " Plugin (Yankring)
-set clipboard+=unnamedplus  " Use system clipboard for yanks.
+set clipboard+=unnamed " Use system clipboard for yanks.
 set pastetoggle=<F12>  " Preserve indentation when putting formatted text.
 nnoremap <silent><F12> :set invpaste<CR>
 
@@ -510,11 +510,7 @@ nnoremap ,dd "_dd
 
 "}}}
 " "## MultiCursors"{{{
-let g:multicursor_quit = "q"
-nnoremap <silent>,i :<C-u>call MultiCursorPlaceCursor()<CR>
-nnoremap <silent>,I :<C-u>call MultiCursorManual()<CR>
-nnoremap <silent><Leader>,, :<C-u>call MultiCursorRemoveCursors()<CR>
-" xnoremap <silent><Leader>,, :<C-u>call MultiCursorVisual()<CR>
+"
 "}}}
 " "## Paragraph Formatting""{{{
 vnoremap Q gq
@@ -2344,8 +2340,8 @@ endfunction
 " ******************************************************************************
 
 " "Load Local Configurations"
-if filereadable(expand('~/.vimrc.local'))
-	so ~/.vimrc.local
+if filereadable(expand('~/.vim.local/vimrc.local'))
+	so ~/.vim.local/vimrc.local
 endif
 "-------------------------------------------------------------------------------
 
