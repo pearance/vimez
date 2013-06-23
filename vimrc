@@ -70,7 +70,7 @@ Bundle "gregsexton/gitv"
 Bundle "tpope/vim-unimpaired"
 Bundle "mattn/webapi-vim"
 Bundle "mattn/gist-vim"
-Bundle "airblade/vim-gitgutter"
+Bundle "mhinz/vim-signify"
 Bundle "terryma/vim-multiple-cursors"
 "-------------------------------------------------------------------------------
 
