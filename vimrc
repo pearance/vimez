@@ -485,16 +485,6 @@ let g:yankring_manual_clipboard_check = 1
 let g:yankring_history_dir = '~/.vim.local/tmp/'
 let g:yankring_history_file = 'yankring_herstory'
 
-" Delete from the cursor to the left.
-nnoremap dh v0d
-nnoremap dH v0di
-nnoremap CC v0r<Space>R
-
-" Delete from the cursor to the right.
-nnoremap dl v$hd
-nnoremap dL v$hdi
-nnoremap DD v0r<Space>
-
 " Delete contents of a line only
 nnoremap <silent><Leader>dd cc<Esc>
 
