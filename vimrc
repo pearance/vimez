@@ -71,7 +71,6 @@ Bundle "tpope/vim-unimpaired"
 Bundle "mattn/webapi-vim"
 Bundle "mattn/gist-vim"
 Bundle "mhinz/vim-signify"
-Bundle "airblade/vim-gitgutter"
 Bundle "terryma/vim-multiple-cursors"
 "-------------------------------------------------------------------------------
 
