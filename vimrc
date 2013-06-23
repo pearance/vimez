@@ -1185,7 +1185,7 @@ nnoremap <silent><Leader>re :call Reload()<CR>
 
 
 " "Change Directory"
-nmap <Leader>cd :cd %:p:h<cr>
+nmap <silent><Leader>cd :cd %:p:h<CR><Bar>:pwd<CR>
 "-------------------------------------------------------------------------------
 
 
