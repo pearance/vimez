@@ -1079,8 +1079,8 @@ vnoremap <Leader>h 0
 nnoremap <Leader>l $
 vnoremap <Leader>l $h
 
-nnoremap <Leader>j ]`
-nnoremap <Leader>k [`
+nnoremap <Leader>gj ]`
+nnoremap <Leader>gk [`
 
 " Jumps to prev/next edit points
 nnoremap g; g;zz
@@ -1209,21 +1209,19 @@ nnoremap <silent><Leader>gpu :silent! !clear<CR>:Git pull<CR>:redraw!<CR>
 
 
 
-" "Git Gutter"
-let g:gitgutter_highlight_lines = 0
-let g:gitgutter_eager = 0
-" TODO: add toggle message
-nnoremap <silent><Leader>tgg :GitGutterToggle<CR>
-nnoremap <silent><Leader>tgh :GitGutterLineHighlightsToggle<CR>
-nnoremap <silent><Leader>gj <Plug>GitGutterNextHunk
-nnoremap <silent><Leader>gk <Plug>GitGutterPrevHunk
-
-let g:gitgutter_sign_added = '+'
-let g:gitgutter_sign_modified = '*'
-let g:gitgutter_sign_removed = '-'
-let g:gitgutter_sign_modified_removed = '~'
+" "Git Signify"
+" " TODO: add toggle message
+let g:signify_mapping_toggle           = '<leader>tg'
+let g:signify_mapping_toggle_highlight = '<leader>tgh'
+let g:signify_mapping_next_hunk = '<leader>j'
+let g:signify_mapping_prev_hunk = '<leader>k'
+"
+let g:signify_sign_add               = '+'
+let g:signify_sign_delete            = '-'
+let g:signify_sign_change            = '*'
+let g:signify_sign_change_delete     = '*-'
+let g:signify_sign_delete_first_line = '‾'
 "-------------------------------------------------------------------------------
-
 
 
 
