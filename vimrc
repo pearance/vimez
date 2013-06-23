@@ -70,7 +70,7 @@ Bundle "gregsexton/gitv"
 Bundle "tpope/vim-unimpaired"
 Bundle "mattn/webapi-vim"
 Bundle "mattn/gist-vim"
-Bundle "airblade/vim-gitgutter"
+Bundle "mhinz/vim-signify"
 Bundle "terryma/vim-multiple-cursors"
 "-------------------------------------------------------------------------------
 
@@ -638,7 +638,9 @@ set titlestring=%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
 set cursorline          " Enable cursor line highlight
 set nocursorcolumn      " Enable cursor column highlight
 let g:cursorcolumnstate=0
+let g:cursorlinestate=1
 nnoremap <silent><Leader>tcc :call ToggleCursorColumn()<CR>
+nnoremap <silent><Leader>tcl :call ToggleCursorLine()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1665,6 +1667,22 @@ function! ToggleCursorColumn()
 		let g:cursorcolumnstate = 0
 		setl nocursorcolumn
 		echo 'Cursor Column: Off'
+	endif
+endfunction
+"-------------------------------------------------------------------------------
+
+
+
+" "Toggle Cursor Line"
+function! ToggleCursorLine()
+	if g:cursorlinestate == 0
+		let g:cursorlinestate = 1
+		setl cursorline
+		echo 'Cursor Line: On'
+	else
+		let g:cursorlinestate = 0
+		setl nocursorline
+		echo 'Cursor Line: Off'
 	endif
 endfunction
 "-------------------------------------------------------------------------------
