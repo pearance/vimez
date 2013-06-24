@@ -64,7 +64,7 @@ Bundle "jiangmiao/auto-pairs"
 Bundle "endel/ctrlp-filetype.vim"
 Bundle "tpope/vim-git"
 Bundle "vimez/vim-showmarks"
-Bundle "tristen/vim-sparkup"
+" Bundle "tristen/vim-sparkup"
 Bundle "tpope/vim-fugitive"
 Bundle "gregsexton/gitv"
 Bundle "tpope/vim-unimpaired"
@@ -450,19 +450,35 @@ function! YRRunAfterMaps()
 	" Leave the cursor at the end of the put.
 	nnoremap <silent>gp :<C-u>YRYankCount 'pV`]l'<CR>
 	nnoremap <silent>gP :<C-u>YRYankCount 'PV`]l'<CR>
+
+	" Yank current WORD.
+	nnoremap <Leader>y yiwe
+
+	" Yank current LINE (characterwise).
+	nnoremap <Leader>yy 0y$$l
+
+	" Yank current LINE (linewise).
+	nnoremap yy yy$l
+
+	" Yank current BLOCK.
+	nnoremap ,y yip}
+
+	" Delete current WORD.
+	nnoremap <Leader>d diw
+
+	" Delete contents of a line only
+	nnoremap <silent><Leader>dd cc<Esc>
+
+	" Simple delete key in insert mode
+	inoremap <C-d> <Del>
+
+	" Delete contents of several lines only
+	vnoremap <silent><Leader>dd 0r<Space>
+
+	" Delete into a black hole (Cut).
+	nnoremap ,dd "_dd
 endfunction
 
-" Yank current WORD.
-nnoremap <Leader>y yiwe
-
-" Yank current LINE (characterwise).
-nnoremap <Leader>yy 0y$$l
-
-" Yank current LINE (linewise).
-nnoremap yy yy$l
-
-" Yank current BLOCK.
-nnoremap ,y yip}
 
 
 " Put over current WORD (repeatable).
@@ -485,17 +501,6 @@ let g:yankring_manual_clipboard_check = 1
 let g:yankring_history_dir = '~/.vim.local/tmp/'
 let g:yankring_history_file = 'yankring_herstory'
 
-" Delete contents of a line only
-nnoremap <silent><Leader>dd cc<Esc>
-
-" Simple delete key in insert mode
-inoremap <C-d> <Del>
-
-" Delete contents of several lines only
-vnoremap <silent><Leader>dd 0r<Space>
-
-" Delete into a black hole (Cut).
-nnoremap ,dd "_dd
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -1066,7 +1071,7 @@ set scrolloff=5         " Start scrolling x lines before the edge of the window.
 set sidescrolloff=5     " Same as above just for columns instead of lines.
 nnoremap <Leader>h 0
 vnoremap <Leader>h 0
-nnoremap <Leader>l $
+nnoremap <Leader>l ^
 vnoremap <Leader>l $h
 
 nnoremap <Leader>gj ]`
