@@ -1069,9 +1069,10 @@ set nostartofline
 " "Cursor Movement"
 set scrolloff=5         " Start scrolling x lines before the edge of the window.
 set sidescrolloff=5     " Same as above just for columns instead of lines.
-nnoremap <Leader>h 0
-vnoremap <Leader>h 0
-nnoremap <Leader>l ^
+set lazyredraw
+nnoremap <Leader>h ^
+vnoremap <Leader>h ^
+nnoremap <Leader>l $
 vnoremap <Leader>l $h
 
 nnoremap <Leader>gj ]`
