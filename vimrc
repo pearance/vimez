@@ -1413,6 +1413,15 @@ augroup END
 
 
 
+" "Jade"
+augroup Jade
+	au!
+	au BufNewFile,BufRead *.jade  setf jade
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
 " "Javascript"
 augroup JavaScript
 	au!
