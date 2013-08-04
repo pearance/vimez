@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -rf .vim .vim.local .vimrc .viminfo
+rm -rf .vim .vim.local .vimrc .viminfo .vimrc.local
