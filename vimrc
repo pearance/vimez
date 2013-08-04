@@ -29,16 +29,14 @@ Bundle "vimez/vim-themes"
 Bundle "vim-scripts/CSApprox"
 Bundle "vim-scripts/ScrollColors"
 Bundle "lilydjwg/colorizer"
-Bundle "othree/html5.vim"
-Bundle "hail2u/vim-css-syntax"
-Bundle "hail2u/vim-css3-syntax"
+Bundle "nelstrom/vim-markdown-folding"
 Bundle "groenewege/vim-less"
 Bundle "pangloss/vim-javascript"
 Bundle "tpope/vim-markdown"
 Bundle "tpope/vim-haml"
-Bundle "nelstrom/vim-markdown-folding"
 Bundle "scrooloose/syntastic"
 Bundle "digitaltoad/vim-jade"
+Bundle "wavded/vim-stylus"
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -1503,6 +1501,15 @@ augroup END
 augroup Smarty
 	au!
 	au BufNewFile,BufRead *.tpl  setf html
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Stylus"
+augroup Stylus
+	au!
+	au BufNewFile,BufRead *.styl  setf stylus
 augroup END
 "-----------------------------------------------------------------------------
 
