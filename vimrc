@@ -1400,6 +1400,15 @@ augroup END
 
 
 
+" "HAML"
+augroup HAML
+	au!
+	au BufNewFile,BufRead *.haml  setf haml
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
 " "HTML"
 augroup HTML
 	au!
