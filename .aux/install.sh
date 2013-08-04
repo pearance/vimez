@@ -77,7 +77,7 @@ sleep $DLY
 /bin/echo -e $BD$M
 /bin/echo -en "2 Cloning Vimez...                   "
 
-git clone git://github.com/vimez/vimez.git ~/.vim >>/tmp/vimez.install.log 2>&1
+git clone https://github.com/vimez/vimez.git ~/.vim >>/tmp/vimez.install.log 2>&1
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
 #------------------------------------------------------------------------------
