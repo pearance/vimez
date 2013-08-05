@@ -24,9 +24,9 @@ Bundle "gmarik/vundle"
 "-------------------------------------------------------------------------------
 
 "}}}
-" "## Frontend Bundles:"{{{
-Bundle "vimez/vim-themes"
+" "## Syntac Bundles:"{{{
 Bundle "vim-scripts/CSApprox"
+Bundle "vimez/vim-themes"
 Bundle "vim-scripts/ScrollColors"
 Bundle "lilydjwg/colorizer"
 Bundle "nelstrom/vim-markdown-folding"
@@ -40,7 +40,7 @@ Bundle "wavded/vim-stylus"
 "-------------------------------------------------------------------------------
 
 "}}}
-" "## Backend Bundles:"{{{
+" "## Functional Bundles:"{{{
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/neosnippet"
 Bundle "Lokaltog/vim-powerline"
@@ -1552,6 +1552,7 @@ if !exists("*Reload")
 		exe 'CSApprox'
 		" Reapply Powerline color scheme
 		call Pl#Load()
+		exe 'PowerlineClearCache'
 		call Msg('Vim Configuration Reloaded!')
 	endfunction
 endif
