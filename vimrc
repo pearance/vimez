@@ -94,10 +94,11 @@ nnoremap q; q:
 "-------------------------------------------------------------------------------
 
 "}}}
-" "## Native Scripts""{{{
-"set runtimepath=$VIMRUNTIME,~/.vim.local/
+" "## Runtime Scripts""{{{
+" set runtimepath=~/.vim.local/,$VIMRUNTIME
 runtime macros/matchit.vim
 runtime ftplugin/man.vim
+source $VIMRUNTIME/ftplugin/man.vim
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -1159,6 +1160,13 @@ vnoremap <C-f> :call FindReplace()<CR>
 
 " "Help"
 nnoremap <silent><F1> viw"zyw:exe "h ".@z.""<CR>
+"-------------------------------------------------------------------------------
+
+
+
+" "Man Pages"
+let $GROFF_NO_SGR=1
+nnoremap <silent><LocalLeader>m :Man <cword><CR>
 "-------------------------------------------------------------------------------
 
 
@@ -2388,8 +2396,6 @@ endif
 
 
 " "Todo/s, Fixme/s"
-" TODO: session info in powerline
-" TODO: create functions to toggle cursor column and line.
-" TODO: Compile browser reload ahk script to exe.
 " TODO: Configure NeoSnippets
+" TODO: session info in powerline
 "}}}
