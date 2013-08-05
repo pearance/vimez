@@ -256,6 +256,7 @@ nnoremap <silent>,re :e<CR>
 " "### Write/Close/Quit""{{{
 " Write the current buffer.
 nnoremap <silent><Leader>w :write<CR>
+nnoremap <silent>,w :write<CR>
 
 " Write a copy of the current buffer as...  and continue editing original buffer.
 nnoremap <Leader>wba :write <C-R>=expand("%:p:h") . "/" <CR>
