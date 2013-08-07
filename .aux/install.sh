@@ -106,11 +106,12 @@ sleep $DLY
 /bin/echo -en "1 Building Vim... "
 
 mkdir -p ~/src
-cd ~/src
-hg clone https://vim.googlecode.com/hg/ vim
-cd vim
-
 mkdir -p ~/bin
+cd ~/src
+rm -rf ~/src/vim/
+hg clone https://vim.googlecode.com/hg/ ~/src/vim
+cd ~/src/vim
+
 
 # terminal config
 ./configure \
