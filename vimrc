@@ -71,6 +71,7 @@ Bundle "mattn/webapi-vim"
 Bundle "mattn/gist-vim"
 Bundle "mhinz/vim-signify"
 Bundle "terryma/vim-multiple-cursors"
+Bundle "mattn/emmet-vim"
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -463,6 +464,7 @@ function! YRRunAfterMaps()
 
 	" Yank current BLOCK.
 	nnoremap ,y yip}
+	vnoremap <C-c> "*y"
 
 	" Delete current WORD.
 	nnoremap <Leader>d diw
@@ -977,6 +979,9 @@ endif
 
 
 "}}}
+" "## ZenCoding (Emmet)"
+let g:user_emmet_leader_key = '<c-e>'
+
 " "## Auto Pairing""{{{
 " Plugin (Auto-Pairs)
 let g:AutoPairsShortcutFastWrap = '<C-f>'
