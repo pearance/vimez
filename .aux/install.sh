@@ -1,5 +1,5 @@
 #!/bin/bash
-#vim:fdm=marker:
+# vim:fdm=marker:
 #        _
 # __   _(_)_ __ ___   ___ ____
 # \ \ / / | '_ ` _ \ / _ \_  /
@@ -46,14 +46,12 @@ clear
 /bin/echo -e $NO
 /bin/echo -e $BD$G"Note: step 5 can take up to three minutes"$NO
 /bin/echo -e $BD$G"to complete. Please be patient."$NO
-
 #------------------------------------------------------------------------------
 
 
 
 # }}}
-# BACKUP {{{
-# Backup any remnants of an existing Vim install.
+# BACKUP CONFIGURATION {{{
 /bin/echo -e $BD$M
 /bin/echo -en "1 Backing up existing Vim install... "
 
@@ -73,11 +71,80 @@ sleep $DLY
 
 
 # }}}
+# UNINSTALL EXISTING VIM {{{
+/bin/echo -e $BD$M
+/bin/echo -en "1 Uninstalling existing Vim install... "
+
+sudo aptitude remove -y \
+	vim vim-runtime gvim vim-tiny vim-common vim-gui-common
+
+sleep $DLY
+/bin/echo -e $BD$G"done"$NO
+#------------------------------------------------------------------------------
+
+
+
+# }}}
+# INSTALL DEPENDENCIES {{{
+/bin/echo -e $BD$M
+/bin/echo -en "1 Installing dependencies... "
+
+sudo aptitude install -y \
+	libncurses5-dev libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev \
+	libbonoboui2-dev libcairo2-dev libx11-dev libxpm-dev libxt-dev libxtst-dev \
+	build-essential python-dev ruby-dev mercurial checkinstall
+
+sleep $DLY
+/bin/echo -e $BD$G"done"$NO
+#------------------------------------------------------------------------------
+
+
+
+# }}}
+# BUILD VIM {{{
+/bin/echo -e $BD$M
+/bin/echo -en "1 Building Vim... "
+
+mkdir -p ~/src
+cd ~/src
+hg clone https://vim.googlecode.com/hg/ vim
+cd vim
+
+mkdir -p ~/bin
+
+# terminal config
+./configure \
+	--enable-rubyinterp=dynamic \
+	--enable-perlinterp=dynamic \
+	--enable-pythoninterp=dynamic \
+	--with-python-config-dir=/usr/lib/python2.7/config \
+	--enable-cscope \
+	--enable-gui=auto \
+	--enable-gtk2-check
+  --enable-gnome-check \
+	--with-features=huge \
+	--with-x \
+	--with-compiledby="Fontaine Cook <fontaine.cook@pearance.com>"
+
+sudo make
+
+sudo checkinstall
+
+sudo make clean
+
+sleep $DLY
+/bin/echo -e $BD$G"done"$NO
+#------------------------------------------------------------------------------
+
+
+
+# }}}
 # DOWNLOAD VIMEZ {{{
 /bin/echo -e $BD$M
 /bin/echo -en "2 Cloning Vimez...                   "
 
 git clone https://github.com/vimez/vimez.git ~/.vim >>/tmp/vimez.install.log 2>&1
+
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
 #------------------------------------------------------------------------------
