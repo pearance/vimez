@@ -636,7 +636,7 @@ set titlestring=%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
 set cursorline          " Enable cursor line highlight
 set nocursorcolumn      " Enable cursor column highlight
 let g:cursorcolumnstate=0
-let g:cursorlinestate=1
+let g:cursorlinestate=0
 nnoremap <silent><Leader>tcc :call ToggleCursorColumn()<CR>
 nnoremap <silent><Leader>tcl :call ToggleCursorLine()<CR>
 "-------------------------------------------------------------------------------
