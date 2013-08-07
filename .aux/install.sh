@@ -62,7 +62,7 @@ for i in .vimrc .gvimrc .vim .vim.local
 	do [ -e $i  ] && mv -f --backup=t $i ~/backups/pre-vimez/$i.bak
 done
 
-/bin/rm -f .vimrc
+/bin/rm -rf .vim .vim.local .vimrc .viminfo .vimrc.local
 
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
