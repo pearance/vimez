@@ -1428,6 +1428,8 @@ augroup HTML
 	au!
 	au BufNewFile,BufRead *.htm   setf html
 	au BufNewFile,BufRead *.html  setf html
+	au BufNewFile,BufRead *.ejs   setf html
+	au BufNewFile,BufRead *.jade  setf html
 	au FileType html              setl omnifunc=htmlcomplete#CompleteTags
 	au Filetype html              call EnableCloseTag()
 augroup END
