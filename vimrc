@@ -24,7 +24,7 @@ Bundle "gmarik/vundle"
 "-------------------------------------------------------------------------------
 
 "}}}
-" "## Syntac Bundles:"{{{
+" "## Syntax Bundles:"{{{
 Bundle "vim-scripts/CSApprox"
 Bundle "vimez/vim-themes"
 Bundle "vim-scripts/ScrollColors"
@@ -72,6 +72,7 @@ Bundle "mattn/gist-vim"
 Bundle "mhinz/vim-signify"
 Bundle "terryma/vim-multiple-cursors"
 Bundle "mattn/emmet-vim"
+Bundle "vimez/vim-snips"
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -959,7 +960,7 @@ inoremap <expr><BS> neocomplcache#smart_close_popup() . "\<BS>"
 "}}}
 " "## Snippets (NeoSnippets)""{{{
 let g:neosnippet#disable_runtime_snippets = {'_' : 1,}
-let g:neosnippet#snippets_directory = '~/.vim/bundle/, ~/.vim.local/snippets/'
+let g:neosnippet#snippets_directory = '~/.vim.local/snippets/, ~/.vim/bundle/vim-snips/'
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
@@ -969,19 +970,25 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: "\<TAB>"
 
-nnoremap <Leader>es  :NeoSnippetEdit<CR>
+xnoremap <C-,>     <Plug>(neosnippet_expand_target)
+nnoremap <Leader>es  :NeoSnippetEdit -split -horizontal<CR>
 
 " Set snips_author.
 if !exists('snips_author')
 	let g:snips_author = 'VimEz'
 endif
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 "-------------------------------------------------------------------------------
 
 
 "}}}
-" "## ZenCoding (Emmet)"
+" "## ZenCoding (Emmet)""{{{
 let g:user_emmet_leader_key = '<c-e>'
-
+"}}}
 " "## Auto Pairing""{{{
 " Plugin (Auto-Pairs)
 let g:AutoPairsShortcutFastWrap = '<C-f>'
