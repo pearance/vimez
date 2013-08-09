@@ -197,7 +197,7 @@ set vi+=@500  " Number of lines to save from the input line history
 set vi+=/500  " Number of lines to save from the search history
 set vi+=r/tmp " Removable media, for which no marks will be stored
 set vi+=!     " Global variables that start with an uppercase letter and
-              " don't contain lowercase letters
+							" don't contain lowercase letters
 set vi+=h     " Disable 'hlsearch' highlighting when starting
 set vi+=%     " Buffer list (restored when starting Vim without arguments)
 set vi+=c     " Convert the text using 'encoding'
@@ -258,8 +258,8 @@ nnoremap <silent>,re :e<CR>
 "}}}
 " "### Write/Close/Quit""{{{
 " Write the current buffer.
-nnoremap <silent><Leader>w :write<CR>
-nnoremap <silent>,w :write<CR>
+nnoremap <silent><Leader>w :RetabIndent<CR>:write<CR>
+nnoremap <silent>,w :RetabIndent<CR>:write<CR>
 
 " Write a copy of the current buffer as...  and continue editing original buffer.
 nnoremap <Leader>wba :write <C-R>=expand("%:p:h") . "/" <CR>
@@ -268,14 +268,14 @@ nnoremap <Leader>wba :write <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <Leader>eba :saveas <C-R>=expand("%:p:h") . "/" <CR>
 
 " Write the current buffer and quit the window.
-nnoremap <silent><Leader>wq :wq<CR>
+nnoremap <silent><Leader>wq :RetabIndent<CR>:wq<CR>
 
 " Write and quit all buffers and windows; exiting Vim.
-nnoremap <silent><Leader>wqa :SaveSession<CR>:wqa<CR>
-nnoremap <silent><Leader>Q   :SaveSession<CR>:wqa<CR>
+nnoremap <silent><Leader>wqa :RetabIndent<CR>:SaveSession<CR>:wqa<CR>
+nnoremap <silent><Leader>Q   :RetabIndent<CR>:SaveSession<CR>:wqa<CR>
 
 " Write all buffers.
-nnoremap <silent><Leader>wa :wall<CR>:echo 'All buffers written'<CR>
+nnoremap <silent><Leader>wa :RetabIndent<CR>:wall<CR>:echo 'All buffers written'<CR>
 
 " Write current buffer as root.
 cmap w!! w !sudo tee % >/dev/null
@@ -395,27 +395,27 @@ set ssop+=blank        " Blank	empty windows
 set ssop+=buffers	     " Hidden and unloaded buffers, not just those in windows
 set ssop+=curdir	     " The current directory
 set ssop+=folds	       " Manually created folds, opened/closed folds and local
-                       " fold options
+											 " fold options
 set ssop-=globals	     " Global variables that start with an uppercase letter
-                       " and contain at least one lowercase letter.  Only
-                       " String and Number types are stored.
+											 " and contain at least one lowercase letter.  Only
+											 " String and Number types are stored.
 set ssop+=help		     " Restore help windows.
 set ssop+=localoptions " Options and mappings local to a window or buffer (not
-                       " global values for local options)
+											 " global values for local options)
 set ssop+=options	     " All options and mappings (also global values for local
-                       " options)
+											 " options)
 set ssop+=resize	     " Size of the Vim window: 'lines' and 'columns'
 set ssop-=sesdir	     " The directory in which the session file is located
-                       " will become the current directory (useful with
-                       " projects accessed over a network from different
-                       " systems)
+											 " will become the current directory (useful with
+											 " projects accessed over a network from different
+											 " systems)
 set ssop+=slash	       " Backslashes in file names replaced with forward
-                       " slashes
+											 " slashes
 set ssop+=tabpages	   " All tab pages; without this only the current tab page
-                       " is restored, so that you can make a session for each
-                       " tab page separately
+											 " is restored, so that you can make a session for each
+											 " tab page separately
 set ssop+=unix		     " With Unix end-of-line format (single <NL>), even when
-                       " on Windows or DOS
+											 " on Windows or DOS
 set ssop+=winpos	     " Position of the whole Vim window
 set ssop+=winsize	     " Window sizes
 
@@ -675,23 +675,23 @@ set shortmess+=m " Use "[+]" instead of "[Modified]"
 set shortmess+=n " Use "[New]" instead of "[New File]"
 set shortmess+=r " Use "[RO]" instead of "[readonly]"
 set shortmess-=w " Use "[w]" instead of "written" for file write message
-                 " and "[a]" instead of "appended" for ':w >> file' command
+								 " and "[a]" instead of "appended" for ':w >> file' command
 set shortmess+=x " Use "[dos]" instead of "[dos format]", "[unix]" instead
-                 " of "[unix format]" and "[mac]" instead of "[mac format]".
+								 " of "[unix format]" and "[mac]" instead of "[mac format]".
 set shortmess-=a " All of the above abbreviations
 set shortmess+=o " Overwrite message for writing a file with subsequent message
-                 " for reading a file (useful for ":wn" or when 'autowrite' on)
+								 " for reading a file (useful for ":wn" or when 'autowrite' on)
 set shortmess+=O " Message for reading a file overwrites any previous message.
-                 " Also for quickfix message (e.g., ":cn").
+								 " Also for quickfix message (e.g., ":cn").
 set shortmess-=s " Don't give "search hit BOTTOM, continuing at TOP" or "search
-                 " hit TOP, continuing at BOTTOM" messages
+								 " hit TOP, continuing at BOTTOM" messages
 set shortmess+=t " Truncate file message at the start if it is too long to fit
-                 " on the command-line, "<" will appear in the left most column.
+								 " on the command-line, "<" will appear in the left most column.
 set shortmess+=T " Truncate other messages in the middle if they are too long to
-                 " fit on the command line.  "..." will appear in the middle.
+								 " fit on the command line.  "..." will appear in the middle.
 set shortmess-=W " Don't give "written" or "[w]" when writing a file
 set shortmess-=A " Don't give the "ATTENTION" message when an existing
-                 " swap file is found.
+								 " swap file is found.
 set shortmess+=I " Don't give the intro message when starting Vim |:intro|.
 "-------------------------------------------------------------------------------
 
@@ -980,7 +980,7 @@ endif
 
 " For snippet_complete marker.
 if has('conceal')
-  set conceallevel=2 concealcursor=i
+	set conceallevel=2 concealcursor=i
 endif
 "-------------------------------------------------------------------------------
 
@@ -1629,14 +1629,14 @@ endfunction
 
 " "Delete File"
 function! DeleteFile()
-  let l:delprompt = input('Are you sure? ')
-  if l:delprompt == "y" || "Y"
-    :echo delete(@%)
-    :Kwbd
-  else
-    redraw!
-    return
-  endif
+	let l:delprompt = input('Are you sure? ')
+	if l:delprompt == "y" || "Y"
+		:echo delete(@%)
+		:Kwbd
+	else
+		redraw!
+		return
+	endif
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -2154,13 +2154,13 @@ endfunction
 " From Michael Wilber
 " https://github.com/vim-scripts/CSS-one-line--multi-line-folding
 function! CssFoldText()
-  let line = getline(v:foldstart)
-  let nnum = nextnonblank(v:foldstart + 1)
-  while nnum < v:foldend+1
-    let line = line . " " . substitute(getline(nnum), "^ *", "", "g")
-    let nnum = nnum + 1
-  endwhile
-  return line
+	let line = getline(v:foldstart)
+	let nnum = nextnonblank(v:foldstart + 1)
+	while nnum < v:foldend+1
+		let line = line . " " . substitute(getline(nnum), "^ *", "", "g")
+		let nnum = nnum + 1
+	endwhile
+	return line
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -2171,13 +2171,13 @@ endfunction
 " tabs to spaces if what = 1, or from spaces to tabs otherwise.
 " When converting to tabs, result has no redundant spaces.
 function! Indenting(indent, what, cols)
-  let spccol = repeat(' ', a:cols)
-  let result = substitute(a:indent, spccol, '\t', 'g')
-  let result = substitute(result, ' \+\ze\t', '', 'g')
-  if a:what == 1
-    let result = substitute(result, '\t', spccol, 'g')
-  endif
-  return result
+	let spccol = repeat(' ', a:cols)
+	let result = substitute(a:indent, spccol, '\t', 'g')
+	let result = substitute(result, ' \+\ze\t', '', 'g')
+	if a:what == 1
+		let result = substitute(result, '\t', spccol, 'g')
+	endif
+	return result
 endfunction
 
 " Convert whitespace used for indenting (before first non-whitespace).
@@ -2186,11 +2186,11 @@ endfunction
 " The cursor position is restored, but the cursor will be in a different
 " column when the number of characters in the indent of the line is changed.
 function! IndentConvert(line1, line2, what, cols)
-  let savepos = getpos('.')
-  let cols = empty(a:cols) ? &tabstop : a:cols
-  execute a:line1 . ',' . a:line2 . 's/^\s\+/\=Indenting(submatch(0), a:what, cols)/e'
-  call histdel('search', -1)
-  call setpos('.', savepos)
+	let savepos = getpos('.')
+	let cols = empty(a:cols) ? &tabstop : a:cols
+	execute a:line1 . ',' . a:line2 . 's/^\s\+/\=Indenting(submatch(0), a:what, cols)/e'
+	call histdel('search', -1)
+	call setpos('.', savepos)
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -2288,7 +2288,7 @@ function! ToggleCSSFold()
 		echo 'CSS Fold: On'
 	else
 		let g:cssfoldstate = 0
-    setl foldtext=FoldText()
+		setl foldtext=FoldText()
 		setl foldmarker={{{,}}}
 		setl foldmethod=marker
 		echo 'CSS Fold: Off'
@@ -2301,13 +2301,13 @@ endfunction
 " "Highlight Words"
 " From S.Losh - https://github.com/sjl/dotfiles/blob/master/vim/vimrc
 function! HiInterestingWord(n)
-  normal! mz
-  normal! "zyiw
-  let mid = 86750 + a:n
-  silent! call matchdelete(mid)
-  let pat = '\V\<' . escape(@z, '\') . '\>'
-  call matchadd("InterestingWord" . a:n, pat, 1, mid)
-  normal! `z
+	normal! mz
+	normal! "zyiw
+	let mid = 86750 + a:n
+	silent! call matchdelete(mid)
+	let pat = '\V\<' . escape(@z, '\') . '\>'
+	call matchadd("InterestingWord" . a:n, pat, 1, mid)
+	normal! `z
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -2315,11 +2315,11 @@ endfunction
 
 " "Close Unlisted Buffers"
 function! CloseUnlistedBuffers()
-    let tpbl=[]
-    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
-    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
-        silent execute 'bwipeout' buf
-    endfor
+		let tpbl=[]
+		call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+		for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+				silent execute 'bwipeout' buf
+		endfor
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -2327,36 +2327,36 @@ endfunction
 
 " "Close Inactive Buffers"
 function! CloseInactiveBuffers()
-  "List of *all* buffer numbers
-  let l:buffers = range(1, bufnr('$'))
+	"List of *all* buffer numbers
+	let l:buffers = range(1, bufnr('$'))
 
-  "What tab page are we in?
-  let l:currentTab = tabpagenr()
-  try
-    "Go through all tab pages
-    let l:tab = 0
-    while l:tab < tabpagenr('$')
-      let l:tab += 1
+	"What tab page are we in?
+	let l:currentTab = tabpagenr()
+	try
+		"Go through all tab pages
+		let l:tab = 0
+		while l:tab < tabpagenr('$')
+			let l:tab += 1
 
-      "Go through all windows
-      let l:win = 0
-      while l:win < winnr('$')
-        let l:win += 1
-        "Whatever buffer is in this window in this tab, remove it from
-        "l:buffers list
-        let l:thisbuf = winbufnr(l:win)
-        call remove(l:buffers, index(l:buffers, l:thisbuf))
-      endwhile
-    endwhile
+			"Go through all windows
+			let l:win = 0
+			while l:win < winnr('$')
+				let l:win += 1
+				"Whatever buffer is in this window in this tab, remove it from
+				"l:buffers list
+				let l:thisbuf = winbufnr(l:win)
+				call remove(l:buffers, index(l:buffers, l:thisbuf))
+			endwhile
+		endwhile
 
-    "If there are any buffers left, delete them
-    if len(l:buffers)
-      execute 'bwipeout' join(l:buffers)
-    endif
-  finally
-    "Go back to our original tab page
-    execute 'tabnext' l:currentTab
-  endtry
+		"If there are any buffers left, delete them
+		if len(l:buffers)
+			execute 'bwipeout' join(l:buffers)
+		endif
+	finally
+		"Go back to our original tab page
+		execute 'tabnext' l:currentTab
+	endtry
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -2364,10 +2364,10 @@ endfunction
 
 " "Highlight Visual"
 function! s:VSetSearch()
-  let temp = @@
-  norm! gvy
-  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-  let @@ = temp
+	let temp = @@
+	norm! gvy
+	let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+	let @@ = temp
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -2375,23 +2375,23 @@ endfunction
 
 " "Close Diff"
 function! CloseDiff()
-	  if (&diff == 0 || getbufvar('#', '&diff') == 0)
-        \ && (bufname('%') !~ '^fugitive:' && bufname('#') !~ '^fugitive:')
-    echom "Not in diff view."
-    return
-  endif
+		if (&diff == 0 || getbufvar('#', '&diff') == 0)
+				\ && (bufname('%') !~ '^fugitive:' && bufname('#') !~ '^fugitive:')
+		echom "Not in diff view."
+		return
+	endif
 
-  " close current buffer if alternate is not fugitive but current one is
-  if bufname('#') !~ '^fugitive:' && bufname('%') =~ '^fugitive:'
-    if bufwinnr("#") == -1
-      b #
-      bd #
-    else
-      bd
-    endif
-  else
-    bd #
-  endif
+	" close current buffer if alternate is not fugitive but current one is
+	if bufname('#') !~ '^fugitive:' && bufname('%') =~ '^fugitive:'
+		if bufwinnr("#") == -1
+			b #
+			bd #
+		else
+			bd
+		endif
+	else
+		bd #
+	endif
 endfunction
 "-------------------------------------------------------------------------------
 
