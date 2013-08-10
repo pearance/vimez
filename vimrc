@@ -1296,25 +1296,6 @@ nmap <silent><Leader>tch :call ToggleColorHighlights()<CR>
 
 
 
-" "Highlight Words of Interest"
-nnoremap <silent> <leader>1 :call HiInterestingWord(1)<CR>
-nnoremap <silent> <leader>2 :call HiInterestingWord(2)<CR>
-nnoremap <silent> <leader>3 :call HiInterestingWord(3)<CR>
-nnoremap <silent> <leader>4 :call HiInterestingWord(4)<CR>
-nnoremap <silent> <leader>5 :call HiInterestingWord(5)<CR>
-nnoremap <silent> <leader>6 :call HiInterestingWord(6)<CR>
-
-" Highlight Colors
-hi def InterestingWord1 guifg=#000000 guibg=#ffa724
-hi def InterestingWord2 guifg=#000000 guibg=#aeee00
-hi def InterestingWord3 guifg=#000000 guibg=#8cffba
-hi def InterestingWord4 guifg=#000000 guibg=#b88853
-hi def InterestingWord5 guifg=#000000 guibg=#ff9eb8
-hi def InterestingWord6 guifg=#000000 guibg=#ff2c4b
-"-------------------------------------------------------------------------------
-
-
-
 " "Edit Vimrc.local"
 nnoremap <silent><Leader>e1 :e ~/dotfiles/.vim.local/vimrc.local<CR><Bar>ggzm
 "-------------------------------------------------------------------------------
@@ -2306,21 +2287,6 @@ function! ToggleCSSFold()
 		setl foldmethod=marker
 		echo 'CSS Fold: Off'
 	endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Highlight Words"
-" From S.Losh - https://github.com/sjl/dotfiles/blob/master/vim/vimrc
-function! HiInterestingWord(n)
-	normal! mz
-	normal! "zyiw
-	let mid = 86750 + a:n
-	silent! call matchdelete(mid)
-	let pat = '\V\<' . escape(@z, '\') . '\>'
-	call matchadd("InterestingWord" . a:n, pat, 1, mid)
-	normal! `z
 endfunction
 "-------------------------------------------------------------------------------
 
