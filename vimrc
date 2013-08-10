@@ -1312,6 +1312,12 @@ hi def InterestingWord6 guifg=#000000 guibg=#ff2c4b
 
 
 
+" "Edit Vimrc.local"
+nnoremap <silent><Leader>e1 :e ~/dotfiles/.vim.local/vimrc.local<CR><Bar>ggzm
+"-------------------------------------------------------------------------------
+
+
+
 " "}}}
 " AUTOMATION:"{{{
 " ******************************************************************************
@@ -2407,7 +2413,7 @@ endfunction
 
 " "Load Local Configurations"
 if filereadable(expand('~/.vim.local/vimrc.local'))
-	so ~/.vim.local/vimrc.local
+	so ~/dotfiles/.vim.local/vimrc.local
 endif
 "-------------------------------------------------------------------------------
 
@@ -2417,4 +2423,3 @@ endif
 " TODO: Configure NeoSnippets
 " TODO: session info in powerline
 "}}}
-
