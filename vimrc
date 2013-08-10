@@ -73,7 +73,6 @@ Bundle "mhinz/vim-signify"
 Bundle "terryma/vim-multiple-cursors"
 Bundle "mattn/emmet-vim"
 Bundle "vimez/vim-snips"
-Bundle "tpope/vim-ragtag"
 "-------------------------------------------------------------------------------
 
 "}}}
