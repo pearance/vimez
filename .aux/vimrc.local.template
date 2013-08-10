@@ -9,8 +9,13 @@
 " Description:   The local Vim configuration file. Here is where you get your
 "                overrides on.
 "------------------------------------------------------------------------------
+" This would be Vim's version of accessing [Edit Preferences]. These files are
+" sourced post save, so most of the time your changes should take effect
+" immediately. However, some changes will only take effect after restarting Vim.
 
 silent! colorscheme molokai-ez
+
+
 
 " BUNDLES: "{{{
 " *******************************************************************************
@@ -22,11 +27,6 @@ silent! colorscheme molokai-ez
 " }}}
 " CONFIG FILES: "{{{
 " *******************************************************************************
-" This would be Vim's version of accessing [Edit Preferences]. These files are
-" sourced post save, so most of the time your changes should take effect
-" immediately. However, some changes will only take effect after restarting Vim.
-
-
 
 " "Edit Vimrc.local"
 nnoremap <silent><Leader>e1 :e ~/.vim.local/vimrc.local<CR>
@@ -34,28 +34,8 @@ nnoremap <silent><Leader>e1 :e ~/.vim.local/vimrc.local<CR>
 
 
 
-" "Edit Color Scheme" TODO: make local override with
-" http://www.vim.org/scripts/script.php?script_id=1641
-nnoremap <silent><Leader>e2 :e ~/.vim.local/bundle/themes/colors/molokai-ez.vim<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Edit Tmux Conf"
-nnoremap <silent><Leader>e3 :e ~/.tmux.conf<CR>
-"-------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
 " }}}
-" UNCATEGORIZED: "{{{
+" PREFERENCES: "{{{
 " *******************************************************************************
 
 " "Spell Checking"
@@ -63,14 +43,6 @@ nnoremap <silent><Leader>e3 :e ~/.tmux.conf<CR>
 " away in the .vim/spell folder.
 set nospell               " Options: spell or nospell
 set spelllang=en_us       " Default language
-"-------------------------------------------------------------------------------
-
-
-
-" "Common Symbols"
-" inoremap uu _
-" inoremap hh =>
-" inoremap aa @
 "-------------------------------------------------------------------------------
 
 
@@ -96,50 +68,5 @@ autocmd FileType filetype1,filetype2 let b:noStripWhitespace=1
 "-------------------------------------------------------------------------------
 
 
-
-" "*** gVim & MacVim ***"
-"
-if has("gui_running")
-
-  " "Default Font"
-  " set guifont=Anonymous\ Pro\ for\ Powerline:h14
-  " set guifont=Bitstream\ Vera\ Sans\ Mono\ for\ Powerline:h14
-  " Consolas here
-  " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
-  " Droid Sans Mono here
-  " Envy Code here
-  " Incosolata here
-  " Menlo here
-  " Mensch here
-  " Lucida Sans Typewriter
-  " Meslo DZ Regular
-  " Monaco
-  " Monofur
-  " Ubuntu Mono
-  " set guifont=Terminus\ for\ Powerline\ 8
-  " Source Code Pro
-  "-------------------------------------------------------------------------------
-
-
-
-  " "Powerline Statusline"
-  " This option defines which set of symbols and dividers you want to use. There
-  " are currently three available options: "compatible", "unicode" and "fancy".
-  let g:Powerline_symbols = 'unicode'
-	call Pl#Theme#RemoveSegment('rvm:string')
-	call Pl#Theme#RemoveSegment('scrollpercent')
-  "-------------------------------------------------------------------------------
-
-
-
-	" "Write on Focus Lost" Write all buffers to file upon leaving buffer
-	" (gvim only).
-	augroup FocusLost
-  	" au! FocusLost
-  	" au! FocusLost * silent!			wa
-	augroup END
-	"-------------------------------------------------------------------------------
-
-endif
 
 " vim:ft=vim:fdm=marker:
