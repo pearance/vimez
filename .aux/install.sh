@@ -30,80 +30,46 @@ B="\033[34m"
 M="\033[35m"
 C="\033[36m"
 W="\033[37m"
-
-DLY=1
 #------------------------------------------------------------------------------
-
-
-
-# }}}
-# TITLE {{{
-clear
-/bin/echo -e $BD$RE$M
-/bin/echo -e "                                           "
-/bin/echo -e "              Vimez Install                "
-/bin/echo -e "                                           "
-/bin/echo -e $NO
-/bin/echo -e $BD$G"Note: step 5 can take up to three minutes"$NO
-/bin/echo -e $BD$G"to complete. Please be patient."$NO
-#------------------------------------------------------------------------------
-
-
 
 # }}}
 # BACKUP CONFIGURATION {{{
-/bin/echo -e $BD$M
-/bin/echo -en "1 Backing up existing Vim install... "
 
 /bin/rm -rf /tmp/vimez.install.log
 /bin/rm -rf ~/backups/pre-vimez/ &&  /bin/mkdir -p ~/backups/pre-vimez/
 
-for i in .vimrc .gvimrc .vim .vim.local
+for i in .vimrc .gvimrc .vim
 	do [ -e $i  ] && mv -f --backup=t $i ~/backups/pre-vimez/$i.bak
 done
 
-/bin/rm -rf .vim .vim.local .vimrc .viminfo .vimrc.local
-
-sleep $DLY
-/bin/echo -e $BD$G"done"$NO
+/bin/rm -rf .vim .vimrc .viminfo .gvimrc
+/bin/echo -en "Backup existing Vim install... done"
 #------------------------------------------------------------------------------
-
-
 
 # }}}
 # UNINSTALL EXISTING VIM {{{
-/bin/echo -e $BD$M
-/bin/echo -en "1 Uninstalling existing Vim install... "
 
 sudo aptitude remove -y \
 	vim vim-runtime gvim vim-tiny vim-common vim-gui-common
 
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
+/bin/echo -en "Uninstall existing Vim install... done "
 #------------------------------------------------------------------------------
-
-
 
 # }}}
 # INSTALL DEPENDENCIES {{{
-/bin/echo -e $BD$M
-/bin/echo -en "1 Installing dependencies... "
 
 sudo aptitude install -y \
 	libncurses5-dev libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev \
 	libbonoboui2-dev libcairo2-dev libx11-dev libxpm-dev libxt-dev libxtst-dev \
 	build-essential python-dev ruby-dev mercurial checkinstall
 
-sleep $DLY
-/bin/echo -e $BD$G"done"$NO
+/bin/echo -en "Install dependencies... done"
 #------------------------------------------------------------------------------
-
-
 
 # }}}
 # BUILD VIM {{{
-/bin/echo -e $BD$M
-/bin/echo -en "1 Building Vim... "
 
 mkdir -p ~/src
 mkdir -p ~/bin
@@ -133,81 +99,50 @@ sudo checkinstall
 
 sudo make clean
 
-sleep $DLY
-/bin/echo -e $BD$G"done"$NO
+/bin/echo -en "Build Vim... done"
 #------------------------------------------------------------------------------
-
-
 
 # }}}
 # DOWNLOAD VIMEZ {{{
-/bin/echo -e $BD$M
-/bin/echo -en "2 Cloning Vimez...                   "
 
 git clone https://github.com/vimez/vimez.git ~/.vim >>/tmp/vimez.install.log 2>&1
 
-sleep $DLY
-/bin/echo -e $BD$G"done"$NO
+/bin/echo -en "Clone Vimez... done"
 #------------------------------------------------------------------------------
 
-
-
 # }}}
-# CREATE LOCAL DIRECTORIES {{{
-/bin/echo -e $BD$M
-/bin/echo -en "3 Generating .vim.local structure... "
+# SETUP LOCAL FILES {{{
 
 /bin/mkdir -p ~/dotfiles/
-/bin/mkdir -p ~/dotfiles/.vim.local/dictionaries/
-/bin/mkdir -p ~/dotfiles/.vim.local/snippets/
-/bin/mkdir -p ~/dotfiles/.vim.local/templates/
-/bin/mkdir -p ~/dotfiles/.vim.local/bundle/
-/bin/mkdir -p ~/dotfiles/.vim.local/tmp/sessions/
-/bin/mkdir -p ~/dotfiles/.vim.local/tmp/view/
-/bin/mkdir -p ~/dotfiles/.vim.local/tmp/backups/
-/bin/mkdir -p ~/dotfiles/.vim.local/tmp/swaps/
-/bin/mkdir -p ~/dotfiles/.vim.local/tmp/undos/
+/bin/mkdir -p ~/dotfiles/vim.local/dictionaries/
+/bin/mkdir -p ~/dotfiles/vim.local/snippets/
+/bin/mkdir -p ~/dotfiles/vim.local/templates/
+/bin/mkdir -p ~/dotfiles/vim.local/bundle/
+/bin/mkdir -p ~/dotfiles/vim.local/tmp/sessions/
+/bin/mkdir -p ~/dotfiles/vim.local/tmp/view/
+/bin/mkdir -p ~/dotfiles/vim.local/tmp/backups/
+/bin/mkdir -p ~/dotfiles/vim.local/tmp/swaps/
+/bin/mkdir -p ~/dotfiles/vim.local/tmp/undos/
 
-sleep $DLY
-/bin/echo -e $BD$G"done"$NO
+touch ~/dotfiles/vim.local/dictionaries/en.utf-8.add
+/bin/cp  ~/.vim/.aux/vimrc.local.template ~/dotfiles/vim.local/
+
+/bin/echo -en "Setup local files... done"
 #------------------------------------------------------------------------------
-
-
-
-# }}}
-# POPULATE LOCAL DIRECTORIES {{{
-/bin/echo -e $BD$M
-/bin/echo -en "4 Populating .vim.local structure... "
-
-touch ~/dotfiles/.vim.local/dictionaries/en.utf-8.add
-/bin/cp  ~/.vim/.aux/vimrc.local.template ~/dotfiles/.vim.local/vimrc.local
-
-sleep $DLY
-/bin/echo -e $BD$G"done"$NO
-#------------------------------------------------------------------------------
-
-
 
 # }}}
 # DOWNLOAD VUNDLE & INSTALL {{{
-/bin/echo -e $BD$M
-/bin/echo -en "5 Installing plugin bundles...       "
 
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle >>/tmp/vimez.install.log 2>&1
 cd ~
 /bin/ln -sf .vim/vimrc .vimrc
-vim "+let g:session_directory = '~/dotfiles/.vim.local/tmp/sessions/'" +BundleInstall +qall >>/tmp/vimez.install.log 2>&1
+vim "+let g:session_directory = '~/dotfiles/vim.local/tmp/sessions/'" +BundleInstall +qall >>/tmp/vimez.install.log 2>&1
 
-sleep $DLY
-/bin/echo -e $BD$G"done"$NO
+/bin/echo -en "5 Installing plugin bundles... done"
 #------------------------------------------------------------------------------
-
-
 
 # }}}
 # WRAP {{{
-/bin/echo -e $BD$M
-/bin/echo -en "6 Cleaning up...                     "
 
 /bin/rm ~/install.sh >>/tmp/vimez.install.log 2>&1
 /bin/rm f ~/yankring_history_v2.txt >>/tmp/vimez.install.log 2>&1
@@ -219,8 +154,8 @@ sleep $DLY
 /bin/echo -e "                    Happy vimming!"
 /bin/echo
 /bin/echo
+
+/bin/echo -en "Cleaning up... done"
 #------------------------------------------------------------------------------
-
-
 
 # }}}

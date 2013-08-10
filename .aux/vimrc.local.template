@@ -1,3 +1,4 @@
+" vim:ft=vim:fdm=marker:
 "  __     _____ __  __ ____   ____   _     ___   ____    _    _
 "  \ \   / /_ _|  \/  |  _ \ / ___| | |   / _ \ / ___|  / \  | |
 "   \ \ / / | || |\/| | |_) | |     | |  | | | | |     / _ \ | |
@@ -9,12 +10,13 @@
 " Description:   The local Vim configuration file. Here is where you get your
 "                overrides on.
 "------------------------------------------------------------------------------
-" This would be Vim's version of accessing [Edit Preferences]. These files are
-" sourced post save, so most of the time your changes should take effect
-" immediately. However, some changes will only take effect after restarting Vim.
+" "RENAME A COPY OF THIS FILE TO vimrc.local TO OVERRIDE DEFAULT SETTINGS"
+" This file is sourced post save, so most of the time your changes should take
+" effect immediately. However, some changes will only take effect after
+" restarting Vim.
+
 
 silent! colorscheme molokai-ez
-
 
 
 " LOCAL BUNDLES: "{{{
@@ -55,7 +57,4 @@ set spelllang=en_us       " Default language
 " trailing whitespace striped automatically upon file write.
 autocmd FileType filetype1,filetype2 let b:noStripWhitespace=1
 "-------------------------------------------------------------------------------
-
-
-
-" vim:ft=vim:fdm=marker:
+"}}}
