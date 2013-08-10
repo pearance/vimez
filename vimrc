@@ -258,8 +258,8 @@ nnoremap <silent>,re :e<CR>
 "}}}
 " "### Write/Close/Quit""{{{
 " Write the current buffer.
-nnoremap <silent><Leader>w :RetabIndent<CR>:write<CR>
-nnoremap <silent>,w :RetabIndent<CR>:write<CR>
+nnoremap <silent><Leader>w :write<CR>
+nnoremap <silent>,w :write<CR>
 
 " Write a copy of the current buffer as...  and continue editing original buffer.
 nnoremap <Leader>wba :write <C-R>=expand("%:p:h") . "/" <CR>
@@ -268,14 +268,14 @@ nnoremap <Leader>wba :write <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <Leader>eba :saveas <C-R>=expand("%:p:h") . "/" <CR>
 
 " Write the current buffer and quit the window.
-nnoremap <silent><Leader>wq :RetabIndent<CR>:wq<CR>
+nnoremap <silent><Leader>wq :wq<CR>
 
 " Write and quit all buffers and windows; exiting Vim.
-nnoremap <silent><Leader>wqa :RetabIndent<CR>:SaveSession<CR>:wqa<CR>
-nnoremap <silent><Leader>Q   :RetabIndent<CR>:SaveSession<CR>:wqa<CR>
+nnoremap <silent><Leader>wqa :SaveSession<CR>:wqa<CR>
+nnoremap <silent><Leader>Q   :SaveSession<CR>:wqa<CR>
 
 " Write all buffers.
-nnoremap <silent><Leader>wa :RetabIndent<CR>:wall<CR>:echo 'All buffers written'<CR>
+nnoremap <silent><Leader>wa :wall<CR>:echo 'All buffers written'<CR>
 
 " Write current buffer as root.
 cmap w!! w !sudo tee % >/dev/null
@@ -1041,6 +1041,9 @@ command! -nargs=* Tab call TabSize()
 command! -nargs=? -range=% Space2Tab call IndentConvert(<line1>,<line2>,0,<q-args>)
 command! -nargs=? -range=% Tab2Space call IndentConvert(<line1>,<line2>,1,<q-args>)
 command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q-args>)
+
+" RetabIndent
+nnoremap <Leader>re<Tab> :RetabIndent<CR>:echo "Retabbed!"<CR>
 "-------------------------------------------------------------------------------
 
 "}}}
