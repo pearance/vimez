@@ -122,7 +122,7 @@ cd ~/src/vim
 	--enable-cscope \
 	--enable-gui=auto \
 	--enable-gtk2-check
-  --enable-gnome-check \
+	--enable-gnome-check \
 	--with-features=huge \
 	--with-x \
 	--with-compiledby="Fontaine Cook <fontaine.cook@pearance.com>"
@@ -157,15 +157,16 @@ sleep $DLY
 /bin/echo -e $BD$M
 /bin/echo -en "3 Generating .vim.local structure... "
 
-/bin/mkdir -p ~/.vim.local/dictionaries/
-/bin/mkdir -p ~/.vim.local/snippets/
-/bin/mkdir -p ~/.vim.local/templates/
-/bin/mkdir -p ~/.vim.local/bundle/
-/bin/mkdir -p ~/.vim.local/tmp/sessions/
-/bin/mkdir -p ~/.vim.local/tmp/view/
-/bin/mkdir -p ~/.vim.local/tmp/backups/
-/bin/mkdir -p ~/.vim.local/tmp/swaps/
-/bin/mkdir -p ~/.vim.local/tmp/undos/
+/bin/mkdir -p ~/dotfiles/
+/bin/mkdir -p ~/dotfiles/.vim.local/dictionaries/
+/bin/mkdir -p ~/dotfiles/.vim.local/snippets/
+/bin/mkdir -p ~/dotfiles/.vim.local/templates/
+/bin/mkdir -p ~/dotfiles/.vim.local/bundle/
+/bin/mkdir -p ~/dotfiles/.vim.local/tmp/sessions/
+/bin/mkdir -p ~/dotfiles/.vim.local/tmp/view/
+/bin/mkdir -p ~/dotfiles/.vim.local/tmp/backups/
+/bin/mkdir -p ~/dotfiles/.vim.local/tmp/swaps/
+/bin/mkdir -p ~/dotfiles/.vim.local/tmp/undos/
 
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
@@ -178,8 +179,8 @@ sleep $DLY
 /bin/echo -e $BD$M
 /bin/echo -en "4 Populating .vim.local structure... "
 
-touch ~/.vim.local/dictionaries/en.utf-8.add
-/bin/cp  ~/.vim/.aux/vimrc.local ~/.vim.local/vimrc.local
+touch ~/dotfiles/.vim.local/dictionaries/en.utf-8.add
+/bin/cp  ~/.vim/.aux/vimrc.local.template ~/dotfiles/.vim.local/vimrc.local
 
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
@@ -195,8 +196,7 @@ sleep $DLY
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle >>/tmp/vimez.install.log 2>&1
 cd ~
 /bin/ln -sf .vim/vimrc .vimrc
-vim "+let g:session_directory = '~/.vim.local/tmp/sessions/'" +BundleInstall +qall >>/tmp/vimez.install.log 2>&1
-/bin/ln -sf .vim.local/vimrc.local .vimrc.local
+vim "+let g:session_directory = '~/dotfiles/.vim.local/tmp/sessions/'" +BundleInstall +qall >>/tmp/vimez.install.log 2>&1
 
 sleep $DLY
 /bin/echo -e $BD$G"done"$NO
