@@ -912,7 +912,6 @@ set fo+=1  " Don't break a line after a one-letter word.  It's broken before it
 					 " instead (if possible).
 "-------------------------------------------------------------------------------
 
-
 "}}}
 " "## Autocompletion (Omnicompletion/NeoComplCache)""{{{
 " Native Autocompletion Settings
@@ -988,10 +987,10 @@ if has('conceal')
 endif
 "-------------------------------------------------------------------------------
 
-
 "}}}
 " "## ZenCoding (Emmet)""{{{
 let g:user_emmet_leader_key = '<c-e>'
+
 "}}}
 " "## Auto Pairing""{{{
 " Plugin (Auto-Pairs)
@@ -1000,19 +999,16 @@ let g:AutoPairsCenterLine = 0
 let g:AutoPairsMapBS = 0
 "-------------------------------------------------------------------------------
 
-
 "}}}
 " "## Backspace""{{{
 set backspace=indent,eol,start
 nnoremap <BS> i<BS><Right><Esc>
 "-------------------------------------------------------------------------------
 
-
 "}}}
 " "## Space""{{{
 nnoremap ,<Space> i<Space><Esc>l
 "-------------------------------------------------------------------------------
-
 
 "}}}
 " "## Tab Indentation (IndentTab)""{{{
@@ -1047,7 +1043,6 @@ command! -nargs=? -range=% Tab2Space call IndentConvert(<line1>,<line2>,1,<q-arg
 command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q-args>)
 "-------------------------------------------------------------------------------
 
-
 "}}}
 " "## Comments""{{{
 nmap gcl <C-_>r
@@ -1057,6 +1052,14 @@ nmap gci <C-_>i
 nmap gcp <C-_>p
 "-------------------------------------------------------------------------------
 
+"}}}
+" "## Common Inserts""{{{
+inoremap << <%   %>hhhh
+inoremap >> %>
+inoremap uu _
+" inoremap hh =>
+" inoremap aa @
+"-------------------------------------------------------------------------------
 
 "}}}
 
