@@ -97,7 +97,7 @@ nnoremap q; q:
 
 "}}}
 " "## Runtime Scripts""{{{
-" set runtimepath=~/.vim.local/,$VIMRUNTIME
+" set runtimepath=~/dotfiles/vim.local/,$VIMRUNTIME
 runtime macros/matchit.vim
 runtime ftplugin/man.vim
 source $VIMRUNTIME/ftplugin/man.vim
@@ -169,20 +169,20 @@ set winminheight=0
 " Backups.
 set backup       " Keep backup file after overwriting a file.
 set writebackup  " Make a backup before overwriting a file.
-set backupdir=~/.vim.local/tmp/backups//
+set backupdir=~/dotfiles/vim.local/tmp/backups//
 if !isdirectory(expand(&backupdir))
 	call mkdir(expand(&backupdir), "p")
 endif
 
 " Swap files.
 set updatecount=100
-set directory=~/.vim.local/tmp/swaps//
+set directory=~/dotfiles/vim.local/tmp/swaps//
 if !isdirectory(expand(&directory))
 	call mkdir(expand(&directory), "p")
 endif
 
 " Views.
-set viewdir=~/.vim.local/tmp/view//
+set viewdir=~/dotfiles/vim.local/tmp/view//
 set viewoptions=folds,cursor,unix,slash
 
 " Vim Info.
@@ -202,7 +202,7 @@ set vi+=h     " Disable 'hlsearch' highlighting when starting
 set vi+=%     " Buffer list (restored when starting Vim without arguments)
 set vi+=c     " Convert the text using 'encoding'
 set vi+=s100  " Max amount of kilobytes of any single register.
-set vi+=n~/.vim.local/tmp/viminfo
+set vi+=n~/dotfiles/vim.local/tmp/viminfo
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -210,7 +210,7 @@ set vi+=n~/.vim.local/tmp/viminfo
 
 " "### Create/Find/Open"{{{
 " Open files via browser (NERDTree)
-let NERDTreeBookmarksFile = expand('~/.vim.local/tmp/NERDTreeBookmarks')
+let NERDTreeBookmarksFile = expand('~/dotfiles/vim.local/tmp/NERDTreeBookmarks')
 let NERDTreeChDirMode = 2
 let NERDTreeMapOpenSplit = 'h'
 let NERDTreeMapPreviewSplit = 'gh'
@@ -226,7 +226,7 @@ nnoremap <silent><Leader>bb :nohlsearch<CR>\|:NERDTreeFind<CR>
 
 " Open files via search (CtrlP)"
 let g:ctrlp_map = '<Leader>ff'
-let g:ctrlp_cache_dir = '~/.vim.local/tmp/ctrlp/'
+let g:ctrlp_cache_dir = '~/dotfiles/vim.local/tmp/ctrlp/'
 let g:ctrlp_open_multiple_files = '1vjr'
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_show_hidden = 1
@@ -388,7 +388,7 @@ nnoremap <silent><Leader>ct :tabclose<CR>
 " words.  Each word enables saving and restoring something:
 let g:session_autoload = 'no'
 let g:session_autosave = 'yes'
-let g:session_directory = '~/.vim.local/tmp/sessions/'
+let g:session_directory = '~/dotfiles/vim.local/tmp/sessions/'
 
 set sessionoptions=
 set ssop+=blank        " Blank	empty windows
@@ -502,7 +502,7 @@ let g:yankring_dot_repeat_yank = 1
 let g:yankring_window_height = 7
 let g:yankring_min_element_length = 3
 let g:yankring_manual_clipboard_check = 1
-let g:yankring_history_dir = '~/.vim.local/tmp/'
+let g:yankring_history_dir = '~/dotfiles/vim.local/tmp/'
 let g:yankring_history_file = 'yankring_herstory'
 
 "-------------------------------------------------------------------------------
@@ -522,7 +522,7 @@ nnoremap Q gqip
 " Persistent undo, along with Gundo to parse the undo history.
 set undolevels=1000
 set undofile
-set undodir=~/.vim.local/tmp/undos//
+set undodir=~/dotfiles/vim.local/tmp/undos//
 if !isdirectory(expand(&undodir))
 	call mkdir(expand(&undodir), "p")
 endif
@@ -614,7 +614,7 @@ endif
 " away in the .vim/spell folder.
 set spelllang=en_us       " Default language
 set spellsuggest=5        " How many spelling suggestions to list
-set spellfile=~/.vim.local/dictionaries/en.utf-8.add " Custom spell file
+set spellfile=~/dotfiles/vim.local/dictionaries/en.utf-8.add " Custom spell file
 nmap <silent><Leader>ts
 			\ :setl spell!<CR><Bar>
 			\ :let OnOrOff=&spell<CR><Bar>
@@ -943,7 +943,7 @@ let g:neocomplcache_min_keyword_length = 2
 let g:neocomplcache_min_syntax_length = 2
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_temporary_dir = '~/.vim.local/tmp/neocache'
+let g:neocomplcache_temporary_dir = '~/dotfiles/vim.local/tmp/neocache'
 
 " Enable custom omnicompletion.
 if !exists('g:neocomplcache_omni_patterns')
@@ -963,7 +963,7 @@ inoremap <expr><BS> neocomplcache#smart_close_popup() . "\<BS>"
 "}}}
 " "## Snippets (NeoSnippets)""{{{
 let g:neosnippet#disable_runtime_snippets = {'_' : 1,}
-let g:neosnippet#snippets_directory = '~/.vim.local/snippets/, ~/.vim/bundle/vim-snips/'
+let g:neosnippet#snippets_directory = '~/dotfiles/vim.local/snippets/, ~/.vim/bundle/vim-snips/'
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
@@ -1196,7 +1196,7 @@ nmap <silent><Leader>iv :BundleInstall<CR>
 nmap <silent><Leader>uv :BundleInstall!<CR>
 nmap <silent><Leader>cv :BundleClean<CR>
 nmap <silent><Leader>lv :BundleList<CR>
-nmap <silent><Leader>ev :e ~/.vim.local/vimrc.local<CR>
+nmap <silent><Leader>ev :e ~/dotfiles/vim.local/vimrc.local<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1297,7 +1297,7 @@ nmap <silent><Leader>tch :call ToggleColorHighlights()<CR>
 
 
 " "Edit Vimrc.local"
-nnoremap <silent><Leader>e1 :e ~/dotfiles/.vim.local/vimrc.local<CR><Bar>ggzm
+nnoremap <silent><Leader>e1 :e ~/dotfiles/vim.local/vimrc.local<CR><Bar>ggzm
 "-------------------------------------------------------------------------------
 
 
@@ -1324,7 +1324,7 @@ augroup VimGlobal
 			\| call Pl#Load()
 			\| call Msg('Vim Configuration Written & Reloaded!')
 
-	au BufNewFile *         silent! 0r  ~/.vim.local/templates/%:e.tpl
+	au BufNewFile *         silent! 0r  ~/dotfiles/vim.local/templates/%:e.tpl
 	au BufWritePre *        call StripTrailingWhitespace()
 	au BufRead *            normal zz
 	au VimResized *         wincmd =
@@ -1380,7 +1380,7 @@ augroup CSS
 
 	au FileType css,scss  setl equalprg=csstidy\ -
 		\\ --silent=true
-		\\ --template=$HOME/.vim.local/templates/csstidy.tpl
+		\\ --template=$HOME/dotfiles/vim.local/templates/csstidy.tpl
 		\\ --preserve_css=true
 		\\ --merge_selectors=0
 		\\ --sort_properties=true
@@ -2381,8 +2381,8 @@ endfunction
 " ******************************************************************************
 
 " "Load Local Configurations"
-if filereadable(expand('~/.vim.local/vimrc.local'))
-	so ~/dotfiles/.vim.local/vimrc.local
+if filereadable(expand('~/dotfiles/vim.local/vimrc.local'))
+	so ~/dotfiles/vim.local/vimrc.local
 endif
 "-------------------------------------------------------------------------------
 
