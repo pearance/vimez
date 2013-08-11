@@ -1229,7 +1229,7 @@ nnoremap <silent><Leader>gcm :Gcommit<CR>
 nnoremap <silent><Leader>gm  :Gmove<CR>
 nnoremap <silent><Leader>gr  :Gremove<CR>
 nnoremap <silent><Leader>gl  :Gitv<CR>
-nnoremap <silent><Leader>gp  :silent! !clear<CR>:Git push<CR>:redraw!<CR>
+nnoremap <silent><Leader>gp  :silent! !clear<CR>:Git push<CR>:w<CR>:redraw!<CR>
 nnoremap <silent><Leader>gpu :silent! !clear<CR>:Git pull<CR>:redraw!<CR>
 "-------------------------------------------------------------------------------
 
