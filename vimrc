@@ -1346,6 +1346,10 @@ augroup VimGlobal
 	au FileType vundle      call VundleEnvironment()
 	au FileType gundo       call GundoEnvironment()
 	au FileType qf          call QuickFixEnvironment()
+
+	" Persist sign column.
+  au BufWinEnter * sign define mysign
+  au BufWinEnter * exe "sign place 9999 line=1 name=mysign buffer=" . bufnr('%')
 augroup END
 "-----------------------------------------------------------------------------
 
