@@ -70,14 +70,13 @@ sudo aptitude install -y \
 
 # }}}
 # BUILD VIM {{{
+if [ -d "~/src/vim" ]; then
+	hg update
+else
+	hg clone https://vim.googlecode.com/hg/ ~/src/vim
+fi
 
-mkdir -p ~/src
-mkdir -p ~/bin
-cd ~/src
-rm -rf ~/src/vim/
-hg clone https://vim.googlecode.com/hg/ ~/src/vim
 cd ~/src/vim
-
 
 # terminal config
 ./configure \
