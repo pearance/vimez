@@ -15,4 +15,4 @@ Prerequisites: You will need cURL and git installed.
 
 To install simply execute the following command at your command prompt.
 
-    curl -O https://raw.github.com/vimez/vimez/master/.aux/install.sh && chmod 700 install.sh && ./install.sh
+    source <(curl -s https://raw.github.com/vimez/vimez/master/.aux/install.sh)
