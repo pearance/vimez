@@ -52,8 +52,6 @@ done
 sudo aptitude remove -y \
 	vim vim-runtime gvim vim-tiny vim-common vim-gui-common
 
-sleep $DLY
-/bin/echo -e $BD$G"done"$NO
 /bin/echo -en "Uninstall existing Vim install... done "
 #------------------------------------------------------------------------------
 
@@ -104,7 +102,7 @@ sudo make clean
 # }}}
 # DOWNLOAD VIMEZ {{{
 
-git clone https://github.com/vimez/vimez.git ~/.vim >>/tmp/vimez.install.log 2>&1
+git clone https://github.com/vimez/vimez.git ~/.vim
 
 /bin/echo -en "Clone Vimez... done"
 #------------------------------------------------------------------------------
@@ -132,10 +130,10 @@ touch ~/dotfiles/vim.local/dictionaries/en.utf-8.add
 # }}}
 # DOWNLOAD VUNDLE & INSTALL {{{
 
-git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle >>/tmp/vimez.install.log 2>&1
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 cd ~
 /bin/ln -sf .vim/vimrc .vimrc
-vim "+let g:session_directory = '~/dotfiles/vim.local/tmp/sessions/'" +BundleInstall +qall >>/tmp/vimez.install.log 2>&1
+vim "+let g:session_directory = '~/dotfiles/vim.local/tmp/sessions/'" +BundleInstall +qall
 
 /bin/echo -en "5 Installing plugin bundles... done"
 #------------------------------------------------------------------------------
@@ -143,11 +141,9 @@ vim "+let g:session_directory = '~/dotfiles/vim.local/tmp/sessions/'" +BundleIns
 # }}}
 # WRAP {{{
 
-/bin/rm ~/install.sh >>/tmp/vimez.install.log 2>&1
-/bin/rm f ~/yankring_history_v2.txt >>/tmp/vimez.install.log 2>&1
+/bin/rm ~/install.sh
+/bin/rm f ~/yankring_history_v2.txt
 
-sleep $DLY
-/bin/echo -e $BD$G"done"$NO
 
 /bin/echo -e $BD$C"\nInstallation Complete\n\n"
 /bin/echo -e "                    Happy vimming!"
