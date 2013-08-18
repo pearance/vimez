@@ -73,6 +73,7 @@ Bundle "mhinz/vim-signify"
 Bundle "terryma/vim-multiple-cursors"
 Bundle "mattn/emmet-vim"
 Bundle "vimez/vim-snips"
+Bundle "mattn/livestyle-vim"
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -574,8 +575,8 @@ inoremap  \<CR> <Esc>o
 inoremap \\<CR> <Esc>O
 
 " Break inline XML content to block format.
-inoremap <C-\><CR> <Esc>diti<CR><Esc>O<Tab><Esc>pi
-nnoremap <C-\><CR> <Esc>diti<CR><Esc>O<Tab><Esc>p
+inoremap <C-\><CR> <Esc>diti<CR><Esc>O<Tab><Esc>p^i
+nnoremap <C-\><CR> <Esc>diti<CR><Esc>O<Tab><Esc>p^
 "-------------------------------------------------------------------------------
 
 "}}}
