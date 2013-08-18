@@ -990,7 +990,7 @@ endif
 
 "}}}
 " "## ZenCoding (Emmet)""{{{
-let g:user_emmet_leader_key = '<c-e>'
+let g:user_emmet_leader_key = '<C-e>'
 
 "}}}
 " "## Auto Pairing""{{{
@@ -1058,9 +1058,7 @@ nmap gcp <C-_>p
 
 "}}}
 " "## Common Inserts""{{{
-inoremap << <%   %>hhhh
-inoremap >> %>
-inoremap uu _
+" inoremap uu _
 " inoremap hh =>
 " inoremap aa @
 "-------------------------------------------------------------------------------
@@ -1073,9 +1071,7 @@ inoremap uu _
 
 " "Escape"
 inoremap ,, <Esc>l
-inoremap << <Esc>l
 cnoremap ,, <C-c>
-cnoremap << <C-c>
 vnoremap ,, <Esc>
 "-------------------------------------------------------------------------------
 
@@ -1230,8 +1226,8 @@ nnoremap <silent><Leader>gcm :Gcommit<CR>
 nnoremap <silent><Leader>gm  :Gmove<CR>
 nnoremap <silent><Leader>gr  :Gremove<CR>
 nnoremap <silent><Leader>gl  :Gitv<CR>
-nnoremap <silent><Leader>gp  :silent! !clear<CR>:Git push<CR>:w<CR>:redraw!<CR>
-nnoremap <silent><Leader>gpu :silent! !clear<CR>:Git pull<CR>:redraw!<CR>
+nnoremap <silent><Leader>gp  :silent! !clear<CR>:Git push<CR>
+nnoremap <silent><Leader>gpu :silent! !clear<CR>:Git pull<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1319,7 +1315,7 @@ augroup VimGlobal
 	au VimEnter *  echo "Welcome to VimEz, Happy Coding! :-)"
 
 	" General
-	au BufNewFile,BufRead *.vim   setf vim
+	au BufNewFile,BufRead *.vim   set ft=vim
 	au FileType vim               setl omnifunc=syntaxcomplete#Complete
 	au BufWritePost *vimrc,*vimrc.local,molokai-ez.vim
 			\  nested so $MYVIMRC
@@ -1359,7 +1355,7 @@ augroup END
 " "Apache Config"
 augroup ApacheConfig
 	au!
-	au BufNewFile,BufRead /*apache*  setf apache
+	au BufNewFile,BufRead /*apache*  set ft=apache
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1403,9 +1399,9 @@ augroup END
 " "Drupal CMS Framework"
 augroup DrupalCMS
 	au!
-	au BufNewFile,BufRead *.module   setf php
-	au BufNewFile,BufRead *.install  setf php
-	au BufNewFile,BufRead *.test     setf php
+	au BufNewFile,BufRead *.module   set ft=php
+	au BufNewFile,BufRead *.install  set ft=php
+	au BufNewFile,BufRead *.test     set ft=php
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1426,7 +1422,7 @@ augroup END
 " "HAML"
 augroup HAML
 	au!
-	au BufNewFile,BufRead *.haml  setf haml
+	au BufNewFile,BufRead *.haml  set ft=haml
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1435,10 +1431,10 @@ augroup END
 " "HTML"
 augroup HTML
 	au!
-	au BufNewFile,BufRead *.htm   setf html
-	au BufNewFile,BufRead *.html  setf html
-	au BufNewFile,BufRead *.ejs   setf html
-	au BufNewFile,BufRead *.jade  setf html
+	au BufNewFile,BufRead *.htm   set ft=html
+	au BufNewFile,BufRead *.html  set ft=html
+	au BufNewFile,BufRead *.ejs   set ft=html
+	au BufNewFile,BufRead *.jade  set ft=html
 	au FileType html              setl omnifunc=htmlcomplete#CompleteTags
 	au Filetype html              call EnableCloseTag()
 augroup END
@@ -1449,7 +1445,7 @@ augroup END
 " "Jade"
 augroup Jade
 	au!
-	au BufNewFile,BufRead *.jade  setf jade
+	au BufNewFile,BufRead *.jade  set ft=jade
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1485,7 +1481,7 @@ augroup END
 " "PHP"
 augroup PHP
 	au!
-	au BufNewFile,BufRead *.php  setf php
+	au BufNewFile,BufRead *.php  set ft=php
 	au FileType php	             let php_minlines=500
 	au FileType php              setl omnifunc=phpcomplete#CompletePHP
 	au Filetype php              call EnableCloseTag()
@@ -1497,7 +1493,7 @@ augroup END
 " "Plain Text"
 augroup PlainText
 	au!
-	au BufNewFile,BufRead *.txt  setf text
+	au BufNewFile,BufRead *.txt  set ft=text
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1524,7 +1520,7 @@ augroup END
 " "Shell Script"
 augroup ShellScript
 	au!
-	au BufNewFile,BufRead *.sh  setf sh
+	au BufNewFile,BufRead *.sh  set ft=sh
 	au BufWritePost *.sh        call MakeFileExecutable()
 augroup END
 "-----------------------------------------------------------------------------
@@ -1534,7 +1530,7 @@ augroup END
 " "Smarty Template Engine"
 augroup Smarty
 	au!
-	au BufNewFile,BufRead *.tpl  setf html
+	au BufNewFile,BufRead *.tpl  set ft=html
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1543,7 +1539,7 @@ augroup END
 " "Stylus"
 augroup Stylus
 	au!
-	au BufNewFile,BufRead *.styl  setf stylus
+	au BufNewFile,BufRead *.styl  set ft=stylus
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1552,10 +1548,10 @@ augroup END
 " "XML/XSL"
 augroup XMLXSL
 	au!
-	au BufNewFile,BufRead *.xml   setf xml
-	au BufNewFile,BufRead *.xsl   setf xml
-	au BufNewFile,BufRead *.rss   setf xml
-	au BufNewFile,BufRead *.atom  setf xml
+	au BufNewFile,BufRead *.xml   set ft=xml
+	au BufNewFile,BufRead *.xsl   set ft=xml
+	au BufNewFile,BufRead *.rss   set ft=xml
+	au BufNewFile,BufRead *.atom  set ft=xml
 	au FileType xml               setl omnifunc=xmlcomplete#CompleteTags
 	au Filetype xml               call EnableCloseTag()
 	au Filetype xsl               call EnableCloseTag()
