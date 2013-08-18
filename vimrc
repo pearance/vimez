@@ -11,7 +11,6 @@
 
 " BOOTSTRAP:"{{{
 " ******************************************************************************
-
 " "## Pre Initilization:"{{{
 set nocompatible
 filetype on
@@ -47,12 +46,12 @@ Bundle "Lokaltog/vim-powerline"
 Bundle "vimez/vim-tmux"
 Bundle "vimez/vim-yankring"
 Bundle "vim-scripts/SyntaxAttr.vim"
-Bundle "tpope/vim-surround"
 Bundle "tomtom/tcomment_vim"
 Bundle "sjl/gundo.vim"
 Bundle "docunext/closetag.vim"
+Bundle "tpope/vim-surround"
 Bundle "tpope/vim-repeat"
-Bundle "tpope/vim-obsession"
+Bundle "vimez/vim-obsession"
 Bundle "kien/ctrlp.vim"
 Bundle "benmills/vimux"
 Bundle "duff/vim-bufonly"
@@ -62,7 +61,7 @@ Bundle "godlygeek/tabular"
 Bundle "jiangmiao/auto-pairs"
 Bundle "endel/ctrlp-filetype.vim"
 Bundle "tpope/vim-git"
-Bundle "vimez/vim-showmarks"
+Bundle "kshenoy/vim-signature"
 Bundle "tpope/vim-fugitive"
 Bundle "gregsexton/gitv"
 Bundle "tpope/vim-unimpaired"
@@ -83,10 +82,18 @@ filetype plugin indent on
 "}}}
 "-------------------------------------------------------------------------------
 
+
+
+
+
+
+
+
+
+
 "}}}
 " GENERAL:"{{{
 " ******************************************************************************
-
 " "## Commandline""{{{
 " More convenient entrance to Commandline and Commandline Edit mode from Normal mode.
 nnoremap ; :
@@ -152,10 +159,18 @@ set modelines=5
 
 "}}}
 
+
+
+
+
+
+
+
+
+
 "}}}
 " FILE:"{{{
 " ******************************************************************************
-
 " "## General Settings""{{{
 set fileformats=unix,dos,mac
 set hidden         " Hide buffers when they are abandoned
@@ -207,7 +222,6 @@ set vi+=n~/dotfiles/vim.local/tmp/viminfo
 
 "}}}
 " "## Buffer Management""{{{
-
 " "### Create/Find/Open"{{{
 " Open files via browser (NERDTree)
 let NERDTreeBookmarksFile = expand('~/dotfiles/vim.local/tmp/NERDTreeBookmarks')
@@ -256,39 +270,45 @@ nnoremap <silent>,re :e<CR>
 "-------------------------------------------------------------------------------
 
 "}}}
-" "### Write/Close/Quit""{{{
+" "### Navigate""{{{
+" List all buffers.
+nnoremap <Leader>ls :ls!<CR>
 
-" "### Write"
-" Write the current buffer.
+" Flip through buffer list.
+nnoremap <silent><C-h> :bprev<CR>
+nnoremap <silent><C-l> :bnext<CR>
+
+" Flip back to last buffer.
+nnoremap <Leader><BS> <C-^>
+
+
+
+"}}}
+" "### Write""{{{
+" Write buffer
 nnoremap <silent><Leader>w :write<CR>
+nnoremap <silent><Leader>wb :write<CR>
 
-" Write a copy of the current buffer as...  and continue editing original buffer.
-nnoremap <Leader>wba :write <C-R>=expand("%:p:h") . "/" <CR>
+" Write all buffers
+nnoremap <silent><Leader>wa :wall<CR>:echo 'All buffers written'<CR>
+nnoremap <silent><Leader>wab :wall<CR>:echo 'All buffers written'<CR>
 
-" Write the current buffer and quit the window.
+" Write buffer and quit
 nnoremap <silent><Leader>wq :wq<CR>
 
-" Write all buffers.
-nnoremap <silent><Leader>wa :wall<CR>:echo 'All buffers written'<CR>
+" Write and quit all buffers and windows
+nnoremap <silent><Leader>wqa   :confirm wqa<CR>
 
-" Write current buffer as root.
+" Write buffer as
+nnoremap <Leader>wba :write <C-R>=expand("%:p:h") . "/" <CR>
+
+" Write buffer as root
 cmap w!! w !sudo tee % >/dev/null
 
 
 
-" "### Copy/Rename/Delete"
-" Edit new copy of the current buffer.
-nnoremap <Leader>eba :saveas <C-R>=expand("%:p:h") . "/" <CR>
-
-" Rename current buffer (Rename2).
-nnoremap <Leader>rb :Rename<Space>
-
-" Delete the current buffer and file.
-nnoremap <Leader>DDF :call DeleteFile()<CR>
-
-
-
-" "### Close"
+"}}}
+" "### Close""{{{
 " Close the current buffer.
 nnoremap <silent><Leader>cb :<C-u>Kwbd<CR>
 
@@ -307,77 +327,116 @@ nnoremap <silent><Leader>cib :silent! call CloseInactiveBuffers()<CR>
 nnoremap <silent><Leader>cub :silent! call CloseUnlistedBuffers()<CR>
 \ :echo 'All unlisted buffers closed'<CR>
 
-" Write and quit all buffers and windows; exiting Vim.
-nnoremap <silent><Leader>Q   :wqa<CR>
-
-" Quit all windows without writting any buffers.
-nnoremap <silent><Leader>qa  :qa<CR>
-vnoremap <silent><Leader>qa  :qa<CR>
-
 " Close other buffers (BufOnly)
 nnoremap <silent><Leader>cob :BufOnly<CR>
-"-------------------------------------------------------------------------------
+
+
 
 "}}}
-" "### Buffer Navigation""{{{
-" List all buffers.
-nnoremap <Leader>ls :ls!<CR>
+" "### Copy""{{{
+" Edit new copy of the current buffer.
+nnoremap <Leader>eba :saveas <C-R>=expand("%:p:h") . "/" <CR>
+"
+"
+"
+"}}}
+" "### Rename""{{{
+" Rename current buffer (Rename2).
+nnoremap <Leader>rb :Rename<Space>
 
-" Flip through buffer list.
-nnoremap <silent><C-h> :bprev<CR>
-nnoremap <silent><C-l> :bnext<CR>
 
-" Flip back to last buffer.
-nnoremap <Leader><BS> <C-^>
-"-------------------------------------------------------------------------------
 
 "}}}
+" "### Delete""{{{
+" Delete the current buffer and file.
+nnoremap <Leader>DBF :call DeleteBufferFile()<CR>
+"}}}
+
+
+
+
+
+
+
+
+
+
 "}}}
 " "## Window Management""{{{
-" Focus.
+" "### Focus""{{{
+" Focus adjacent windows
 nnoremap <silent>gh <C-w>h
 nnoremap <silent>gj <C-w>j
 nnoremap <silent>gk <C-w>k
 nnoremap <silent>gl <C-w>l
 
-" Move.
+
+
+"}}}
+" "### Split""{{{
+" Split window
+set splitright
+set splitbelow
+nnoremap <silent><Leader>sh :set nosplitright<CR>:vsplit\|bnext<CR>
+nnoremap <silent><Leader>sj :set splitbelow<CR>:split\|bnext<CR>
+nnoremap <silent><Leader>sk :set nosplitbelow<CR>:split\|bnext<CR>
+nnoremap <silent><Leader>sl :set splitright<CR>:vsplit\|bnext<CR>
+
+
+
+"}}}
+" "### Move""{{{
+" Move current window
 nnoremap <silent><Leader>mh <C-w>H
 nnoremap <silent><Leader>mj <C-w>J
 nnoremap <silent><Leader>mk <C-w>K
 nnoremap <silent><Leader>ml <C-w>L
 nnoremap <silent><Leader>mx <C-w>x
 
-" Close.
-nnoremap <silent><Leader>ch :wincmd h<CR>:close<CR>
-nnoremap <silent><Leader>cj :wincmd j<CR>:close<CR>
-nnoremap <silent><Leader>ck :wincmd k<CR>:close<CR>
-nnoremap <silent><Leader>cl :wincmd l<CR>:close<CR>
 
-nnoremap <silent><Leader>cw :close<CR>
-nnoremap <silent><Leader>co :only<CR>
 
-nnoremap <silent>qq :q<CR>
-vnoremap <silent>qq <Esc>:q<CR>
-nnoremap <silent><Leader>qq :q<CR>
-vnoremap <silent><Leader>qq <Esc>:q<CR>
-
-" Split.
-nnoremap <silent><Leader>sh :set nosplitright<CR>:vsplit\|bnext<CR>
-nnoremap <silent><Leader>sj :set splitbelow<CR>:split\|bnext<CR>
-nnoremap <silent><Leader>sk :set nosplitbelow<CR>:split\|bnext<CR>
-nnoremap <silent><Leader>sl :set splitright<CR>:vsplit\|bnext<CR>
-
-" Resize.
+"}}}
+" "### Resize""{{{
+" Resize windows
 nnoremap <Left>  <C-w><
 nnoremap <Right> <C-w>>
 nnoremap <Up>    <C-w>+
 nnoremap <Up>    <C-w>+
 nnoremap <Down>  <C-w>-
 
-" Maximize and restore window.
+" Maximize and restore window
 let g:windowmaximized = 0
 map <silent><F11> :call MaxRestoreWindow()<CR>
-"-------------------------------------------------------------------------------
+"}}}
+" "### Quit""{{{
+" Quit adjacent windows
+nnoremap <silent><Leader>qh :wincmd h<CR>:close<CR>
+nnoremap <silent><Leader>qj :wincmd j<CR>:close<CR>
+nnoremap <silent><Leader>qk :wincmd k<CR>:close<CR>
+nnoremap <silent><Leader>ql :wincmd l<CR>:close<CR>
+
+" Quit currently focused window
+nnoremap <silent><Leader>qq :confirm quit<CR>
+
+" Quit all other windows
+nnoremap <silent><Leader>qo :only<CR>
+
+" Quit all windows without writing
+nnoremap <silent><Leader>qa  :confirm qall<CR>
+nnoremap <silent><C-q>  :confirm qall<CR>
+
+
+
+"}}}
+
+
+
+
+
+
+
+
+
 
 "}}}
 " "## Tab Management""{{{
@@ -385,7 +444,15 @@ nnoremap <silent><leader><Right> :tabprevious<CR>
 nnoremap <silent><leader><Left> :tabnext<CR>
 nnoremap <silent><Leader>nt :tabnew<CR>
 nnoremap <silent><Leader>ct :tabclose<CR>
-"-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
 
 "}}}
 " "## Session Management""{{{
@@ -421,15 +488,23 @@ set ssop+=winpos	     " Position of the whole Vim window
 set ssop+=winsize	     " Window sizes
 
 " Obsession"
+" let g:sessions_root = '~/dotfiles/vim.local/tmp/sessions'
 nnoremap <silent><Leader>ws :Obsess<CR>
 nnoremap <silent><Leader>ds :Obsess!<CR>
-"-------------------------------------------------------------------------------
-
 "}}}
+
+
+
+
+
+
+
+
+
 
 "}}}
 " EDIT:"{{{
-
+" ******************************************************************************
 " "## Yank/Delete/Put""{{{
 " Plugin (Yankring)
 set clipboard+=unnamed " Use system clipboard for yanks.
@@ -512,7 +587,8 @@ let g:yankring_history_file = 'yankring_herstory'
 " "## Paragraph Formatting""{{{
 vnoremap Q gq
 nnoremap Q gqip
-"-------------------------------------------------------------------------------
+
+
 
 "}}}
 " "## Undo""{{{
@@ -527,7 +603,8 @@ endif
 let g:gundo_help=1
 let g:gundo_preview_bottom=1
 nnoremap <silent><Leader>uu :silent! GundoToggle<CR>
-"-------------------------------------------------------------------------------
+
+
 
 "}}}
 " "## Select All""{{{
@@ -621,10 +698,18 @@ nmap <silent><Leader>ts
 
 "}}}
 
+
+
+
+
+
+
+
+
+
 "}}}
 " VIEW:"{{{
 " ******************************************************************************
-
 " "Title Bar"
 " Detected set paste! Disabled neocomplcache.
 set title
@@ -1108,14 +1193,7 @@ nnoremap <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 
 
 
-" "Marks (Showmarks)"
-let g:showmarks_enable=1
-let g:showmarks_include = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
-let g:showmarks_textlower = " "
-let g:showmarks_textupper = " "
-nnoremap <silent><Leader>dm  :ShowMarksClearMark<CR>
-nnoremap <silent><Leader>dam :ShowMarksClearAll<CR>
-nnoremap <silent><Leader>tm  :ShowMarksToggle<CR>
+" "Marks (Signature)"
 " Backtick is more useful than single quote in normal mode.
 nnoremap ` '
 nnoremap ' `
@@ -1630,8 +1708,8 @@ endfunction
 
 
 
-" "Delete File"
-function! DeleteFile()
+" "Delete Buffer & File"
+function! DeleteBufferFile()
 	let l:delprompt = input('Are you sure? ')
 	if l:delprompt == "y" || "Y"
 		:echo delete(@%)
