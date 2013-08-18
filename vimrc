@@ -52,11 +52,10 @@ Bundle "tomtom/tcomment_vim"
 Bundle "sjl/gundo.vim"
 Bundle "docunext/closetag.vim"
 Bundle "tpope/vim-repeat"
+Bundle "tpope/vim-obsession"
 Bundle "kien/ctrlp.vim"
 Bundle "benmills/vimux"
 Bundle "duff/vim-bufonly"
-Bundle "xolox/vim-session"
-Bundle "xolox/vim-misc"
 Bundle "scrooloose/nerdtree"
 Bundle "vim-scripts/Rename2"
 Bundle "godlygeek/tabular"
@@ -272,8 +271,8 @@ nnoremap <Leader>eba :saveas <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <silent><Leader>wq :wq<CR>
 
 " Write and quit all buffers and windows; exiting Vim.
-nnoremap <silent><Leader>wqa :SaveSession<CR>:wqa<CR>
-nnoremap <silent><Leader>Q   :SaveSession<CR>:wqa<CR>
+nnoremap <silent><Leader>wqa :wqa<CR>
+nnoremap <silent><Leader>Q   :wqa<CR>
 
 " Write all buffers.
 nnoremap <silent><Leader>wa :wall<CR>:echo 'All buffers written'<CR>
@@ -313,8 +312,8 @@ nnoremap <silent><Leader>qq :q<CR>
 vnoremap <silent><Leader>qq <Esc>:q<CR>
 
 " Quit all windows without writting any buffers.
-nnoremap <silent><Leader>qa  :SaveSession<CR>:qa<CR>
-vnoremap <silent><Leader>qa  :SaveSession<CR>:qa<CR>
+nnoremap <silent><Leader>qa  :qa<CR>
+vnoremap <silent><Leader>qa  :qa<CR>
 
 " Close other buffers (BufOnly)
 nnoremap <silent><Leader>cob :BufOnly<CR>
@@ -387,10 +386,6 @@ nnoremap <silent><Leader>ct :tabclose<CR>
 " "## Session Management""{{{
 " Changes the effect of the :mksession command. It is a comma separated list of
 " words.  Each word enables saving and restoring something:
-let g:session_autoload = 'no'
-let g:session_autosave = 'yes'
-let g:session_directory = '~/dotfiles/vim.local/tmp/sessions/'
-
 set sessionoptions=
 set ssop+=blank        " Blank	empty windows
 set ssop+=buffers	     " Hidden and unloaded buffers, not just those in windows
@@ -420,12 +415,9 @@ set ssop+=unix		     " With Unix end-of-line format (single <NL>), even when
 set ssop+=winpos	     " Position of the whole Vim window
 set ssop+=winsize	     " Window sizes
 
-nnoremap <silent><Leader>ws :SaveSession<CR>
-nnoremap <silent><Leader>ns :call NewSession()<CR>
-nnoremap <silent><Leader>os :SaveSession<CR><Bar>:OpenSession<CR>
-nnoremap <silent><Leader>cs :SaveSession<CR><Bar>:CloseSession<CR>
-nnoremap <silent><Leader>ds :DeleteSession<CR>
-nnoremap <silent><Leader>vs :ViewSession<CR>
+" Obsession"
+nnoremap <silent><Leader>ws :Obsess<CR>
+nnoremap <silent><Leader>ds :Obsess!<CR>
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -1926,16 +1918,6 @@ endfunction
 
 
 
-" "New Session"
-function! NewSession()
-	call inputsave()
-	let SessionName = input('New Session Name: ')
-	exe "SaveSession " . SessionName
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
 " "Set Help Environment"
 function! HelpEnvironment()
 	if &filetype == 'help'
@@ -2003,15 +1985,6 @@ endfunction
 " Close open tags automatically upon entering </
 function! EnableCloseTag()
 	so ~/.vim/bundle/closetag.vim/plugin/closetag.vim
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Current Session Status"
-function! CurrentSession()
-	let g:currSession = fnamemodify(v:this_session, ':t:r')
-	return g:currSession
 endfunction
 "-------------------------------------------------------------------------------
 
@@ -2394,5 +2367,4 @@ endif
 
 " "Todo/s, Fixme/s"
 " TODO: Configure NeoSnippets
-" TODO: session info in powerline
 "}}}
