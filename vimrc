@@ -25,7 +25,6 @@ Bundle "gmarik/vundle"
 "}}}
 " "## Syntax Bundles:"{{{
 Bundle "vim-scripts/CSApprox"
-Bundle "vimez/vim-themes"
 Bundle "vim-scripts/ScrollColors"
 Bundle "lilydjwg/colorizer"
 Bundle "nelstrom/vim-markdown-folding"
@@ -1374,6 +1373,7 @@ nnoremap <silent><Leader>pwd :pwd<CR>
 let g:ColorizerState = 0
 let g:colorizer_nomap = 1
 let g:colorizer_fgcontrast = 1
+let g:colorizer_startup = 0
 nmap <silent><Leader>tch :call ToggleColorHighlights()<CR>
 "-------------------------------------------------------------------------------
 
