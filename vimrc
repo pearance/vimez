@@ -235,7 +235,7 @@ let g:ctrlp_use_caching = 1
 let g:ctrlp_working_path_mode = '0'
 let g:ctrlp_prompt_mappings = {
 \ 'PrtExit()':            ['<esc>', ','],
-\ 'CreateNewFile()':      ['<c-b>'],
+\ 'CreateNewFile()':      ['<c-n>'],
 \ }
 let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
 let g:ctrlp_extensions = ['filetype']
@@ -257,22 +257,16 @@ nnoremap <silent>,re :e<CR>
 
 "}}}
 " "### Write/Close/Quit""{{{
+
+" "### Write"
 " Write the current buffer.
 nnoremap <silent><Leader>w :write<CR>
-nnoremap <silent>,w :write<CR>
 
 " Write a copy of the current buffer as...  and continue editing original buffer.
 nnoremap <Leader>wba :write <C-R>=expand("%:p:h") . "/" <CR>
 
-" Edit new copy of the current buffer.
-nnoremap <Leader>eba :saveas <C-R>=expand("%:p:h") . "/" <CR>
-
 " Write the current buffer and quit the window.
 nnoremap <silent><Leader>wq :wq<CR>
-
-" Write and quit all buffers and windows; exiting Vim.
-nnoremap <silent><Leader>wqa :wqa<CR>
-nnoremap <silent><Leader>Q   :wqa<CR>
 
 " Write all buffers.
 nnoremap <silent><Leader>wa :wall<CR>:echo 'All buffers written'<CR>
@@ -280,17 +274,23 @@ nnoremap <silent><Leader>wa :wall<CR>:echo 'All buffers written'<CR>
 " Write current buffer as root.
 cmap w!! w !sudo tee % >/dev/null
 
+
+
+" "### Copy/Rename/Delete"
+" Edit new copy of the current buffer.
+nnoremap <Leader>eba :saveas <C-R>=expand("%:p:h") . "/" <CR>
+
 " Rename current buffer (Rename2).
 nnoremap <Leader>rb :Rename<Space>
 
-" Close the current buffer.
-nnoremap <silent><Leader>cb :<C-u>Kwbd<CR>
-
-" Delete the current buffer.
-nnoremap <silent><Leader>db :<C-u>bw<CR>
-
 " Delete the current buffer and file.
 nnoremap <Leader>DDF :call DeleteFile()<CR>
+
+
+
+" "### Close"
+" Close the current buffer.
+nnoremap <silent><Leader>cb :<C-u>Kwbd<CR>
 
 " Close the current buffer and quit the window.
 nnoremap <silent><Leader>cbb :bdelete<CR>
@@ -307,9 +307,8 @@ nnoremap <silent><Leader>cib :silent! call CloseInactiveBuffers()<CR>
 nnoremap <silent><Leader>cub :silent! call CloseUnlistedBuffers()<CR>
 \ :echo 'All unlisted buffers closed'<CR>
 
-" Quit a window without writting the current buffer.
-nnoremap <silent><Leader>qq :q<CR>
-vnoremap <silent><Leader>qq <Esc>:q<CR>
+" Write and quit all buffers and windows; exiting Vim.
+nnoremap <silent><Leader>Q   :wqa<CR>
 
 " Quit all windows without writting any buffers.
 nnoremap <silent><Leader>qa  :qa<CR>
@@ -325,8 +324,8 @@ nnoremap <silent><Leader>cob :BufOnly<CR>
 nnoremap <Leader>ls :ls!<CR>
 
 " Flip through buffer list.
-nnoremap <silent>gh :bprev<CR>
-nnoremap <silent>gl :bnext<CR>
+nnoremap <silent><C-h> :bprev<CR>
+nnoremap <silent><C-l> :bnext<CR>
 
 " Flip back to last buffer.
 nnoremap <Leader><BS> <C-^>
@@ -336,31 +335,37 @@ nnoremap <Leader><BS> <C-^>
 "}}}
 " "## Window Management""{{{
 " Focus.
-nnoremap <silent><C-h> <C-w>h
-nnoremap <silent><C-j> <C-w>j
-nnoremap <silent><C-k> <C-w>k
-nnoremap <silent><C-l> <C-w>l
+nnoremap <silent>gh <C-w>h
+nnoremap <silent>gj <C-w>j
+nnoremap <silent>gk <C-w>k
+nnoremap <silent>gl <C-w>l
 
 " Move.
-noremap <silent><C-m><C-h> <C-w>H
-noremap <silent><C-m><C-j> <C-w>J
-noremap <silent><C-m><C-k> <C-w>K
-noremap <silent><C-m><C-l> <C-w>L
-noremap <silent><C-m><C-x> <C-w>x
+nnoremap <silent><Leader>mh <C-w>H
+nnoremap <silent><Leader>mj <C-w>J
+nnoremap <silent><Leader>mk <C-w>K
+nnoremap <silent><Leader>ml <C-w>L
+nnoremap <silent><Leader>mx <C-w>x
 
 " Close.
-noremap <silent><C-c><C-j> :wincmd j<CR>:close<CR>
-noremap <silent><C-c><C-h> :wincmd h<CR>:close<CR>
-noremap <silent><C-c><C-k> :wincmd k<CR>:close<CR>
-noremap <silent><C-c><C-l> :wincmd l<CR>:close<CR>
-noremap <silent><C-c><C-w> :close<CR>
-noremap <silent><C-c><C-o><C-w> :only<CR>
+nnoremap <silent><Leader>ch :wincmd h<CR>:close<CR>
+nnoremap <silent><Leader>cj :wincmd j<CR>:close<CR>
+nnoremap <silent><Leader>ck :wincmd k<CR>:close<CR>
+nnoremap <silent><Leader>cl :wincmd l<CR>:close<CR>
+
+nnoremap <silent><Leader>cw :close<CR>
+nnoremap <silent><Leader>co :only<CR>
+
+nnoremap <silent>qq :q<CR>
+vnoremap <silent>qq <Esc>:q<CR>
+nnoremap <silent><Leader>qq :q<CR>
+vnoremap <silent><Leader>qq <Esc>:q<CR>
 
 " Split.
-nnoremap <silent><C-s><C-v> :vsplit\|bnext<CR>
-nnoremap <silent><C-s><C-h> :split\|bnext<CR>
-set splitright
-set splitbelow
+nnoremap <silent><Leader>sh :set nosplitright<CR>:vsplit\|bnext<CR>
+nnoremap <silent><Leader>sj :set splitbelow<CR>:split\|bnext<CR>
+nnoremap <silent><Leader>sk :set nosplitbelow<CR>:split\|bnext<CR>
+nnoremap <silent><Leader>sl :set splitright<CR>:vsplit\|bnext<CR>
 
 " Resize.
 nnoremap <Left>  <C-w><
@@ -1082,6 +1087,7 @@ set nostartofline
 set scrolloff=5         " Start scrolling x lines before the edge of the window.
 set sidescrolloff=5     " Same as above just for columns instead of lines.
 set lazyredraw
+set startofline
 nnoremap <Leader>h ^
 vnoremap <Leader>h ^
 nnoremap <Leader>l $
@@ -1122,6 +1128,13 @@ inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
+
+inoremap <Left>  <Nop>
+inoremap <Right> <Nop>
+inoremap <Up>    <Nop>
+inoremap <Up>    <Nop>
+inoremap <Down>  <Nop>
+
 "-------------------------------------------------------------------------------
 
 
@@ -1924,6 +1937,7 @@ function! HelpEnvironment()
 		setl relativenumber
 		nnoremap <silent><buffer><CR> <C-]>
 		nnoremap <silent><buffer><BS> <C-T>
+		nnoremap <silent><buffer>qq :bdelete<CR>
 	else
 		nnoremap <CR> i<CR><Esc>
 		nnoremap <BS> i<BS><Right><Esc>
@@ -1936,6 +1950,7 @@ endfunction
 " "Set NERDTree Environment"
 function! NERDTreeEnvironment()
 	setl foldcolumn=0
+	nnoremap <silent><buffer>qq :NERDTreeClose<CR>
 	nnoremap <silent><buffer>,, :NERDTreeClose<CR>
 	nnoremap <silent><buffer><Leader>bb :NERDTreeClose<CR>
 endfunction
@@ -1946,6 +1961,7 @@ endfunction
 " "Set Gundo Environment"
 function! GundoEnvironment()
 	setl foldcolumn=0
+	nnoremap <silent><buffer>qq :silent! bw __Gundo__ __Gundo_Preview__<CR>
 	nnoremap <silent><buffer>,, :silent! bw __Gundo__ __Gundo_Preview__<CR>
 endfunction
 "-------------------------------------------------------------------------------
@@ -1955,6 +1971,7 @@ endfunction
 " "Set QuickFix Environment"
 function! QuickFixEnvironment()
 	setl foldcolumn=0
+	nnoremap <silent><buffer>qq :pclose<CR>
 	nnoremap <silent><buffer>,, :pclose<CR>
 endfunction
 "-------------------------------------------------------------------------------
@@ -1965,6 +1982,7 @@ endfunction
 function! VundleEnvironment()
 	setl foldcolumn=0
 	vert resize 50
+	nnoremap <silent><buffer>qq :bw<CR>
 	nnoremap <silent><buffer>,, :bw<CR>
 endfunction
 "-------------------------------------------------------------------------------
@@ -1975,6 +1993,7 @@ endfunction
 function! GitEnvironment()
 	setl foldcolumn=0
 	setl foldlevel=99
+	nnoremap <silent><buffer>qq :bw<CR>
 	nnoremap <silent><buffer>,, :bw<CR>
 endfunction
 "-------------------------------------------------------------------------------
