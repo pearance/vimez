@@ -1,0 +1,3 @@
+
+inoremap << <%   %><Esc>hhhi
+inoremap >> %>
