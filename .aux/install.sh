@@ -115,7 +115,6 @@ git clone https://github.com/vimez/vimez.git ~/.vim
 /bin/mkdir -p ~/dotfiles/vim.local/snippets/
 /bin/mkdir -p ~/dotfiles/vim.local/templates/
 /bin/mkdir -p ~/dotfiles/vim.local/bundle/
-/bin/mkdir -p ~/dotfiles/vim.local/tmp/sessions/
 /bin/mkdir -p ~/dotfiles/vim.local/tmp/view/
 /bin/mkdir -p ~/dotfiles/vim.local/tmp/backups/
 /bin/mkdir -p ~/dotfiles/vim.local/tmp/swaps/
@@ -133,7 +132,7 @@ touch ~/dotfiles/vim.local/dictionaries/en.utf-8.add
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 cd ~
 /bin/ln -sf .vim/vimrc .vimrc
-vim "+let g:session_directory = '~/dotfiles/vim.local/tmp/sessions/'" +BundleInstall +qall
+vim +BundleInstall +qall
 
 /bin/echo -en "5 Installing plugin bundles... done"
 #------------------------------------------------------------------------------
