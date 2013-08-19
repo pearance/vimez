@@ -2054,7 +2054,7 @@ function! HelpEnvironment()
 		setl relativenumber
 		nnoremap <silent><buffer><CR> <C-]>
 		nnoremap <silent><buffer><BS> <C-T>
-		nnoremap <silent><buffer>qq :bdelete<CR>
+		nnoremap <silent><buffer><Leader>qq :bdelete<CR>
 	else
 		nnoremap <CR> i<CR><Esc>
 		nnoremap <BS> i<BS><Right><Esc>
@@ -2067,7 +2067,7 @@ endfunction
 " "Set NERDTree Environment"
 function! NERDTreeEnvironment()
 	setl foldcolumn=0
-	nnoremap <silent><buffer>qq :NERDTreeClose<CR>
+	nnoremap <silent><buffer><Leader>qq :NERDTreeClose<CR>
 	nnoremap <silent><buffer>,, :NERDTreeClose<CR>
 	nnoremap <silent><buffer><Leader>bb :NERDTreeClose<CR>
 endfunction
@@ -2078,7 +2078,7 @@ endfunction
 " "Set Gundo Environment"
 function! GundoEnvironment()
 	setl foldcolumn=0
-	nnoremap <silent><buffer>qq :silent! bw __Gundo__ __Gundo_Preview__<CR>
+	nnoremap <silent><buffer><Leader>qq :silent! bw __Gundo__ __Gundo_Preview__<CR>
 	nnoremap <silent><buffer>,, :silent! bw __Gundo__ __Gundo_Preview__<CR>
 endfunction
 "-------------------------------------------------------------------------------
@@ -2088,7 +2088,7 @@ endfunction
 " "Set QuickFix Environment"
 function! QuickFixEnvironment()
 	setl foldcolumn=0
-	nnoremap <silent><buffer>qq :pclose<CR>
+	nnoremap <silent><buffer><Leader>qq :pclose<CR>
 	nnoremap <silent><buffer>,, :pclose<CR>
 endfunction
 "-------------------------------------------------------------------------------
@@ -2099,7 +2099,7 @@ endfunction
 function! VundleEnvironment()
 	setl foldcolumn=0
 	vert resize 50
-	nnoremap <silent><buffer>qq :bw<CR>
+	nnoremap <silent><buffer><Leader>qq :bw<CR>
 	nnoremap <silent><buffer>,, :bw<CR>
 endfunction
 "-------------------------------------------------------------------------------
@@ -2110,7 +2110,7 @@ endfunction
 function! GitEnvironment()
 	setl foldcolumn=0
 	setl foldlevel=99
-	nnoremap <silent><buffer>qq :bw<CR>
+	nnoremap <silent><buffer><Leader>qq :bw<CR>
 	nnoremap <silent><buffer>,, :bw<CR>
 endfunction
 "-------------------------------------------------------------------------------
