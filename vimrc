@@ -526,7 +526,7 @@ set ssop+=winpos	     " Position of the whole Vim window
 set ssop+=winsize	     " Window sizes
 
 " Startify"
-nnoremap <silent><Leader>ns :SSave<CR>
+nnoremap <silent><Leader>ws :SSave<CR>
 nnoremap <silent><Leader>ds :SDelete<CR>
 nnoremap <silent><Leader>ls :SLoad<CR>
 "}}}
