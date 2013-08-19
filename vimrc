@@ -189,7 +189,7 @@ set modelines=5
 "}}}
 " "## Color Scheme""{{{
 set t_Co=256                " Force terminal to go into 256 color mode.
-set synmaxcol=300           " Prevent long lines from slowing down redraws.
+set synmaxcol=150           " Prevent long lines from slowing down redraws.
 syntax on                   " Syntax highlighting on.
 silent! colorscheme molokaiez
 
