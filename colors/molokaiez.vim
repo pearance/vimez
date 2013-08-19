@@ -189,6 +189,13 @@ hi PmenuThumb       guifg=#5FD7FF
 "-------------------------------------------------------------------------------------------------------------------------------
 
 "}}}
+" "Startify:"{{{
+hi StartifyBracket guifg=#444444 guibg=NONE
+hi StartifyHeader  guifg=#AFD700 guibg=NONE
+hi StartifyNumber  guifg=#AFD700 guibg=NONE
+hi StartifyPath    guifg=#BCBCBC guibg=NONE
+hi StartifySlash   guifg=#BCBCBC guibg=NONE
+"}}}
 " "Powerline:"{{{
 call Pl#Hi#Allocate({
 	\ 'black'          : 16,
@@ -534,4 +541,3 @@ hi link CssPseudoClass     PreProc
 hi link CssPseudoClassId   PreProc
 "-------------------------------------------------------------------------------
 "}}}
-"
