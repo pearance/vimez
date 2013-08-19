@@ -96,10 +96,7 @@ filetype plugin indent on
 " "## Start Screen""{{{
 " options: ['sessions', dir', 'files', 'bookmarks']
 let g:startify_list_order = ['sessions', 'files']
-let g:startify_session_detection = 1
 let g:startify_files_number = 10
-let g:startify_session_autoload = 1
-let g:startify_session_persistence = 1
 let g:startify_change_to_dir = 1
 let g:ctrlp_reuse_window = 'startify'
 let g:startify_skiplist = [
@@ -526,6 +523,10 @@ set ssop+=winpos	     " Position of the whole Vim window
 set ssop+=winsize	     " Window sizes
 
 " Startify"
+let g:startify_session_dir = '~/dotfiles/vim.local/tmp/sessions'
+let g:startify_session_detection = 1
+let g:startify_session_autoload = 1
+let g:startify_session_persistence = 1
 nnoremap <silent><Leader>ws :SSave<CR>
 nnoremap <silent><Leader>ds :SDelete<CR>
 nnoremap <silent><Leader>ls :SLoad<CR>
