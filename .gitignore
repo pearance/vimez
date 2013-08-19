@@ -1,5 +1,6 @@
 # Ignore Session.vim (Vim's built-in session manager)
 Session.vim
+.session.vim
 session
 
 # Ignore bundle folder (managed by Vundle)
