@@ -50,7 +50,6 @@ Bundle "sjl/gundo.vim"
 Bundle "docunext/closetag.vim"
 Bundle "tpope/vim-surround"
 Bundle "tpope/vim-repeat"
-Bundle "vimez/vim-obsession"
 Bundle "kien/ctrlp.vim"
 Bundle "benmills/vimux"
 Bundle "duff/vim-bufonly"
@@ -71,6 +70,7 @@ Bundle "terryma/vim-multiple-cursors"
 Bundle "mattn/emmet-vim"
 Bundle "vimez/vim-snips"
 Bundle "mattn/livestyle-vim"
+Bundle "mhinz/vim-startify"
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -93,6 +93,46 @@ filetype plugin indent on
 "}}}
 " GENERAL:"{{{
 " ******************************************************************************
+" "## Start Screen""{{{
+" options: ['sessions', dir', 'files', 'bookmarks']
+let g:startify_list_order = ['sessions', 'files']
+let g:startify_session_detection = 1
+let g:startify_files_number = 10
+let g:startify_session_autoload = 1
+let g:startify_session_persistence = 1
+let g:startify_change_to_dir = 1
+let g:ctrlp_reuse_window = 'startify'
+let g:startify_skiplist = [
+  \ 'COMMIT_EDITMSG',
+  \ ]
+let g:startify_bookmarks = [
+	\ '',
+	\ ]
+let g:startify_custom_header = [
+	\ '                              ',
+	\ '                              ',
+	\ '                              ',
+	\ '                              ',
+	\ '                              ',
+	\ '                              ',
+	\ '                              ',
+	\ '        _                     ',
+	\ ' __   _(_)_ __ ___   ___ ____ ',
+	\ ' \ \ / | | `_ ` _ \ / _ |_  / ',
+	\ '  \ V /| | | | | | |  __// /  ',
+	\ '   \_/ |_|_| |_| |_|\___/___| ',
+	\ '                              ',
+	\ '           develop            ',
+  \ '',
+  \ '',
+  \ '',
+  \ '',
+  \ '',
+  \ '',
+  \ ]
+
+nnoremap <silent><Leader>1 :Startify<CR>
+"}}}
 " "## Commandline""{{{
 " More convenient entrance to Commandline and Commandline Edit mode from Normal mode.
 nnoremap ; :
@@ -247,7 +287,7 @@ let g:ctrlp_use_caching = 1
 let g:ctrlp_working_path_mode = '0'
 let g:ctrlp_prompt_mappings = {
 \ 'PrtExit()':            ['<esc>', ','],
-\ 'CreateNewFile()':      ['<c-n>'],
+\ 'CreateNewFile()':      ['<c-b>'],
 \ }
 let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
 let g:ctrlp_extensions = ['filetype']
@@ -284,18 +324,18 @@ nnoremap <Leader><BS> <C-^>
 "}}}
 " "### Write""{{{
 " Write buffer
-nnoremap <silent><Leader>w :write<CR>
-nnoremap <silent><Leader>wb :write<CR>
+nnoremap <silent><Leader>w :ColorClear<CR>:write<CR>
+nnoremap <silent><Leader>wb :ColorClear<CR>:write<CR>
 
 " Write all buffers
-nnoremap <silent><Leader>wa :wall<CR>:echo 'All buffers written'<CR>
-nnoremap <silent><Leader>wab :wall<CR>:echo 'All buffers written'<CR>
+nnoremap <silent><Leader>wa :ColorClear<CR>:wall<CR>:echo 'All buffers written'<CR>
+nnoremap <silent><Leader>wab :ColorClear<CR>:wall<CR>:echo 'All buffers written'<CR>
 
 " Write buffer and quit
-nnoremap <silent><Leader>wq :wq<CR>
+nnoremap <silent><Leader>wq :ColorClear<CR>:wq<CR>
 
 " Write and quit all buffers and windows
-nnoremap <silent><Leader>wqa   :confirm wqa<CR>
+nnoremap <silent><Leader>wqa   :ColorClear<CR>:confirm wqa<CR>
 
 " Write buffer as
 nnoremap <Leader>wba :write <C-R>=expand("%:p:h") . "/" <CR>
@@ -485,10 +525,10 @@ set ssop+=unix		     " With Unix end-of-line format (single <NL>), even when
 set ssop+=winpos	     " Position of the whole Vim window
 set ssop+=winsize	     " Window sizes
 
-" Obsession"
-" let g:sessions_root = '~/dotfiles/vim.local/tmp/sessions'
-nnoremap <silent><Leader>ws :Obsess<CR>
-nnoremap <silent><Leader>ds :Obsess!<CR>
+" Startify"
+nnoremap <silent><Leader>ns :SSave<CR>
+nnoremap <silent><Leader>ds :SDelete<CR>
+nnoremap <silent><Leader>ls :SLoad<CR>
 "}}}
 
 
@@ -1076,8 +1116,8 @@ let g:user_emmet_leader_key = '<C-e>'
 " "## Auto Pairing""{{{
 " Plugin (Auto-Pairs)
 let g:AutoPairsShortcutFastWrap = '<C-f>'
-let g:AutoPairsCenterLine = 0
-let g:AutoPairsMapBS = 0
+let g:AutoPairsCenterLine = 1
+let g:AutoPairsMapBS = 1
 "-------------------------------------------------------------------------------
 
 "}}}
