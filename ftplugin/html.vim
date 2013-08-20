@@ -1,3 +1,3 @@
 
-inoremap << <%   %><Esc>hhhi
-inoremap >> %>
+inoremap <buffer><< <%   %><Esc>hhhi
+inoremap <buffer>>> %>
