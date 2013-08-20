@@ -26,15 +26,17 @@ Bundle "gmarik/vundle"
 " "## Syntax Bundles:"{{{
 Bundle "vim-scripts/CSApprox"
 Bundle "vim-scripts/ScrollColors"
-Bundle "lilydjwg/colorizer"
+Bundle "gorodinskiy/vim-coloresque"
 Bundle "nelstrom/vim-markdown-folding"
-Bundle "groenewege/vim-less"
 Bundle "pangloss/vim-javascript"
+Bundle "elzr/vim-json"
+Bundle "groenewege/vim-less"
 Bundle "tpope/vim-markdown"
 Bundle "tpope/vim-haml"
 Bundle "scrooloose/syntastic"
 Bundle "digitaltoad/vim-jade"
-Bundle "wavded/vim-stylus"
+" Bundle "wavded/vim-stylus"
+Bundle "tpope/vim-git"
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -58,7 +60,6 @@ Bundle "vim-scripts/Rename2"
 Bundle "godlygeek/tabular"
 Bundle "jiangmiao/auto-pairs"
 Bundle "endel/ctrlp-filetype.vim"
-Bundle "tpope/vim-git"
 Bundle "kshenoy/vim-signature"
 Bundle "tpope/vim-fugitive"
 Bundle "gregsexton/gitv"
@@ -321,18 +322,18 @@ nnoremap <Leader><BS> <C-^>
 "}}}
 " "### Write""{{{
 " Write buffer
-nnoremap <silent><Leader>w :ColorClear<CR>:write<CR>
-nnoremap <silent><Leader>wb :ColorClear<CR>:write<CR>
+nnoremap <silent><Leader>w :write<CR>
+nnoremap <silent><Leader>wb :write<CR>
 
 " Write all buffers
-nnoremap <silent><Leader>wa :ColorClear<CR>:wall<CR>:echo 'All buffers written'<CR>
-nnoremap <silent><Leader>wab :ColorClear<CR>:wall<CR>:echo 'All buffers written'<CR>
+nnoremap <silent><Leader>wa :wall<CR>:echo 'All buffers written'<CR>
+nnoremap <silent><Leader>wab :wall<CR>:echo 'All buffers written'<CR>
 
 " Write buffer and quit
-nnoremap <silent><Leader>wq :ColorClear<CR>:wq<CR>
+nnoremap <silent><Leader>wq :wq<CR>
 
 " Write and quit all buffers and windows
-nnoremap <silent><Leader>wqa   :ColorClear<CR>:confirm wqa<CR>
+nnoremap <silent><Leader>wqa   :confirm wqa<CR>
 
 " Write buffer as
 nnoremap <Leader>wba :write <C-R>=expand("%:p:h") . "/" <CR>
@@ -1496,18 +1497,19 @@ augroup END
 " "CSS/SCSS"
 augroup CSS
 	au!
-	au FileType css,scss  setl omnifunc=csscomplete#CompleteCSS
-	au FileType css,scss  let g:cssfoldstate = 0
+	au BufNewFile,BufRead *.vim   set ft=css
+	au BufNewFile,BufRead *.styl  set ft=css
+	au BufNewFile,BufRead *.scss  set ft=css
+	au BufNewFile,BufRead *.sass  set ft=css
+	au FileType css,scss,styl,sass     setl omnifunc=csscomplete#CompleteCSS
+	au FileType css,scss,styl,sass     let g:cssfoldstate = 0
 
 	au FileType css,scss  nmap <silent><buffer>
 		\	<LocalLeader>tf :call ToggleCSSFold()<CR>
 
-	au FileType scss      nmap <silent><buffer>
-		\ <LocalLeader>= :silent! w<CR>\|:!sass-convert -i --indent t %<CR>\|:e<CR>
-
 	au FileType css,scss  setl equalprg=csstidy\ -
 		\\ --silent=true
-		\\ --template=$HOME/dotfiles/vim.local/templates/csstidy.tpl
+		\\ --template=~/dotfiles/vim.local/templates/csstidy.tpl
 		\\ --preserve_css=true
 		\\ --merge_selectors=0
 		\\ --sort_properties=true
@@ -1654,15 +1656,6 @@ augroup END
 augroup Smarty
 	au!
 	au BufNewFile,BufRead *.tpl  set ft=html
-augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Stylus"
-augroup Stylus
-	au!
-	au BufNewFile,BufRead *.styl  set ft=stylus
 augroup END
 "-----------------------------------------------------------------------------
 
