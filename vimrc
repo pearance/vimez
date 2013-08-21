@@ -318,6 +318,10 @@ nnoremap <Leader><BS> <C-^>
 nnoremap <silent><Leader>w :write<CR>
 nnoremap <silent><Leader>wb :write<CR>
 
+" Write a partial buffer
+vnoremap <silent><Leader>w :write<CR>
+vnoremap <silent><Leader>wb :write<CR>
+
 " Write all buffers
 nnoremap <silent><Leader>wa :wall<CR>:echo 'All buffers written'<CR>
 nnoremap <silent><Leader>wab :wall<CR>:echo 'All buffers written'<CR>
