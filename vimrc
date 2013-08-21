@@ -1263,11 +1263,11 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 
-" inoremap <Left>  <Nop>
-" inoremap <Right> <Nop>
-" inoremap <Up>    <Nop>
-" inoremap <Up>    <Nop>
-" inoremap <Down>  <Nop>
+inoremap <Left>  <Nop>
+inoremap <Right> <Nop>
+inoremap <Up>    <Nop>
+inoremap <Up>    <Nop>
+inoremap <Down>  <Nop>
 
 "-------------------------------------------------------------------------------
 
@@ -1383,6 +1383,11 @@ let g:signify_sign_delete            = '-'
 let g:signify_sign_change            = '*'
 let g:signify_sign_change_delete     = '*-'
 let g:signify_sign_delete_first_line = '‾'
+
+let g:signify_mapping_toggle           = '<Leader>tgs'
+let g:signify_mapping_toggle_highlight = '<leader>tgh'
+let g:signify_mapping_next_hunk        = '<leader>j'
+let g:signify_mapping_prev_hunk        = '<leader>k'
 "-------------------------------------------------------------------------------
 
 
