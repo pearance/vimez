@@ -493,10 +493,17 @@ nnoremap <silent><C-q>  :confirm qall<CR>
 
 "}}}
 " "## Tab Management""{{{
-nnoremap <silent><leader><Right> :tabprevious<CR>
-nnoremap <silent><leader><Left> :tabnext<CR>
+" Previous tab
+nnoremap <silent>gj :tabprevious<CR>
+
+" Next tab
+nnoremap <silent>gk :tabnext<CR>
+
+" New tab
 nnoremap <silent><Leader>nt :tabnew<CR>
-nnoremap <silent><Leader>ct :tabclose<CR>
+
+" Quit tab
+nnoremap <silent><Leader>qt :tabclose<CR>
 
 
 
