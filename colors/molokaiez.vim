@@ -159,10 +159,10 @@ hi SpellRare        guisp=#FF8700 gui=undercurl
 "-------------------------------------------------------------------------------
 "}}}
 " "Autocomplete Menu""{{{
-hi Pmenu            guifg=#5FD7FF guibg=#444444
-hi PmenuSel         guifg=#5FD7FF guibg=#262626
-hi PmenuSbar                      guibg=#000000
-hi PmenuThumb       guifg=#5FD7FF
+hi Pmenu            guifg=#666666 guibg=#262626
+hi PmenuSel         guifg=#666666 guibg=#1C1C1C
+hi PmenuSbar        guifg=NONE    guibg=#262626
+hi PmenuThumb       guifg=NONE    guibg=#444444
 "-------------------------------------------------------------------------------
 "}}}
 " "Insert Mode Indicator""{{{
