@@ -100,16 +100,12 @@ let g:startify_files_number = 10
 let g:startify_change_to_dir = 1
 let g:ctrlp_reuse_window = 'startify'
 let g:startify_skiplist = [
-  \ 'COMMIT_EDITMSG',
-  \ ]
+	\ 'COMMIT_EDITMSG',
+	\ ]
 let g:startify_bookmarks = [
 	\ '',
 	\ ]
 let g:startify_custom_header = [
-	\ '                              ',
-	\ '                              ',
-	\ '                              ',
-	\ '                              ',
 	\ '                              ',
 	\ '                              ',
 	\ '                              ',
@@ -120,13 +116,11 @@ let g:startify_custom_header = [
 	\ '   \_/ |_|_| |_| |_|\___/___| ',
 	\ '                              ',
 	\ '           develop            ',
-  \ '',
-  \ '',
-  \ '',
-  \ '',
-  \ '',
-  \ '',
-  \ ]
+	\ '',
+	\ '',
+	\ '',
+	\ '',
+	\ ]
 
 nnoremap <silent><Leader>1 :Startify<CR>
 "}}}
