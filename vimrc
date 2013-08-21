@@ -1388,18 +1388,18 @@ let g:signify_sign_delete_first_line = '‾'
 
 
 
-" "Execute Terminal Commands (Vimux)"
-let g:VimuxOrientation = "h"
-let g:VimuxHeight = "50"
+" "TMUX (Vimux)"
+let g:VimuxOrientation = "v"
+let g:VimuxHeight = "30"
 
 " Prompt for a command to run
-nnoremap <Leader>xp :VimuxPromptCommand<CR>
+nnoremap <Leader>cp :VimuxPromptCommand<CR>
 
 " Run last command executed by VimuxRunCommand
-nnoremap <Leader>xl :VimuxRunLastCommand<CR>
+nnoremap <Leader>lc :VimuxRunLastCommand<CR>
 
 " Inspect runner pane
-nnoremap <Leader>xi :VimuxInspectRunner<CR>
+nnoremap <Leader>it :VimuxInspectRunner<CR>
 
 " Interrupt any command running in the runner pane
 nnoremap <Leader>xs :VimuxInterruptRunner<CR>
@@ -1415,8 +1415,8 @@ nnoremap <Leader>xq :VimuxCloseRunner<CR>
 nnoremap <Leader>xa :VimuxClosePanes<CR>
 
 nnoremap <Leader>xc :call VimuxRunCommand("clear")<CR>
-
-nnoremap <F9> :call VimuxRunCommand("colors")<CR>
+" Terminal Commands
+nnoremap <F9> :call VimuxRunCommand("termcolors \| less")<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1470,11 +1470,11 @@ augroup VimGlobal
 	au BufRead *            normal zz
 	au VimResized *         wincmd =
 
-	" Improve fold functionality.
+	" Improve UI memory
 	au BufWritePost *       silent! call SaveView()
 	au BufRead *            silent! call LoadView()
 
-	" Make cursor highlights follow the cursor.
+	" Make cursor highlights follow the cursor
 	au WinEnter *           call WinEnterRoutine()
 	au WinLeave *           call WinLeaveRoutine()
 
@@ -1486,8 +1486,8 @@ augroup VimGlobal
 	au FileType qf          call QuickFixEnvironment()
 
 	" Persist sign column.
-  au BufWinEnter * sign define mysign
-  au BufWinEnter * exe "sign place 9999 line=1 name=mysign buffer=" . bufnr('%')
+	au BufWinEnter * sign define mysign
+	au BufWinEnter * exe "sign place 9999 line=1 name=mysign buffer=" . bufnr('%')
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1696,19 +1696,18 @@ augroup END
 "}}}
 " FUNCTIONS:"{{{
 " ******************************************************************************
-
 if !exists("*Reload")
-	function! Reload()
-	" "Reload Configurations"
-		so $MYVIMRC
-		nohlsearch
-		" Reapproximate hex color codes for terminal
-		exe 'CSApprox'
-		" Reapply Powerline color scheme
-		call Pl#Load()
-		exe 'PowerlineClearCache'
-		call Msg('Vim Configuration Reloaded!')
-	endfunction
+function! Reload()
+" "Reload Configurations"
+	so $MYVIMRC
+	nohlsearch
+	" Reapproximate hex color codes for terminal
+	exe 'CSApprox'
+	" Reapply Powerline color scheme
+	call Pl#Load()
+	exe 'PowerlineClearCache'
+	call Msg('Vim Configuration Reloaded!')
+endfunction
 endif
 "-------------------------------------------------------------------------------
 
@@ -2513,5 +2512,5 @@ endif
 
 
 " "Todo/s, Fixme/s"
-" TODO: Configure NeoSnippets
+" TODO:
 "}}}
