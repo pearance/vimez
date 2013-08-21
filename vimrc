@@ -1100,8 +1100,6 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
-" Toggle auto completion and additional mappings.
-nnoremap <Leader>ta :call ToggleAutoComplete()<CR>
 inoremap <expr><BS> neocomplcache#smart_close_popup() . "\<BS>"
 "-------------------------------------------------------------------------------
 
@@ -1806,22 +1804,6 @@ endfunction
 
 
 
-" "Toggle Auto Completion"
-function! ToggleAutoComplete()
-	if g:neocomplcache_disable_auto_complete == 1
-		echo 'Auto Completion: On'
-		let g:neocomplcache_disable_auto_complete = 0
-		NeoComplCacheEnable
-	else
-		echo 'Auto Completion: Off'
-		let g:neocomplcache_disable_auto_complete = 1
-		NeoComplCacheDisable
-	endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
 " "Toggle Cursor Column"
 function! ToggleCursorColumn()
 	if g:cursorcolumnstate == 0
@@ -1848,22 +1830,6 @@ function! ToggleCursorLine()
 		let g:cursorlinestate = 0
 		setl nocursorline
 		echo 'Cursor Line: Off'
-	endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Toggle Color Highlights"
-function! ToggleColorHighlights()
-	if g:ColorizerState == 1
-		exe 'ColorClear'
-		let g:ColorizerState = 0
-		echo 'Color Highlights: Off'
-	else
-		exe 'ColorHighlight'
-		let g:ColorizerState = 1
-		echo 'Color Highlights: On'
 	endif
 endfunction
 "-------------------------------------------------------------------------------
