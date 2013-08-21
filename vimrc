@@ -1372,12 +1372,6 @@ nnoremap <silent><Leader>gpu :silent! !clear<CR>:Git pull<CR>
 
 
 " "Git Signify"
-" " TODO: add toggle message
-let g:signify_mapping_toggle           = '<leader>tg'
-let g:signify_mapping_toggle_highlight = '<leader>tgh'
-let g:signify_mapping_next_hunk = '<leader>j'
-let g:signify_mapping_prev_hunk = '<leader>k'
-"
 let g:signify_sign_add               = '+'
 let g:signify_sign_delete            = '-'
 let g:signify_sign_change            = '*'
@@ -1422,16 +1416,6 @@ nnoremap <Leader>vcol :let g:VimuxOrientation="h"<CR>
 
 " "Present Working Directory"
 nnoremap <silent><Leader>pwd :pwd<CR>
-"-------------------------------------------------------------------------------
-
-
-
-" "Color Highlights (Colorizer)"
-let g:ColorizerState = 0
-let g:colorizer_nomap = 1
-let g:colorizer_fgcontrast = 1
-let g:colorizer_startup = 0
-nmap <silent><Leader>tch :call ToggleColorHighlights()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1521,7 +1505,7 @@ augroup CSS
 	au FileType css,scss,styl,sass     let g:cssfoldstate = 0
 
 	au FileType css,scss  nmap <silent><buffer>
-		\	<LocalLeader>tf :call ToggleCSSFold()<CR>
+		\	<LocalLeader><F1> :call ToggleCSSFold()<CR>
 
 	au FileType css,scss  setl equalprg=csstidy\ -
 		\\ --silent=true
