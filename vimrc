@@ -898,8 +898,8 @@ nnoremap <silent><Leader>tw
 
 
 " "Rule"
-nnoremap <silent><Leader>tr :call ToggleRule()<CR>
 let g:rulestate = 1
+nnoremap <silent><F5> :call ToggleRule()<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1940,11 +1940,11 @@ function! ToggleRule()
 	if g:rulestate == 0
 		set colorcolumn=0
 		let g:rulestate=1
-		echo "Rule: Off"
+		" echo "Rule: Off"
 	else
 		set colorcolumn=+1
 		let g:rulestate=0
-		echo "Rule: On"
+		" echo "Rule: On"
 	endif
 endfunction
 "-------------------------------------------------------------------------------
