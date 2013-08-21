@@ -862,15 +862,15 @@ cmap <C-l> <Right>
 
 
 
-" "Non-Printable Characters"
-" This controls visibility of non-printable characters that denote certain
+" "Unprintable Characters"
+" This controls visibility of unprintable characters that denote certain
 " formatting information. Such as eol, tabs, trailing space, etc.
 set list
 set listchars=eol:\ ,tab:·\ ,trail:\ ,extends:>,precedes:<
-nnoremap <silent><Leader>tn
+nnoremap <silent><F6>
 		\ :setlocal list!<CR><Bar>
 		\ :let OnOrOff=&list<CR><Bar>
-		\ :call ToggleOnOff("Non-Printable Characters", OnOrOff)<CR>
+		\ :call ToggleOnOff("Unprintable Characters", OnOrOff)<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -889,7 +889,7 @@ set whichwrap+=~        " "h" Normal and Visual (not recommended)
 set whichwrap+=[        " <Space> Normal and Visual
 set whichwrap+=]        " <BS> Normal and Visual
 
-nnoremap <silent><Leader>tw
+nnoremap <silent><F9>
 		\ :setlocal wrap!<CR><Bar>
 		\ :let OnOrOff=&wrap<CR><Bar>
 		\ :call ToggleOnOff("Word Wrap", OnOrOff)<CR>
@@ -916,7 +916,7 @@ nnoremap <expr> x ((foldclosed('.')==-1)?('x'):(''))
 nnoremap <expr> . ((foldclosed('.')==-1)?('.'):(''))
 
 " Toggle folding on/off.
-nnoremap <silent><Leader>tf :call ToggleFolds()<CR>
+nnoremap <silent><F4> :call ToggleFolds()<CR>
 
 " Delete a fold.
 nnoremap ,df zd
@@ -1168,7 +1168,7 @@ vnoremap <S-Tab> <gv
 nnoremap <Leader>st :call TabSize()<CR>
 
 " Toggle soft tab.
-nnoremap <silent><Leader>tst
+nnoremap <silent><F8>
 			\ :setlocal expandtab!<CR><Bar>
 			\ :let OnOrOff=&expandtab<CR><Bar>
 			\ :call ToggleOnOff("Soft Tabs", OnOrOff)<CR>
