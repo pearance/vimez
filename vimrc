@@ -797,9 +797,9 @@ nnoremap <silent><Leader><F2> :call ToggleCursorColumn()<CR>
 
 " "Line Numbers"
 set relativenumber
-let g:numbertype=1
+set number
 set numberwidth=4
-nnoremap <silent><F2> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
+nnoremap <silent><F3> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1960,62 +1960,6 @@ function! Msg(msg)
 	redraw
 	echo a:msg
 	let &ruler=x | let &showcmd=y
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Toggle Number Type"
-function! g:ToggleNumberType()
-	if(&relativenumber==1)
-		echo 'Number Type: Normal'
-		set number
-		let g:numbertype=0
-	else
-		echo 'Number Type: Relative'
-		set relativenumber
-		let g:numbertype=1
-	endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Toggle Numbers"
-function! g:ToggleNumbers()
-	if(g:numbertype==1)
-		call g:ToggleRelativeNumbers()
-	else
-		call g:ToggleNormalNumbers()
-	endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Toggle Normal Numbers"
-function! g:ToggleNormalNumbers()
-	if(&number==1)
-		setlocal nonumber
-	else
-		setlocal number
-	endif
-	let OnOrOff=&number
-	call ToggleOnOff("Line Numbers", OnOrOff)
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Toggle Relative Numbers"
-function! g:ToggleRelativeNumbers()
-	if(&relativenumber==1)
-		setlocal norelativenumber
-	else
-		setlocal relativenumber
-	endif
-	let OnOrOff=&relativenumber
-	call ToggleOnOff('Relative Line Numbers', OnOrOff)
 endfunction
 "-------------------------------------------------------------------------------
 
