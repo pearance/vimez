@@ -786,10 +786,11 @@ set titlestring=%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{hostname()}
 " is on as well as the current column.
 set cursorline          " Enable cursor line highlight
 set nocursorcolumn      " Enable cursor column highlight
+let g:cursorlinestate=1
 let g:cursorcolumnstate=0
-let g:cursorlinestate=0
-nnoremap <silent><Leader>tcc :call ToggleCursorColumn()<CR>
-nnoremap <silent><Leader>tcl :call ToggleCursorLine()<CR>
+nnoremap <silent><F2> :call ToggleCursorLine()<CR>
+nnoremap <silent><Leader><F2> :call ToggleCursorColumn()<CR>
+" nnoremap <silent><F2> :exec &cul==&cuc? "se cul!" : "se cuc!"<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1766,10 +1767,17 @@ endfunction
 
 " "WinEnter Routine"
 function! WinEnterRoutine()
-	setl cursorline
-	if g:cursorcolumnstate == 1
+	if g:cursorcolumnstate == 1 && g:cursorlinestate == 1
+		setl cursorline
 		setl cursorcolumn
+	elseif g:cursorcolumnstate == 1 && g:cursorlinestate == 0
+		setl nocursorline
+		setl cursorcolumn
+	elseif g:cursorcolumnstate == 0 && g:cursorlinestate == 1
+		setl cursorline
+		setl nocursorcolumn
 	else
+		setl nocursorline
 		setl nocursorcolumn
 	endif
 endfunction
