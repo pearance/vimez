@@ -35,7 +35,6 @@ Bundle "tpope/vim-markdown"
 Bundle "tpope/vim-haml"
 Bundle "scrooloose/syntastic"
 Bundle "digitaltoad/vim-jade"
-" Bundle "wavded/vim-stylus"
 Bundle "tpope/vim-git"
 "-------------------------------------------------------------------------------
 
