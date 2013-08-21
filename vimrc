@@ -1397,30 +1397,25 @@ let g:VimuxOrientation = "v"
 let g:VimuxHeight = "30"
 
 " Prompt for a command to run
-nnoremap <Leader>cp :VimuxPromptCommand<CR>
+nnoremap <silent><Leader>cc :VimuxPromptCommand<CR>
 
 " Run last command executed by VimuxRunCommand
-nnoremap <Leader>lc :VimuxRunLastCommand<CR>
+nnoremap <silent><Leader>lc :VimuxRunLastCommand<CR>
 
 " Inspect runner pane
-nnoremap <Leader>it :VimuxInspectRunner<CR>
+nnoremap <silent><Leader>it :VimuxInspectRunner<CR>
 
 " Interrupt any command running in the runner pane
-nnoremap <Leader>xs :VimuxInterruptRunner<CR>
-
-" Clear ths tmux history of the runner pane for when
-" you enter tmux scroll mode inside the runner pane.
-nnoremap <Leader>xx :VimuxClearRunnerHistory<CR>
+nnoremap <silent><Leader>cr :VimuxInterruptRunner<CR>
 
 " Close vim tmux runner opened by VimuxRunCommand
-nnoremap <Leader>xq :VimuxCloseRunner<CR>
+nnoremap <silent><Leader>qt :VimuxCloseRunner<CR>
 
-" Close all other tmux panes in current window
-nnoremap <Leader>xa :VimuxClosePanes<CR>
-
-nnoremap <Leader>xc :call VimuxRunCommand("clear")<CR>
 " Terminal Commands
-nnoremap <F9> :call VimuxRunCommand("termcolors \| less")<CR>
+nnoremap <Leader>col :call VimuxRunCommand("termcolors \| less")<CR>
+nnoremap <Leader>vcol :let g:VimuxOrientation="h"<CR>
+	\ :let g:VimuxHeight="10"<CR>
+	\ :call VimuxRunCommand("termcolors \| less")<CR>
 "-------------------------------------------------------------------------------
 
 
