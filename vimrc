@@ -1186,11 +1186,12 @@ nnoremap <Leader>re<Tab> :RetabIndent<CR>:echo "Retabbed!"<CR>
 
 "}}}
 " "## Comments""{{{
+
 nmap gcl <C-_>r
 nmap gcb <C-_>b
-vmap gcb <C-_>b
 nmap gci <C-_>i
 nmap gcp <C-_>p
+vmap gcb <C-_>b
 vmap gcc gc
 "-------------------------------------------------------------------------------
 
