@@ -2000,6 +2000,7 @@ function! HelpEnvironment()
 		nnoremap <silent><buffer><CR> <C-]>
 		nnoremap <silent><buffer><BS> <C-T>
 		nnoremap <silent><buffer><Leader>qq :bdelete<CR>
+		nnoremap <silent><buffer>,, :bdelete<CR>
 	else
 		nnoremap <CR> i<CR><Esc>
 		nnoremap <BS> i<BS><Right><Esc>
@@ -2447,5 +2448,5 @@ endif
 
 
 " "Todo/s, Fixme/s"
-" TODO:
+" TODO: Dim the autopopup
 "}}}
