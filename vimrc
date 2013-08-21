@@ -79,7 +79,6 @@ filetype plugin indent on
 "-------------------------------------------------------------------------------
 
 "}}}
-"-------------------------------------------------------------------------------
 
 
 
@@ -301,7 +300,7 @@ nnoremap <silent>,re :e<CR>
 "}}}
 " "### Navigate""{{{
 " List all buffers.
-nnoremap <Leader>lb :ls!<CR>
+nnoremap <silent><Leader>lb :ls!<CR>
 
 " Flip through buffer list.
 nnoremap <silent>gh :bprev<CR>
@@ -408,9 +407,9 @@ if exists('$TMUX')
 		endif
 	endfunction
 
-	" let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
-	" let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
-	" let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
+	let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
+	let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
+	let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
 
 	nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
 	nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
@@ -799,8 +798,7 @@ nnoremap <silent><Leader>tcl :call ToggleCursorLine()<CR>
 set relativenumber
 let g:numbertype=1
 set numberwidth=4
-nnoremap <silent><Leader>tnt :call g:ToggleNumberType()<CR>
-nnoremap <silent><Leader>tn :call g:ToggleNumbers()<CR>
+nnoremap <silent><F2> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -1120,13 +1118,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: "\<TAB>"
 
-xnoremap <C-,>     <Plug>(neosnippet_expand_target)
 nnoremap <Leader>es  :NeoSnippetEdit -split -horizontal<CR>
-
-" Set snips_author.
-if !exists('snips_author')
-	let g:snips_author = 'VimEz'
-endif
 
 " For snippet_complete marker.
 if has('conceal')
@@ -1143,7 +1135,7 @@ let g:user_emmet_leader_key = '<C-e>'
 " Plugin (Auto-Pairs)
 let g:AutoPairsShortcutFastWrap = '<C-f>'
 let g:AutoPairsCenterLine = 1
-let g:AutoPairsMapBS = 1
+let g:AutoPairsMapBS = 0
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -1271,11 +1263,11 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 
-inoremap <Left>  <Nop>
-inoremap <Right> <Nop>
-inoremap <Up>    <Nop>
-inoremap <Up>    <Nop>
-inoremap <Down>  <Nop>
+" inoremap <Left>  <Nop>
+" inoremap <Right> <Nop>
+" inoremap <Up>    <Nop>
+" inoremap <Up>    <Nop>
+" inoremap <Down>  <Nop>
 
 "-------------------------------------------------------------------------------
 
