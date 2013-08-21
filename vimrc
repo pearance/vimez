@@ -301,11 +301,11 @@ nnoremap <silent>,re :e<CR>
 "}}}
 " "### Navigate""{{{
 " List all buffers.
-nnoremap <Leader>ls :ls!<CR>
+nnoremap <Leader>lb :ls!<CR>
 
 " Flip through buffer list.
-nnoremap <silent><C-h> :bprev<CR>
-nnoremap <silent><C-l> :bnext<CR>
+nnoremap <silent>gh :bprev<CR>
+nnoremap <silent>gl :bnext<CR>
 
 " Flip back to last buffer.
 nnoremap <Leader><BS> <C-^>
