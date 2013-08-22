@@ -1407,8 +1407,8 @@ nnoremap <silent><Leader>cr :VimuxInterruptRunner<CR>
 nnoremap <silent><Leader>qt :VimuxCloseRunner<CR>
 
 " Terminal Commands
-nnoremap <Leader>col :call VimuxRunCommand("termcolors \| less")<CR>
-nnoremap <Leader>vcol :let g:VimuxOrientation="h"<CR>
+nnoremap <silent><Leader>col :call VimuxRunCommand("termcolors \| less")<CR>
+nnoremap <silent><Leader>vcol :let g:VimuxOrientation="h"<CR>
 	\ :let g:VimuxHeight="10"<CR>
 	\ :call VimuxRunCommand("termcolors \| less")<CR>
 "-------------------------------------------------------------------------------
