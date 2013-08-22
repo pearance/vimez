@@ -79,11 +79,11 @@ hi VertSplit        guifg=NONE    guibg=#262626
 hi Cursor           guifg=#000000 guibg=#AFD700
 hi CursorLine                     guibg=#1C1C1C
 hi CursorColumn                   guibg=#1C1C1C
-hi CursorLineNr     guifg=#000000 guibg=#AFD700
+hi CursorLineNr     guifg=#121212 guibg=#AFD700 gui=NONE
 "-------------------------------------------------------------------------------
 "}}}
 " "#/+ Columns""{{{
-hi LineNr           guifg=#808080 guibg=#262626
+hi LineNr           guifg=#666666 guibg=#262626
 hi SignColumn       guifg=#AFD700 guibg=#262626
 "-------------------------------------------------------------------------------
 "}}}
@@ -159,8 +159,8 @@ hi SpellRare        guisp=#FF8700 gui=undercurl
 "-------------------------------------------------------------------------------
 "}}}
 " "Autocomplete Menu""{{{
-hi Pmenu            guifg=#666666 guibg=#262626
-hi PmenuSel         guifg=#666666 guibg=#1C1C1C
+hi Pmenu            guifg=#666666 guibg=#1C1C1C
+hi PmenuSel         guifg=#666666 guibg=#121212
 hi PmenuSbar        guifg=NONE    guibg=#262626
 hi PmenuThumb       guifg=NONE    guibg=#444444
 "-------------------------------------------------------------------------------
@@ -197,161 +197,161 @@ hi StartifySlash   guifg=#BCBCBC guibg=NONE
 "}}}
 " "Powerline:"{{{
 call Pl#Hi#Allocate({
-	\ 'black'          : 16,
-	\ 'white'          : 231,
+	\ 'color0'  : 234,
+	\ 'color1'  : 236,
+	\ 'color2'  : 238,
+	\ 'color3'  : 225,
+	\ 'color4'  : 148,
+	\ 'color5'  : 196,
+	\ 'color6'  : 220,
 	\
-	\ 'lightgreen'	   : 192,
-	\ 'mediumgreen'    : 148,
-	\ 'darkgreen'			 : 22,
-	\
-	\ 'lightpink'			 : 225,
-	\ 'mediumpink'		 : 196,
-	\ 'darkpink'			 : 89,
-	\
-	\ 'lightblue'      : 117,
-	\ 'mediumblue'     : 45,
-	\ 'darkblue'		   : 32,
-	\
-	\ 'lightred'			 : 196,
-	\ 'mediumred'      : 124,
-	\ 'darkred'        : 88,
-	\
-	\ 'gray0'          : 233,
-	\ 'gray1'          : 234,
-	\ 'gray2'          : 236,
-	\ 'gray3'          : 239,
-	\ 'gray4'          : 240,
-	\ 'gray5'          : 241,
-	\ 'gray6'          : 244,
-	\ 'gray7'          : 245,
-	\ 'gray8'          : 247,
-	\ 'gray9'          : 249,
-	\ 'gray10'         : 252,
+	\ 'black'   : 16,
+	\ 'gray0'   : 233,
+	\ 'gray1'   : 234,
+	\ 'gray1-1' : 235,
+	\ 'gray2'   : 236,
+	\ 'gray3'   : 238,
+	\ 'gray4'   : 240,
+	\ 'gray5'   : 241,
+	\ 'gray6'   : 244,
+	\ 'gray7'   : 245,
+	\ 'gray8'   : 247,
+	\ 'gray9'   : 249,
+	\ 'gray10'  : 252,
+	\ 'white'   : 15,
 	\ })
+
+" color0 NONE     gray0 #121212
+" color1 NONE     gray1 #1c1c1c
+" color2 NONE     gray2 #303030
+" color3 NONE     gray3 #444444
+" color4 #aFd700  gray4 #585858
+" color5 #ff0000  gray5 #626262
+" color6 #fFd700  gray6 #808080
 
 let g:Powerline#Colorschemes#default#colorscheme = Pl#Colorscheme#Init([
 	\ Pl#Hi#Segments(['SPLIT'], {
-		\ 'n': ['black', 'mediumgreen'],
-		\ 'N': ['black', 'gray2'],
-		\ 'i': ['black', 'mediumpink'],
+		\ 'n': ['gray2', 'gray1-1'],
+		\ 'N': ['gray2', 'gray1'],
+		\ 'i': ['gray2', 'color4'],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['mode_indicator'], {
-		\ 'n': ['darkgreen', 'white', ['none']],
-		\ 'i': ['darkpink', 'white', ['none']],
-		\ 'v': ['darkgreen', 'white', ['none']],
-		\ 'r': ['lightred', 'white', ['none']],
-		\ 's': ['white', 'gray5', ['bold']],
+		\ 'n': ['gray0', 'color4', ['none']],
+		\ 'i': ['gray0', 'color4', ['none']],
+		\ 'v': ['gray0', 'color4', ['none']],
+		\ 'r': ['gray0', 'color4', ['none']],
+		\ 's': ['gray0', 'color4', ['none']],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['branch', 'scrollpercent', 'raw', 'filesize'], {
-		\ 'n': ['darkgreen', 'lightgreen'],
-		\ 'N': ['gray9', 'gray1'],
-		\ 'i': ['gray2', 'lightpink'],
+		\ 'n': ['gray3', 'gray1'],
+		\ 'N': ['gray2', 'gray1'],
+		\ 'i': ['gray3', 'gray1'],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['fileinfo', 'filename'], {
-		\ 'n': ['darkgreen', 'lightgreen', ['none']],
-		\ 'N': ['gray9', 'gray1', ['none']],
-		\ 'i': ['gray2', 'lightpink', ['none']],
+		\ 'n': ['color4', 'gray1', ['none']],
+		\ 'N': ['gray3', 'gray1', ['none']],
+		\ 'i': ['color4', 'gray1', ['none']],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['fileinfo.filepath'], {
-		\ 'n': ['black'],
-		\ 'N': ['gray1'],
+		\ 'n': ['gray2'],
+		\ 'N': ['gray2'],
 		\ 'i': ['gray2'],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['static_str'], {
-		\ 'n': ['white', 'gray4'],
-		\ 'N': ['gray9', 'gray1'],
-		\ 'i': ['white', 'darkpink'],
+		\ 'n': ['gray9', 'gray4'],
+		\ 'N': ['gray9', 'gray4'],
+		\ 'i': ['gray9', 'gray4'],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['fileinfo.flags'], {
-		\ 'n': ['lightred', ['none']],
-		\ 'N': ['lightred'],
-		\ 'i': ['lightred', ['none']],
+		\ 'n': ['color5', ['bold']],
+		\ 'N': ['color5'],
+		\ 'i': ['color5', ['bold']],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['currenttag', 'fullcurrenttag', 'fileformat', 'fileencoding', 'pwd', 'filetype', 'rvm:string', 'rvm:statusline', 'virtualenv:statusline', 'charcode', 'currhigroup'], {
-		\ 'n': ['darkgreen', 'lightgreen'],
-		\ 'i': ['gray2', 'lightpink'],
+		\ 'n': ['gray2', 'gray1'],
+ 		\ 'i': ['gray2', 'gray1'],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['lineinfo'], {
-		\ 'n': ['darkgreen', 'white', ['none']],
+		\ 'n': ['gray2', 'color4', ['none']],
 		\ 'N': ['gray1', 'gray1', ['none']],
-		\ 'i': ['darkpink', 'white', ['none']],
+		\ 'i': ['gray2', 'color4', ['none']],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['errors'], {
-		\ 'n': ['lightred', 'gray2', ['none']],
-		\ 'i': ['lightred', 'darkpink', ['none']],
+		\ 'n': ['color5', 'gray2', ['none']],
+		\ 'i': ['color5', 'gray2', ['none']],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['lineinfo.line.tot'], {
-		\ 'n': ['gray1'],
+		\ 'n': ['gray4'],
 		\ 'N': ['gray1'],
-		\ 'i': ['gray1'],
+		\ 'i': ['gray4'],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['paste_indicator', 'ws_marker'], {
-		\ 'n': ['white', 'lightred', ['bold']],
+		\ 'n': ['white', 'color5', ['bold']],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['gundo:static_str.name', 'command_t:static_str.name'], {
-		\ 'n': ['darkgreen', 'white', ['bold']],
+		\ 'n': ['gray3', 'white', ['bold']],
 		\ 'N': ['gray7', 'gray1', ['bold']],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['gundo:static_str.buffer', 'command_t:raw.line'], {
-		\ 'n': ['darkgreen', 'lightgreen'],
+		\ 'n': ['gray3', 'gray1'],
 		\ 'N': ['gray7', 'gray1'],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['gundo:SPLIT', 'command_t:SPLIT'], {
-		\ 'n': ['black', 'mediumgreen'],
+		\ 'n': ['black', 'gray2'],
 		\ 'N': ['gray7', 'gray1'],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['lustyexplorer:static_str.name', 'minibufexplorer:static_str.name', 'nerdtree:raw.name', 'tagbar:static_str.name'], {
-		\ 'n': ['darkgreen', 'lightgreen', ['bold']],
+		\ 'n': ['gray3', 'gray1', ['bold']],
 		\ 'N': ['gray7', 'gray1', ['none']],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['lustyexplorer:static_str.buffer', 'tagbar:static_str.buffer'], {
-		\ 'n': ['lightgreen', 'mediumgreen'],
+		\ 'n': ['gray1', 'gray2'],
 		\ 'N': ['gray7', 'gray1'],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['lustyexplorer:SPLIT', 'minibufexplorer:SPLIT', 'nerdtree:SPLIT', 'tagbar:SPLIT'], {
-		\ 'n': ['white', 'mediumgreen'],
+		\ 'n': ['white', 'gray2'],
 		\ 'N': ['gray7', 'gray1'],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['ctrlp:focus', 'ctrlp:byfname'], {
-		\ 'n': ['darkgreen', 'lightgreen'],
+		\ 'n': ['gray3', 'gray1'],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['ctrlp:prev', 'ctrlp:next', 'ctrlp:pwd'], {
-		\ 'n': ['darkgreen', 'lightgreen'],
+		\ 'n': ['gray3', 'gray1'],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['ctrlp:item'], {
-		\ 'n': ['darkgreen', 'white', ['bold']],
+		\ 'n': ['gray3', 'white', ['bold']],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['ctrlp:marked'], {
-		\ 'n': ['lightred', 'lightgreen', ['bold']],
+		\ 'n': ['color5', 'gray1', ['bold']],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['ctrlp:count'], {
-		\ 'n': ['lightred', 'white'],
+		\ 'n': ['color5', 'white'],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['ctrlp:SPLIT'], {
-		\ 'n': ['black', 'mediumgreen'],
+		\ 'n': ['black', 'gray2'],
 		\ }),
 	\ ])
 "-------------------------------------------------------------------------------
