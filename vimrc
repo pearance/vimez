@@ -242,13 +242,13 @@ set vi+=r/tmp " Removable media, for which no marks will be stored
 set vi+=!     " Global variables that start with an uppercase letter and
 							" don't contain lowercase letters
 set vi+=h     " Disable 'hlsearch' highlighting when starting
-set vi+=%     " Buffer list (restored when starting Vim without arguments)
+set vi-=%     " Buffer list (restored when starting Vim without arguments)
 set vi+=c     " Convert the text using 'encoding'
 set vi+=s100  " Max amount of kilobytes of any single register.
 set vi+=n~/dotfiles/vim.local/tmp/viminfo
 "-------------------------------------------------------------------------------
 
-"}}}
+" "}}}
 " "## Buffer Management""{{{
 " "### Create/Find/Open"{{{
 " Open files via browser (NERDTree)
