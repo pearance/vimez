@@ -36,6 +36,7 @@ Bundle "tpope/vim-haml"
 Bundle "scrooloose/syntastic"
 Bundle "digitaltoad/vim-jade"
 Bundle "tpope/vim-git"
+Bundle "wavded/vim-stylus"
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -179,7 +180,7 @@ set modelines=5
 "}}}
 " "## Color Scheme""{{{
 set t_Co=256                " Force terminal to go into 256 color mode.
-set synmaxcol=150           " Prevent long lines from slowing down redraws.
+set synmaxcol=230           " Prevent long lines from slowing down redraws.
 syntax on                   " Syntax highlighting on.
 silent! colorscheme molokaiez
 
@@ -248,7 +249,7 @@ set vi+=s100  " Max amount of kilobytes of any single register.
 set vi+=n~/dotfiles/vim.local/tmp/viminfo
 "-------------------------------------------------------------------------------
 
-" "}}}
+"}}}
 " "## Buffer Management""{{{
 " "### Create/Find/Open"{{{
 " Open files via browser (NERDTree)
@@ -1499,7 +1500,6 @@ augroup END
 augroup CSS
 	au!
 	au BufNewFile,BufRead *.vim   set ft=css
-	au BufNewFile,BufRead *.styl  set ft=css
 	au BufNewFile,BufRead *.scss  set ft=css
 	au BufNewFile,BufRead *.sass  set ft=css
 	au FileType css,scss,styl,sass     setl omnifunc=csscomplete#CompleteCSS
@@ -1508,15 +1508,7 @@ augroup CSS
 	au FileType css,scss  nmap <silent><buffer>
 		\	<LocalLeader><F1> :call ToggleCSSFold()<CR>
 
-	au FileType css,scss  setl equalprg=csstidy\ -
-		\\ --silent=true
-		\\ --template=~/dotfiles/vim.local/templates/csstidy.tpl
-		\\ --preserve_css=true
-		\\ --merge_selectors=0
-		\\ --sort_properties=true
-		\\ --compress_font-weight=false
-		\\ --compress_colors=false
-		\\ --sort_selectors=false
+	au FileType css,scss  setl equalprg=csstidy\ -\ --silent=true\ --template='~/dotfiles/vim.local/templates/csstidy'\ --preserve_css=true\ --merge_selectors=0\ --sort_properties=true\ --compress_font-weight=false\ --compress_colors=false\ --sort_selectors=false
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -1657,6 +1649,16 @@ augroup END
 augroup Smarty
 	au!
 	au BufNewFile,BufRead *.tpl  set ft=html
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
+" "Stylus"
+augroup Stylus
+	au!
+	au BufNewFile,BufRead *.styl  set ft=stylus
+	au FileType stylus  setl equalprg=stylus\ --css
 augroup END
 "-----------------------------------------------------------------------------
 
