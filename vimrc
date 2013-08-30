@@ -1554,7 +1554,6 @@ augroup HTML
 	au!
 	au BufNewFile,BufRead *.htm   set ft=html
 	au BufNewFile,BufRead *.html  set ft=html
-	au BufNewFile,BufRead *.ejs   set ft=html
 	au BufNewFile,BufRead *.jade  set ft=html
 	au FileType html              setl omnifunc=htmlcomplete#CompleteTags
 	au Filetype html              call EnableCloseTag()
@@ -1660,7 +1659,9 @@ augroup END
 " "Stylus"
 augroup Stylus
 	au!
+	au BufNewFile,BufRead *.styl  set ft=css
 	au BufNewFile,BufRead *.styl  set ft=stylus
+	" au BufWritePre *.styl         exe 'RetabIndent'
 	au FileType stylus  setl equalprg=stylus\ --css
 augroup END
 "-----------------------------------------------------------------------------
