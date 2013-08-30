@@ -912,6 +912,7 @@ set foldnestmax=5
 set foldlevelstart=0
 set foldtext=FoldText()
 set fillchars=fold:\ ,vert:\ ,diff:·
+set foldmethod=marker
 
 nnoremap <expr> x ((foldclosed('.')==-1)?('x'):(''))
 nnoremap <expr> . ((foldclosed('.')==-1)?('.'):(''))
@@ -961,6 +962,7 @@ nnoremap ,f3 :set foldlevel=3<CR>
 nnoremap ,f4 :set foldlevel=4<CR>
 nnoremap ,f5 :set foldlevel=5<CR>
 "-------------------------------------------------------------------------------
+
 
 
 "}}}
