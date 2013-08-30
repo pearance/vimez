@@ -37,6 +37,7 @@ Bundle "scrooloose/syntastic"
 Bundle "digitaltoad/vim-jade"
 Bundle "tpope/vim-git"
 Bundle "wavded/vim-stylus"
+Bundle "briancollins/vim-jst"
 "-------------------------------------------------------------------------------
 
 "}}}
