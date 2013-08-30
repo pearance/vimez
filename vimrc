@@ -1258,6 +1258,8 @@ nnoremap <C-u> kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 " Backtick is more useful than single quote in normal mode.
 nnoremap ` '
 nnoremap ' `
+let g:SignaturePurgeConfirmation = 1
+let g:SignatureMarkTextHL = 'SignColumn'
 "------------------------------------------------------------------------------"
 
 
