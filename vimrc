@@ -586,8 +586,8 @@ function! YRRunAfterMaps()
 	" Preserve the yank post selection/put.
 	vnoremap <silent>p :<C-u>YRPaste 'p', 'v'<CR>gv:YRYankRange 'v'<CR>
 	" Put and respect surrounding indentation.
-	nmap <silent>p :<C-u>YRYankCount ']p'<CR>
-	nmap <silent>P :<C-u>YRYankCount ']P'<CR>
+	nmap <silent>p :<C-u>YRYankCount ']p`[v`]`]`'<CR>
+	nmap <silent>P :<C-u>YRYankCount ']P`[v`]`]`'<CR>
 	" Leave the cursor at the end of the put.
 	nnoremap <silent>gp :<C-u>YRYankCount 'pV`]l'<CR>
 	nnoremap <silent>gP :<C-u>YRYankCount 'PV`]l'<CR>
