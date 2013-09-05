@@ -1391,6 +1391,15 @@ let g:signify_mapping_prev_hunk        = '<leader>k'
 
 
 
+" "Syntastic"
+let g:syntastic_error_symbol = '★'
+let g:syntastic_style_error_symbol = '>'
+let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_style_warning_symbol = '>'
+"-------------------------------------------------------------------------------
+
+
+
 " "TMUX (Vimux)"
 let g:VimuxOrientation = "v"
 let g:VimuxHeight = "30"
