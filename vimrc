@@ -572,8 +572,14 @@ set clipboard+=unnamed " Use system clipboard for yanks.
 set pastetoggle=<F12>  " Preserve indentation when putting formatted text.
 nnoremap <silent><F12> :set invpaste<CR>
 
+" Put over current WORD (repeatable)
+nnoremap <Leader>p ciw<C-r>0<Esc>
+
+" Put & select
+nnoremap gp p`[v`]`]`
+
 " Select pasted text
-nnoremap gp `[v`]`]`
+nnoremap ,v `[v`]`]`
 
 function! YRRunAfterMaps()
 	nnoremap <silent>Y  :<C-u>YRYankCount 'y$'<CR>
@@ -617,9 +623,6 @@ function! YRRunAfterMaps()
 	" Delete into a black hole (Cut)
 	nnoremap ,dd "_dd
 endfunction
-
-" Put over current WORD (repeatable)
-nnoremap <Leader>p ciw<C-r>0<Esc>
 
 " Open YankRing browser
 nnoremap <silent><Leader>rr :YRShow<CR>
