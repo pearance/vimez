@@ -639,6 +639,19 @@ let g:yankring_min_element_length = 3
 let g:yankring_manual_clipboard_check = 1
 let g:yankring_history_dir = '~/dotfiles/vim.local/tmp/'
 let g:yankring_history_file = 'yankring_herstory'
+
+" Bracketed Paste Mode
+" http://www.xfree86.org/current/ctlseqs.html
+" http://stackoverflow.com/questions/5585129/pasting-code-into-terminal-window-into-vim-on-mac-os-x
+if &term =~ "xterm.*"
+  let &t_ti = &t_ti . "\e[?2004h"
+  let &t_te = "\e[?2004l" . &t_te
+  map <expr> <Esc>[200~ XTermPasteBegin("i")
+  imap <expr> <Esc>[200~ XTermPasteBegin("")
+  cmap <Esc>[200~ <nop>
+  cmap <Esc>[201~ <nop>
+endif
+
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -2402,10 +2415,16 @@ function! CloseDiff()
 		bd #
 	endif
 endfunction
+
+
+
+" "Xterm Bracketed Paste"
+function! XTermPasteBegin(ret)
+  set pastetoggle=<Esc>[201~
+  set paste
+  return a:ret
+endfunction
 "-------------------------------------------------------------------------------
-
-
-
 "}}}
 " WRAP:"{{{
 " ******************************************************************************
