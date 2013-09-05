@@ -626,12 +626,6 @@ endfunction
 " Put over current WORD (repeatable).
 nnoremap <Leader>p ciw<C-r>0<Esc>
 
-" Put over current LINE (repeatable).
-nnoremap <Leader>pp S<C-r>0<Esc>
-
-" Put over current BLOCK (repeatable).
-nnoremap ,p :set paste<CR><Bar>cip<C-r>0<Esc><Bar>:set nopaste<CR>
-
 " Open YankRing browser.
 nnoremap <silent><Leader>rr :YRShow<CR>
 
@@ -642,7 +636,6 @@ let g:yankring_min_element_length = 3
 let g:yankring_manual_clipboard_check = 1
 let g:yankring_history_dir = '~/dotfiles/vim.local/tmp/'
 let g:yankring_history_file = 'yankring_herstory'
-
 "-------------------------------------------------------------------------------
 
 "}}}
