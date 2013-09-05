@@ -24,6 +24,7 @@ Bundle "gmarik/vundle"
 " "## Syntax Bundles:"{{{
 Bundle "vim-scripts/CSApprox"
 Bundle "vim-scripts/ScrollColors"
+Bundle "vimez/vimez-themes"
 Bundle "gorodinskiy/vim-coloresque"
 Bundle "nelstrom/vim-markdown-folding"
 Bundle "pangloss/vim-javascript"
