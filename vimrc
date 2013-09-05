@@ -73,6 +73,7 @@ Bundle "mattn/emmet-vim"
 Bundle "vimez/vim-snips"
 Bundle "mattn/livestyle-vim"
 Bundle "mhinz/vim-startify"
+Bundle "editorconfig/editorconfig-vim"
 "-------------------------------------------------------------------------------
 
 "}}}
