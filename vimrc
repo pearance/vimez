@@ -1656,7 +1656,6 @@ augroup Stylus
 	au!
 	au BufNewFile,BufRead *.styl  set ft=css
 	au BufNewFile,BufRead *.styl  set ft=stylus
-	" au BufWritePre *.styl         exe 'RetabIndent'
 	au FileType stylus  setl equalprg=stylus\ --css
 augroup END
 "-----------------------------------------------------------------------------
