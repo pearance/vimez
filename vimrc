@@ -1135,8 +1135,8 @@ let g:user_emmet_leader_key = '<C-e>'
 " "## Auto Pairing""{{{
 " Plugin (Auto-Pairs)
 let g:AutoPairsShortcutFastWrap = '<C-f>'
-let g:AutoPairsCenterLine = 1
-let g:AutoPairsMapBS = 0
+let g:AutoPairsCenterLine = 0
+let g:AutoPairsMapBS = 1
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -1188,6 +1188,7 @@ nnoremap <Leader>re<Tab> :RetabIndent<CR>:echo "Retabbed!"<CR>
 
 "}}}
 " "## Comments""{{{
+let g:tcommentOptions = {'mixedindent': 'FALSE'}
 
 nmap gcl <C-_>r
 nmap gcb <C-_>b
