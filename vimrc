@@ -20,8 +20,6 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 let g:vundle_default_git_proto = 'git'
 Bundle "gmarik/vundle"
-"-------------------------------------------------------------------------------
-
 "}}}
 " "## Syntax Bundles:"{{{
 Bundle "vim-scripts/CSApprox"
@@ -38,8 +36,6 @@ Bundle "digitaltoad/vim-jade"
 Bundle "tpope/vim-git"
 Bundle "wavded/vim-stylus"
 Bundle "briancollins/vim-jst"
-"-------------------------------------------------------------------------------
-
 "}}}
 " "## Functional Bundles:"{{{
 Bundle "Shougo/neocomplcache"
@@ -74,13 +70,9 @@ Bundle "vimez/vim-snips"
 Bundle "mattn/livestyle-vim"
 Bundle "mhinz/vim-startify"
 Bundle "editorconfig/editorconfig-vim"
-"-------------------------------------------------------------------------------
-
 "}}}
 " "## Post Initialization:"{{{
 filetype plugin indent on
-"-------------------------------------------------------------------------------
-
 "}}}
 
 
@@ -1477,16 +1469,26 @@ augroup VimGlobal
 	au WinEnter *           call WinEnterRoutine()
 	au WinLeave *           call WinLeaveRoutine()
 
-	" Improve popup tool environments.
+	" Improve popup tool environments
 	au WinEnter,BufEnter *  call HelpEnvironment()
 	au FileType nerdtree    call NERDTreeEnvironment()
 	au FileType vundle      call VundleEnvironment()
 	au FileType gundo       call GundoEnvironment()
 	au FileType qf          call QuickFixEnvironment()
 
-	" Persist sign column.
+	" Persist sign column
 	au BufWinEnter * sign define mysign
 	au BufWinEnter * exe "sign place 9999 line=1 name=mysign buffer=" . bufnr('%')
+
+  " Insert mode environment
+  au InsertEnter * hi Cursorline ctermfg=NONE ctermbg=NONE cterm=NONE
+  au InsertEnter * hi CursorColumn ctermfg=NONE ctermbg=NONE cterm=NONE
+  au InsertEnter * setlocal nohlsearch
+
+	" Normal mode environment
+  au InsertLeave * hi Cursorline ctermfg=NONE ctermbg=234 cterm=NONE
+  au InsertLeave * hi CursorColumn ctermfg=NONE ctermbg=234 cterm=NONE
+  au InsertLeave * setlocal hlsearch
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -2428,15 +2430,13 @@ endfunction
 "}}}
 " WRAP:"{{{
 " ******************************************************************************
-
 " "Load Local Configurations"
 if filereadable(expand('~/dotfiles/vim.local/vimrc.local'))
 	so ~/dotfiles/vim.local/vimrc.local
 endif
-"-------------------------------------------------------------------------------
 
 
 
 " "Todo/s, Fixme/s"
-" TODO: Dim the autopopup
+" TODO: reformatt rest of file according to conventions
 "}}}
