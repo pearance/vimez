@@ -572,6 +572,9 @@ set clipboard+=unnamed " Use system clipboard for yanks.
 set pastetoggle=<F12>  " Preserve indentation when putting formatted text.
 nnoremap <silent><F12> :set invpaste<CR>
 
+" Select pasted text
+nnoremap gp `[v`]`]`
+
 function! YRRunAfterMaps()
 	nnoremap <silent>Y  :<C-u>YRYankCount 'y$'<CR>
 	nnoremap <silent>yh :<C-u>YRYankCount 'y0'<CR>
@@ -579,29 +582,27 @@ function! YRRunAfterMaps()
 	nnoremap <silent>yk :<C-u>YRYankCount 'ygg'<CR>
 	nnoremap <silent>yl :<C-u>YRYankCount 'y$'<CR>
 
-	" Preserve the yank post selection/put.
+	" Preserve the yank post selection/put
 	vnoremap <silent>p :<C-u>YRPaste 'p', 'v'<CR>gv:YRYankRange 'v'<CR>
-	" Put and respect surrounding indentation.
-	nmap <silent>p :<C-u>YRYankCount ']p`[v`]`]`'<CR>
-	nmap <silent>P :<C-u>YRYankCount ']P`[v`]`]`'<CR>
-	" Leave the cursor at the end of the put.
-	nnoremap <silent>gp :<C-u>YRYankCount 'pV`]l'<CR>
-	nnoremap <silent>gP :<C-u>YRYankCount 'PV`]l'<CR>
 
-	" Yank current WORD.
+	" Put and respect surrounding indentation
+	nmap <silent>p :<C-u>YRYankCount ']p`]l'<CR>
+	nmap <silent>P :<C-u>YRYankCount ']P`]l'<CR>
+
+	" Yank current WORD
 	nnoremap <Leader>y yiwe
 
-	" Yank current LINE (characterwise).
+	" Yank current LINE (characterwise)
 	nnoremap <Leader>yy 0y$$l
 
-	" Yank current LINE (linewise).
+	" Yank current LINE (linewise)
 	nnoremap yy yy$l
 
-	" Yank current BLOCK.
+	" Yank current BLOCK
 	nnoremap ,y yip}
 	vnoremap <C-c> "*y"
 
-	" Delete current WORD.
+	" Delete current WORD
 	nnoremap <Leader>d diw
 
 	" Delete contents of a line only
@@ -613,16 +614,14 @@ function! YRRunAfterMaps()
 	" Delete contents of several lines only
 	vnoremap <silent><Leader>dd 0r<Space>
 
-	" Delete into a black hole (Cut).
+	" Delete into a black hole (Cut)
 	nnoremap ,dd "_dd
 endfunction
 
-
-
-" Put over current WORD (repeatable).
+" Put over current WORD (repeatable)
 nnoremap <Leader>p ciw<C-r>0<Esc>
 
-" Open YankRing browser.
+" Open YankRing browser
 nnoremap <silent><Leader>rr :YRShow<CR>
 
 let g:yankring_max_history = 1000
@@ -637,16 +636,13 @@ let g:yankring_history_file = 'yankring_herstory'
 " http://www.xfree86.org/current/ctlseqs.html
 " http://stackoverflow.com/questions/5585129/pasting-code-into-terminal-window-into-vim-on-mac-os-x
 if &term =~ "xterm.*"
-  let &t_ti = &t_ti . "\e[?2004h"
-  let &t_te = "\e[?2004l" . &t_te
-  map <expr> <Esc>[200~ XTermPasteBegin("i")
-  imap <expr> <Esc>[200~ XTermPasteBegin("")
-  cmap <Esc>[200~ <nop>
-  cmap <Esc>[201~ <nop>
+	let &t_ti = &t_ti . "\e[?2004h"
+	let &t_te = "\e[?2004l" . &t_te
+	map <expr> <Esc>[200~ XTermPasteBegin("i")
+	imap <expr> <Esc>[200~ XTermPasteBegin("")
+	cmap <Esc>[200~ <nop>
+	cmap <Esc>[201~ <nop>
 endif
-
-"-------------------------------------------------------------------------------
-
 "}}}
 " "## MultiCursors"{{{
 "
@@ -1481,15 +1477,15 @@ augroup VimGlobal
 	au BufWinEnter * sign define mysign
 	au BufWinEnter * exe "sign place 9999 line=1 name=mysign buffer=" . bufnr('%')
 
-  " Insert mode environment
-  au InsertEnter * hi Cursorline ctermfg=NONE ctermbg=NONE cterm=NONE
-  au InsertEnter * hi CursorColumn ctermfg=NONE ctermbg=NONE cterm=NONE
-  au InsertEnter * setlocal nohlsearch
+	" Insert mode environment
+	au InsertEnter * hi Cursorline ctermfg=NONE ctermbg=NONE cterm=NONE
+	au InsertEnter * hi CursorColumn ctermfg=NONE ctermbg=NONE cterm=NONE
+	au InsertEnter * setlocal nohlsearch
 
 	" Normal mode environment
-  au InsertLeave * hi Cursorline ctermfg=NONE ctermbg=234 cterm=NONE
-  au InsertLeave * hi CursorColumn ctermfg=NONE ctermbg=234 cterm=NONE
-  au InsertLeave * setlocal hlsearch
+	au InsertLeave * hi Cursorline ctermfg=NONE ctermbg=234 cterm=NONE
+	au InsertLeave * hi CursorColumn ctermfg=NONE ctermbg=234 cterm=NONE
+	au InsertLeave * setlocal hlsearch
 augroup END
 "-----------------------------------------------------------------------------
 
@@ -2400,9 +2396,9 @@ endfunction
 
 " "Close Diff"
 function! CloseDiff()
-		if (&diff == 0 || getbufvar('#', '&diff') == 0)
-				\ && (bufname('%') !~ '^fugitive:' && bufname('#') !~ '^fugitive:')
-		echom "Not in diff view."
+	if (&diff == 0 || getbufvar('#', '&diff') == 0)
+		\ && (bufname('%') !~ '^fugitive:' && bufname('#') !~ '^fugitive:')
+		echom "Not in a diff view"
 		return
 	endif
 
@@ -2423,9 +2419,9 @@ endfunction
 
 " "Xterm Bracketed Paste"
 function! XTermPasteBegin(ret)
-  set pastetoggle=<Esc>[201~
-  set paste
-  return a:ret
+	set pastetoggle=<Esc>[201~
+	set paste
+	return a:ret
 endfunction
 "-------------------------------------------------------------------------------
 "}}}
