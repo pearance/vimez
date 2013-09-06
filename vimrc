@@ -42,7 +42,7 @@ Bundle "briancollins/vim-jst"
 " Functional
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/neosnippet"
-Bundle "Lokaltog/vim-powerline"
+Bundle "Lokaltog/powerline"
 Bundle "vimez/vim-tmux"
 Bundle "vimez/vim-yankring"
 Bundle "vim-scripts/SyntaxAttr.vim"
@@ -281,9 +281,9 @@ let g:ctrlp_prompt_mappings = {
 let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
 let g:ctrlp_extensions = ['filetype']
 
-nnoremap <silent><Leader>jj :CtrlPMixed<CR>
+nnoremap <silent><Leader>kk :CtrlPMixed<CR>
 nnoremap <silent><Leader>hh :CtrlP<CR>
-nnoremap <silent><Leader>kk :CtrlPBuffer<CR>
+nnoremap <silent><Leader>jj :CtrlPBuffer<CR>
 nnoremap <silent><Leader>ll :CtrlPMRU<CR>
 nnoremap <silent><Leader>ff :CtrlPFiletype<CR>
 
@@ -1402,10 +1402,7 @@ let g:signify_mapping_prev_hunk        = '<leader>k'
 
 
 " "Syntastic"
-" let g:syntastic_error_symbol = '★'
-" let g:syntastic_style_error_symbol = '>'
-" let g:syntastic_warning_symbol = '⚠'
-" let g:syntastic_style_warning_symbol = '>'
+let g:syntastic_enable_signs=0
 "-------------------------------------------------------------------------------
 
 
