@@ -1069,7 +1069,7 @@ set fo+=1  " Don't break a line after a one-letter word.  It's broken before it
 "-------------------------------------------------------------------------------
 
 "}}}
-" "## Omnicompletion/NeoComplCache""{{{
+" "## Auto Completion""{{{
 " Native Autocompletion Settings
 set complete+=.		    " Scan the current buffer ('wrapscan' is ignored)
 set complete+=w		    " Scan buffers from other windows
@@ -1115,7 +1115,7 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 "-------------------------------------------------------------------------------
 
 "}}}
-" "## NeoSnippets""{{{
+" "## Snippets""{{{
 let g:neosnippet#disable_runtime_snippets = {'_' : 1,}
 let g:neosnippet#snippets_directory = '~/dotfiles/vim.local/snippets/, ~/.vim/bundle/vim-snips/'
 
@@ -1136,7 +1136,7 @@ endif
 "-------------------------------------------------------------------------------
 
 "}}}
-" "## Emmet""{{{
+" "## Macros""{{{
 let g:user_emmet_leader_key = '<C-e>'
 
 "}}}
@@ -1152,7 +1152,7 @@ nnoremap <BS> i<BS><Right><Esc>
 "-------------------------------------------------------------------------------
 
 "}}}
-" "## Tab Indentation (IndentTab)""{{{
+" "## Indentation""{{{
 set noexpandtab         " Expand tabs using spaces instead of a tab char
 set shiftwidth=2        " Amount of shift when in Normal mode
 set tabstop=2           " Number of spaces that a <Tab> in the file counts for.
@@ -1188,14 +1188,23 @@ nnoremap <Leader>re<Tab> :RetabIndent<CR>:echo "Retabbed!"<CR>
 "-------------------------------------------------------------------------------
 
 "}}}
-" "## Comments""{{{
+" "## tComments""{{{
 let g:tcommentOptions = {'mixedindent': 'FALSE'}
+let g:tcommentGuessFileType = 1
 
+" Right forward comment
 nmap gcl <C-_>r
+
+" Block comment
 nmap gcb <C-_>b
+
+" Inline comment
 nmap gci <C-_>i
+
+" Paragraph comment
 nmap gcp <C-_>p
-vmap gcb <C-_>b
+
+" Visual behave Normal
 vmap gcc gc
 "-------------------------------------------------------------------------------
 
