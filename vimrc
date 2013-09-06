@@ -1525,9 +1525,7 @@ augroup END
 " "CSS/SCSS"
 augroup CSS
 	au!
-	au BufNewFile,BufRead *.vim   set ft=css
-	au BufNewFile,BufRead *.scss  set ft=css
-	au BufNewFile,BufRead *.sass  set ft=css
+	au BufNewFile,BufRead *.vim        set ft=css
 	au FileType css,scss,styl,sass     setl omnifunc=csscomplete#CompleteCSS
 	au FileType css,scss,styl,sass     let g:cssfoldstate = 0
 
