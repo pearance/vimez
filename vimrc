@@ -11,7 +11,7 @@
 
 " BOOTSTRAP:"{{{
 " ******************************************************************************
-" "## Pre Initilization:"{{{
+" "## Pre Config:"{{{
 set nocompatible
 filetype on
 filetype off
@@ -21,7 +21,8 @@ call vundle#rc()
 let g:vundle_default_git_proto = 'git'
 Bundle "gmarik/vundle"
 "}}}
-" "## Syntax Bundles:"{{{
+" "## Plugin Bundles:"{{{
+" Syntax
 Bundle "vim-scripts/CSApprox"
 Bundle "vim-scripts/ScrollColors"
 Bundle "vimez/vimez-themes"
@@ -37,8 +38,8 @@ Bundle "digitaltoad/vim-jade"
 Bundle "tpope/vim-git"
 Bundle "wavded/vim-stylus"
 Bundle "briancollins/vim-jst"
-"}}}
-" "## Functional Bundles:"{{{
+
+" Functional
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/neosnippet"
 Bundle "Lokaltog/vim-powerline"
@@ -56,9 +57,9 @@ Bundle "duff/vim-bufonly"
 Bundle "scrooloose/nerdtree"
 Bundle "vim-scripts/Rename2"
 Bundle "godlygeek/tabular"
-Bundle "jiangmiao/auto-pairs"
 Bundle "endel/ctrlp-filetype.vim"
 Bundle "kshenoy/vim-signature"
+Bundle "Raimondi/delimitMate"
 Bundle "tpope/vim-fugitive"
 Bundle "gregsexton/gitv"
 Bundle "tpope/vim-unimpaired"
@@ -72,7 +73,7 @@ Bundle "mattn/livestyle-vim"
 Bundle "mhinz/vim-startify"
 Bundle "editorconfig/editorconfig-vim"
 "}}}
-" "## Post Initialization:"{{{
+" "## Post Config:"{{{
 filetype plugin indent on
 "}}}
 
@@ -472,7 +473,7 @@ nnoremap <silent><Leader>qq :confirm quit<CR>
 nnoremap <silent><Leader>qo :only<CR>
 
 " Quit all windows without writing
-nnoremap <silent><Leader>qa  :confirm qall<CR>
+nnoremap <silent><Leader>qa  :NERDTreeClose<CR>:confirm qall<CR>
 nnoremap <silent><C-q>  :confirm qall<CR>
 
 
@@ -671,6 +672,11 @@ let g:gundo_preview_bottom=1
 nnoremap <silent><Leader>uu :silent! GundoToggle<CR>
 
 
+
+"}}}
+" "## Nudge""{{{
+nnoremap ,<Space> i<Space><Esc>l
+"-------------------------------------------------------------------------------
 
 "}}}
 " "## Select All""{{{
@@ -1003,7 +1009,6 @@ silent! call Pl#Theme#RemoveSegment('scrollpercent')
 "}}}
 " INSERT:"{{{
 " ******************************************************************************
-
 " "## Format Options""{{{
 set formatoptions=
 set fo-=a  " Automatic formatting of paragraphs.  Every time text is inserted or
@@ -1064,7 +1069,7 @@ set fo+=1  " Don't break a line after a one-letter word.  It's broken before it
 "-------------------------------------------------------------------------------
 
 "}}}
-" "## Autocompletion (Omnicompletion/NeoComplCache)""{{{
+" "## Omnicompletion/NeoComplCache""{{{
 " Native Autocompletion Settings
 set complete+=.		    " Scan the current buffer ('wrapscan' is ignored)
 set complete+=w		    " Scan buffers from other windows
@@ -1105,12 +1110,12 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
-inoremap <expr><BS> neocomplcache#smart_close_popup() . "\<BS>"
+" Below screws up delimitmate
+" inoremap <expr><BS> neocomplcache#smart_close_popup() . "\<BS>"
 "-------------------------------------------------------------------------------
 
-
 "}}}
-" "## Snippets (NeoSnippets)""{{{
+" "## NeoSnippets""{{{
 let g:neosnippet#disable_runtime_snippets = {'_' : 1,}
 let g:neosnippet#snippets_directory = '~/dotfiles/vim.local/snippets/, ~/.vim/bundle/vim-snips/'
 
@@ -1131,26 +1136,19 @@ endif
 "-------------------------------------------------------------------------------
 
 "}}}
-" "## ZenCoding (Emmet)""{{{
+" "## Emmet""{{{
 let g:user_emmet_leader_key = '<C-e>'
 
 "}}}
-" "## Auto Pairing""{{{
-" Plugin (Auto-Pairs)
-let g:AutoPairsShortcutFastWrap = '<C-f>'
-let g:AutoPairsCenterLine = 0
-let g:AutoPairsMapBS = 1
+" "## DelimitMate""{{{
+let delimitMate_expand_space = 1
+let delimitMate_expand_cr = 1
 "-------------------------------------------------------------------------------
 
 "}}}
 " "## Backspace""{{{
 set backspace=indent,eol,start
 nnoremap <BS> i<BS><Right><Esc>
-"-------------------------------------------------------------------------------
-
-"}}}
-" "## Space""{{{
-nnoremap ,<Space> i<Space><Esc>l
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -1396,10 +1394,10 @@ let g:signify_mapping_prev_hunk        = '<leader>k'
 
 
 " "Syntastic"
-let g:syntastic_error_symbol = '★'
-let g:syntastic_style_error_symbol = '>'
-let g:syntastic_warning_symbol = '⚠'
-let g:syntastic_style_warning_symbol = '>'
+" let g:syntastic_error_symbol = '★'
+" let g:syntastic_style_error_symbol = '>'
+" let g:syntastic_warning_symbol = '⚠'
+" let g:syntastic_style_warning_symbol = '>'
 "-------------------------------------------------------------------------------
 
 
@@ -1994,7 +1992,8 @@ function! HelpEnvironment()
 		nnoremap <silent><buffer><CR> <C-]>
 		nnoremap <silent><buffer><BS> <C-T>
 		nnoremap <silent><buffer><Leader>qq :bdelete<CR>
-		nnoremap <silent><buffer>,, :bdelete<CR>
+		" TODO: Check if hlsearch is active
+		nnoremap <silent><buffer>,,, :bdelete<CR>
 	else
 		nnoremap <CR> i<CR><Esc>
 		nnoremap <BS> i<BS><Right><Esc>
