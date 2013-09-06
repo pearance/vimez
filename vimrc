@@ -264,7 +264,7 @@ let NERDTreeWinPos = "left"
 nnoremap <silent><Leader>bb :nohlsearch<CR>\|:NERDTreeFind<CR>
 
 " Open files via search (CtrlP)"
-let g:ctrlp_map = '<Leader>ff'
+let g:ctrlp_map = '<Leader>ll'
 let g:ctrlp_cache_dir = '~/dotfiles/vim.local/tmp/ctrlp/'
 let g:ctrlp_open_multiple_files = '1vjr'
 let g:ctrlp_open_new_file = 'r'
@@ -281,11 +281,11 @@ let g:ctrlp_prompt_mappings = {
 let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
 let g:ctrlp_extensions = ['filetype']
 
-nnoremap <silent><Leader>gg :CtrlPMixed<CR>
-nnoremap <silent><Leader>ff :CtrlP<CR>
-nnoremap <silent><Leader>jj :CtrlPBuffer<CR>
-nnoremap <silent><Leader>kk :CtrlPMRU<CR>
-nnoremap <silent><Leader>ll :CtrlPFiletype<CR>
+nnoremap <silent><Leader>jj :CtrlPMixed<CR>
+nnoremap <silent><Leader>hh :CtrlP<CR>
+nnoremap <silent><Leader>kk :CtrlPBuffer<CR>
+nnoremap <silent><Leader>ll :CtrlPMRU<CR>
+nnoremap <silent><Leader>ff :CtrlPFiletype<CR>
 
 " Open files via paths in buffers.
 nnoremap gfh :wincmd f<CR>
@@ -1190,7 +1190,6 @@ nnoremap <Leader>re<Tab> :RetabIndent<CR>:echo "Retabbed!"<CR>
 "}}}
 " "## tComments""{{{
 let g:tcommentOptions = {'mixedindent': 'FALSE'}
-let g:tcommentGuessFileType = 1
 
 " Right forward comment
 nmap gcl <C-_>r
