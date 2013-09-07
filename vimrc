@@ -1691,6 +1691,15 @@ augroup END
 
 
 
+" "Vim"
+augroup Vim
+	au!
+	au BufNewFile,BufRead *.vim        setf css
+augroup END
+"-----------------------------------------------------------------------------
+
+
+
 " "XML/XSL"
 augroup XMLXSL
 	au!
