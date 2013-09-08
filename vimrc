@@ -1460,13 +1460,10 @@ augroup VimGlobal
 	au VimEnter *  echo "Welcome to VimEz, Happy Coding! :-)"
 
 	" General
-	au BufNewFile,BufRead *.vim   set ft=vim
-	au FileType vim               setl omnifunc=syntaxcomplete#Complete
 	au BufWritePost *vimrc,*vimrc.local,molokaiez.vim
 			\  nested so $MYVIMRC
 			\| nohlsearch
 			\| exe 'CSApprox'
-			\| call Pl#Load()
 			\| call Msg('Vim Configuration Written & Reloaded!')
 
 	au BufNewFile *         silent! 0r  ~/dotfiles/vim.local/templates/%:e.tpl
@@ -1528,7 +1525,6 @@ augroup END
 " "CSS/SCSS"
 augroup CSS
 	au!
-	au BufNewFile,BufRead *.vim        set ft=css
 	au FileType css,scss,styl,sass     setl omnifunc=csscomplete#CompleteCSS
 	au FileType css,scss,styl,sass     let g:cssfoldstate = 0
 
@@ -1683,6 +1679,7 @@ augroup END
 " "Stylus"
 augroup Stylus
 	au!
+	" Assume the effects of the colorizer plugin before setting to vim ft
 	au BufNewFile,BufRead *.styl  set ft=css
 	au BufNewFile,BufRead *.styl  set ft=stylus
 	au FileType stylus  setl equalprg=stylus\ --css
@@ -1694,7 +1691,10 @@ augroup END
 " "Vim"
 augroup Vim
 	au!
-	au BufNewFile,BufRead *.vim        setf css
+	" Assume the effects of the colorizer plugin before setting to vim ft
+	au BufNewFile,BufRead *.vim   set ft=css
+	au BufNewFile,BufRead *.vim   set ft=vim
+	au FileType vim               setl omnifunc=syntaxcomplete#Complete
 augroup END
 "-----------------------------------------------------------------------------
 
