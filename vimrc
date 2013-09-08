@@ -42,7 +42,7 @@ Bundle "briancollins/vim-jst"
 " Functional
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/neosnippet"
-Bundle "Lokaltog/powerline"
+Bundle "bling/vim-airline"
 Bundle "vimez/vim-tmux"
 Bundle "vimez/vim-yankring"
 Bundle "vim-scripts/SyntaxAttr.vim"
@@ -913,7 +913,7 @@ nnoremap <silent><F5> :call ToggleRule()<CR>
 
 
 
-" "Folds""{{{
+" "## Folds""{{{
 set foldenable
 set foldcolumn=5
 set foldnestmax=5
@@ -974,37 +974,64 @@ nnoremap ,f5 :set foldlevel=5<CR>
 
 
 "}}}
-" "Status Line""{{{
-" Plugin (Powerline)
+" "## Status Line""{{{
 set noshowmode                    " Message on status line to show current mode.
 set showcmd                       " Show (partial) command in states line.
 set laststatus=2                  " Keep status lines visible at all times.
 set cmdheight=2                   " Number of lines to use for the command-line.
 
-let g:Powerline_theme = 'default'
-let g:Powerline_colorscheme = 'default'
-let g:Powerline_cache_enabled = 1
-let g:Powerline_symbols = 'compatible'
-let g:Powerline_stl_path_style = 'filename'
-let g:Powerline_mode_n  = 'NORMAL'
-let g:Powerline_mode_i  = 'INSERT'
-let g:Powerline_mode_R  = 'REPLACE'
-let g:Powerline_mode_v  = 'VISUAL'
-let g:Powerline_mode_V  = 'VISUAL LINE'
-let g:Powerline_mode_cv = 'VISUAL BLOCK'
-let g:Powerline_mode_s  = 'SELECT'
-let g:Powerline_mode_S  = 'SELECT LINE'
-let g:Powerline_mode_cs = 'SELECT BLOCK'
-let g:Powerline_symbols_override = {
-		\ 'BRANCH': [0x02AE],
-		\ 'LINE':'',
+" "### Airline Settings"{{{
+let g:airline_theme='vimez'
+let g:airline_inactive_collapse = 0
+let g:bufferline_rotate=0
+
+let g:airline_powerline_fonts=1
+let g:airline_symbols = {}
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.whitespace = ''
+"}}}
+" "### Airline Left Side:"{{{
+" Section A
+" let g:airline_section_a = ''
+let g:airline_mode_map = {
+		\ '__' : '    -   ',
+		\ 'n'  : '    N   ',
+		\ 'i'  : '    I   ',
+		\ 'R'  : '    R   ',
+		\ 'c'  : '    C   ',
+		\ 'v'  : '    V   ',
+		\ 'V'  : '    V   ',
+		\ '' : '    V   ',
+		\ 's'  : '    S   ',
+		\ 'S'  : '    S   ',
+		\ '' : '    S   ',
 		\ }
-silent! call Pl#Theme#RemoveSegment('rvm:string')
-silent! call Pl#Theme#RemoveSegment('scrollpercent')
-"-------------------------------------------------------------------------------
 
+" Section B
+" let g:airline_section_b = ''
+let g:airline_enable_hunks = 0
+let g:airline#extensions#branch#empty_message = 'no ver'
 
+" Section C
+let g:airline_section_c = '%t %M'
+"}}}
+" "### Airline Right Side:"{{{
+" Section X
+" let g:airline_section_x = ''
 
+" Section Y
+let g:airline_section_y = '%{&fenc}   %{&ff}'
+
+" Section Z
+let g:airline_section_z = '%04(%l%) :%03(%v%)'
+let g:airline#extensions#whitespace#trailing_format = 'trailing: %s'
+let g:airline#extensions#whitespace#mixed_indent_format = ' mixed-indent: %s'
 "}}}
 "}}}
 " INSERT:"{{{
@@ -1725,9 +1752,6 @@ function! Reload()
 	nohlsearch
 	" Reapproximate hex color codes for terminal
 	exe 'CSApprox'
-	" Reapply Powerline color scheme
-	call Pl#Load()
-	exe 'PowerlineClearCache'
 	call Msg('Vim Configuration Reloaded!')
 endfunction
 endif
@@ -2460,4 +2484,5 @@ endif
 
 " "Todo/s, Fixme/s"
 " TODO: reformatt rest of file according to conventions
+" TODO: look into yankstack & unite.vim
 "}}}
