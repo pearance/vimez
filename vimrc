@@ -1034,6 +1034,7 @@ let g:airline#extensions#whitespace#trailing_format = 'trailing: %s'
 let g:airline#extensions#whitespace#mixed_indent_format = ' mixed-indent: %s'
 "}}}
 "}}}
+"}}}
 " INSERT:"{{{
 " ******************************************************************************
 " "## Format Options""{{{
