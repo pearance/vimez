@@ -537,7 +537,7 @@ set ssop-=sesdir	     " The directory in which the session file is located
 											 " systems)
 set ssop+=slash	       " Backslashes in file names replaced with forward
 											 " slashes
-set ssop+=tabpages	   " All tab pages; without this only the current tab page
+set ssop+=tabpages     " All tab pages; without this only the current tab page
 											 " is restored, so that you can make a session for each
 											 " tab page separately
 set ssop+=unix		     " With Unix end-of-line format (single <NL>), even when
@@ -577,10 +577,10 @@ nnoremap <silent><F12> :set invpaste<CR>
 nnoremap <Leader>p ciw<C-r>0<Esc>
 
 " Put & select
-nnoremap gp p`[v`]`]`
+nnoremap gp p`[V`]`]`
 
 " Select pasted text
-nnoremap ,v `[v`]`]`
+nnoremap ,v `[V`]`]`
 
 function! YRRunAfterMaps()
 	nnoremap <silent>Y  :<C-u>YRYankCount 'y$'<CR>
