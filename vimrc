@@ -1572,11 +1572,17 @@ augroup DrupalCMS
 	au BufNewFile,BufRead *.install  set ft=php
 	au BufNewFile,BufRead *.test     set ft=php
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Git"
+"}}}
+" "## Dustjs""{{{
+augroup Dustjs
+	au!
+	au BufNewFile,BufRead *.dust,*.dustjs  set ft=dustjs.html
+	au BufNewFile,BufRead *.dustjs         set ft=dustjs.html
+	au FileType dust                       setl omnifunc=htmlcomplete#CompleteTags
+	au Filetype dust                       silent! call EnableCloseTag()
+augroup END
+"}}}
+" "## Git""{{{
 augroup Git
 	au!
 	au Filetype git,gitcommit call GitEnvironment()
