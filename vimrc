@@ -1750,23 +1750,12 @@ augroup END
 
 
 
+
+
+
 "}}}
 " FUNCTIONS:"{{{
 " ******************************************************************************
-if !exists("*Reload")
-function! Reload()
-" "Reload Configurations"
-	so $MYVIMRC
-	nohlsearch
-	" Reapproximate hex color codes for terminal
-	exe 'CSApprox'
-	call Msg('Vim Configuration Reloaded!')
-endfunction
-endif
-"-------------------------------------------------------------------------------
-
-
-
 " "Delete Empty Buffers"
 " From http://goo.gl/6OBjJ
 function! DeleteEmptyBuffers()
