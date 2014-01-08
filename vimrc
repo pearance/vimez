@@ -26,7 +26,6 @@ Bundle "gmarik/vundle"
 Bundle "vim-scripts/CSApprox"
 Bundle "vim-scripts/ScrollColors"
 Bundle "vimez/vimez-themes"
-Bundle "gorodinskiy/vim-coloresque"
 Bundle "nelstrom/vim-markdown-folding"
 Bundle "pangloss/vim-javascript"
 Bundle "elzr/vim-json"
@@ -46,7 +45,7 @@ Bundle "Shougo/neocomplcache"
 Bundle "Shougo/neosnippet"
 Bundle "bling/vim-airline"
 Bundle "vimez/vim-tmux"
-Bundle "vimez/vim-yankring"
+Bundle "vim-scripts/YankRing.vim"
 Bundle "vim-scripts/SyntaxAttr.vim"
 Bundle "tomtom/tcomment_vim"
 Bundle "sjl/gundo.vim"
@@ -70,7 +69,7 @@ Bundle "mattn/gist-vim"
 Bundle "mhinz/vim-signify"
 Bundle "terryma/vim-multiple-cursors"
 Bundle "mattn/emmet-vim"
-Bundle "vimez/vim-snips"
+Bundle "vimez/vimez-snips"
 Bundle "mattn/livestyle-vim"
 Bundle "mhinz/vim-startify"
 Bundle "editorconfig/editorconfig-vim"
@@ -120,7 +119,7 @@ let g:startify_custom_header = [
 	\ '',
 	\ ]
 
-nnoremap <silent><Leader>1 :Startify<CR>
+nnoremap <silent><Leader>` :Startify<CR>
 "}}}
 " "## Commandline""{{{
 " More convenient entrance to Commandline and Commandline Edit mode from Normal mode.
@@ -178,7 +177,7 @@ set modelines=5
 "}}}
 " "## Color Scheme""{{{
 set t_Co=256                " Force terminal to go into 256 color mode.
-set synmaxcol=230           " Prevent long lines from slowing down redraws.
+set synmaxcol=300           " Prevent long lines from slowing down redraws.
 syntax on                   " Syntax highlighting on.
 silent! colorscheme molokaiez
 
