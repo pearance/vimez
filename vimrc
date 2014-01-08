@@ -254,17 +254,18 @@ set vi+=n~/dotfiles/vim.local/tmp/viminfo
 " Open files via browser (NERDTree)
 let NERDTreeBookmarksFile = expand('~/dotfiles/vim.local/tmp/NERDTreeBookmarks')
 let NERDTreeChDirMode = 2
-let NERDTreeMapOpenSplit = 'h'
-let NERDTreeMapPreviewSplit = 'gh'
-let NERDTreeMapOpenVSplit = 'v'
-let NERDTreeMapPreviewVSplit = 'gv'
+let NERDTreeMapOpenSplit = 'sh'
+let NERDTreeMapPreviewSplit = 'ph'
+let NERDTreeMapOpenVSplit = 'sv'
+let NERDTreeMapPreviewVSplit = 'pv'
 let NERDTreeDirArrows = 1
 let NERDTreeQuitOnOpen  =  1
 let NERDTreeShowHidden = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeKeepTreeInNewTab=1
 let NERDTreeWinPos = "left"
-nnoremap <silent><Leader>bb :nohlsearch<CR>\|:NERDTreeFind<CR>
+nnoremap <silent><Leader>bb :nohlsearch<CR>:NERDTreeFind<CR>:NERDTreeMirror<CR>
 
 " Open files via search (CtrlP)"
 let g:ctrlp_map = '<Leader>ll'
@@ -387,7 +388,7 @@ nnoremap <Leader>rb :Rename<Space>
 "}}}
 " "### Delete""{{{
 " Delete the current buffer and file.
-nnoremap <Leader>DBF :call DeleteBufferFile()<CR>
+nnoremap <Leader>DEL :call DeleteBufferFile()<CR>
 "}}}
 
 
@@ -435,21 +436,21 @@ endif
 " Split window
 set splitright
 set splitbelow
-nnoremap <silent><Leader>sh :set nosplitright<CR>:vsplit\|bnext<CR>
-nnoremap <silent><Leader>sj :set splitbelow<CR>:split\|bnext<CR>
-nnoremap <silent><Leader>sk :set nosplitbelow<CR>:split\|bnext<CR>
-nnoremap <silent><Leader>sl :set splitright<CR>:vsplit\|bnext<CR>
+nnoremap <silent>sh :set nosplitright<CR>:vsplit\|bnext<CR>
+nnoremap <silent>sj :set splitbelow<CR>:split\|bnext<CR>
+nnoremap <silent>sk :set nosplitbelow<CR>:split\|bnext<CR>
+nnoremap <silent>sl :set splitright<CR>:vsplit\|bnext<CR>
 
 
 
 "}}}
 " "### Move""{{{
 " Move current window
-nnoremap <silent><Leader>mh <C-w>H
-nnoremap <silent><Leader>mj <C-w>J
-nnoremap <silent><Leader>mk <C-w>K
-nnoremap <silent><Leader>ml <C-w>L
-nnoremap <silent><Leader>mx <C-w>x
+nnoremap mh <C-w>H
+nnoremap mj <C-w>J
+nnoremap mk <C-w>K
+nnoremap ml <C-w>L
+nnoremap mx <C-w>x
 
 
 
@@ -468,23 +469,20 @@ map <silent><F11> :call MaxRestoreWindow()<CR>
 "}}}
 " "### Quit""{{{
 " Quit adjacent windows
-nnoremap <silent><Leader>qh :wincmd h<CR>:close<CR>
-nnoremap <silent><Leader>qj :wincmd j<CR>:close<CR>
-nnoremap <silent><Leader>qk :wincmd k<CR>:close<CR>
-nnoremap <silent><Leader>ql :wincmd l<CR>:close<CR>
+nnoremap <silent>qh :wincmd h<CR>:close<CR>
+nnoremap <silent>qj :wincmd j<CR>:close<CR>
+nnoremap <silent>qk :wincmd k<CR>:close<CR>
+nnoremap <silent>ql :wincmd l<CR>:close<CR>
 
 " Quit currently focused window
-nnoremap <silent><Leader>qq :confirm quit<CR>
+nnoremap <silent>qq :confirm quit<CR>
 
 " Quit all other windows
-nnoremap <silent><Leader>qo :only<CR>
+nnoremap <silent>qo :only<CR>
 
 " Quit all windows without writing
-nnoremap <silent><Leader>qa  :NERDTreeClose<CR>:confirm qall<CR>
-nnoremap <silent><C-q>  :confirm qall<CR>
-
-
-
+nnoremap <silent>qa  :NERDTreeClose<CR>:confirm qall<CR>
+nnoremap <silent><C-q>  :NERDTreeClose<CR>:confirm qall<CR>
 "}}}
 
 
@@ -584,10 +582,10 @@ nnoremap <silent><F12> :set invpaste<CR>
 nnoremap <Leader>p ciw<C-r>0<Esc>
 
 " Put & select
-nnoremap gp p`[V`]`]`
+nnoremap gp p`[V`]`]
 
 " Select pasted text
-nnoremap ,v `[V`]`]`
+nnoremap ,v `[V`]`]
 
 function! YRRunAfterMaps()
 	nnoremap <silent>Y  :<C-u>YRYankCount 'y$'<CR>
@@ -614,7 +612,7 @@ function! YRRunAfterMaps()
 
 	" Yank current BLOCK
 	nnoremap ,y yip}
-	vnoremap <C-c> "*y"
+	vnoremap y "*y}k$l
 
 	" Delete current WORD
 	nnoremap <Leader>d diw
@@ -682,9 +680,7 @@ nnoremap <silent><Leader>uu :silent! GundoToggle<CR>
 
 "}}}
 " "## Nudge""{{{
-nnoremap ,<Space> i<Space><Esc>l
-"-------------------------------------------------------------------------------
-
+" nnoremap ,<Space> i<Space><Esc>l
 "}}}
 " "## Select All""{{{
 nnoremap <C-a> ggVG
@@ -739,10 +735,16 @@ nnoremap <C-\><CR> <Esc>diti<CR><Esc>O<Tab><Esc>p^
 " to Leader jn and jp for join next (line below) and join previous (line above)
 " with the current line.
 set nojoinspaces
-nnoremap <silent><Leader>jn :call Join()<CR>
+nnoremap <silent><Leader>jn :call Join()<CR>x
 nnoremap <silent><Leader>jp k<S-v>xpk:call Join()<CR>
-"-------------------------------------------------------------------------------
 
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping = ''
+
+nmap <silent><LocalLeader>k :SplitjoinJoin<cr>
+nmap <silent><LocalLeader>j :SplitjoinSplit<cr>
+let g:splitjoin_align = 1
+let g:splitjoin_normalize_whitespace = 0
 "}}}
 " "## Case Manipulation""{{{
 " To avoid nasty accidents when attempting to undo while in Visual mode.
@@ -776,6 +778,9 @@ nmap <silent><Leader>ts
 "-------------------------------------------------------------------------------
 
 "}}}
+" "## Surround"{{{
+let g:surround_{char2nr('d')} = "{!\r!}"
+" }}}
 
 
 
@@ -868,7 +873,6 @@ set wildchar=<Tab>
 set wildcharm=<C-z>
 set wildmenu                 " Enable file/command auto-completion
 set wildmode=longest,full    " Auto-complete up to ambiguity
-set wildignore+=.hg,.git,.svn                    " Version control
 set wildignore+=*.jpg,*.gif,*.bmp,*.png,*.jpeg   " Binary images
 set wildignore+=*.DS_Store,Thumbs.db             " Platform files
 
@@ -954,12 +958,12 @@ nnoremap ,H zMgg``zz
 nnoremap ,K zxzz
 
 " Jump to next fold.
-nnoremap ,j zjzz
-vnoremap ,j zjzz
+" nnoremap ,j zjzz
+" vnoremap ,j zjzz
 
 " Jump to previous fold.
-nnoremap ,k zkzz
-vnoremap ,k zkzz
+" nnoremap ,k zkzz
+" vnoremap ,k zkzz
 
 " Open a fold.
 nnoremap ,l zo
@@ -981,7 +985,7 @@ nnoremap ,f5 :set foldlevel=5<CR>
 
 
 "}}}
-" "## Status Line""{{{
+" "## Statusline""{{{
 set noshowmode                    " Message on status line to show current mode.
 set showcmd                       " Show (partial) command in states line.
 set laststatus=2                  " Keep status lines visible at all times.
@@ -992,7 +996,7 @@ let g:airline_theme='vimez'
 let g:airline_inactive_collapse = 0
 let g:bufferline_rotate=0
 
-let g:airline_powerline_fonts=1
+
 let g:airline_symbols = {}
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
@@ -1002,6 +1006,7 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 let g:airline_symbols.whitespace = ''
+let g:airline_symbols.space = ' '
 "}}}
 " "### Airline Left Side:"{{{
 " Section A
@@ -1101,8 +1106,6 @@ set fo-=B  " When joining lines, don't insert a space between two multi-byte
 					 " characters.  Overruled by the 'M' flag.
 set fo+=1  " Don't break a line after a one-letter word.  It's broken before it
 					 " instead (if possible).
-"-------------------------------------------------------------------------------
-
 "}}}
 " "## Auto Completion""{{{
 " Native Autocompletion Settings
@@ -1147,45 +1150,37 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
 " Below screws up delimitmate
 " inoremap <expr><BS> neocomplcache#smart_close_popup() . "\<BS>"
-"-------------------------------------------------------------------------------
-
 "}}}
 " "## Snippets""{{{
 let g:neosnippet#disable_runtime_snippets = {'_' : 1,}
-let g:neosnippet#snippets_directory = '~/dotfiles/vim.local/snippets/, ~/.vim/bundle/vim-snips/'
+let g:neosnippet#snippets_directory = '~/dotfiles/vim.local/snippets/, ~/.vim/bundle/vimez-snips/'
+let g:neosnippet#enable_snipmate_compatibility = 1
 
 " SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
+imap <Tab>     <Plug>(neosnippet_expand_or_jump)
+smap <Tab>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-e>     <Plug>(neosnippet_expand_target)
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-nnoremap <Leader>es  :NeoSnippetEdit -split -horizontal<CR>
+" nnoremap <Leader>es  :NeoSnippetEdit -split -horizontal<CR>
+nnoremap <Leader>es  :NeoSnippetEdit -split -horizontal <right>
 
 " For snippet_complete marker.
 if has('conceal')
 	set conceallevel=2 concealcursor=i
 endif
-"-------------------------------------------------------------------------------
-
 "}}}
 " "## Macros""{{{
 let g:user_emmet_leader_key = '<C-e>'
-
 "}}}
 " "## DelimitMate""{{{
 let delimitMate_expand_space = 1
 let delimitMate_expand_cr = 1
-"-------------------------------------------------------------------------------
-
 "}}}
 " "## Backspace""{{{
 set backspace=indent,eol,start
 nnoremap <BS> i<BS><Right><Esc>
-"-------------------------------------------------------------------------------
-
 "}}}
 " "## Indentation""{{{
 set noexpandtab         " Expand tabs using spaces instead of a tab char
@@ -1200,8 +1195,6 @@ set preserveindent      " Preserve existing characters for indenting
 
 	" Give the tab key utiltiy in normal & visual modes.
 nnoremap ,<Tab> i<Tab><Esc>
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
 
 nnoremap <Leader>st :call TabSize()<CR>
 
@@ -1219,11 +1212,9 @@ command! -nargs=? -range=% Tab2Space call IndentConvert(<line1>,<line2>,1,<q-arg
 command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q-args>)
 
 " RetabIndent
-nnoremap <Leader>re<Tab> :RetabIndent<CR>:echo "Retabbed!"<CR>
-"-------------------------------------------------------------------------------
-
+nnoremap <Leader>re :RetabIndent<CR>:echo "Retabbed!"<CR>
 "}}}
-" "## tComments""{{{
+" "## Comments""{{{
 let g:tcommentOptions = {'mixedindent': 'FALSE'}
 
 " Right forward comment
@@ -1233,28 +1224,22 @@ nmap gcl <C-_>r
 nmap gcb <C-_>b
 
 " Inline comment
-nmap gci <C-_>i
+nmap gci <C-_>ii
 
 " Paragraph comment
 nmap gcp <C-_>p
 
 " Visual behave Normal
 vmap gcc gc
-"-------------------------------------------------------------------------------
-
 "}}}
 " "## Common Inserts""{{{
 " inoremap uu _
 " inoremap hh =>
 " inoremap aa @
-"-------------------------------------------------------------------------------
-
 "}}}
-
 "}}}
 " NAVIGATION:"{{{
 " ******************************************************************************
-
 " "Escape"
 inoremap ,, <Esc>l
 cnoremap ,, <C-c>
@@ -1365,7 +1350,6 @@ vnoremap <C-f> :call FindReplace()<CR>
 "}}}
 " TOOLS:"{{{
 " ******************************************************************************
-
 " "Help"
 nnoremap <silent><F1> viw"zyw:exe "h ".@z.""<CR>
 "-------------------------------------------------------------------------------
@@ -1390,12 +1374,6 @@ nmap <silent><Leader>ev :e ~/dotfiles/vim.local/vimrc.local<CR>
 
 
 
-" "Reload"
-nnoremap <silent><Leader>re :call Reload()<CR>
-"-------------------------------------------------------------------------------
-
-
-
 " "Change Directory"
 nmap <silent><Leader>cd :cd %:p:h<CR><Bar>:pwd<CR>
 "-------------------------------------------------------------------------------
@@ -1412,7 +1390,6 @@ nnoremap <silent><Leader>ge  :Gedit :0<CR>
 nnoremap <silent><Leader>gb  :Gblame<CR>
 nnoremap <silent><Leader>gco :Gcheckout<CR>
 nnoremap <silent><Leader>gcm :Gcommit<CR>
-nnoremap <silent><Leader>gm  :Gmove<CR>
 nnoremap <silent><Leader>gr  :Gremove<CR>
 nnoremap <silent><Leader>gl  :Gitv<CR>
 nnoremap <silent><Leader>gp  :silent! !clear<CR>:Git push<CR>
@@ -1437,7 +1414,7 @@ let g:signify_mapping_prev_hunk        = '<leader>k'
 
 
 " "Syntastic"
-let g:syntastic_enable_signs=0
+let g:syntastic_enable_signs=1
 "-------------------------------------------------------------------------------
 
 
@@ -1487,8 +1464,7 @@ nnoremap <silent><Leader>e1 :e ~/dotfiles/vim.local/vimrc.local<CR><Bar>ggzm
 " ******************************************************************************
 " TODO: Migrate to respective ftplugin/filetype.vim files, once this is fleshed
 " out. http://vim.wikia.com/wiki/Keep_your_vimrc_file_clean
-
-" "Vim (Global)"
+" "## Vim (Global)""{{{
 augroup VimGlobal
 	" On Start
 	au!
@@ -1505,6 +1481,7 @@ augroup VimGlobal
 	au BufWritePre *        call StripTrailingWhitespace()
 	au BufRead *            normal zz
 	au VimResized *         wincmd =
+	au BufEnter * silent!   lcd %:p:h
 
 	" Improve UI memory
 	au BufWritePost *       silent! call SaveView()
@@ -1535,29 +1512,20 @@ augroup VimGlobal
 	au InsertLeave * hi CursorColumn ctermfg=NONE ctermbg=234 cterm=NONE
 	au InsertLeave * setlocal hlsearch
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Apache Config"
+"}}}
+" "## Apache Config""{{{
 augroup ApacheConfig
 	au!
 	au BufNewFile,BufRead /*apache*  set ft=apache
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "C"
+"}}}
+" "## C""{{{
 augroup C
 	au!
 	au FileType c  setl omnifunc=ccomplete#Complete
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "CSS/SCSS"
+"}}}
+" "## CSS/SCSS""{{{
 augroup CSS
 	au!
 	au FileType css,scss,styl,sass     setl omnifunc=csscomplete#CompleteCSS
@@ -1566,13 +1534,10 @@ augroup CSS
 	au FileType css,scss  nmap <silent><buffer>
 		\	<LocalLeader><F1> :call ToggleCSSFold()<CR>
 
-	au FileType css,scss  setl equalprg=csstidy\ -\ --silent=true\ --template='~/dotfiles/vim.local/templates/csstidy'\ --preserve_css=true\ --merge_selectors=0\ --sort_properties=true\ --compress_font-weight=false\ --compress_colors=false\ --sort_selectors=false
+	au FileType css,scss  setl equalprg=csstidy\ -\ --silent=true\ --template=template\ --preserve_css=true\ --merge_selectors=0\ --sort_properties=true\ --compress_font-weight=false\ --compress_colors=false\ --sort_selectors=false
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Drupal CMS Framework"
+"}}}
+" "## Drupal CMS Framework""{{{
 augroup DrupalCMS
 	au!
 	au BufNewFile,BufRead *.module   set ft=php
@@ -1597,127 +1562,93 @@ augroup Git
 	au BufNewFile,BufRead COMMIT_EDITMSG  setl spell
 	au BufReadPost fugitive://*  set bufhidden=delete
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "HAML"
+"}}}
+" "## HAML""{{{
 augroup HAML
 	au!
 	au BufNewFile,BufRead *.haml  set ft=haml
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "HTML"
+"}}}
+" "## HTML""{{{
 augroup HTML
 	au!
 	au BufNewFile,BufRead *.htm   set ft=html
-	au BufNewFile,BufRead *.html  set ft=html
-	au BufNewFile,BufRead *.jade  set ft=html
 	au FileType html              setl omnifunc=htmlcomplete#CompleteTags
-	au Filetype html              call EnableCloseTag()
+	au Filetype html              silent! call EnableCloseTag()
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Jade"
+"}}}
+" "## Jade""{{{
 augroup Jade
 	au!
 	au BufNewFile,BufRead *.jade  set ft=jade
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Javascript"
+"}}}
+" "## Javascript""{{{
 augroup JavaScript
 	au!
 	au FileType javascript  setl omnifunc=javascriptcomplete#CompleteJS
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Markdown"
+"}}}
+" "## Markdown""{{{
 augroup MarkDown
 	au!
 	au FileType markdown  setl omnifunc=htmlcomplete#CompleteTags
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Perl"
+"}}}
+" "## Perl""{{{
 augroup Perl
 	au!
 	au FileType perl  setl omnifunc=syntaxcomplete#Complete
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "PHP"
+"}}}
+" "## PHP""{{{
 augroup PHP
 	au!
 	au BufNewFile,BufRead *.php  set ft=php
 	au FileType php	             let php_minlines=500
 	au FileType php              setl omnifunc=phpcomplete#CompletePHP
-	au Filetype php              call EnableCloseTag()
+	au Filetype php              silent! call EnableCloseTag()
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Plain Text"
+"}}}
+" "## Plain Text""{{{
 augroup PlainText
 	au!
 	au BufNewFile,BufRead *.txt  set ft=text
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Python"
+"}}}
+" "## Python""{{{
 augroup Python
 	au!
 	au FileType python  setl omnifunc=pythoncomplete#Complete
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Ruby"
+"}}}
+" "## Ruby""{{{
 augroup Ruby
 	au!
 	au FileType ruby  setl omnifunc=rubycomplete#Complete
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Shell Script"
+"}}}
+" "## Shell Script""{{{
 augroup ShellScript
 	au!
 	au BufNewFile,BufRead *.sh  set ft=sh
 	au BufWritePost *.sh        call MakeFileExecutable()
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Smarty Template Engine"
+"}}}
+" "## Smarty Template Engine""{{{
 augroup Smarty
 	au!
 	au BufNewFile,BufRead *.tpl  set ft=html
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Stylus"
+"}}}
+" "## Snippets""{{{
+augroup Snippets
+	au!
+	au BufNewFile,BufRead *.snip  set ft=html
+	au BufNewFile,BufRead *.snip  set syn=snippet
+augroup END
+"}}}
+" "## Stylus""{{{
 augroup Stylus
 	au!
 	" Assume the effects of the colorizer plugin before setting to vim ft
@@ -1725,11 +1656,8 @@ augroup Stylus
 	au BufNewFile,BufRead *.styl  set ft=stylus
 	au FileType stylus  setl equalprg=stylus\ --css
 augroup END
-"-----------------------------------------------------------------------------
-
-
-
-" "Vim"
+"}}}
+" "## Vim""{{{
 augroup Vim
 	au!
 	" Assume the effects of the colorizer plugin before setting to vim ft
@@ -1737,22 +1665,11 @@ augroup Vim
 	au BufNewFile,BufRead *.vim   set ft=vim
 	au FileType vim               setl omnifunc=syntaxcomplete#Complete
 augroup END
-"-----------------------------------------------------------------------------
+"}}}
 
 
 
-" "XML/XSL"
-augroup XMLXSL
-	au!
-	au BufNewFile,BufRead *.xml   set ft=xml
-	au BufNewFile,BufRead *.xsl   set ft=xml
-	au BufNewFile,BufRead *.rss   set ft=xml
-	au BufNewFile,BufRead *.atom  set ft=xml
-	au FileType xml               setl omnifunc=xmlcomplete#CompleteTags
-	au Filetype xml               call EnableCloseTag()
-	au Filetype xsl               call EnableCloseTag()
-augroup END
-"-----------------------------------------------------------------------------
+
 
 
 
@@ -2048,7 +1965,7 @@ endfunction
 function! NERDTreeEnvironment()
 	setl foldcolumn=0
 	nnoremap <silent><buffer><Leader>qq :NERDTreeClose<CR>
-	nnoremap <silent><buffer>,, :NERDTreeClose<CR>
+	nnoremap <silent><buffer>,,, :NERDTreeClose<CR>
 	nnoremap <silent><buffer><Leader>bb :NERDTreeClose<CR>
 endfunction
 "-------------------------------------------------------------------------------
