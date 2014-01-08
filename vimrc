@@ -73,6 +73,8 @@ Bundle "vimez/vimez-snips"
 Bundle "mattn/livestyle-vim"
 Bundle "mhinz/vim-startify"
 Bundle "editorconfig/editorconfig-vim"
+Bundle "AndrewRadev/splitjoin.vim"
+Bundle "vim-scripts/indenthtml.vim"
 "}}}
 " "## Post Config:"{{{
 filetype plugin indent on
