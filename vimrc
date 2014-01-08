@@ -271,10 +271,14 @@ let g:ctrlp_open_multiple_files = '1vjr'
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_follow_symlinks = 1
-let g:ctrlp_working_path_mode = '0'
+let g:ctrlp_working_path_mode  = 1
 let g:ctrlp_use_caching = 1
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git'
+let g:ctrlp_clear_cache_on_exit = 1
+let g:ctrlp_custom_ignore = {
+	\ 'dir':  '\v[\/]\.(git|hg|svn|tmp|temp)\|tmp\|temp\|node_modules$',
+	\ 'file': '\v\.(exe|so|dll)$',
+	\ 'link': '',
+	\ }
 let g:ctrlp_prompt_mappings = {
 \ 'PrtExit()':            ['<esc>', ','],
 \ 'CreateNewFile()':      ['<c-b>'],
