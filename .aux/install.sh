@@ -68,6 +68,8 @@ sudo aptitude install -y \
 
 # }}}
 # BUILD VIM {{{
+sudo aptitude purge vim
+
 if [ -d "~/src/vim" ]; then
 	hg update
 else
