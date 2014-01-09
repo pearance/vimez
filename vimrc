@@ -121,7 +121,7 @@ let g:startify_custom_header = [
 	\ '',
 	\ ]
 
-nnoremap <silent><Leader>` :Startify<CR>
+nnoremap <silent><Leader><Tab> :Startify<CR>
 "}}}
 " "## Commandline""{{{
 " More convenient entrance to Commandline and Commandline Edit mode from Normal mode.
