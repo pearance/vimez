@@ -1453,12 +1453,6 @@ nnoremap <silent><Leader>pwd :pwd<CR>
 
 
 
-" "Edit Vimrc.local"
-nnoremap <silent><Leader>e1 :e ~/dotfiles/vim.local/vimrc.local<CR><Bar>ggzm
-"-------------------------------------------------------------------------------
-
-
-
 " "}}}
 " AUTOMATION:"{{{
 " ******************************************************************************
