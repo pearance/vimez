@@ -75,6 +75,7 @@ Bundle "mhinz/vim-startify"
 Bundle "editorconfig/editorconfig-vim"
 Bundle "AndrewRadev/splitjoin.vim"
 Bundle "vim-scripts/indenthtml.vim"
+Bundle "edkolev/tmuxline.vim"
 "}}}
 " "## Post Config:"{{{
 filetype plugin indent on
@@ -1369,7 +1370,6 @@ nmap <silent><Leader>iv :BundleInstall<CR>
 nmap <silent><Leader>uv :BundleInstall!<CR>
 nmap <silent><Leader>cv :BundleClean<CR>
 nmap <silent><Leader>lv :BundleList<CR>
-nmap <silent><Leader>ev :e ~/.dotfiles/vim.local/vimrc.local<CR>
 "-------------------------------------------------------------------------------
 
 
@@ -2390,8 +2390,8 @@ endfunction
 " WRAP:"{{{
 " ******************************************************************************
 " "Load Local Configurations"
-if filereadable(expand('~/.dotfiles/vim.local/vimrc.local'))
-	so ~/.dotfiles/vim.local/vimrc.local
+if filereadable(expand('~/.vimrc.local'))
+	so ~/.vimrc.local
 endif
 
 
