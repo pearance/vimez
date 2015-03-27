@@ -71,6 +71,7 @@ sudo aptitude install -y \
 sudo aptitude purge vim
 
 if [ -d "~/src/vim" ]; then
+	cd ~/src/vim
 	hg update
 else
 	hg clone https://vim.googlecode.com/hg/ ~/src/vim
