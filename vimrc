@@ -1383,7 +1383,7 @@ nmap <silent><Leader>cd :cd %:p:h<CR><Bar>:pwd<CR>
 " "Git Client (Fugitive)"
 nnoremap <silent><Leader>gd  :Gdiff<CR>
 nnoremap <silent><Leader>gds :!clear<CR>:Git diff --staged<CR>
-nnoremap <silent><Leader>gdd :call CloseDiff()<CR>
+nnoremap <silent><Leader>gdd :q!<CR> :Gedit!<CR>
 nnoremap <silent><Leader>gs  :Gstatus<CR>G<C-p>
 nnoremap <silent><Leader>gw  :Gwrite<CR>
 nnoremap <silent><Leader>ge  :Gedit :0<CR>
@@ -2353,29 +2353,6 @@ function! s:VSetSearch()
 	let @@ = temp
 endfunction
 "-------------------------------------------------------------------------------
-
-
-
-" "Close Diff"
-function! CloseDiff()
-	if (&diff == 0 || getbufvar('#', '&diff') == 0)
-		\ && (bufname('%') !~ '^fugitive:' && bufname('#') !~ '^fugitive:')
-		echom "Not in a diff view"
-		return
-	endif
-
-	" close current buffer if alternate is not fugitive but current one is
-	if bufname('#') !~ '^fugitive:' && bufname('%') =~ '^fugitive:'
-		if bufwinnr("#") == -1
-			b #
-			bd #
-		else
-			bd
-		endif
-	else
-		bd #
-	endif
-endfunction
 
 
 
