@@ -75,7 +75,7 @@ Bundle "editorconfig/editorconfig-vim"
 Bundle "AndrewRadev/splitjoin.vim"
 Bundle "vim-scripts/indenthtml.vim"
 Bundle "edkolev/tmuxline.vim"
-" Bundle "gavinbeatty/dragvisuals.vim"
+Bundle "nathanaelkane/vim-indent-guides"
 "}}}
 " "## Post Config:"{{{
 filetype plugin indent on
@@ -609,7 +609,7 @@ function! YRRunAfterMaps()
   nnoremap <Leader>yy 0y$$l
 
   " Yank current LINE (linewise)
-  nnoremap yy yy$l
+ "  nnoremap yy yy$l
 
   " Yank current BLOCK
   nnoremap ,y yip}
@@ -827,6 +827,15 @@ nnoremap <silent><F3> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
 
 
 
+" "Indent Guides"
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_guide_size = 1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'gundo']
+:nmap <silent><F11> <Plug>IndentGuidesToggle
+"-------------------------------------------------------------------------------
+
+
+
 " "Error Alerts"
 set noerrorbells        " No audible alerts on error
 set novisualbell        " No blinking on error
@@ -834,8 +843,14 @@ set novisualbell        " No blinking on error
 
 
 
+" "Highlight Color"
+nnoremap <Leader>hc :ColorVPreview<CR>
+"-------------------------------------------------------------------------------
+
+
+
 " "File Info"
-nnoremap <silent><C-g> 2<C-g>
+nnoremap <silent><C-g> <C-g>
 "-------------------------------------------------------------------------------
 
 
@@ -888,7 +903,7 @@ cmap <C-l> <Right>
 " This controls visibility of unprintable characters that denote certain
 " formatting information. Such as eol, tabs, trailing space, etc.
 set list
-set listchars=eol:\ ,tab:·\ ,trail:\ ,extends:>,precedes:<
+set listchars=eol:\ ,tab:·\ ,trail:\ ,extends:>,precedes:<,nbsp:.
 nnoremap <silent><F6>
     \ :setlocal list!<CR><Bar>
     \ :let OnOrOff=&list<CR><Bar>
