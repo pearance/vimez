@@ -850,7 +850,7 @@ nnoremap <Leader>hc :ColorVPreview<CR>
 
 
 " "File Info"
-nnoremap <silent><C-g> <C-g>
+nnoremap <silent><C-g> 1<C-g>
 "-------------------------------------------------------------------------------
 
 
@@ -934,9 +934,8 @@ nnoremap <silent><F9>
 
 
 
-" "Rule"
-let g:rulestate = 1
-nnoremap <silent><F5> :call ToggleRule()<CR>
+" "Rule Indicator"
+call matchadd('ColorColumn', '\%82v', 100)
 "-------------------------------------------------------------------------------
 
 
@@ -1887,22 +1886,6 @@ function! TabSummary()
     else
       echo 'noexpandtab'
     endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Toggle Rule"
-function! ToggleRule()
-  if g:rulestate == 0
-    set colorcolumn=0
-    let g:rulestate=1
-    " echo "Rule: Off"
-  else
-    set colorcolumn=+1
-    let g:rulestate=0
-    " echo "Rule: On"
-  endif
 endfunction
 "-------------------------------------------------------------------------------
 
