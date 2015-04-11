@@ -59,7 +59,6 @@ Bundle "scrooloose/nerdtree"
 Bundle "vim-scripts/Rename2"
 Bundle "godlygeek/tabular"
 Bundle "endel/ctrlp-filetype.vim"
-Bundle "kshenoy/vim-signature"
 Bundle "Raimondi/delimitMate"
 Bundle "tpope/vim-fugitive"
 Bundle "gregsexton/gitv"
@@ -76,6 +75,7 @@ Bundle "editorconfig/editorconfig-vim"
 Bundle "AndrewRadev/splitjoin.vim"
 Bundle "vim-scripts/indenthtml.vim"
 Bundle "edkolev/tmuxline.vim"
+" Bundle "gavinbeatty/dragvisuals.vim"
 "}}}
 " "## Post Config:"{{{
 filetype plugin indent on
@@ -692,10 +692,11 @@ nnoremap <Leader>a ggVG
 " "## Line/Fold Movement""{{{
 " Consistent use of [hjkl] with the Shift modifier to move a line of text
 " around. Up/down by one line and left/right by amount of shiftwidth.
+
 nnoremap H <<^
 nnoremap L >>^
-nnoremap <silent>J :call MoveLineOrFoldDown()<CR>
-nnoremap <silent>K :call MoveLineOrFoldUp()<CR>
+nnoremap <silent>J ddp
+nnoremap <silent>K ddkP
 "-------------------------------------------------------------------------------
 
 "}}}
@@ -2251,26 +2252,6 @@ function! s:Kwbd(kwbdStage)
 				bn
 			endif
 		endif
-	endif
-endfunction
-"-------------------------------------------------------------------------------
-
-
-
-" "Line/Fold Movement"
-function! MoveLineOrFoldUp()
-	if winline() != 1
-		normal ddkP
-	else
-		normal k
-	endif
-endfunction
-
-function! MoveLineOrFoldDown()
-	if winline() != line($)
-		normal ddp
-	else
-		normal j
 	endif
 endfunction
 "-------------------------------------------------------------------------------
