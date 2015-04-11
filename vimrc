@@ -558,7 +558,7 @@ let g:startify_session_autoload = 1
 let g:startify_session_persistence = 1
 nnoremap <silent><Leader>ws :SSave<CR>
 nnoremap <silent><Leader>ds :SDelete<CR>
-nnoremap <silent><Leader>ls :SLoad<CR>
+nnoremap <silent><Leader>os :SLoad<CR>
 "}}}
 
 
@@ -997,6 +997,7 @@ let g:airline_theme='vimez'
 let g:airline_inactive_collapse = 0
 let g:bufferline_rotate=0
 let g:airline_powerline_fonts=1
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
 
 
 let g:airline_symbols = {}
